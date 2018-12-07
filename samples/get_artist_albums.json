@@ -1,0 +1,78 @@
+{
+    "href": "https://api.spotify.com/v1/artists/04gDigrS5kc9YWfZHwBETP/albums?offset=0&limit=20&include_groups=album,single,compilation,appears_on",
+    "items": [
+        {
+            "album_group": "album",
+            "album_type": "album",
+            "artists": [
+                {"external_urls": {"spotify": "https://open.spotify.com/artist/04gDigrS5kc9YWfZHwBETP"}, "href": "https://api.spotify.com/v1/artists/04gDigrS5kc9YWfZHwBETP", "id": "04gDigrS5kc9YWfZHwBETP", "name": "Maroon 5", "type": "artist", "uri": "spotify:artist:04gDigrS5kc9YWfZHwBETP"}
+            ],
+            "available_markets": ["AD", "AE", "AR", "AT", "AU", "BE", "BG", "BH", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "DZ", "EC", "EE", "EG", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IL", "IS", "IT", "JO", "JP", "KW", "LB", "LI", "LT", "LU", "LV", "MA", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "OM", "PA", "PE", "PH", "PL", "PS", "PT", "PY", "QA", "RO", "SA", "SE", "SG", "SK", "SV", "TH", "TN", "TR", "TW", "US", "UY", "VN", "ZA"],
+            "external_urls": {"spotify": "https://open.spotify.com/album/1Li4rADxSxjT2g4xqUcMYh"},
+            "href": "https://api.spotify.com/v1/albums/1Li4rADxSxjT2g4xqUcMYh",
+            "id": "1Li4rADxSxjT2g4xqUcMYh",
+            "images": [{"height": 640, "url": "https://i.scdn.co/image/9ce966181dc62801ff44ac89f8c9c1921ab9302f", "width": 640 }, {"height": 300, "url": "https://i.scdn.co/image/aa4620d827a40a39107e4635cc14f8dd03c73926", "width": 300 }, {"height": 64, "url": "https://i.scdn.co/image/29ea5dc738c4b9ff1b8e01523f8c13707f90720e", "width": 64 } ],
+            "name": "Red Pill Blues (Deluxe)",
+            "release_date": "2018-06-15",
+            "release_date_precision": "day",
+            "total_tracks": 22,
+            "type": "album",
+            "uri": "spotify:album:1Li4rADxSxjT2g4xqUcMYh"
+        },
+        {
+            "album_group": "album",
+            "album_type": "album",
+            "artists": [
+                {"external_urls": {"spotify": "https://open.spotify.com/artist/04gDigrS5kc9YWfZHwBETP"}, "href": "https://api.spotify.com/v1/artists/04gDigrS5kc9YWfZHwBETP", "id": "04gDigrS5kc9YWfZHwBETP", "name": "Maroon 5", "type": "artist", "uri": "spotify:artist:04gDigrS5kc9YWfZHwBETP"}
+            ],
+            "available_markets": ["AD", "AE", "AR", "AT", "AU", "BE", "BG", "BH", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "DZ", "EC", "EE", "EG", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IL", "IS", "IT", "JO", "JP", "KW", "LB", "LI", "LT", "LU", "LV", "MA", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "OM", "PA", "PE", "PH", "PL", "PS", "PT", "PY", "QA", "RO", "SA", "SE", "SG", "SK", "SV", "TH", "TN", "TR", "TW", "US", "UY", "VN", "ZA"],
+            "external_urls": {"spotify": "https://open.spotify.com/album/3CxzjUQWtYW0MrQmTiprou"},
+            "href": "https://api.spotify.com/v1/albums/3CxzjUQWtYW0MrQmTiprou",
+            "id": "3CxzjUQWtYW0MrQmTiprou",
+            "images": [{"height": 640, "url": "https://i.scdn.co/image/cc8997100b826cb99b195ff3ef5944e88cc3d2e3", "width": 640 }, {"height": 300, "url": "https://i.scdn.co/image/1364593da6abae387600fd3b24168f9fff181c4b", "width": 300 }, {"height": 64, "url": "https://i.scdn.co/image/5f15f3f28da7ed7719baf8153e3bc10bf1417d2a", "width": 64 } ],
+            "name": "Red Pill Blues (Deluxe)",
+            "release_date": "2018-06-15",
+            "release_date_precision": "day",
+            "total_tracks": 22,
+            "type": "album",
+            "uri": "spotify:album:3CxzjUQWtYW0MrQmTiprou"
+        },
+        {
+            "album_group": "album",
+            "album_type": "album",
+            "artists": [
+                {"external_urls": {"spotify": "https://open.spotify.com/artist/04gDigrS5kc9YWfZHwBETP"}, "href": "https://api.spotify.com/v1/artists/04gDigrS5kc9YWfZHwBETP", "id": "04gDigrS5kc9YWfZHwBETP", "name": "Maroon 5", "type": "artist", "uri": "spotify:artist:04gDigrS5kc9YWfZHwBETP"}
+            ],
+                        "available_markets": ["AD", "AE", "AR", "AT", "AU", "BE", "BG", "BH", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "DZ", "EC", "EE", "EG", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IL", "IS", "IT", "JO", "JP", "KW", "LB", "LI", "LT", "LU", "LV", "MA", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "OM", "PA", "PE", "PH", "PL", "PS", "PT", "PY", "QA", "RO", "SA", "SE", "SG", "SK", "SV", "TH", "TN", "TR", "TW", "US", "UY", "VN", "ZA"],
+            "external_urls": {"spotify": "https://open.spotify.com/album/6LtzdMGhOCh9s6sssWrpuD"},
+            "href": "https://api.spotify.com/v1/albums/6LtzdMGhOCh9s6sssWrpuD",
+            "id": "6LtzdMGhOCh9s6sssWrpuD",
+            "images": [{"height": 640, "url": "https://i.scdn.co/image/dd6d47cf97786e0117d64214ce365c6d4cbfc347", "width": 640 }, {"height": 300, "url": "https://i.scdn.co/image/5af61cc0edcfcb60b1704b723b6844ada7ec465c", "width": 300 }, {"height": 64, "url": "https://i.scdn.co/image/7d9fada23c7044da31f8f687c84292885c180488", "width": 64 } ],
+            "name": "V (Asia Tour Edition)",
+            "release_date": "2015-05-18",
+            "release_date_precision": "day",
+            "total_tracks": 20,
+            "type": "album",
+            "uri": "spotify:album:6LtzdMGhOCh9s6sssWrpuD"
+        },
+        {
+            "album_group": "album",
+            "album_type": "album",
+            "artists": [{"external_urls": {"spotify": "https://open.spotify.com/artist/04gDigrS5kc9YWfZHwBETP"}, "href": "https://api.spotify.com/v1/artists/04gDigrS5kc9YWfZHwBETP", "id": "04gDigrS5kc9YWfZHwBETP", "name": "Maroon 5", "type": "artist", "uri": "spotify:artist:04gDigrS5kc9YWfZHwBETP"} ], "available_markets": ["AD", "AE", "AR", "AT", "AU", "BE", "BG", "BH", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "DZ", "EC", "EE", "EG", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IL", "IS", "IT", "JO", "JP", "KW", "LB", "LI", "LT", "LU", "LV", "MA", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "OM", "PA", "PE", "PH", "PL", "PS", "PT", "PY", "QA", "RO", "SA", "SE", "SG", "SK", "SV", "TH", "TN", "TR", "TW", "US", "UY", "VN", "ZA"],
+            "external_urls": {"spotify": "https://open.spotify.com/album/6XYL7jVgFaxD1X7F8IMO2b"},
+            "href": "https://api.spotify.com/v1/albums/6XYL7jVgFaxD1X7F8IMO2b",
+            "id": "6XYL7jVgFaxD1X7F8IMO2b",
+            "images": [{"height": 640, "url": "https://i.scdn.co/image/06ba7b3e650e365f7d0d8e3e3be24b29c7fc45d2", "width": 640 }, {"height": 300, "url": "https://i.scdn.co/image/3beba2fee9b04868dd6807ecc523d1cf45141205", "width": 300 }, {"height": 64, "url": "https://i.scdn.co/image/ccfaf197df1fe7819c4a0e173f3804e967500abd", "width": 64 } ], "name": "Overexposed (Deluxe)",
+            "release_date": "2012-01-01",
+            "release_date_precision": "day",
+            "total_tracks": 15,
+            "type": "album",
+            "uri": "spotify:album:6XYL7jVgFaxD1X7F8IMO2b"
+        }
+    ],
+    "limit": 20,
+    "next": "https://api.spotify.com/v1/artists/04gDigrS5kc9YWfZHwBETP/albums?offset=20&limit=20&include_groups=album,single,compilation,appears_on",
+    "offset": 0,
+    "previous": null,
+    "total": 133
+}
