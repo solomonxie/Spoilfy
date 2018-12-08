@@ -1,33 +1,10 @@
 {
-    "external_urls": {
-        "spotify": "https://open.spotify.com/artist/04gDigrS5kc9YWfZHwBETP"
-    },
-    "followers": {
-        "href": null,
-        "total": 14612454
-    },
-    "genres": [
-        "pop"
-    ],
+    "external_urls": {"spotify": "https://open.spotify.com/artist/04gDigrS5kc9YWfZHwBETP"},
+    "followers": {"href": null, "total": 14612454 },
+    "genres": ["pop"],
     "href": "https://api.spotify.com/v1/artists/04gDigrS5kc9YWfZHwBETP",
     "id": "04gDigrS5kc9YWfZHwBETP",
-    "images": [
-        {
-            "height": 640,
-            "url": "https://i.scdn.co/image/4079ef5effe54ab8cc099e2b6d872899d033b09d",
-            "width": 640
-        },
-        {
-            "height": 320,
-            "url": "https://i.scdn.co/image/a6b50b62941f169aea7a48039a509f643c8c69e3",
-            "width": 320
-        },
-        {
-            "height": 160,
-            "url": "https://i.scdn.co/image/34760086fe6f4e6f8121fe00aa4901ace216b268",
-            "width": 160
-        }
-    ],
+    "images": [{"height": 640, "url": "https://i.scdn.co/image/4079ef5effe54ab8cc099e2b6d872899d033b09d", "width": 640 }, {"height": 320, "url": "https://i.scdn.co/image/a6b50b62941f169aea7a48039a509f643c8c69e3", "width": 320 }, {"height": 160, "url": "https://i.scdn.co/image/34760086fe6f4e6f8121fe00aa4901ace216b268", "width": 160 } ],
     "name": "Maroon 5",
     "popularity": 90,
     "type": "artist",
