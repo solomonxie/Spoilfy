@@ -6,7 +6,6 @@ from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import relationship
 
-engine = create_engine('sqlite:///test.sqlite', echo=True)
 Base = declarative_base()
 
 class Father(Base):
@@ -14,32 +13,22 @@ class Father(Base):
     id = Column('id', Integer, primary_key=True)
     name = Column('name', String)
 
+    children = relationship('Child')
+
 
 class Child(Base):
     __tablename__ = 'child'
     id = Column('id', Integer, primary_key=True)
     name = Column('name', String)
-    #father_id = Column(Integer, ForeignKey('father.id'))
+    father_id = Column(Integer, ForeignKey('father.id'))
 
+daddy = Father()
+jason = Child()
+emma = Child()
 
-Base.metadata.create_all(bind=engine)
+daddy.children.append(jason)
+daddy.children.append(emma)
 
-
-
-
-
-def insert_data():
-    session = sessionmaker(bind=engine)()
-
-    daddy = Father(name='David')
-    jason = Child(name='Jason')
-    emma = Child(name='Emma')
-    
-    session.add(daddy)
-    session.add(jason)
-    session.add(emma)
-    session.commit()
-
-#insert_data()
+print( daddy.children )
 
 
