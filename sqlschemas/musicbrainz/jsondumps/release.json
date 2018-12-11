@@ -1,0 +1,242 @@
+{
+  "id": "9c3b9525-5528-4e90-b99e-e080f5e9d45b",
+  "asin": null,
+  "date": "1977",
+  "tags": [],
+  "media": [
+    {
+      "discs": [],
+      "title": "",
+      "format": "Vinyl",
+      "tracks": [
+        {
+          "id": "a6d29b10-f16c-354f-8b14-fee7aff26285",
+          "title": "Zâ",
+          "length": 1173000,
+          "number": "1",
+          "position": 1,
+          "recording": {
+            "id": "b95ab3fb-ecdd-4d22-8412-e64490621927",
+            "isrcs": [],
+            "title": "Zâ",
+            "video": false,
+            "length": 1173000,
+            "aliases": [],
+            "annotation": null,
+            "artist-credit": [
+              {
+                "name": "Franco Battiato",
+                "artist": {
+                  "id": "0cd117b2-2e21-406d-80cf-5ce0a6065e37",
+                  "name": "Franco Battiato",
+                  "sort-name": "Battiato, Franco",
+                  "disambiguation": "Italian singer-songwriter and composer"
+                },
+                "joinphrase": ""
+              }
+            ],
+            "disambiguation": ""
+          },
+          "artist-credit": [
+            {
+              "name": "Franco Battiato",
+              "artist": {
+                "id": "0cd117b2-2e21-406d-80cf-5ce0a6065e37",
+                "name": "Franco Battiato",
+                "aliases": [
+                  {
+                    "end": null,
+                    "name": "Astra",
+                    "type": null,
+                    "begin": null,
+                    "ended": false,
+                    "locale": null,
+                    "primary": null,
+                    "type-id": null,
+                    "sort-name": "Astra"
+                  }
+                ],
+                "sort-name": "Battiato, Franco",
+                "annotation": null,
+                "disambiguation": "Italian singer-songwriter and composer"
+              },
+              "joinphrase": ""
+            }
+          ]
+        },
+        {
+          "id": "fb03c6a0-8a1c-31c2-9bdd-ec7a930e0043",
+          "title": "Cafè-Table-Musik",
+          "length": 1136000,
+          "number": "2",
+          "position": 2,
+          "recording": {
+            "id": "c5a6dece-d3c2-4a93-af6a-19202c0cbbc0",
+            "isrcs": [],
+            "title": "Cafè-Table-Musik",
+            "video": false,
+            "length": 1136000,
+            "aliases": [],
+            "annotation": null,
+            "artist-credit": [
+              {
+                "name": "Franco Battiato",
+                "artist": {
+                  "id": "0cd117b2-2e21-406d-80cf-5ce0a6065e37",
+                  "name": "Franco Battiato",
+                  "sort-name": "Battiato, Franco",
+                  "disambiguation": "Italian singer-songwriter and composer"
+                },
+                "joinphrase": ""
+              }
+            ],
+            "disambiguation": ""
+          },
+          "artist-credit": [
+            {
+              "name": "Franco Battiato",
+              "artist": {
+                "id": "0cd117b2-2e21-406d-80cf-5ce0a6065e37",
+                "name": "Franco Battiato",
+                "aliases": [
+                  {
+                    "end": null,
+                    "name": "Astra",
+                    "type": null,
+                    "begin": null,
+                    "ended": false,
+                    "locale": null,
+                    "primary": null,
+                    "type-id": null,
+                    "sort-name": "Astra"
+                  }
+                ],
+                "sort-name": "Battiato, Franco",
+                "annotation": null,
+                "disambiguation": "Italian singer-songwriter and composer"
+              },
+              "joinphrase": ""
+            }
+          ]
+        }
+      ],
+      "position": 1,
+      "format-id": "10e17707-9751-3aaf-95b2-2432acd5374c",
+      "track-count": 2,
+      "track-offset": 0
+    }
+  ],
+  "title": "Battiato",
+  "status": "Official",
+  "aliases": [],
+  "barcode": null,
+  "country": "IT",
+  "quality": "normal",
+  "packaging": null,
+  "relations": [],
+  "status-id": "4e304316-386d-3409-af2e-78857eec5cfe",
+  "annotation": null,
+  "label-info": [
+    {
+      "label": {
+        "id": "b23143cd-dbcb-4ce5-b937-d1f6843f5f64",
+        "name": "Ricordi",
+        "aliases": [
+          {
+            "end": null,
+            "name": "Dischi Ricordi S.p.A.",
+            "type": null,
+            "begin": null,
+            "ended": false,
+            "locale": null,
+            "primary": null,
+            "type-id": null,
+            "sort-name": "Dischi Ricordi S.p.A."
+          }
+        ],
+        "sort-name": "Ricordi",
+        "annotation": null,
+        "label-code": 989,
+        "disambiguation": "Italian imprint launched by Dischi Ricordi S.p.A. in 1958"
+      },
+      "catalog-number": "SMRL 6201"
+    }
+  ],
+  "packaging-id": null,
+  "artist-credit": [
+    {
+      "name": "Franco Battiato",
+      "artist": {
+        "id": "0cd117b2-2e21-406d-80cf-5ce0a6065e37",
+        "name": "Franco Battiato",
+        "aliases": [
+          {
+            "end": null,
+            "name": "Astra",
+            "type": null,
+            "begin": null,
+            "ended": false,
+            "locale": null,
+            "primary": null,
+            "type-id": null,
+            "sort-name": "Astra"
+          }
+        ],
+        "sort-name": "Battiato, Franco",
+        "annotation": null,
+        "disambiguation": "Italian singer-songwriter and composer"
+      },
+      "joinphrase": ""
+    }
+  ],
+  "release-group": {
+    "id": "2f238a08-637f-3d11-b028-8dd924f29e68",
+    "title": "Battiato",
+    "aliases": [],
+    "annotation": null,
+    "primary-type": "Album",
+    "artist-credit": [
+      {
+        "name": "Franco Battiato",
+        "artist": {
+          "id": "0cd117b2-2e21-406d-80cf-5ce0a6065e37",
+          "name": "Franco Battiato",
+          "sort-name": "Battiato, Franco",
+          "disambiguation": "Italian singer-songwriter and composer"
+        },
+        "joinphrase": ""
+      }
+    ],
+    "disambiguation": "",
+    "primary-type-id": "f529b476-6e62-324f-b0aa-1f3e33d313fc",
+    "secondary-types": [],
+    "first-release-date": "1977",
+    "secondary-type-ids": []
+  },
+  "disambiguation": "",
+  "release-events": [
+    {
+      "area": {
+        "id": "c6500277-9a3d-349b-bf30-41afdbf42add",
+        "name": "Italy",
+        "sort-name": "Italy",
+        "disambiguation": "",
+        "iso-3166-1-codes": [
+          "IT"
+        ]
+      },
+      "date": "1977"
+    }
+  ],
+  "cover-art-archive": {
+    "back": false,
+    "count": 0,
+    "front": false,
+    "artwork": false,
+    "darkened": false
+  },
+  "text-representation": {
+    "script": "Latn",
+    "language": "mul"
+  }
+}
