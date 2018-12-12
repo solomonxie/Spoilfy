@@ -1,0 +1,55 @@
+{
+  "id": "10b9c34b-821d-4cc8-9587-5c7d0cb68865",
+  "tags": [],
+  "isrcs": [],
+  "title": "Suck",
+  "video": false,
+  "length": null,
+  "rating": {
+    "value": null,
+    "votes-count": 0
+  },
+  "aliases": [],
+  "relations": [
+    {
+      "end": null,
+      "type": "performance",
+      "work": {
+        "id": "20309de2-2847-3753-8a7a-d0e335f57176",
+        "type": null,
+        "iswcs": [],
+        "title": "Suck",
+        "aliases": [],
+        "type-id": null,
+        "language": null,
+        "languages": [],
+        "annotation": null,
+        "attributes": [],
+        "disambiguation": ""
+      },
+      "begin": null,
+      "ended": false,
+      "type-id": "a3005666-a872-32c3-ad06-98af558e99b0",
+      "direction": "forward",
+      "attributes": [],
+      "target-type": "work",
+      "source-credit": "",
+      "target-credit": "",
+      "attribute-values": {}
+    }
+  ],
+  "annotation": null,
+  "artist-credit": [
+    {
+      "name": "Pigface",
+      "artist": {
+        "id": "11137c88-a9a2-4ffa-a97d-fb058c6d6ce2",
+        "name": "Pigface",
+        "sort-name": "Pigface",
+        "disambiguation": ""
+      },
+      "joinphrase": ""
+    }
+  ],
+  "disambiguation": ""
+}

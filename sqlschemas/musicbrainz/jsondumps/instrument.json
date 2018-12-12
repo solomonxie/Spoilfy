@@ -1,0 +1,350 @@
+{
+  "id": "9c79b6a1-89bb-4603-9b52-e7b0b639d317",
+  "name": "vibraslap",
+  "tags": [],
+  "type": "Percussion instrument",
+  "aliases": [
+    {
+      "end": null,
+      "name": "Vibraslap",
+      "type": "Instrument name",
+      "begin": null,
+      "ended": false,
+      "locale": "de",
+      "primary": true,
+      "type-id": "2322fc94-fbf3-3c09-b23c-aa5ec8d14fcd",
+      "sort-name": "Vibraslap"
+    },
+    {
+      "end": null,
+      "name": "vibraslap",
+      "type": "Instrument name",
+      "begin": null,
+      "ended": false,
+      "locale": "en",
+      "primary": true,
+      "type-id": "2322fc94-fbf3-3c09-b23c-aa5ec8d14fcd",
+      "sort-name": "vibraslap"
+    },
+    {
+      "end": null,
+      "name": "vibraslap",
+      "type": "Instrument name",
+      "begin": null,
+      "ended": false,
+      "locale": "es",
+      "primary": true,
+      "type-id": "2322fc94-fbf3-3c09-b23c-aa5ec8d14fcd",
+      "sort-name": "vibraslap"
+    },
+    {
+      "end": null,
+      "name": "vibraslap",
+      "type": "Instrument name",
+      "begin": null,
+      "ended": false,
+      "locale": "fr",
+      "primary": true,
+      "type-id": "2322fc94-fbf3-3c09-b23c-aa5ec8d14fcd",
+      "sort-name": "vibraslap"
+    },
+    {
+      "end": null,
+      "name": "vibraslap",
+      "type": "Instrument name",
+      "begin": null,
+      "ended": false,
+      "locale": "nl",
+      "primary": true,
+      "type-id": "2322fc94-fbf3-3c09-b23c-aa5ec8d14fcd",
+      "sort-name": "vibraslap"
+    },
+    {
+      "end": null,
+      "name": "ヴィブラスラップ",
+      "type": "Instrument name",
+      "begin": null,
+      "ended": false,
+      "locale": "ja",
+      "primary": true,
+      "type-id": "2322fc94-fbf3-3c09-b23c-aa5ec8d14fcd",
+      "sort-name": "ヴィブラスラップ"
+    }
+  ],
+  "type-id": "68fa2525-4c23-3386-bb81-e84994342e9a",
+  "relations": [
+    {
+      "end": null,
+      "type": "subtype",
+      "begin": null,
+      "ended": false,
+      "type-id": "40b2bd3f-1457-3ceb-810d-57f87f0f74f0",
+      "direction": "backward",
+      "attributes": [],
+      "instrument": {
+        "id": "8e9abdf1-0afc-4544-b201-c6fa768d01f4",
+        "name": "percussion",
+        "aliases": [
+          {
+            "end": null,
+            "name": "Perkussion",
+            "type": "Instrument name",
+            "begin": null,
+            "ended": false,
+            "locale": "de",
+            "primary": true,
+            "type-id": "2322fc94-fbf3-3c09-b23c-aa5ec8d14fcd",
+            "sort-name": "Perkussion"
+          },
+          {
+            "end": null,
+            "name": "andere Perkussion",
+            "type": "Instrument name",
+            "begin": null,
+            "ended": false,
+            "locale": "de",
+            "primary": false,
+            "type-id": "2322fc94-fbf3-3c09-b23c-aa5ec8d14fcd",
+            "sort-name": "andere Perkussion"
+          },
+          {
+            "end": null,
+            "name": "andet slagtøj",
+            "type": "Instrument name",
+            "begin": null,
+            "ended": false,
+            "locale": "da",
+            "primary": false,
+            "type-id": "2322fc94-fbf3-3c09-b23c-aa5ec8d14fcd",
+            "sort-name": "andet slagtøj"
+          },
+          {
+            "end": null,
+            "name": "autres percussions",
+            "type": "Instrument name",
+            "begin": null,
+            "ended": false,
+            "locale": "fr",
+            "primary": false,
+            "type-id": "2322fc94-fbf3-3c09-b23c-aa5ec8d14fcd",
+            "sort-name": "autres percussions"
+          },
+          {
+            "end": null,
+            "name": "lyömäsoittimet",
+            "type": "Instrument name",
+            "begin": null,
+            "ended": false,
+            "locale": "fi",
+            "primary": true,
+            "type-id": "2322fc94-fbf3-3c09-b23c-aa5ec8d14fcd",
+            "sort-name": "lyömäsoittimet"
+          },
+          {
+            "end": null,
+            "name": "löökpillid",
+            "type": "Instrument name",
+            "begin": null,
+            "ended": false,
+            "locale": "et",
+            "primary": true,
+            "type-id": "2322fc94-fbf3-3c09-b23c-aa5ec8d14fcd",
+            "sort-name": "löökpillid"
+          },
+          {
+            "end": null,
+            "name": "muud löökriistad",
+            "type": "Instrument name",
+            "begin": null,
+            "ended": false,
+            "locale": "et",
+            "primary": false,
+            "type-id": "2322fc94-fbf3-3c09-b23c-aa5ec8d14fcd",
+            "sort-name": "muud löökriistad"
+          },
+          {
+            "end": null,
+            "name": "muut lyömäsoittimet",
+            "type": "Instrument name",
+            "begin": null,
+            "ended": false,
+            "locale": "fi",
+            "primary": false,
+            "type-id": "2322fc94-fbf3-3c09-b23c-aa5ec8d14fcd",
+            "sort-name": "muut lyömäsoittimet"
+          },
+          {
+            "end": null,
+            "name": "other percussion",
+            "type": "Instrument name",
+            "begin": null,
+            "ended": false,
+            "locale": "en",
+            "primary": false,
+            "type-id": "2322fc94-fbf3-3c09-b23c-aa5ec8d14fcd",
+            "sort-name": "other percussion"
+          },
+          {
+            "end": null,
+            "name": "otros instrumentos de percusión",
+            "type": "Instrument name",
+            "begin": null,
+            "ended": false,
+            "locale": "es",
+            "primary": false,
+            "type-id": "2322fc94-fbf3-3c09-b23c-aa5ec8d14fcd",
+            "sort-name": "otros instrumentos de percusión"
+          },
+          {
+            "end": null,
+            "name": "overige percussie",
+            "type": "Instrument name",
+            "begin": null,
+            "ended": false,
+            "locale": "nl",
+            "primary": false,
+            "type-id": "2322fc94-fbf3-3c09-b23c-aa5ec8d14fcd",
+            "sort-name": "overige percussie"
+          },
+          {
+            "end": null,
+            "name": "percusión",
+            "type": "Instrument name",
+            "begin": null,
+            "ended": false,
+            "locale": "es",
+            "primary": true,
+            "type-id": "2322fc94-fbf3-3c09-b23c-aa5ec8d14fcd",
+            "sort-name": "percusión"
+          },
+          {
+            "end": null,
+            "name": "percussie",
+            "type": "Instrument name",
+            "begin": null,
+            "ended": false,
+            "locale": "nl",
+            "primary": true,
+            "type-id": "2322fc94-fbf3-3c09-b23c-aa5ec8d14fcd",
+            "sort-name": "percussie"
+          },
+          {
+            "end": null,
+            "name": "percussion",
+            "type": "Instrument name",
+            "begin": null,
+            "ended": false,
+            "locale": "en",
+            "primary": true,
+            "type-id": "2322fc94-fbf3-3c09-b23c-aa5ec8d14fcd",
+            "sort-name": "percussion"
+          },
+          {
+            "end": null,
+            "name": "percussions",
+            "type": "Instrument name",
+            "begin": null,
+            "ended": false,
+            "locale": "fr",
+            "primary": true,
+            "type-id": "2322fc94-fbf3-3c09-b23c-aa5ec8d14fcd",
+            "sort-name": "percussions"
+          },
+          {
+            "end": null,
+            "name": "percussão",
+            "type": "Instrument name",
+            "begin": null,
+            "ended": false,
+            "locale": "pt_BR",
+            "primary": true,
+            "type-id": "2322fc94-fbf3-3c09-b23c-aa5ec8d14fcd",
+            "sort-name": "percussão"
+          },
+          {
+            "end": null,
+            "name": "slagtøj / perkussion",
+            "type": "Instrument name",
+            "begin": null,
+            "ended": false,
+            "locale": "da",
+            "primary": true,
+            "type-id": "2322fc94-fbf3-3c09-b23c-aa5ec8d14fcd",
+            "sort-name": "slagtøj / perkussion"
+          },
+          {
+            "end": null,
+            "name": "άλλα κρουστά",
+            "type": "Instrument name",
+            "begin": null,
+            "ended": false,
+            "locale": "el",
+            "primary": false,
+            "type-id": "2322fc94-fbf3-3c09-b23c-aa5ec8d14fcd",
+            "sort-name": "άλλα κρουστά"
+          },
+          {
+            "end": null,
+            "name": "κρουστά",
+            "type": "Instrument name",
+            "begin": null,
+            "ended": false,
+            "locale": "el",
+            "primary": true,
+            "type-id": "2322fc94-fbf3-3c09-b23c-aa5ec8d14fcd",
+            "sort-name": "κρουστά"
+          },
+          {
+            "end": null,
+            "name": "その他のパーカッション",
+            "type": "Instrument name",
+            "begin": null,
+            "ended": false,
+            "locale": "ja",
+            "primary": false,
+            "type-id": "2322fc94-fbf3-3c09-b23c-aa5ec8d14fcd",
+            "sort-name": "その他のパーカッション"
+          },
+          {
+            "end": null,
+            "name": "パーカッション",
+            "type": "Instrument name",
+            "begin": null,
+            "ended": false,
+            "locale": "ja",
+            "primary": true,
+            "type-id": "2322fc94-fbf3-3c09-b23c-aa5ec8d14fcd",
+            "sort-name": "パーカッション"
+          }
+        ],
+        "annotation": null,
+        "description": "",
+        "disambiguation": ""
+      },
+      "target-type": "instrument",
+      "source-credit": "",
+      "target-credit": "",
+      "attribute-values": {}
+    },
+    {
+      "end": null,
+      "url": {
+        "id": "7fc561fe-1a9c-4f0d-b216-f94b1477694b",
+        "resource": "https://www.wikidata.org/wiki/Q390110"
+      },
+      "type": "wikidata",
+      "begin": null,
+      "ended": false,
+      "type-id": "1486fccd-cf59-35e4-9399-b50e2b255877",
+      "direction": "forward",
+      "attributes": [],
+      "target-type": "url",
+      "source-credit": "",
+      "target-credit": "",
+      "attribute-values": {}
+    }
+  ],
+  "annotation": null,
+  "description": "",
+  "disambiguation": ""
+}

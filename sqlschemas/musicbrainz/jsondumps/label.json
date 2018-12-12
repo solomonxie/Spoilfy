@@ -1,0 +1,86 @@
+{
+  "id": "9825440c-1713-4573-b49b-584f7074655d",
+  "area": {
+    "id": "ef1b7cc0-cd26-36f4-8ea0-04d9623786c7",
+    "name": "Netherlands",
+    "sort-name": "Netherlands",
+    "disambiguation": "",
+    "iso-3166-1-codes": [
+      "NL"
+    ]
+  },
+  "ipis": [],
+  "name": "Freebird Records",
+  "tags": [],
+  "type": null,
+  "isnis": [],
+  "rating": {
+    "value": null,
+    "votes-count": 0
+  },
+  "aliases": [],
+  "country": "NL",
+  "type-id": null,
+  "life-span": {
+    "end": null,
+    "begin": "1998",
+    "ended": false
+  },
+  "relations": [
+    {
+      "end": null,
+      "url": {
+        "id": "b6c7e5ab-ab53-4c05-9d43-0cbe1af92af6",
+        "resource": "https://www.discogs.com/label/78241"
+      },
+      "type": "discogs",
+      "begin": null,
+      "ended": false,
+      "type-id": "5b987f87-25bc-4a2d-b3f1-3618795b8207",
+      "direction": "forward",
+      "attributes": [],
+      "target-type": "url",
+      "source-credit": "",
+      "target-credit": "",
+      "attribute-values": {}
+    },
+    {
+      "end": null,
+      "url": {
+        "id": "de29d587-22a5-456f-8fcc-bc2598b529a7",
+        "resource": "http://www.freebird-records.com/"
+      },
+      "type": "official site",
+      "begin": null,
+      "ended": false,
+      "type-id": "fe108f43-acb9-4ad1-8be3-57e6ec5b17b6",
+      "direction": "forward",
+      "attributes": [],
+      "target-type": "url",
+      "source-credit": "",
+      "target-credit": "",
+      "attribute-values": {}
+    },
+    {
+      "end": null,
+      "url": {
+        "id": "86fe23e6-0bc0-45a3-9ff3-a45b57af9798",
+        "resource": "https://www.wikidata.org/wiki/Q2769850"
+      },
+      "type": "wikidata",
+      "begin": null,
+      "ended": false,
+      "type-id": "75d87e83-d927-4580-ba63-44dc76256f98",
+      "direction": "forward",
+      "attributes": [],
+      "target-type": "url",
+      "source-credit": "",
+      "target-credit": "",
+      "attribute-values": {}
+    }
+  ],
+  "sort-name": "Freebird Records",
+  "annotation": null,
+  "label-code": null,
+  "disambiguation": ""
+}

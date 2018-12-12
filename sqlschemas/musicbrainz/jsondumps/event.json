@@ -1,0 +1,389 @@
+{
+  "id": "c0e4cb6b-5d98-42ae-b383-444efa7cc8a6",
+  "name": "M3-2007春",
+  "tags": [
+    {
+      "name": "doujin",
+      "count": 1
+    },
+    {
+      "name": "m3-19",
+      "count": 1
+    }
+  ],
+  "time": "11:30",
+  "type": "Convention/Expo",
+  "rating": {
+    "value": null,
+    "votes-count": 0
+  },
+  "aliases": [
+    {
+      "end": null,
+      "name": "M3-19",
+      "type": null,
+      "begin": null,
+      "ended": false,
+      "locale": null,
+      "primary": null,
+      "type-id": null,
+      "sort-name": "M3-19"
+    },
+    {
+      "end": null,
+      "name": "M3-2007 Spring",
+      "type": null,
+      "begin": null,
+      "ended": false,
+      "locale": "en",
+      "primary": true,
+      "type-id": null,
+      "sort-name": "M3-2007 Spring"
+    },
+    {
+      "end": null,
+      "name": "M3-2007春",
+      "type": null,
+      "begin": null,
+      "ended": false,
+      "locale": "ja",
+      "primary": true,
+      "type-id": null,
+      "sort-name": "M3-2007春"
+    }
+  ],
+  "setlist": "",
+  "type-id": "d56e39f9-071f-3086-97f4-92a1a7e04ec3",
+  "cancelled": false,
+  "life-span": {
+    "end": "2007-04-29",
+    "begin": "2007-04-29",
+    "ended": true
+  },
+  "relations": [
+    {
+      "end": null,
+      "type": "available at",
+      "begin": null,
+      "ended": false,
+      "release": {
+        "id": "5f2053a3-8362-444e-9421-f32d63ba3ffd",
+        "date": "2007-04-29",
+        "title": "ワスレナゴハン",
+        "status": null,
+        "aliases": [],
+        "barcode": null,
+        "country": "JP",
+        "quality": "normal",
+        "packaging": null,
+        "status-id": null,
+        "annotation": null,
+        "packaging-id": null,
+        "disambiguation": "",
+        "release-events": [
+          {
+            "area": {
+              "id": "2db42837-c832-3c27-b4a3-08198f75693c",
+              "name": "Japan",
+              "sort-name": "Japan",
+              "disambiguation": "",
+              "iso-3166-1-codes": [
+                "JP"
+              ]
+            },
+            "date": "2007-04-29"
+          }
+        ],
+        "text-representation": {
+          "script": "Jpan",
+          "language": "jpn"
+        }
+      },
+      "type-id": "de1f976a-d6af-342d-9220-d2485284e502",
+      "direction": "forward",
+      "attributes": [],
+      "target-type": "release",
+      "source-credit": "",
+      "target-credit": "",
+      "attribute-values": {}
+    },
+    {
+      "end": null,
+      "type": "available at",
+      "begin": null,
+      "ended": false,
+      "release": {
+        "id": "6dd5867e-7e40-4c03-a747-b28a535649c3",
+        "date": "2007-04-29",
+        "title": "4 Elements",
+        "status": null,
+        "aliases": [],
+        "barcode": null,
+        "country": "US",
+        "quality": "normal",
+        "packaging": null,
+        "status-id": null,
+        "annotation": null,
+        "packaging-id": null,
+        "disambiguation": "",
+        "release-events": [
+          {
+            "area": {
+              "id": "489ce91b-6658-3307-9877-795b68554c98",
+              "name": "United States",
+              "sort-name": "United States",
+              "disambiguation": "",
+              "iso-3166-1-codes": [
+                "US"
+              ]
+            },
+            "date": "2007-04-29"
+          }
+        ],
+        "text-representation": {
+          "script": "Latn",
+          "language": "eng"
+        }
+      },
+      "type-id": "de1f976a-d6af-342d-9220-d2485284e502",
+      "direction": "forward",
+      "attributes": [],
+      "target-type": "release",
+      "source-credit": "",
+      "target-credit": "",
+      "attribute-values": {}
+    },
+    {
+      "end": null,
+      "type": "available at",
+      "begin": null,
+      "ended": false,
+      "release": {
+        "id": "d44987e2-a8e4-4e59-a020-70f509b40853",
+        "date": "2007-04-29",
+        "title": "幻想的東方小品集",
+        "status": null,
+        "aliases": [],
+        "barcode": null,
+        "country": "JP",
+        "quality": "normal",
+        "packaging": null,
+        "status-id": null,
+        "annotation": null,
+        "packaging-id": null,
+        "disambiguation": "",
+        "release-events": [
+          {
+            "area": {
+              "id": "2db42837-c832-3c27-b4a3-08198f75693c",
+              "name": "Japan",
+              "sort-name": "Japan",
+              "disambiguation": "",
+              "iso-3166-1-codes": [
+                "JP"
+              ]
+            },
+            "date": "2007-04-29"
+          }
+        ],
+        "text-representation": {
+          "script": "Latn",
+          "language": "eng"
+        }
+      },
+      "type-id": "de1f976a-d6af-342d-9220-d2485284e502",
+      "direction": "forward",
+      "attributes": [],
+      "target-type": "release",
+      "source-credit": "",
+      "target-credit": "",
+      "attribute-values": {}
+    },
+    {
+      "end": null,
+      "type": "available at",
+      "begin": null,
+      "ended": false,
+      "release": {
+        "id": "df5e2e38-0bfb-4c70-a80a-a721091682ae",
+        "date": "2007-04-29",
+        "title": "東方春風桜蕾",
+        "status": null,
+        "aliases": [],
+        "barcode": null,
+        "country": "JP",
+        "quality": "normal",
+        "packaging": null,
+        "status-id": null,
+        "annotation": null,
+        "packaging-id": null,
+        "disambiguation": "",
+        "release-events": [
+          {
+            "area": {
+              "id": "2db42837-c832-3c27-b4a3-08198f75693c",
+              "name": "Japan",
+              "sort-name": "Japan",
+              "disambiguation": "",
+              "iso-3166-1-codes": [
+                "JP"
+              ]
+            },
+            "date": "2007-04-29"
+          }
+        ],
+        "text-representation": {
+          "script": "Jpan",
+          "language": "jpn"
+        }
+      },
+      "type-id": "de1f976a-d6af-342d-9220-d2485284e502",
+      "direction": "forward",
+      "attributes": [],
+      "target-type": "release",
+      "source-credit": "",
+      "target-credit": "",
+      "attribute-values": {}
+    },
+    {
+      "end": null,
+      "type": "available at",
+      "begin": null,
+      "ended": false,
+      "release": {
+        "id": "e697727c-2106-41c2-a115-acaf888c298e",
+        "date": "2007-04-29",
+        "title": "COLORED",
+        "status": null,
+        "aliases": [],
+        "barcode": null,
+        "country": "JP",
+        "quality": "normal",
+        "packaging": null,
+        "status-id": null,
+        "annotation": null,
+        "packaging-id": null,
+        "disambiguation": "",
+        "release-events": [
+          {
+            "area": {
+              "id": "2db42837-c832-3c27-b4a3-08198f75693c",
+              "name": "Japan",
+              "sort-name": "Japan",
+              "disambiguation": "",
+              "iso-3166-1-codes": [
+                "JP"
+              ]
+            },
+            "date": "2007-04-29"
+          }
+        ],
+        "text-representation": {
+          "script": "Jpan",
+          "language": "jpn"
+        }
+      },
+      "type-id": "de1f976a-d6af-342d-9220-d2485284e502",
+      "direction": "forward",
+      "attributes": [],
+      "target-type": "release",
+      "source-credit": "",
+      "target-credit": "",
+      "attribute-values": {}
+    },
+    {
+      "end": null,
+      "type": "held at",
+      "begin": null,
+      "ended": false,
+      "place": {
+        "id": "4122bef0-28bc-4bfe-a36d-b7f78eb7cf49",
+        "area": {
+          "id": "6f00906c-bc93-47c9-8d4b-3cec91eebb73",
+          "name": "Ōta",
+          "sort-name": "Ōta",
+          "disambiguation": ""
+        },
+        "name": "大田区産業プラザ",
+        "type": null,
+        "address": "東京都大田区南蒲田一丁目20番20号",
+        "aliases": [],
+        "type-id": null,
+        "annotation": null,
+        "coordinates": {
+          "latitude": "35.558861",
+          "longitude": "139.724083"
+        },
+        "disambiguation": ""
+      },
+      "type-id": "e2c6f697-07dc-38b1-be0b-83d740165532",
+      "direction": "forward",
+      "attributes": [],
+      "target-type": "place",
+      "source-credit": "",
+      "target-credit": "",
+      "attribute-values": {}
+    },
+    {
+      "end": null,
+      "url": {
+        "id": "9b56c593-e44e-43c0-b022-e0632d6521b8",
+        "resource": "http://www.m3net.jp/event/2007s.html"
+      },
+      "type": "official homepage",
+      "begin": null,
+      "ended": false,
+      "type-id": "c26808b0-4e67-31a7-a587-913720dfb3f3",
+      "direction": "forward",
+      "attributes": [],
+      "target-type": "url",
+      "source-credit": "",
+      "target-credit": "",
+      "attribute-values": {}
+    },
+    {
+      "end": null,
+      "type": "part of",
+      "begin": null,
+      "ended": false,
+      "series": {
+        "id": "9c2ba570-dc7d-4a3d-8308-c3e7ff5e680d",
+        "name": "M3",
+        "aliases": [],
+        "annotation": null,
+        "disambiguation": ""
+      },
+      "type-id": "707d947d-9563-328a-9a7d-0c5b9c3a9791",
+      "direction": "forward",
+      "attributes": [
+        "number"
+      ],
+      "target-type": "series",
+      "ordering-key": 20,
+      "source-credit": "",
+      "target-credit": "",
+      "attribute-values": {
+        "number": "19"
+      }
+    },
+    {
+      "end": null,
+      "url": {
+        "id": "a96c9d92-4a6d-4cff-9d43-d695a802e87f",
+        "resource": "http://vgmdb.net/event/47"
+      },
+      "type": "vgmdb",
+      "begin": null,
+      "ended": false,
+      "type-id": "5d3e0348-71a8-3dc1-b847-3a8f1d5de688",
+      "direction": "forward",
+      "attributes": [],
+      "target-type": "url",
+      "source-credit": "",
+      "target-credit": "",
+      "attribute-values": {}
+    }
+  ],
+  "annotation": null,
+  "disambiguation": ""
+}
