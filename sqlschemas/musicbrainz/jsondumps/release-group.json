@@ -1,0 +1,30 @@
+{
+  "id": "37c37b20-22bb-3c2f-a68c-adf545b9d091",
+  "tags": [],
+  "title": "Celebration!",
+  "rating": {
+    "value": null,
+    "votes-count": 0
+  },
+  "aliases": [],
+  "relations": [],
+  "annotation": null,
+  "primary-type": null,
+  "artist-credit": [
+    {
+      "name": "Phil Woods & The Festival Orchestra",
+      "artist": {
+        "id": "a67b8c6b-e079-4d62-a443-daae0d4dce17",
+        "name": "Phil Woods & The Festival Orchestra",
+        "sort-name": "Phil Woods & The Festival Orchestra",
+        "disambiguation": ""
+      },
+      "joinphrase": ""
+    }
+  ],
+  "disambiguation": "",
+  "primary-type-id": null,
+  "secondary-types": [],
+  "first-release-date": "",
+  "secondary-type-ids": []
+}

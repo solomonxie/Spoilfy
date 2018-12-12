@@ -1,0 +1,41 @@
+{
+  "id": "a6efca37-8d2c-4c6c-bdfc-63d200bd0e3c",
+  "area": null,
+  "ipis": [],
+  "name": "Mo Fun",
+  "tags": [],
+  "type": null,
+  "isnis": [],
+  "gender": null,
+  "rating": {
+    "value": null,
+    "votes-count": 0
+  },
+  "aliases": [
+    {
+      "end": null,
+      "name": "MO FUN",
+      "type": null,
+      "begin": null,
+      "ended": false,
+      "locale": null,
+      "primary": null,
+      "type-id": null,
+      "sort-name": "MO FUN"
+    }
+  ],
+  "country": null,
+  "type-id": null,
+  "end_area": null,
+  "gender-id": null,
+  "life-span": {
+    "end": null,
+    "begin": null,
+    "ended": false
+  },
+  "relations": [],
+  "sort-name": "Mo Fun",
+  "annotation": null,
+  "begin_area": null,
+  "disambiguation": ""
+}
