@@ -21,9 +21,10 @@ class Many(Base):
     mid = Column('id', Integer, primary_key=True)
     one_id = Column(Integer, ForeignKey('one.id'))
 
-
 # Connect Database
-engine = create_engine('sqlite:///test.sqlite', echo=False)
+import os
+cwd = os.path.split(os.path.realpath(__file__))[0]
+engine = create_engine('sqlite:///{}/test.sqlite'.format(cwd), echo=False)
 # Clearout all existing tables
 #Base.metadata.drop_all(engine)
 One.__table__.drop(engine)
