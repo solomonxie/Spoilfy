@@ -43,8 +43,8 @@ class UserTrack(Base):
     __tablename__ = 'u_Tracks'
 
     id = Column('id', Integer, primary_key=True)
-    uid = Column('uid', Integer, ForeignKey('u_Users.uid'))
-    ref_id = Column('ref_id', Integer, ForeignKey('ref_Tracks.ref_id'))
+    uid = Column('uid', String, ForeignKey('u_Users.uid'))
+    ref_id = Column('ref_id', String, ForeignKey('ref_Tracks.ref_id'))
     last_played = Column('last_played', Date)
     added_at = Column('added_at', Date)
     count = Column('count', Integer)
@@ -96,7 +96,7 @@ class TrackSource(Base):
     """
     __abstract__ = True
 
-    id = Column('id', Integer, primary_key=True)
+    id = Column('id', String, primary_key=True)
     name = Column('name', String)
     abid = Column('album_id', String)
     atids = Column('artist_ids', String)
@@ -131,7 +131,7 @@ class TrackRef(Base):
     """
     __tablename__ = 'ref_Tracks'
 
-    id = Column('id', Integer, primary_key=True)
+    id = Column('id', String, primary_key=True)
     ref_id = Column('ref_id', String, nullable=False)  #>> unique reference ID
     host_id = Column('host_id', Integer, ForeignKey('hosts.id'))
     src_id = Column('src_id', String, nullable=False)  #>> dynamic | not speicify FK
@@ -156,87 +156,8 @@ Base.metadata.drop_all(engine)
 Base.metadata.create_all(bind=engine)
 session = sessionmaker(bind=engine, autoflush=False)()
 
+
     # Start of Data Insersions --------{
-
-"""
->>> MRO:
-
-    Jason = User('Jason')
-    Jason.addTracks(data)
-        |
-        data = Track_MBZ.loadJSON('MusicBrainz-API-tracks.json')
-            |....
-        data = Track_SPT.loadJSON('spotify-API-tracks.json')
-            |
-            Track_SPT.addTracks()
-                |
-                TrackRef.addReference()
-                    |
-                    Host.checkHostForTrack()
-            |
-            return [Track_SPT]
-        |
-        UserTracks.addTrack( data[i].id )
-
-"""
-
-
-# 1. Add Hosts
-h1 = Host(name='Spotify',
-        tbname_track='spotify_Tracks',
-        tbname_album='spotify_Albums',
-        tbname_artist='spotify_Artists',
-        tbname_playlist='spotify_Playlists'
-)
-h2 = Host(name='MusicBrainz',
-        tbname_track='musicbrainz_Tracks',
-        tbname_album='musicbrainz_Albums',
-        tbname_artist='musicbrainz_Artists',
-        tbname_playlist='musicbrainz_Playlists'
-)
-session.add_all([h1, h2])
-session.flush()  # Generate data for Dynamic fileds(primary key) to get values
-
-# 2. Add source tracks from Spotify
-src1_1 = Track_SPT(name='139')
-src1_2 = Track_SPT(name='Hey Jdue')
-src1_3 = Track_SPT(name='Now is not a good time')
-session.add_all([src1_1, src1_2, src1_3])
-
-# 3. Add source tracks from MusicBrainz
-src2_1 = Track_MBZ(name='139')
-src2_2 = Track_MBZ(name='Hey Jude')
-src2_3 = Track_MBZ(name='Now is not a good time')
-session.add_all([src2_1, src2_2, src2_3])
-session.flush()  # Generate data for Dynamic fileds(primary key) to get values
-
-# 4. Initialize references
-t1 = ref1 = TrackRef(ref_id=str(uuid.uuid1()), src_id=src1_1.id, host_id=h1.id)
-t2 = ref2 = TrackRef(ref_id=str(uuid.uuid1()), src_id=src1_2.id, host_id=h1.id)
-t3 = ref3 = TrackRef(ref_id=str(uuid.uuid1()), src_id=src1_3.id, host_id=h1.id)
-session.add_all([ref1, ref2, ref3])
-session.flush()  # Generate data for Dynamic fileds(primary key) to get values
-
-# 5. Add references to existing tracks
-ref4 = TrackRef(ref_id=t1.ref_id, src_id=src1_1.id, host_id=h2.id)
-ref5 = TrackRef(ref_id=t2.ref_id, src_id=src1_2.id, host_id=h2.id)
-ref6 = TrackRef(ref_id=t3.ref_id, src_id=src1_3.id, host_id=h2.id)
-session.add_all([ref4, ref5, ref6])
-session.flush()  # Generate data for Dynamic fileds(primary key) to get values
-
-# 6. Add Users
-u1 = User(name='Jason')
-u2 = User(name='David')
-u3 = User(name='Sol')
-session.add_all([u1,u2,u3])
-session.flush()  # Generate data for Dynamic fileds(primary key) to get values
-
-# 6. Add User Tracks
-ut1 = UserTrack(uid=u1.uid, ref_id=t1.ref_id)
-ut2 = UserTrack(uid=u1.uid, ref_id=t2.ref_id)
-ut3 = UserTrack(uid=u1.uid, ref_id=t3.ref_id)
-session.add_all([ut1, ut2, ut3])
-session.flush()
 
     # }------- End of Data Insersions
 
@@ -246,49 +167,6 @@ session.close()
 #------- End of Data Submitting ---------
 
 
-# Start of Data Browsing ---------{
-
-"""
->>> SQL:
-
-    SELECT
-        tb1.tid, tb1.tid_spt, tb1.tid_mbz,
-        tb2.title as "title_spt",
-        tb3.title as "title_mbz"
-    FROM
-        "ref_Tracks" AS tb1
-        INNER JOIN "spotify_Tracks" AS tb2 ON tb1.tid == tb2.tid
-        INNER JOIN "musicbrainz_Tracks" AS tb3 ON tb1.tid == tb3.tid
-
-"""
-
-# Manually search multiple level relationship (many to many to many)
-#u = session.query(User).first()
-#print(u.name)
-#for t in u.tracks:
-#    if t.tid_spt:
-#        t_spt = session.query(Track_SPT).filter(Track_SPT.tid == t.tid_spt).first()
-#        if t_spt:
-#            print('Track:%s'% t_spt.title)
-
-#query = session.query(
-#    User, UserTrack, Track, Track_SPT, Track_MBZ
-#).filter(
-#    User.uid == UserTrack.uid
-#).filter(
-#    UserTrack.tid == Track.tid
-#).filter(
-#    #Track.tid in [Track_SPT.tid, Track_MBZ.tid]
-#    Track.tid == Track_SPT.tid or Track.tid == Track_MBZ.tid
-#).group_by(
-#    Track.tid
-#).all()
-#
-#for u,ut,t,t_spt,t_mbz in query:
-#    print(u.name, 'has track:', ut.tid, t_spt.title)
-#
-
-# }------- End of Data Browsing
 
 
 print('[  OK  ]')
