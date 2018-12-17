@@ -1,11 +1,10 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date
+from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean, Sequence
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import relationship
 
 import uuid
-import json
 
 
 #------- Start of ORM Definitions ---------
@@ -45,7 +44,7 @@ class UserTrack(Base):
 
     id = Column('id', Integer, primary_key=True)
     uid = Column('uid', Integer, ForeignKey('u_Users.uid'))
-    ref_id = Column('ref_id', Integer, ForeignKey('TrackRef.ref_id'))
+    ref_id = Column('ref_id', Integer, ForeignKey('ref_Tracks.ref_id'))
     last_played = Column('last_played', Date)
     added_at = Column('added_at', Date)
     count = Column('count', Integer)
@@ -88,16 +87,6 @@ class Host(Base):
     tbname_artist = Column('tbname_artist', String)
     tbname_playlist = Column('tbname_playlist', String)
 
-    def addHost(self, engine, **data):
-        pass
-
-    def addHosts(self, engine, fromJson=None):
-        """
-        Read from JSON file
-        """
-        data = json.loads(fromJson)
-        pass
-
 
 class TrackSource(Base):
     """
@@ -108,10 +97,23 @@ class TrackSource(Base):
     __abstract__ = True
 
     id = Column('id', Integer, primary_key=True)
-    title = Column('title', String)
+    name = Column('name', String)
+    abid = Column('album_id', String)
+    atids = Column('artist_ids', String)
+    disc_number = Column('disc_number', Integer)
+    duration_ms = Column('duration_ms', Integer)
 
 class Track_SPT(TrackSource):
     __tablename__ = 'spotify_Tracks'
+
+    markets = Column('available_markets', String)
+    preview_url = Column('preview_url', String)
+    popularity = Column('popularity', Integer)
+    explicit = Column('explicit', Boolean)
+    uri = Column('uri', String)
+    href = Column('href', String)
+    external_urls = Column('external_urls', String)
+    is_local = Column('is_local', Boolean)
 
 class Track_MBZ(TrackSource):
     __tablename__ = 'musicbrainz_Tracks'
@@ -167,14 +169,14 @@ session = sessionmaker(bind=engine, autoflush=False)()
         data = Track_SPT.loadJSON('spotify-API-tracks.json')
             |
             Track_SPT.addTracks()
-            |
-            TrackRef.addReference()
                 |
-                Host.checkHostForTrack()
+                TrackRef.addReference()
+                    |
+                    Host.checkHostForTrack()
             |
             return [Track_SPT]
         |
-        UserTracks.addTrack( data[i].ref_id )
+        UserTracks.addTrack( data[i].id )
 
 """
 
@@ -195,31 +197,30 @@ h2 = Host(name='MusicBrainz',
 session.add_all([h1, h2])
 session.flush()  # Generate data for Dynamic fileds(primary key) to get values
 
-
 # 2. Add source tracks from Spotify
-src1_1 = Track_SPT(title='139')
-src1_2 = Track_SPT(title='Hey Jdue')
-src1_3 = Track_SPT(title='Now is not a good time')
+src1_1 = Track_SPT(name='139')
+src1_2 = Track_SPT(name='Hey Jdue')
+src1_3 = Track_SPT(name='Now is not a good time')
 session.add_all([src1_1, src1_2, src1_3])
 
 # 3. Add source tracks from MusicBrainz
-src2_1 = Track_MBZ(title='139')
-src2_2 = Track_MBZ(title='Hey Jude')
-src2_3 = Track_MBZ(title='Now is not a good time')
+src2_1 = Track_MBZ(name='139')
+src2_2 = Track_MBZ(name='Hey Jude')
+src2_3 = Track_MBZ(name='Now is not a good time')
 session.add_all([src2_1, src2_2, src2_3])
 session.flush()  # Generate data for Dynamic fileds(primary key) to get values
 
 # 4. Initialize references
-t1 = ref1 = TrackRef(tid=str(uuid.uuid1()),ref_id=src1_1.id, host_id=h1.id)
-t2 = ref2 = TrackRef(tid=str(uuid.uuid1()),ref_id=src1_2.id, host_id=h1.id)
-t3 = ref3 = TrackRef(tid=str(uuid.uuid1()),ref_id=src1_3.id, host_id=h1.id)
+t1 = ref1 = TrackRef(ref_id=str(uuid.uuid1()), src_id=src1_1.id, host_id=h1.id)
+t2 = ref2 = TrackRef(ref_id=str(uuid.uuid1()), src_id=src1_2.id, host_id=h1.id)
+t3 = ref3 = TrackRef(ref_id=str(uuid.uuid1()), src_id=src1_3.id, host_id=h1.id)
 session.add_all([ref1, ref2, ref3])
 session.flush()  # Generate data for Dynamic fileds(primary key) to get values
 
 # 5. Add references to existing tracks
-ref4 = TrackRef(tid=t1.tid, ref_id=src1_1.id, host_id=h2.id)
-ref5 = TrackRef(tid=t2.tid, ref_id=src1_2.id, host_id=h2.id)
-ref6 = TrackRef(tid=t3.tid, ref_id=src1_3.id, host_id=h2.id)
+ref4 = TrackRef(ref_id=t1.ref_id, src_id=src1_1.id, host_id=h2.id)
+ref5 = TrackRef(ref_id=t2.ref_id, src_id=src1_2.id, host_id=h2.id)
+ref6 = TrackRef(ref_id=t3.ref_id, src_id=src1_3.id, host_id=h2.id)
 session.add_all([ref4, ref5, ref6])
 session.flush()  # Generate data for Dynamic fileds(primary key) to get values
 
@@ -231,9 +232,9 @@ session.add_all([u1,u2,u3])
 session.flush()  # Generate data for Dynamic fileds(primary key) to get values
 
 # 6. Add User Tracks
-ut1 = UserTrack(uid=u1.uid, tid=t1.tid)
-ut2 = UserTrack(uid=u1.uid, tid=t2.tid)
-ut3 = UserTrack(uid=u1.uid, tid=t3.tid)
+ut1 = UserTrack(uid=u1.uid, ref_id=t1.ref_id)
+ut2 = UserTrack(uid=u1.uid, ref_id=t2.ref_id)
+ut3 = UserTrack(uid=u1.uid, ref_id=t3.ref_id)
 session.add_all([ut1, ut2, ut3])
 session.flush()
 

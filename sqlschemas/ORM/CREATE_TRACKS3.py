@@ -44,7 +44,7 @@ class UserTrack(Base):
 
     id = Column('id', Integer, primary_key=True)
     uid = Column('uid', Integer, ForeignKey('u_Users.uid'))
-    ref_id = Column('ref_id', Integer, ForeignKey('TrackRef.ref_id'))
+    ref_id = Column('ref_id', Integer, ForeignKey('ref_Tracks.ref_id'))
     last_played = Column('last_played', Date)
     added_at = Column('added_at', Date)
     count = Column('count', Integer)
@@ -198,16 +198,16 @@ session.add_all([src2_1, src2_2, src2_3])
 session.flush()  # Generate data for Dynamic fileds(primary key) to get values
 
 # 4. Initialize references
-t1 = ref1 = TrackRef(tid=str(uuid.uuid1()),ref_id=src1_1.id, host_id=h1.id)
-t2 = ref2 = TrackRef(tid=str(uuid.uuid1()),ref_id=src1_2.id, host_id=h1.id)
-t3 = ref3 = TrackRef(tid=str(uuid.uuid1()),ref_id=src1_3.id, host_id=h1.id)
+t1 = ref1 = TrackRef(ref_id=str(uuid.uuid1()), src_id=src1_1.id, host_id=h1.id)
+t2 = ref2 = TrackRef(ref_id=str(uuid.uuid1()), src_id=src1_2.id, host_id=h1.id)
+t3 = ref3 = TrackRef(ref_id=str(uuid.uuid1()), src_id=src1_3.id, host_id=h1.id)
 session.add_all([ref1, ref2, ref3])
 session.flush()  # Generate data for Dynamic fileds(primary key) to get values
 
 # 5. Add references to existing tracks
-ref4 = TrackRef(tid=t1.tid, ref_id=src1_1.id, host_id=h2.id)
-ref5 = TrackRef(tid=t2.tid, ref_id=src1_2.id, host_id=h2.id)
-ref6 = TrackRef(tid=t3.tid, ref_id=src1_3.id, host_id=h2.id)
+ref4 = TrackRef(ref_id=t1.ref_id, src_id=src1_1.id, host_id=h2.id)
+ref5 = TrackRef(ref_id=t2.ref_id, src_id=src1_2.id, host_id=h2.id)
+ref6 = TrackRef(ref_id=t3.ref_id, src_id=src1_3.id, host_id=h2.id)
 session.add_all([ref4, ref5, ref6])
 session.flush()  # Generate data for Dynamic fileds(primary key) to get values
 
@@ -219,9 +219,9 @@ session.add_all([u1,u2,u3])
 session.flush()  # Generate data for Dynamic fileds(primary key) to get values
 
 # 6. Add User Tracks
-ut1 = UserTrack(uid=u1.uid, tid=t1.tid)
-ut2 = UserTrack(uid=u1.uid, tid=t2.tid)
-ut3 = UserTrack(uid=u1.uid, tid=t3.tid)
+ut1 = UserTrack(uid=u1.uid, ref_id=t1.ref_id)
+ut2 = UserTrack(uid=u1.uid, ref_id=t2.ref_id)
+ut3 = UserTrack(uid=u1.uid, ref_id=t3.ref_id)
 session.add_all([ut1, ut2, ut3])
 session.flush()
 
