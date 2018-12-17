@@ -6,26 +6,13 @@ from sqlalchemy.orm import relationship
 
 import uuid
 
-"""
->>> SQL:
-
-    SELECT
-        tb1.tid, tb1.tid_spt, tb1.tid_mbz,
-        tb2.title as "title_spt",
-        tb3.title as "title_mbz"
-    FROM
-        "ref_Tracks" AS tb1
-        INNER JOIN "spotify_Tracks" AS tb2 ON tb1.tid == tb2.tid
-        INNER JOIN "musicbrainz_Tracks" AS tb3 ON tb1.tid == tb3.tid
-
-"""
 
 #------- Start of ORM Definitions ---------
 Base = declarative_base()
 
 
 # ==============================================================
-# >>>>>>>>>>>>>[    User Tables     ] >>>>>>>>>>>>>>>>>>>
+# >>>>>>>>>>>>>[    User Tables     ] >>>>>>>>>>>>>>>>>>>>>>>>>>
 # ==============================================================
 
 class User(Base):
@@ -247,6 +234,21 @@ session.close()
 
 
 # Start of Data Browsing ---------{
+
+"""
+>>> SQL:
+
+    SELECT
+        tb1.tid, tb1.tid_spt, tb1.tid_mbz,
+        tb2.title as "title_spt",
+        tb3.title as "title_mbz"
+    FROM
+        "ref_Tracks" AS tb1
+        INNER JOIN "spotify_Tracks" AS tb2 ON tb1.tid == tb2.tid
+        INNER JOIN "musicbrainz_Tracks" AS tb3 ON tb1.tid == tb3.tid
+
+"""
+
 # Manually search multiple level relationship (many to many to many)
 #u = session.query(User).first()
 #print(u.name)
