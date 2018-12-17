@@ -101,28 +101,19 @@ class TrackSource(Base):
     Independent table, without any setup to relate User tables
     Manually search by id if needed.
     """
-    __tablename__ = 'src_Tracks'
+    __abstract__ = True
 
     id = Column('id', Integer, primary_key=True)
     title = Column('title', String)
 
-class Track_SPT(Base):
+class Track_SPT(TrackSource):
     __tablename__ = 'spotify_Tracks'
 
-    id = Column('id', Integer, primary_key=True)
-    title = Column('title', String)
-
-class Track_MBZ(Base):
+class Track_MBZ(TrackSource):
     __tablename__ = 'musicbrainz_Tracks'
 
-    id = Column('id', Integer, primary_key=True)
-    title = Column('title', String)
-
-class Track_FS(Base):
+class Track_FS(TrackSource):
     __tablename__ = 'filesystem_tracks'
-
-    id = Column('id', Integer, primary_key=True)
-    title = Column('title', String)
 
 
 class TrackRef(Base):
