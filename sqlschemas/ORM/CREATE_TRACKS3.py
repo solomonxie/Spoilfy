@@ -57,7 +57,7 @@ class UserTrack(Base):
 
     id = Column('id', Integer, primary_key=True)
     uid = Column('uid', Integer, ForeignKey('u_Users.uid'))
-    tid = Column('tid', Integer)
+    ref_id = Column('ref_id', Integer, ForeignKey('TrackRef.ref_id'))
     last_played = Column('last_played', Date)
     added_at = Column('added_at', Date)
     count = Column('count', Integer)
@@ -82,6 +82,11 @@ class UserTrack(Base):
 # ==============================================================
 
 class Host(Base):
+    """
+    :field host_type: [MediaProvider, InfoProvider, FileSystem]
+    :field uri: API entry point.
+    :field tbname_*: Related table names in database
+    """
     __tablename__ = 'hosts'
 
     id = Column('id', Integer, primary_key=True)
@@ -98,8 +103,9 @@ class Host(Base):
 
 class TrackSource(Base):
     """
-    Independent table, without any setup to relate User tables
-    Manually search by id if needed.
+    Abstract ORM class.
+        Independent table, without any setup to relate User tables
+        Manually search by id if needed.
     """
     __abstract__ = True
 
@@ -117,12 +123,18 @@ class Track_FS(TrackSource):
 
 
 class TrackRef(Base):
+    """
+    :field id: Primary key only.
+    :field ref_id: Unique Reference ID, as a connector to multiple sources.
+    :field host_id: Identify the Source Provider
+    :field src_id: Source ID, to be used with host_id: track 'Hey Jude' on Spotify.
+    """
     __tablename__ = 'ref_Tracks'
 
     id = Column('id', Integer, primary_key=True)
-    tid = Column('tid', String)
+    ref_id = Column('ref_id', String, nullable=False)  #>> unique reference ID
     host_id = Column('host_id', Integer, ForeignKey('hosts.id'))
-    ref_id = Column('ref_id', Integer)  # Relate to dynamic tables, so NO FK declaration
+    src_id = Column('src_id', String, nullable=False)  #>> dynamic | not speicify FK
 
     def addSource(TrackSource):
         pass
@@ -169,7 +181,7 @@ session = sessionmaker(bind=engine, autoflush=False)()
 """
 
 
-# 0. Add Hosts
+# 1. Add Hosts
 h1 = Host(name='Spotify',
         tbname_track='spotify_Tracks',
         tbname_album='spotify_Albums',
@@ -185,41 +197,41 @@ h2 = Host(name='MusicBrainz',
 session.add_all([h1, h2])
 session.flush()  # Generate data for Dynamic fileds(primary key) to get values
 
-# 1. Add Users
-u1 = User(name='Jason')
-u2 = User(name='David')
-u3 = User(name='Sol')
-session.add_all([u1,u2,u3])
-session.flush()  # Generate data for Dynamic fileds(primary key) to get values
-
-# 2.1 Add source tracks in Spotify's Library
+# 2. Add source tracks from Spotify
 src1_1 = Track_SPT(title='139')
 src1_2 = Track_SPT(title='Hey Jdue')
 src1_3 = Track_SPT(title='Now is not a good time')
 session.add_all([src1_1, src1_2, src1_3])
 
-# 2.2 Add source tracks in MusicBrainz's Library
+# 3. Add source tracks from MusicBrainz
 src2_1 = Track_MBZ(title='139')
 src2_2 = Track_MBZ(title='Hey Jude')
 src2_3 = Track_MBZ(title='Now is not a good time')
 session.add_all([src2_1, src2_2, src2_3])
 session.flush()  # Generate data for Dynamic fileds(primary key) to get values
 
-# 3. Initiate Track references with Track resources
+# 4. Initialize references
 t1 = ref1 = TrackRef(tid=str(uuid.uuid1()),ref_id=src1_1.id, host_id=h1.id)
 t2 = ref2 = TrackRef(tid=str(uuid.uuid1()),ref_id=src1_2.id, host_id=h1.id)
 t3 = ref3 = TrackRef(tid=str(uuid.uuid1()),ref_id=src1_3.id, host_id=h1.id)
 session.add_all([ref1, ref2, ref3])
 session.flush()  # Generate data for Dynamic fileds(primary key) to get values
 
-# 4. Add Track resource to existing Tracks references
+# 5. Add references to existing tracks
 ref4 = TrackRef(tid=t1.tid, ref_id=src1_1.id, host_id=h2.id)
 ref5 = TrackRef(tid=t2.tid, ref_id=src1_2.id, host_id=h2.id)
 ref6 = TrackRef(tid=t3.tid, ref_id=src1_3.id, host_id=h2.id)
 session.add_all([ref4, ref5, ref6])
 session.flush()  # Generate data for Dynamic fileds(primary key) to get values
 
-# 5. Add User Tracks
+# 6. Add Users
+u1 = User(name='Jason')
+u2 = User(name='David')
+u3 = User(name='Sol')
+session.add_all([u1,u2,u3])
+session.flush()  # Generate data for Dynamic fileds(primary key) to get values
+
+# 6. Add User Tracks
 ut1 = UserTrack(uid=u1.uid, tid=t1.tid)
 ut2 = UserTrack(uid=u1.uid, tid=t2.tid)
 ut3 = UserTrack(uid=u1.uid, tid=t3.tid)
