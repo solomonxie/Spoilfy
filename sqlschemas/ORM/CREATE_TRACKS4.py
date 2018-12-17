@@ -5,6 +5,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import relationship
 
 import uuid
+import json
 
 
 #------- Start of ORM Definitions ---------
@@ -87,6 +88,16 @@ class Host(Base):
     tbname_artist = Column('tbname_artist', String)
     tbname_playlist = Column('tbname_playlist', String)
 
+    def addHost(self, engine, **data):
+        pass
+
+    def addHosts(self, engine, fromJson=None):
+        """
+        Read from JSON file
+        """
+        data = json.loads(fromJson)
+        pass
+
 
 class TrackSource(Base):
     """
@@ -156,14 +167,14 @@ session = sessionmaker(bind=engine, autoflush=False)()
         data = Track_SPT.loadJSON('spotify-API-tracks.json')
             |
             Track_SPT.addTracks()
+            |
+            TrackRef.addReference()
                 |
-                TrackRef.addReference()
-                    |
-                    Host.checkHostForTrack()
+                Host.checkHostForTrack()
             |
             return [Track_SPT]
         |
-        UserTracks.addTrack( data[i].id )
+        UserTracks.addTrack( data[i].ref_id )
 
 """
 
@@ -183,6 +194,7 @@ h2 = Host(name='MusicBrainz',
 )
 session.add_all([h1, h2])
 session.flush()  # Generate data for Dynamic fileds(primary key) to get values
+
 
 # 2. Add source tracks from Spotify
 src1_1 = Track_SPT(title='139')
