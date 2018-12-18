@@ -30,6 +30,10 @@ class TrackSource(Base):
     disc_number = Column('disc_number', Integer)
     duration_ms = Column('duration_ms', Integer)
 
+    @classmethod
+    def add_tracks(cls, session, jsondata):
+        pass
+
 class Track_SPT(TrackSource):
     __tablename__ = 'spotify_Tracks'
 
@@ -41,6 +45,41 @@ class Track_SPT(TrackSource):
     href = Column('href', String)
     external_urls = Column('external_urls', String)
     is_local = Column('is_local', Boolean)
+
+    @classmethod
+    def add_tracks(cls, session, jsondata):
+        """[ Add Spotify's Tracks ]
+        :param session: SQLAlchemy session object connected to DB
+        :param String jsondump: JSON data in string format
+        :return: Class instances of track resources
+        """
+        all_tracks = []
+        for i,data in enumerate(jsondata['items']):
+            t = data['track']
+            track= Track_SPT(
+                id = t['id'],
+                name = t['name'],
+                abid = t['album']['id'],
+                atids = ','.join([ a['id'] for a in t['artists'] ]),
+                disc_number = t['disc_number'],
+                duration_ms = t['duration_ms'],
+                markets = ','.join([ m for m in t['available_markets'] ]),
+                preview_url = t['preview_url'],
+                popularity = t['popularity'],
+                explicit = t['explicit'],
+                uri = t['uri'],
+                href = t['href'],
+                external_urls = t['external_urls']['spotify'],
+                is_local = t['is_local']
+            )
+            session.merge(track)   #Merge existing data
+            all_tracks.append(track)
+
+        session.commit()
+        print( '[  OK  ] Inserted {} tracks.'.format(len(all_tracks)) )
+
+        return all_tracks
+
 
 class Track_MBZ(TrackSource):
     __tablename__ = 'musicbrainz_Tracks'
@@ -67,6 +106,22 @@ class TrackRef(Base):
     #        self.id = str(uuid.uuid1())
 
 
+    @staticmethod
+    def add_track_reference(session, tracks, host_id):
+        references = []
+        for t in tracks:
+            ref = TrackRef(
+                ref_id=str(uuid.uuid1()),
+                src_id=t.id,
+                host_id=host_id
+            )
+            session.merge(ref)
+            references.append(ref)
+
+        session.commit()
+        print( '[  OK  ] Inserted {} references.'.format(len(references)) )
+
+        return references
 
 
 # ==============================================================
@@ -74,73 +129,6 @@ class TrackRef(Base):
 # ==============================================================
 
 
-def add_spotify_tracks(session, jsondata):
-    """[ Add Spotify's Tracks ]
-    :param session: SQLAlchemy session object connected to DB
-    :param String jsondump: JSON data in string format
-    :return: Class instances of track resources
-    """
-    all_tracks = []
-    for i,data in enumerate(jsondata['items']):
-        t = data['track']
-        track= Track_SPT(
-            id = t['id'],
-            name = t['name'],
-            abid = t['album']['id'],
-            atids = ','.join([ a['id'] for a in t['artists'] ]),
-            disc_number = t['disc_number'],
-            duration_ms = t['duration_ms'],
-            markets = ','.join([ m for m in t['available_markets'] ]),
-            preview_url = t['preview_url'],
-            popularity = t['popularity'],
-            explicit = t['explicit'],
-            uri = t['uri'],
-            href = t['href'],
-            external_urls = t['external_urls']['spotify'],
-            is_local = t['is_local']
-        )
-        session.merge(track)   #Merge existing data
-        all_tracks.append(track)
-
-    session.commit()
-    print( '[  OK  ] Inserted {} tracks.'.format(len(all_tracks)) )
-
-    return all_tracks
-
-#with open('{}/spotify/jsondumps/get_user_tracks.json'.format(os.path.dirname(cwd)), 'r') as f:
-#    data = json.loads( f.read() )
-##add_spotify_tracks(session, data)
-#
-#tracks = add_spotify_tracks(session, data)
-
-
-
-def add_track_reference(session, tracks, host_id):
-    references = []
-    for t in tracks:
-        ref = TrackRef(
-            ref_id=str(uuid.uuid1()),
-            src_id=t.id,
-            host_id=host_id
-        )
-        session.merge(ref)
-        references.append(ref)
-
-    session.commit()
-    print( '[  OK  ] Inserted {} references.'.format(len(references)) )
-
-    return references
-
-#refs = add_track_reference(session, tracks, 1)
-
-#>> Multiple Primary Key Conflict test
-#ref_conflict = TrackRef(
-#    src_id=refs[0].src_id,
-#    host_id=refs[0].host_id,
-#    ref_id=refs[0].ref_id
-#)
-#session.merge(ref_conflict)
-#session.commit()
 
 
 
@@ -168,8 +156,8 @@ def main():
     with open('{}/spotify/jsondumps-full/get_user_tracks.json'.format(os.path.dirname(cwd)), 'r') as f:
         data = json.loads( f.read() )
 
-    tracks = add_spotify_tracks(session, data)
-    refs = add_track_reference(session, tracks, 1)
+    tracks = Track_SPT.add_tracks(session, data)
+    refs = TrackRef.add_track_reference(session, tracks, 1)
 
     #>> Multiple Primary Key Conflict test
     #ref7 = TrackRef(ref_id=t3.ref_id, src_id=src1_3.id, host_id=h2.id)
