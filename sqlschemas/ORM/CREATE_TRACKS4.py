@@ -131,13 +131,9 @@ class TrackRef(Base):
     """
     __tablename__ = 'ref_Tracks'
 
-    id = Column('id', Integer, primary_key=True)
-    ref_id = Column('ref_id', String, nullable=False)  #>> unique reference ID
-    host_id = Column('host_id', Integer, ForeignKey('hosts.id'))
-    src_id = Column('src_id', String, nullable=False)  #>> dynamic | not speicify FK
-
-    def addSource(TrackSource):
-        pass
+    ref_id = Column('ref_id', String, primary_key=True, nullable=False)  #>> unique reference ID
+    host_id = Column('host_id', Integer, ForeignKey('hosts.id'), primary_key=True)
+    src_id = Column('src_id', String, primary_key=True, nullable=False)  #>> dynamic | not speicify FK
 
 
 
@@ -224,6 +220,11 @@ ref6 = TrackRef(ref_id=t3.ref_id, src_id=src1_3.id, host_id=h2.id)
 session.add_all([ref4, ref5, ref6])
 session.flush()  # Generate data for Dynamic fileds(primary key) to get values
 
+#>> Multiple Primary Key Conflict test
+#ref7 = TrackRef(ref_id=t3.ref_id, src_id=src1_3.id, host_id=h2.id)
+#session.add(ref7)
+#session.flush()  # Generate data for Dynamic fileds(primary key) to get values
+
 # 6. Add Users
 u1 = User(name='Jason')
 u2 = User(name='David')
@@ -231,7 +232,7 @@ u3 = User(name='Sol')
 session.add_all([u1,u2,u3])
 session.flush()  # Generate data for Dynamic fileds(primary key) to get values
 
-# 6. Add User Tracks
+# 7. Add User Tracks
 ut1 = UserTrack(uid=u1.uid, ref_id=t1.ref_id)
 ut2 = UserTrack(uid=u1.uid, ref_id=t2.ref_id)
 ut3 = UserTrack(uid=u1.uid, ref_id=t3.ref_id)
