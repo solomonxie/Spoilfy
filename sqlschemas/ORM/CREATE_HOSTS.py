@@ -1,94 +1,111 @@
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.orm import relationship
+import uuid
+
+from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean, Sequence
 
 
-#------- Start of ORM Definitions ---------
-Base = declarative_base()
+#-------[  Import From Other Modules   ]---------
+from common_base import Base, engine, session
 
-user_hosts = Table('u_Hosts', Base.metadata,
-    Column('id', Integer, primary_key=True),
-    Column('uid', Integer, ForeignKey('u_Users.uid')),
-    Column('host_id', Integer, ForeignKey('hosts.host_id')),
-    Column('uid_on_host', Integer),
-    Column('auth', String),
-    Column('name', String),
-    Column('nickname', String),
-    Column('email', String),
-    Column('info', String),
-)
 
-class User(Base):
-    __tablename__ = 'u_Users'
 
-    uid = Column('uid', Integer, primary_key=True)
-    name = Column('name', String)
-
-    hosts = relationship('Host', secondary=user_hosts, back_populates='users')
-    #tracks = relationship('Track', secondary=user_tracks, back_populates='users')
-    #albums = relationship('Album', secondary=user_albums, back_populates='users')
-    #artists = relationship('Artist', secondary=user_artists, back_populates='users')
-    #playlists = relationship('Playlist', secondary=user_playlists, back_populates='users')
-
+# ==============================================================
+# >>>>>>>>>>>>>[    Independent Tables     ] >>>>>>>>>>>>>>>>>>>
+# ==============================================================
 
 class Host(Base):
+    """
+    :field host_type: [MediaProvider, InfoProvider, FileSystem]
+    :field uri: API entry point.
+    :field tbname_*: Related table names in database
+    """
     __tablename__ = 'hosts'
 
-    hid = Column('host_id', Integer, primary_key=True)
+    id = Column('id', Integer, primary_key=True)
     name = Column('name', String)
+    host_type = Column('type', String)
     uri = Column('URI', String)
-    auths = Column('auth_methods', String)
     info = Column('info', String)
 
-    users = relationship('User', secondary=user_hosts, back_populates='hosts')
+    tbname_track = Column('tbname_track', String)
+    tbname_album = Column('tbname_album', String)
+    tbname_artist = Column('tbname_artist', String)
+    tbname_playlist = Column('tbname_playlist', String)
 
-#------- Start of Data Submitting ---------
 
-# Connect Database
-import os
-cwd = os.path.split(os.path.realpath(__file__))[0]
-engine = create_engine('sqlite:///{}/db_u_spoilfy.sqlite'.format(cwd), echo=False)
 
-# Clearout all existing tables
-Base.metadata.drop_all(engine)
-#Host.__table__.drop(engine)
-#User.__table__.drop(engine)
+# ==============================================================
+# >>>>>>>>>>>>>>>>>>>[    METHODS     ] >>>>>>>>>>>>>>>>>>>>>>>>
+# ==============================================================
 
-# Let new Schemas take effect
-Base.metadata.create_all(bind=engine)
-session = sessionmaker(bind=engine, autoflush=False)()
+
+def add_hosts(session, jsondata):
+    all_hosts = []
+    for h in jsondata['hosts']:
+        host = Host(
+            name=h['name'],
+            host_type=h['type'],
+            uri=h['uri'],
+            info=h['info'],
+            tbname_track=h['tbname_track'],
+            tbname_album=h['tbname_album'],
+            tbname_artist=h['tbname_artist'],
+            tbname_playlist=h['tbname_playlist']
+        )
+        session.merge(host)
+        all_hosts.append(host)
+
+    session.commit()
+    print( '[  OK  ] Inserted {} hosts.'.format(len(all_hosts)) )
+
+    return all_hosts
+
+
+
+# ==============================================================
+# >>>>>>>>>>>>>>>>>>>>>>[    TEST     ] >>>>>>>>>>>>>>>>>>>>>>>>
+# ==============================================================
+
+
+def main():
+    #------- Start of Data Submitting ---------
+    # Clearout all existing tables
+    Base.metadata.drop_all(engine)
+
+    # Let new Schemas take effect
+    Base.metadata.create_all(bind=engine)
+
+    import os, json
+    cwd = os.path.split(os.path.realpath(__file__))[0]
+    with open('{}/hosts.json'.format(os.path.dirname(cwd)), 'r') as f:
+        data = json.loads( f.read() )
+        add_hosts(session, data)
 
     # Start of Data Insersions --------{
-
-h1 = Host(name='Spotify')
-h2 = Host(name='MusicBrainz')
-h3 = Host(name='iTunes')
-session.add_all([h1, h2, h3])
-session.flush()  # Flush data for Dynamic Fileds to get their IDs
-
-u1 = User(name='Jason', hosts=[h1,h2])
-u2 = User(name='David', hosts=[h1,h3])
-u3 = User(name='Sol', hosts=[h1,h2,h3])
-session.add_all([u1,u2,u3])
-session.flush()  # Generate data for Dynamic fileds(primary key) to get values
-
+    #h1 = Host(name='Spotify',
+    #        tbname_track='spotify_Tracks',
+    #        tbname_album='spotify_Albums',
+    #        tbname_artist='spotify_Artists',
+    #        tbname_playlist='spotify_Playlists'
+    #)
+    #h2 = Host(name='MusicBrainz',
+    #        tbname_track='musicbrainz_Tracks',
+    #        tbname_album='musicbrainz_Albums',
+    #        tbname_artist='musicbrainz_Artists',
+    #        tbname_playlist='musicbrainz_Playlists'
+    #)
+    #session.add_all([h1, h2])
     # }------- End of Data Insersions
 
 
-session.commit()
-session.close()
-#------- End of Data Submitting ---------
+    session.commit()
+    session.close()
+    #------- End of Data Submitting ---------
 
 
-# Start of Data Browsing ---------{
-# Manually search multiple level relationship (many to many to many)
-u = session.query(User).first()
-print(u.name)
-for h in u.hosts:
-    print('Host on: %s'% h.name)
-# }------- End of Data Browsing
+
+if __name__ == '__main__':
+    main()
 
 
-print('[  OK  ]')
+
+print('[  OK  ] IMPORTED: {}'.format(__name__))

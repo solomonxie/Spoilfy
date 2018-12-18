@@ -11,9 +11,9 @@ import uuid
 Base = declarative_base()
 
 
-# ==============================================================
-# >>>>>>>>>>>>>[    User Tables     ] >>>>>>>>>>>>>>>>>>>>>>>>>>
-# ==============================================================
+# =====================================================================
+# >>>>>>>>>>>>>>>>>>[    User Tables     ] >>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# =====================================================================
 
 class User(Base):
     __tablename__ = 'u_Users'
@@ -131,13 +131,13 @@ class TrackRef(Base):
     """
     __tablename__ = 'ref_Tracks'
 
-    id = Column('id', String, primary_key=True)
     ref_id = Column('ref_id', String, nullable=False)  #>> unique reference ID
-    host_id = Column('host_id', Integer, ForeignKey('hosts.id'))
-    src_id = Column('src_id', String, nullable=False)  #>> dynamic | not speicify FK
+    host_id = Column('host_id', Integer, ForeignKey('hosts.id'), primary_key=True)
+    src_id = Column('src_id', String, primary_key=True, nullable=False)  #>> dynamic | not speicify FK
 
-    def addSource(TrackSource):
-        pass
+    #def __init__(self, ref_id, host_id, src_id):
+    #    if not ref_id:
+    #        self.id = str(uuid.uuid1())
 
 
 
@@ -159,6 +159,29 @@ session = sessionmaker(bind=engine, autoflush=False)()
 
     # Start of Data Insersions --------{
 
+"""
+>>> MRO:
+
+    Jason = User('Jason')
+    Jason.addTracks(data)
+        |
+        data = Track_MBZ.loadJSON('MusicBrainz-API-tracks.json')
+            |....
+        data = Track_SPT.loadJSON('spotify-API-tracks.json')
+            |
+            Track_SPT.addTracks()
+                |
+                TrackRef.addReference()
+                    |
+                    Host.checkHostForTrack()
+            |
+            return [Track_SPT]
+        |
+        UserTracks.addTrack( data[i].id )
+
+"""
+
+
     # }------- End of Data Insersions
 
 
@@ -169,4 +192,4 @@ session.close()
 
 
 
-print('[  OK  ]')
+print('[  OK  ] {}'.format(__name__))

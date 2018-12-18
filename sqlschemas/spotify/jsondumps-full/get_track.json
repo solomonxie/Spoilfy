@@ -1,0 +1,69 @@
+{
+  "album" : {
+    "album_type" : "album",
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/4O5orcvZe8L5RbquVB6YMK"
+      },
+      "href" : "https://api.spotify.com/v1/artists/4O5orcvZe8L5RbquVB6YMK",
+      "id" : "4O5orcvZe8L5RbquVB6YMK",
+      "name" : "Bigbang",
+      "type" : "artist",
+      "uri" : "spotify:artist:4O5orcvZe8L5RbquVB6YMK"
+    } ],
+    "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IL", "IS", "IT", "JP", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SK", "SV", "TH", "TR", "TW", "UY", "VN", "ZA" ],
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/album/79X24tOlSZn20bZxVCFZ0U"
+    },
+    "href" : "https://api.spotify.com/v1/albums/79X24tOlSZn20bZxVCFZ0U",
+    "id" : "79X24tOlSZn20bZxVCFZ0U",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://i.scdn.co/image/049f6b495cff66fcdf7ec35fe5c66f559dd05076",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://i.scdn.co/image/fec5f645e7d1097f004e188f609bd60214d60fb4",
+      "width" : 300
+    }, {
+      "height" : 64,
+      "url" : "https://i.scdn.co/image/47e2be6429bd8c2a26bc86f96763889ffc88d0ae",
+      "width" : 64
+    } ],
+    "name" : "Edendale",
+    "release_date" : "2009-03-09",
+    "release_date_precision" : "day",
+    "total_tracks" : 10,
+    "type" : "album",
+    "uri" : "spotify:album:79X24tOlSZn20bZxVCFZ0U"
+  },
+  "artists" : [ {
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/artist/4O5orcvZe8L5RbquVB6YMK"
+    },
+    "href" : "https://api.spotify.com/v1/artists/4O5orcvZe8L5RbquVB6YMK",
+    "id" : "4O5orcvZe8L5RbquVB6YMK",
+    "name" : "Bigbang",
+    "type" : "artist",
+    "uri" : "spotify:artist:4O5orcvZe8L5RbquVB6YMK"
+  } ],
+  "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IL", "IS", "IT", "JP", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SK", "SV", "TH", "TR", "TW", "UY", "VN", "ZA" ],
+  "disc_number" : 1,
+  "duration_ms" : 349493,
+  "explicit" : false,
+  "external_ids" : {
+    "isrc" : "NOCGJ0901090"
+  },
+  "external_urls" : {
+    "spotify" : "https://open.spotify.com/track/4aWPLncDNg4aPgF9IApRVt"
+  },
+  "href" : "https://api.spotify.com/v1/tracks/4aWPLncDNg4aPgF9IApRVt",
+  "id" : "4aWPLncDNg4aPgF9IApRVt",
+  "is_local" : false,
+  "name" : "Now Is Not A Good Time",
+  "popularity" : 15,
+  "preview_url" : "https://p.scdn.co/mp3-preview/ac98ccac238abb1367eb67d3ad35bfc557a8de24?cid=5696713ef1d24a008463cda4b287e933",
+  "track_number" : 9,
+  "type" : "track",
+  "uri" : "spotify:track:4aWPLncDNg4aPgF9IApRVt"
+}
