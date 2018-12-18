@@ -1,10 +1,10 @@
 import uuid
 
+from sqlalchemy.orm import sessionmaker
 from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean, Sequence
 
-
 #-------[  Import From Other Modules   ]---------
-from common_base import Base, engine, session
+from common_base import Base, engine
 from CREATE_HOSTS import Host
 from CREATE_USERS import User
 from CREATE_TRACKS import TrackRef, TrackSource, Track_SPT, Track_MBZ
@@ -17,11 +17,17 @@ from CREATE_TRACKS import TrackRef, TrackSource, Track_SPT, Track_MBZ
 
 
 class UserHost(Base):
+    """[  User's favorite tracks  ]
+    :PK [host_id, uid]: Composite primary keys
+    """
     __tablename__ = 'u_Hosts'
 
-    id = Column('id', Integer, primary_key=True)
-    uid = Column('uid', Integer, ForeignKey('u_Users.uid'))
-    host_id = Column('host_id', Integer, ForeignKey('hosts.id'))
+    uid = Column('uid', String,
+        ForeignKey('u_Users.uid'), primary_key=True
+    )
+    host_id = Column('host_id', String,
+        ForeignKey('hosts.id'), primary_key=True
+    )
     uid_on_host = Column('uid_on_host', Integer)
     auth = Column('auth', String)
     name = Column('name', String)
@@ -30,12 +36,21 @@ class UserHost(Base):
     info = Column('info', String)
 
 
+
+
 class UserTrack(Base):
+    """[  User's favorite tracks  ]
+    :PK [ref_id, uid]: Composite primary keys
+    :staticmethod add_from_spotify: 
+    """
     __tablename__ = 'u_Tracks'
 
-    id = Column('id', Integer, primary_key=True)
-    uid = Column('uid', String, ForeignKey('u_Users.uid'))
-    ref_id = Column('ref_id', String, ForeignKey('ref_Tracks.ref_id'))
+    ref_id = Column('ref_id', String,
+        ForeignKey('ref_Tracks.ref_id'), primary_key=True
+    )
+    uid = Column('uid', String,
+        ForeignKey('u_Users.uid'), primary_key=True
+    )
     last_played = Column('last_played', Date)
     added_at = Column('added_at', Date)
     count = Column('count', Integer)
@@ -43,7 +58,7 @@ class UserTrack(Base):
     memo = Column('memo', String)
 
     @staticmethod
-    def add_user_spotify_tracks(session, uid, jsondata):
+    def add_from_spotify(session, uid, jsondata):
         # Add tracks to database
         tracks = Track_SPT.add_tracks(session, jsondata)
         # Add track references
@@ -65,7 +80,6 @@ class UserTrack(Base):
 
         session.commit()
         print( '[  OK  ] Inserted {} User Tracks.'.format(len(user_tracks)) )
-
         return user_tracks
 
 
@@ -88,10 +102,13 @@ def main():
     #------- Start of Data Submitting ---------
 
     # Clearout all existing tables
-    Base.metadata.drop_all(engine)
+    UserTrack.__table__.drop(engine)
 
     # Let new Schemas take effect
     Base.metadata.create_all(bind=engine)
+
+    # Declare a common session for multiple files
+    session = sessionmaker(bind=engine, autoflush=False)()
 
 
     # Start of Data Insersions --------{
@@ -102,8 +119,8 @@ def main():
 
     # Get user
     user = session.query(User).first()
-
-    tracks = UserTrack.add_user_spotify_tracks(session, user.uid, data)
+    # Add User Tracks
+    tracks = UserTrack.add_from_spotify(session, user.uid, data)
     # }------- End of Data Insersions
 
     session.commit()

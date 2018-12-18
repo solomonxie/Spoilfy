@@ -1,10 +1,11 @@
 import uuid
 
+from sqlalchemy.orm import sessionmaker
 from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean, Sequence
 
 
 #-------[  Import From Other Modules   ]---------
-from common_base import Base, engine, session
+from common_base import Base, engine
 
 
 
@@ -69,10 +70,13 @@ def add_hosts(session, jsondata):
 def main():
     #------- Start of Data Submitting ---------
     # Clearout all existing tables
-    Base.metadata.drop_all(engine)
+    #Base.metadata.drop_all(engine)
 
     # Let new Schemas take effect
     Base.metadata.create_all(bind=engine)
+
+    # Declare a common session for multiple files
+    session = sessionmaker(bind=engine, autoflush=False)()
 
     import os, json
     cwd = os.path.split(os.path.realpath(__file__))[0]
