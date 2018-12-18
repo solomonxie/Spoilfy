@@ -6,6 +6,7 @@ from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean
 #-------[  Import From Other Modules   ]---------
 from common_base import Base, engine, session
 from CREATE_HOSTS import Host
+from CREATE_USERS import User
 from CREATE_TRACKS import TrackRef, TrackSource, Track_SPT, Track_MBZ
 
 
@@ -41,16 +42,40 @@ class UserTrack(Base):
     rate = Column('rate', Integer)
     memo = Column('memo', String)
 
-    #def __init__(self, uid, src):
-    #    self.uid = uid
+    @staticmethod
+    def add_user_spotify_tracks(session, uid, jsondata):
+        # Add tracks to database
+        tracks = Track_SPT.add_tracks(session, jsondata)
+        # Add track references
+        refs = TrackRef.add_track_reference(session, tracks, uid)
+        # Add User Tracks
+        user_tracks = []
+        for ref in refs:
+            ut = UserTrack(
+                uid = uid,
+                ref_id = ref.ref_id,
+                last_played = None,
+                added_at = None,
+                count = 0,
+                rate = 0,
+                memo = ''
+            )
+            session.merge(ut)
+            user_tracks.append(ut)
 
-    def addSource(self, src):
-        """
-            1. Check if source EXISTS in Track Reference Table
-            2. If exists, get the "tid",
-            3. If not, Insert new data to TrackRef, and get the "tid".
-        """
-        pass
+        session.commit()
+        print( '[  OK  ] Inserted {} User Tracks.'.format(len(user_tracks)) )
+
+        return user_tracks
+
+
+
+
+
+# ==============================================================
+# >>>>>>>>>>>>>>>>>>>[    METHODS     ] >>>>>>>>>>>>>>>>>>>>>>>>
+# ==============================================================
+
 
 
 
@@ -69,8 +94,17 @@ def main():
     Base.metadata.create_all(bind=engine)
 
 
-        # Start of Data Insersions --------{
-        # }------- End of Data Insersions
+    # Start of Data Insersions --------{
+    import os, json
+    cwd = os.path.split(os.path.realpath(__file__))[0]
+    with open('{}/spotify/jsondumps-full/get_user_tracks.json'.format(os.path.dirname(cwd)), 'r') as f:
+        data = json.loads( f.read() )
+
+    # Get user
+    user = session.query(User).first()
+
+    tracks = UserTrack.add_user_spotify_tracks(session, user.uid, data)
+    # }------- End of Data Insersions
 
     session.commit()
     session.close()

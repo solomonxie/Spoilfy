@@ -138,8 +138,8 @@ def add_track_reference(session, tracks, host_id):
 
 
 
-def user_add_spotify_tracks(session, uid, jsondump):
-    tracks = add_spotify_tracks(session, data)
+def user_add_spotify_tracks(session, uid, jsondata):
+    tracks = add_spotify_tracks(session, jsondata)
     refs = add_track_reference(session, tracks, 1)
     # Add User Tracks
     user = session.query(User).filter(User.uid==uid).first()
