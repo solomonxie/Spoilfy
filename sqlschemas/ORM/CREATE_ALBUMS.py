@@ -23,15 +23,22 @@ class Album_SPT(Source):
     __tablename__ = 'spotify_Albums'
 
     atids = Column('artist_ids', String)
+    tids = Column('track_ids', String)
     album_type = Column('album_type', String)
-    album_group = Column('album_group', String)
     release_date = Column('release_date', String)
-    total_tracks = Column('total_tracks', Integer)
     release_date_precision = Column('release_date_precision', String)
-    markets = Column('available_markets', String)
+
+    total_tracks = Column('total_tracks', Integer)
+    lable = Column('lable', String)
+    popularity = Column('popularity', Integer)
+    copyrights = Column('copyrights', String)
+    uri = Column('uri', String)
     href = Column('href', String)
     external_urls = Column('external_urls', String)
-    uri = Column('uri', String)
+    external_ids = Column('external_ids', String)
+
+    #tracks = Column('tracks', String)  #>>For [Track_SPT]
+    #artists = Column('artists', String)  #>>For [Artist_SPT]
 
     @classmethod
     def add_sources(cls, session, jsondata):
@@ -41,21 +48,25 @@ class Album_SPT(Source):
         :return: Class instances of track resources
         """
         all_albums = []
-        for i,d in enumerate(jsondata['items']):
+        for item in jsondata['items']:
+            added_at = item['added_at']  #>>For [UserTracks]
+            d = item['album']
             src = cls(
                 id = d['id'],
                 name = d['name'],
-                album_type = d['album_type'],
-                album_group = d['album_group'],
                 atids = ','.join([ a['id'] for a in d['artists'] ]),
+                tids = ','.join([ a['id'] for a in d['tracks']['items'] ]),
+                album_type = d['album_type'],
                 release_date = d['release_date'],
-                #release_date = datetime.strptime(d['release_date'], '%Y-%m-%d'),
                 release_date_precision = d['release_date_precision'],
                 total_tracks = d['total_tracks'],
-                markets = ','.join([ m for m in d['available_markets'] ]),
+                lable = d['label'],
+                popularity = d['popularity'],
+                copyrights = str(d['copyrights']),
                 uri = d['uri'],
                 href = d['href'],
-                external_urls = d['external_urls']['spotify']
+                external_urls = str(d['external_urls']),
+                external_ids = str(d['external_ids'])
             )
             session.merge(src)
             all_albums.append(src)
@@ -118,7 +129,7 @@ def main():
     # Start of Data Insersions --------{
     import os, json
     cwd = os.path.split(os.path.realpath(__file__))[0]
-    with open('{}/spotify/jsondumps-full/get_artist_albums.json'.format(os.path.dirname(cwd)), 'r') as f:
+    with open('{}/spotify/jsondumps-full/get_user_albums.json'.format(os.path.dirname(cwd)), 'r') as f:
         data = json.loads( f.read() )
 
     sources = Album_SPT.add_sources(session, data)
