@@ -70,7 +70,7 @@ def add_hosts(session, jsondata):
 def main():
     #------- Start of Data Submitting ---------
     # Clearout all existing tables
-    #Base.metadata.drop_all(engine)
+    Host.__table__.drop(engine)
 
     # Let new Schemas take effect
     Base.metadata.create_all(bind=engine)
