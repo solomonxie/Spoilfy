@@ -6,6 +6,7 @@ from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean
 
 #-------[  Import From Other Modules   ]---------
 from common_base import Base, engine
+from common_orms import Source, Reference
 from CREATE_HOSTS import Host
 from CREATE_USERS import User
 
@@ -16,28 +17,13 @@ from CREATE_USERS import User
 # ==============================================================
 
 
-class TrackSource(Base):
-    """
-    Abstract ORM class.
-        Independent table, without any setup to relate User tables
-        Manually search by id if needed.
-    """
-    __abstract__ = True
+class Track_SPT(Source):
+    __tablename__ = 'spotify_Tracks'
 
-    id = Column('id', String, primary_key=True)
-    name = Column('name', String)
     abid = Column('album_id', String)
     atids = Column('artist_ids', String)
     disc_number = Column('disc_number', Integer)
     duration_ms = Column('duration_ms', Integer)
-
-    @classmethod
-    def add_tracks(cls, session, jsondata):
-        pass
-
-class Track_SPT(TrackSource):
-    __tablename__ = 'spotify_Tracks'
-
     markets = Column('available_markets', String)
     preview_url = Column('preview_url', String)
     popularity = Column('popularity', Integer)
@@ -82,47 +68,18 @@ class Track_SPT(TrackSource):
         return all_tracks
 
 
-class Track_MBZ(TrackSource):
+class Track_MBZ(Source):
     __tablename__ = 'musicbrainz_Tracks'
 
-class Track_FS(TrackSource):
+class Track_FS(Source):
     __tablename__ = 'filesystem_tracks'
 
 
-class TrackRef(Base):
-    """
-    :field id: Primary key only.
-    :field ref_id: Unique Reference ID, as a connector to multiple sources.
-    :field host_id: Identify the Source Provider
-    :field src_id: Source ID, to be used with host_id: track 'Hey Jude' on Spotify.
-    """
+class TrackRef(Reference):
     __tablename__ = 'ref_Tracks'
 
-    ref_id = Column('ref_id', String, nullable=False)  #>> unique reference ID
     host_id = Column('host_id', Integer, ForeignKey('hosts.id'), primary_key=True)
-    src_id = Column('src_id', String, primary_key=True, nullable=False)  #>> dynamic | not speicify FK
 
-    #def __init__(self, ref_id, host_id, src_id):
-    #    if not ref_id:
-    #        self.id = str(uuid.uuid1())
-
-
-    @staticmethod
-    def add_track_reference(session, tracks, host_id):
-        references = []
-        for t in tracks:
-            ref = TrackRef(
-                ref_id=str(uuid.uuid1()),
-                src_id=t.id,
-                host_id=host_id
-            )
-            session.merge(ref)
-            references.append(ref)
-
-        session.commit()
-        print( '[  OK  ] Inserted {} references.'.format(len(references)) )
-
-        return references
 
 
 # ==============================================================
@@ -164,7 +121,7 @@ def main():
         data = json.loads( f.read() )
 
     tracks = Track_SPT.add_tracks(session, data)
-    refs = TrackRef.add_track_reference(session, tracks, 1)
+    refs = TrackRef.add_reference(session, tracks, 1)
 
     #>> Multiple Primary Key Conflict test
     #ref7 = TrackRef(ref_id=t3.ref_id, src_id=src1_3.id, host_id=h2.id)
