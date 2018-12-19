@@ -9,6 +9,7 @@ from CREATE_HOSTS import Host
 from CREATE_USERS import User
 from CREATE_TRACKS import TrackRef, Track_SPT, Track_MBZ, Track_FS
 from CREATE_ALBUMS import AlbumRef, Album_SPT, Album_MBZ, Album_FS
+from CREATE_ARTISTS import ArtistRef, Artist_SPT, Artist_MBZ, Artist_FS
 
 
 
@@ -154,6 +155,43 @@ class UserAlbum(Base):
 
 
 
+class UserArtist(Base):
+    """ [  User's followed artists ]
+    :PKs: [ref_id, uid]
+    :field rate: Personal rating to the album
+    :field memo: Personal comments
+    :staticmethod :
+    """
+    __tablename__ = 'u_Artists'
+
+    uid = Column('uid', String,
+        ForeignKey('u_Users.uid'), primary_key=True
+    )
+    ref_id = Column('ref_id', String,
+        ForeignKey('ref_Artists.ref_id'), primary_key=True
+    )
+    memo = Column('memo', String)
+
+    @classmethod
+    def add_from_spotify(cls, session, host_id, uid, jsondata):
+        user_items = []
+        for data in jsondata['artists']['items']:
+            source = Artist_SPT.add(session, data)
+            ref = ArtistRef.add(session, host_id, source)
+            item = cls(
+                uid = uid,
+                ref_id = ref.ref_id,
+                memo = ''
+            )
+            session.merge( item )
+            user_items.append( item )
+
+        session.commit()
+        print( '[  OK  ] Inserted {} User Tracks.'.format(len(user_items)) )
+        return user_items
+
+
+
 
 
 
@@ -177,6 +215,7 @@ def main():
         UserHost.__table__.drop(engine)
         UserTrack.__table__.drop(engine)
         UserAlbum.__table__.drop(engine)
+        UserArtist.__table__.drop(engine)
     except Exception as e:
         print('Error on dropping User Tables.')
 
@@ -208,6 +247,11 @@ def main():
         os.path.dirname(cwd)), 'r') as f:
         data = json.loads( f.read() )
         UserAlbum.add_from_spotify(session, host.id, user.uid, data)
+    # Add User Artists
+    with open('{}/spotify/jsondumps-full/get_user_artists.json'.format(
+        os.path.dirname(cwd)), 'r') as f:
+        data = json.loads( f.read() )
+        UserArtist.add_from_spotify(session, host.id, user.uid, data)
     # }------- End of Data Insersions
 
     session.commit()
