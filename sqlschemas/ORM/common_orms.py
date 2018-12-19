@@ -33,16 +33,17 @@ class Source(Base):
 
 
 class Reference(Base):
-    """
-    :field id: Primary key only.
-    :field ref_id: Unique Reference ID, as a connector to multiple sources.
-    :field host_id: Identify the Source Provider
-    :field src_id: Source ID, to be used with host_id: track 'Hey Jude' on Spotify.
+    """ [ References to map sources from different providers ]
+    :primary keys: [ref_id, src_id, host_id]
+    :field ref_id: Reference ID, generated for current DB only.
+    :field src_id: Source ID, generated from Providers.
+    :foreignKey host_id: Provider ID, generated for current DB only.
     """
     __abstract__ = True
 
     ref_id = Column('ref_id', String, nullable=False)  #>> unique reference ID
     src_id = Column('src_id', String, primary_key=True, nullable=False)  #>> dynamic | not speicify FK
+
     # Problem: Foreign Key in SQLAlchemy CANNOT be inherited
     # Solution: Declare same ForeignKey in subclass again
     # See: https://sqlalchemy-html.readthedocs.io/en/rel_1_0_6/orm/inheritance.html
@@ -50,12 +51,12 @@ class Reference(Base):
 
 
     @classmethod
-    def add_reference(cls, session, sources, host_id):
+    def add_references(cls, session, host_id, sources):
         references = []
-        for s in sources:
+        for src in sources:
             ref = cls(
                 ref_id=str(uuid.uuid1()),
-                src_id=s.id,
+                src_id=src.id,
                 host_id=host_id
             )
             session.merge(ref)

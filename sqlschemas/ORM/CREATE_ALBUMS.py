@@ -67,16 +67,16 @@ class Album_SPT(Source):
 
 
 class Album_MBZ(Source):
-    __tablename__ = 'musicbrainz_Album'
+    __tablename__ = 'musicbrainz_Albums'
 
 
 class Album_FS(Source):
-    __tablename__ = 'filesystem_Album'
+    __tablename__ = 'filesystem_Albums'
 
 
 
 class AlbumRef(Reference):
-    __tablename__ = 'ref_Album'
+    __tablename__ = 'ref_Albums'
 
     host_id = Column('host_id', Integer, ForeignKey('hosts.id'), primary_key=True)
 
@@ -122,14 +122,7 @@ def main():
         data = json.loads( f.read() )
 
     sources = Album_SPT.add_sources(session, data)
-    refs = AlbumRef.add_reference(session, sources, 1)
-
-    #>> Multiple Primary Key Conflict test
-    #ref7 = TrackRef(ref_id=t3.ref_id, src_id=src1_3.id, host_id=h2.id)
-    #session.add(ref7)
-    #session.flush()  # Generate data for Dynamic fileds(primary key) to get values
-    # }------- End of Data Insersions
-
+    refs = AlbumRef.add_references(session, h1.id, sources)
 
     session.commit()
     session.close()

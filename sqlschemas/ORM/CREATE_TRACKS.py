@@ -34,7 +34,7 @@ class Track_SPT(Source):
     is_local = Column('is_local', Boolean)
 
     @classmethod
-    def add_tracks(cls, session, jsondata):
+    def add_sources(cls, session, jsondata):
         """[ Add Spotify's Tracks ]
         :param session: SQLAlchemy session object connected to DB
         :param String jsondump: JSON data in string format
@@ -120,8 +120,8 @@ def main():
     with open('{}/spotify/jsondumps-full/get_user_tracks.json'.format(os.path.dirname(cwd)), 'r') as f:
         data = json.loads( f.read() )
 
-    tracks = Track_SPT.add_tracks(session, data)
-    refs = TrackRef.add_reference(session, tracks, 1)
+    tracks = Track_SPT.add_sources(session, data)
+    refs = TrackRef.add_references(session, h1.id, tracks)
 
     #>> Multiple Primary Key Conflict test
     #ref7 = TrackRef(ref_id=t3.ref_id, src_id=src1_3.id, host_id=h2.id)
