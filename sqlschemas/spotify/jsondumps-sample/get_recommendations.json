@@ -1,0 +1,88 @@
+{
+    "tracks": [
+        {
+            "album": {
+                "album_type": "ALBUM",
+                "artists": [{"external_urls": {"spotify": "https://open.spotify.com/artist/04gDigrS5kc9YWfZHwBETP"}, "href": "https://api.spotify.com/v1/artists/04gDigrS5kc9YWfZHwBETP", "id": "04gDigrS5kc9YWfZHwBETP", "name": "Maroon 5", "type": "artist", "uri": "spotify:artist:04gDigrS5kc9YWfZHwBETP"} ],
+                "available_markets": ["AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IS", "IT", "JP", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "SE", "SG", "SK", "SV", "TR", "TW", "US", "UY"],
+                "external_urls": {"spotify": "https://open.spotify.com/album/2Auw0pTT6EcQdvHNimhLQI"},
+                "href": "https://api.spotify.com/v1/albums/2Auw0pTT6EcQdvHNimhLQI",
+                "id": "2Auw0pTT6EcQdvHNimhLQI",
+                "images": [{"height": 640, "url": "https://i.scdn.co/image/dd6d47cf97786e0117d64214ce365c6d4cbfc347", "width": 640 }, {"height": 300, "url": "https://i.scdn.co/image/5af61cc0edcfcb60b1704b723b6844ada7ec465c", "width": 300 }, {"height": 64, "url": "https://i.scdn.co/image/7d9fada23c7044da31f8f687c84292885c180488", "width": 64 } ],
+                "name": "V",
+                "type": "album",
+                "uri": "spotify:album:2Auw0pTT6EcQdvHNimhLQI"
+            },
+            "artists": [{"external_urls": {"spotify": "https://open.spotify.com/artist/04gDigrS5kc9YWfZHwBETP"}, "href": "https://api.spotify.com/v1/artists/04gDigrS5kc9YWfZHwBETP", "id": "04gDigrS5kc9YWfZHwBETP", "name": "Maroon 5", "type": "artist", "uri": "spotify:artist:04gDigrS5kc9YWfZHwBETP"} ],
+            "available_markets": ["AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HN", "HU", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "NI", "NL", "NO", "NZ", "PA", "PE", "PL", "PT", "PY", "SK", "SV", "TR", "US", "UY"],
+            "disc_number": 1,
+            "duration_ms": 194773,
+            "explicit": true,
+            "external_ids": {"isrc": "USUM71410363"},
+            "external_urls": {"spotify": "https://open.spotify.com/track/2dyyOwe0KxTZTJjjXDeLmU"},
+            "href": "https://api.spotify.com/v1/tracks/2dyyOwe0KxTZTJjjXDeLmU",
+            "id": "2dyyOwe0KxTZTJjjXDeLmU",
+            "name": "Feelings",
+            "popularity": 58,
+            "preview_url": null,
+            "track_number": 10,
+            "type": "track",
+            "uri": "spotify:track:2dyyOwe0KxTZTJjjXDeLmU"
+        },
+        {
+            "album": {
+                "album_type": "ALBUM",
+                "artists": [{"external_urls": {"spotify": "https://open.spotify.com/artist/2LFbgsbEhfilNpQYW7mied"}, "href": "https://api.spotify.com/v1/artists/2LFbgsbEhfilNpQYW7mied", "id": "2LFbgsbEhfilNpQYW7mied", "name": "Shane & Shane", "type": "artist", "uri": "spotify:artist:2LFbgsbEhfilNpQYW7mied"} ],
+                "available_markets": ["AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IS", "IT", "JP", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "SE", "SG", "SK", "SV", "TR", "TW", "US", "UY"],
+                "external_urls": {"spotify": "https://open.spotify.com/album/3UzKQzSKz9lo1rGBDm7iFv"},
+                "href": "https://api.spotify.com/v1/albums/3UzKQzSKz9lo1rGBDm7iFv",
+                "id": "3UzKQzSKz9lo1rGBDm7iFv",
+                "images": [{"height": 640, "url": "https://i.scdn.co/image/bf5d7a2b34ea300cda11f77b08f2ce4abe213c0c", "width": 640 }, {"height": 300, "url": "https://i.scdn.co/image/61b79e6742b0853d79a2347a983745c4ffb69cd5", "width": 300 }, {"height": 64, "url": "https://i.scdn.co/image/28638aaa9d97123a3e3ceb4811c8b5161461a17b", "width": 64 } ],
+                "name": "Psalms Live",
+                "type": "album",
+                "uri": "spotify:album:3UzKQzSKz9lo1rGBDm7iFv"
+            },
+            "artists": [{"external_urls": {"spotify": "https://open.spotify.com/artist/2LFbgsbEhfilNpQYW7mied"}, "href": "https://api.spotify.com/v1/artists/2LFbgsbEhfilNpQYW7mied", "id": "2LFbgsbEhfilNpQYW7mied", "name": "Shane & Shane", "type": "artist", "uri": "spotify:artist:2LFbgsbEhfilNpQYW7mied"} ],
+            "available_markets": ["AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IS", "IT", "JP", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "SE", "SG", "SK", "SV", "TR", "TW", "US", "UY"],
+            "disc_number": 1,
+            "duration_ms": 292379,
+            "explicit": false,
+            "external_ids": {"isrc": "USDHM1699911"},
+            "external_urls": {"spotify": "https://open.spotify.com/track/06JooBbucchucT6w3HaMlR"},
+            "href": "https://api.spotify.com/v1/tracks/06JooBbucchucT6w3HaMlR",
+            "id": "06JooBbucchucT6w3HaMlR",
+            "name": "O Praise the Name (Live)",
+            "popularity": 43,
+            "preview_url": "https://p.scdn.co/mp3-preview/ddaa0d16ecb7e8d20aefbdbe2462179507174b9f?cid=5696713ef1d24a008463cda4b287e933",
+            "track_number": 11,
+            "type": "track",
+            "uri": "spotify:track:06JooBbucchucT6w3HaMlR"
+        }
+    ],
+    "seeds": [
+        {
+            "initialPoolSize": 250,
+            "afterFilteringSize": 250,
+            "afterRelinkingSize": 250,
+            "id": "04gDigrS5kc9YWfZHwBETP",
+            "type": "ARTIST",
+            "href": "https://api.spotify.com/v1/artists/04gDigrS5kc9YWfZHwBETP"
+        },
+        {
+            "initialPoolSize": 250,
+            "afterFilteringSize": 250,
+            "afterRelinkingSize": 250,
+            "id": "1CbkOc0UHETlkHFIYKUbWY",
+            "type": "TRACK",
+            "href": "https://api.spotify.com/v1/tracks/1CbkOc0UHETlkHFIYKUbWY"
+        },
+        {
+            "initialPoolSize": 100,
+            "afterFilteringSize": 100,
+            "afterRelinkingSize": 100,
+            "id": "indie-pop",
+            "type": "GENRE",
+            "href": null
+        }
+    ]
+}
