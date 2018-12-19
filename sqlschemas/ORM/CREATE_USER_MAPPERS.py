@@ -35,6 +35,19 @@ class UserHost(Base):
     email = Column('email', String)
     info = Column('info', String)
 
+    @staticmethod
+    def add(session, uid, host_id):
+        user_host = UserHost(
+            uid = uid,
+            host_id = host_id
+        )
+        session.merge(user_host)
+        session.commit()
+        print( '[  OK  ] Inserted User Host: {}.'.format( host_id ) )
+
+        return user_host
+
+
 
 
 
@@ -103,6 +116,7 @@ def main():
 
     # Clearout all existing tables
     UserTrack.__table__.drop(engine)
+    UserHost.__table__.drop(engine)
 
     # Let new Schemas take effect
     Base.metadata.create_all(bind=engine)

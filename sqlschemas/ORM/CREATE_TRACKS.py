@@ -144,7 +144,10 @@ def main():
     #------- Start of Data Submitting ---------
 
     # Clearout all existing tables
-    #Base.metadata.drop_all(engine)
+    TrackRef.__table__.drop(engine)
+    Track_SPT.__table__.drop(engine)
+    Track_MBZ.__table__.drop(engine)
+    Track_FS.__table__.drop(engine)
 
     # Let new Schemas take effect
     Base.metadata.create_all(bind=engine)
