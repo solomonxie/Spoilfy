@@ -7,7 +7,7 @@ from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean
 from common_base import Base, engine
 from CREATE_HOSTS import Host
 from CREATE_USERS import User
-from CREATE_TRACKS import TrackRef, TrackSource, Track_SPT, Track_MBZ
+from CREATE_TRACKS import TrackRef, Track_SPT, Track_MBZ
 
 
 
@@ -28,7 +28,7 @@ class UserHost(Base):
     host_id = Column('host_id', String,
         ForeignKey('hosts.id'), primary_key=True
     )
-    uid_on_host = Column('uid_on_host', Integer)
+    user_id = Column('user_id', Integer, ForeignKey('u_Users.user_id'))
     auth = Column('auth', String)
     name = Column('name', String)
     nickname = Column('nickname', String)
@@ -73,9 +73,9 @@ class UserTrack(Base):
     @staticmethod
     def add_from_spotify(session, uid, jsondata):
         # Add tracks to database
-        tracks = Track_SPT.add_tracks(session, jsondata)
+        tracks = Track_SPT.add_sources(session, jsondata)
         # Add track references
-        refs = TrackRef.add_track_reference(session, tracks, uid)
+        refs = TrackRef.add_references(session, uid, tracks)
         # Add User Tracks
         user_tracks = []
         for ref in refs:
