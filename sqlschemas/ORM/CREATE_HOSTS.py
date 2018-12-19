@@ -33,32 +33,33 @@ class Host(Base):
     tbname_playlist = Column('tbname_playlist', String)
 
 
+    @staticmethod
+    def add(session, jsondata):
+        all_hosts = []
+        for h in jsondata['hosts']:
+            host = Host(
+                name=h['name'],
+                host_type=h['type'],
+                uri=h['uri'],
+                info=h['info'],
+                tbname_track=h['tbname_track'],
+                tbname_album=h['tbname_album'],
+                tbname_artist=h['tbname_artist'],
+                tbname_playlist=h['tbname_playlist']
+            )
+            session.merge(host)
+            all_hosts.append(host)
+
+        session.commit()
+        print( '[  OK  ] Inserted {} hosts.'.format(len(all_hosts)) )
+
+        return all_hosts
+
 
 # ==============================================================
 # >>>>>>>>>>>>>>>>>>>[    METHODS     ] >>>>>>>>>>>>>>>>>>>>>>>>
 # ==============================================================
 
-
-def add_hosts(session, jsondata):
-    all_hosts = []
-    for h in jsondata['hosts']:
-        host = Host(
-            name=h['name'],
-            host_type=h['type'],
-            uri=h['uri'],
-            info=h['info'],
-            tbname_track=h['tbname_track'],
-            tbname_album=h['tbname_album'],
-            tbname_artist=h['tbname_artist'],
-            tbname_playlist=h['tbname_playlist']
-        )
-        session.merge(host)
-        all_hosts.append(host)
-
-    session.commit()
-    print( '[  OK  ] Inserted {} hosts.'.format(len(all_hosts)) )
-
-    return all_hosts
 
 
 
@@ -82,7 +83,7 @@ def main():
     cwd = os.path.split(os.path.realpath(__file__))[0]
     with open('{}/hosts.json'.format(os.path.dirname(cwd)), 'r') as f:
         data = json.loads( f.read() )
-        add_hosts(session, data)
+        Host.add(session, data)
 
     # Start of Data Insersions --------{
     #h1 = Host(name='Spotify',
