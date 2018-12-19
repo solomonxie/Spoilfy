@@ -2,6 +2,244 @@
     "href": "https://api.spotify.com/v1/me/tracks?offset=0&limit=20",
     "items": [
         {
+            "added_at": "2018-12-18T11:51:11Z",
+            "track": {
+                "album": {
+                    "album_type": "album",
+                    "artists": [
+                        {
+                            "external_urls": {
+                                "spotify": "https://open.spotify.com/artist/05MlomiA9La0OiNIAGqECk"
+                            },
+                            "href": "https://api.spotify.com/v1/artists/05MlomiA9La0OiNIAGqECk",
+                            "id": "05MlomiA9La0OiNIAGqECk",
+                            "name": "Delta Sleep",
+                            "type": "artist",
+                            "uri": "spotify:artist:05MlomiA9La0OiNIAGqECk"
+                        }
+                    ],
+                    "available_markets": [
+                        "AD",
+                        "AE",
+                        "AR",
+                        "AT",
+                        "AU",
+                        "BE",
+                        "BG",
+                        "BH",
+                        "BO",
+                        "BR",
+                        "CA",
+                        "CH",
+                        "CL",
+                        "CO",
+                        "CR",
+                        "CY",
+                        "CZ",
+                        "DE",
+                        "DK",
+                        "DO",
+                        "DZ",
+                        "EC",
+                        "EE",
+                        "EG",
+                        "ES",
+                        "FI",
+                        "FR",
+                        "GB",
+                        "GR",
+                        "GT",
+                        "HK",
+                        "HN",
+                        "HU",
+                        "ID",
+                        "IE",
+                        "IL",
+                        "IS",
+                        "IT",
+                        "JO",
+                        "JP",
+                        "KW",
+                        "LB",
+                        "LI",
+                        "LT",
+                        "LU",
+                        "LV",
+                        "MA",
+                        "MC",
+                        "MT",
+                        "MX",
+                        "MY",
+                        "NI",
+                        "NL",
+                        "NO",
+                        "NZ",
+                        "OM",
+                        "PA",
+                        "PE",
+                        "PH",
+                        "PL",
+                        "PS",
+                        "PT",
+                        "PY",
+                        "QA",
+                        "RO",
+                        "SA",
+                        "SE",
+                        "SG",
+                        "SK",
+                        "SV",
+                        "TH",
+                        "TN",
+                        "TR",
+                        "TW",
+                        "US",
+                        "UY",
+                        "VN",
+                        "ZA"
+                    ],
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/album/4VsIC2EXBQWIs3jfc2va1f"
+                    },
+                    "href": "https://api.spotify.com/v1/albums/4VsIC2EXBQWIs3jfc2va1f",
+                    "id": "4VsIC2EXBQWIs3jfc2va1f",
+                    "images": [
+                        {
+                            "height": 640,
+                            "url": "https://i.scdn.co/image/be2d40fad4e9edcd58b5f0821e03c0cb2af8859e",
+                            "width": 640
+                        },
+                        {
+                            "height": 300,
+                            "url": "https://i.scdn.co/image/3caa5c33cda839279ff6a8df3d0a2bed0f1511b9",
+                            "width": 300
+                        },
+                        {
+                            "height": 64,
+                            "url": "https://i.scdn.co/image/805994b9fedf2a1cc870e3e737f25dc436e66022",
+                            "width": 64
+                        }
+                    ],
+                    "name": "Management",
+                    "release_date": "2013-04-01",
+                    "release_date_precision": "day",
+                    "total_tracks": 7,
+                    "type": "album",
+                    "uri": "spotify:album:4VsIC2EXBQWIs3jfc2va1f"
+                },
+                "artists": [
+                    {
+                        "external_urls": {
+                            "spotify": "https://open.spotify.com/artist/05MlomiA9La0OiNIAGqECk"
+                        },
+                        "href": "https://api.spotify.com/v1/artists/05MlomiA9La0OiNIAGqECk",
+                        "id": "05MlomiA9La0OiNIAGqECk",
+                        "name": "Delta Sleep",
+                        "type": "artist",
+                        "uri": "spotify:artist:05MlomiA9La0OiNIAGqECk"
+                    }
+                ],
+                "available_markets": [
+                    "AD",
+                    "AE",
+                    "AR",
+                    "AT",
+                    "AU",
+                    "BE",
+                    "BG",
+                    "BH",
+                    "BO",
+                    "BR",
+                    "CA",
+                    "CH",
+                    "CL",
+                    "CO",
+                    "CR",
+                    "CY",
+                    "CZ",
+                    "DE",
+                    "DK",
+                    "DO",
+                    "DZ",
+                    "EC",
+                    "EE",
+                    "EG",
+                    "ES",
+                    "FI",
+                    "FR",
+                    "GB",
+                    "GR",
+                    "GT",
+                    "HK",
+                    "HN",
+                    "HU",
+                    "ID",
+                    "IE",
+                    "IL",
+                    "IS",
+                    "IT",
+                    "JO",
+                    "JP",
+                    "KW",
+                    "LB",
+                    "LI",
+                    "LT",
+                    "LU",
+                    "LV",
+                    "MA",
+                    "MC",
+                    "MT",
+                    "MX",
+                    "MY",
+                    "NI",
+                    "NL",
+                    "NO",
+                    "NZ",
+                    "OM",
+                    "PA",
+                    "PE",
+                    "PH",
+                    "PL",
+                    "PS",
+                    "PT",
+                    "PY",
+                    "QA",
+                    "RO",
+                    "SA",
+                    "SE",
+                    "SG",
+                    "SK",
+                    "SV",
+                    "TH",
+                    "TN",
+                    "TR",
+                    "TW",
+                    "US",
+                    "UY",
+                    "VN",
+                    "ZA"
+                ],
+                "disc_number": 1,
+                "duration_ms": 225253,
+                "explicit": false,
+                "external_ids": {
+                    "isrc": "QM7281646451"
+                },
+                "external_urls": {
+                    "spotify": "https://open.spotify.com/track/1WvIkhx5AxsA4N9TgkYSQG"
+                },
+                "href": "https://api.spotify.com/v1/tracks/1WvIkhx5AxsA4N9TgkYSQG",
+                "id": "1WvIkhx5AxsA4N9TgkYSQG",
+                "is_local": false,
+                "name": "Jesus Bill!",
+                "popularity": 27,
+                "preview_url": "https://p.scdn.co/mp3-preview/bdad35f5eda187b44bae4ed0b6e8bf2f2884a78e?cid=5696713ef1d24a008463cda4b287e933",
+                "track_number": 3,
+                "type": "track",
+                "uri": "spotify:track:1WvIkhx5AxsA4N9TgkYSQG"
+            }
+        },
+        {
             "added_at": "2018-12-05T00:21:38Z",
             "track": {
                 "album": {
@@ -2626,91 +2864,11 @@
                 "type": "track",
                 "uri": "spotify:track:2fVYLBFbPaDcnMeRSWi6xr"
             }
-        },
-        {
-            "added_at": "2018-10-17T16:05:58Z",
-            "track": {
-                "album": {
-                    "album_type": "single",
-                    "artists": [
-                        {
-                            "external_urls": {
-                                "spotify": "https://open.spotify.com/artist/3B9O5mYYw89fFXkwKh7jCS"
-                            },
-                            "href": "https://api.spotify.com/v1/artists/3B9O5mYYw89fFXkwKh7jCS",
-                            "id": "3B9O5mYYw89fFXkwKh7jCS",
-                            "name": "TK from Ling tosite sigure",
-                            "type": "artist",
-                            "uri": "spotify:artist:3B9O5mYYw89fFXkwKh7jCS"
-                        }
-                    ],
-                    "available_markets": [],
-                    "external_urls": {
-                        "spotify": "https://open.spotify.com/album/2FwvvhFTlqMGuPzYbkpqUl"
-                    },
-                    "href": "https://api.spotify.com/v1/albums/2FwvvhFTlqMGuPzYbkpqUl",
-                    "id": "2FwvvhFTlqMGuPzYbkpqUl",
-                    "images": [
-                        {
-                            "height": 640,
-                            "url": "https://i.scdn.co/image/e42278166574a01abb6efcd678853272441d7659",
-                            "width": 640
-                        },
-                        {
-                            "height": 300,
-                            "url": "https://i.scdn.co/image/7fb29ac7cba181ea2edc30c407604aafc9bca60a",
-                            "width": 300
-                        },
-                        {
-                            "height": 64,
-                            "url": "https://i.scdn.co/image/938a28164bef4e32df0354191a029d34739b348a",
-                            "width": 64
-                        }
-                    ],
-                    "name": "unravel (acoustic version)",
-                    "release_date": "2015-05-20",
-                    "release_date_precision": "day",
-                    "total_tracks": 1,
-                    "type": "album",
-                    "uri": "spotify:album:2FwvvhFTlqMGuPzYbkpqUl"
-                },
-                "artists": [
-                    {
-                        "external_urls": {
-                            "spotify": "https://open.spotify.com/artist/3B9O5mYYw89fFXkwKh7jCS"
-                        },
-                        "href": "https://api.spotify.com/v1/artists/3B9O5mYYw89fFXkwKh7jCS",
-                        "id": "3B9O5mYYw89fFXkwKh7jCS",
-                        "name": "TK from Ling tosite sigure",
-                        "type": "artist",
-                        "uri": "spotify:artist:3B9O5mYYw89fFXkwKh7jCS"
-                    }
-                ],
-                "available_markets": [],
-                "disc_number": 1,
-                "duration_ms": 228834,
-                "explicit": false,
-                "external_ids": {
-                    "isrc": "JPU901501444"
-                },
-                "external_urls": {
-                    "spotify": "https://open.spotify.com/track/73QouIkXlMgfqx3Phjg2JX"
-                },
-                "href": "https://api.spotify.com/v1/tracks/73QouIkXlMgfqx3Phjg2JX",
-                "id": "73QouIkXlMgfqx3Phjg2JX",
-                "is_local": false,
-                "name": "unravel (acoustic version)",
-                "popularity": 27,
-                "preview_url": null,
-                "track_number": 1,
-                "type": "track",
-                "uri": "spotify:track:73QouIkXlMgfqx3Phjg2JX"
-            }
         }
     ],
     "limit": 20,
     "next": "https://api.spotify.com/v1/me/tracks?offset=20&limit=20",
     "offset": 0,
     "previous": null,
-    "total": 793
+    "total": 794
 }
