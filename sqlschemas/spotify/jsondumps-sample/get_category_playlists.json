@@ -1,0 +1,42 @@
+{
+    "playlists": {
+        "href": "https://api.spotify.com/v1/browse/categories/hiphop/playlists?offset=0&limit=20",
+        "items": [
+            {
+                "collaborative": false,
+                "external_urls": {"spotify": "https://open.spotify.com/playlist/37i9dQZF1DX0sDai2F5jCQ"},
+                "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DX0sDai2F5jCQ",
+                "id": "37i9dQZF1DX0sDai2F5jCQ",
+                "images": [{"height": null, "url": "https://pl.scdn.co/images/pl/default/e4e1ae5e062e6504bc0ee63f7de08029476c7fa6", "width": null } ],
+                "name": "A1 Hip-Hop",
+                "owner": {"display_name": "Spotify", "external_urls": {"spotify": "https://open.spotify.com/user/spotify"}, "href": "https://api.spotify.com/v1/users/spotify", "id": "spotify", "type": "user", "uri": "spotify:user:spotify"},
+                "primary_color": null,
+                "public": null,
+                "snapshot_id": "MTU0NTE3MjU3MSwwMDAwMDE1ZTAwMDAwMTY3YzM3NjU0ZjYwMDAwMDE2NzlhMGIxYjUy",
+                "tracks": {"href": "https://api.spotify.com/v1/playlists/37i9dQZF1DX0sDai2F5jCQ/tracks", "total": 50 },
+                "type": "playlist",
+                "uri": "spotify:user:spotify:playlist:37i9dQZF1DX0sDai2F5jCQ"
+            },
+            {
+                "collaborative": false,
+                "external_urls": {"spotify": "https://open.spotify.com/playlist/37i9dQZF1DXaGiDMXvAZBO"},
+                "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DXaGiDMXvAZBO",
+                "id": "37i9dQZF1DXaGiDMXvAZBO",
+                "images": [{"height": null, "url": "https://pl.scdn.co/images/pl/default/8a8f619fdd92cffd47bfd0ec7ce6436e1557cc85", "width": null } ],
+                "name": "Beats n' Bars",
+                "owner": {"display_name": "Spotify", "external_urls": {"spotify": "https://open.spotify.com/user/spotify"}, "href": "https://api.spotify.com/v1/users/spotify", "id": "spotify", "type": "user", "uri": "spotify:user:spotify"},
+                "primary_color": null,
+                "public": null,
+                "snapshot_id": "MTU0NTAxNTA5NSwwMDAwMDBhZDAwMDAwMTY3YmExMzZmYzEwMDAwMDE2N2E0ZGYxYzc2",
+                "tracks": {"href": "https://api.spotify.com/v1/playlists/37i9dQZF1DXaGiDMXvAZBO/tracks", "total": 50 },
+                "type": "playlist",
+                "uri": "spotify:user:spotify:playlist:37i9dQZF1DXaGiDMXvAZBO"
+            }
+        ],
+        "limit": 20,
+        "next": "https://api.spotify.com/v1/browse/categories/hiphop/playlists?offset=20&limit=20",
+        "offset": 0,
+        "previous": null,
+        "total": 40
+    }
+}

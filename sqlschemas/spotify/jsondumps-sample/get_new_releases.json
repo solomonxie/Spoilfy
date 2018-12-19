@@ -1,0 +1,42 @@
+{
+    "albums": {
+        "href": "https://api.spotify.com/v1/browse/new-releases?offset=0&limit=20",
+        "items": [
+            {
+                "album_type": "album",
+                "artists": [{"external_urls": {"spotify": "https://open.spotify.com/artist/0LyfQWJT6nXafLPZqxe9Of"}, "href": "https://api.spotify.com/v1/artists/0LyfQWJT6nXafLPZqxe9Of", "id": "0LyfQWJT6nXafLPZqxe9Of", "name": "Various Artists", "type": "artist", "uri": "spotify:artist:0LyfQWJT6nXafLPZqxe9Of"} ],
+                "available_markets": ["AD", "AE", "AR", "AT", "AU", "BE", "BG", "BH", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "DZ", "EC", "EE", "EG", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IL", "IS", "IT", "JO", "JP", "KW", "LB", "LI", "LT", "LU", "LV", "MA", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "OM", "PA", "PE", "PH", "PL", "PS", "PT", "PY", "QA", "RO", "SA", "SE", "SG", "SK", "SV", "TH", "TN", "TR", "TW", "US", "UY", "VN", "ZA"],
+                "external_urls": {"spotify": "https://open.spotify.com/album/35s58BRTGAEWztPo9WqCIs"},
+                "href": "https://api.spotify.com/v1/albums/35s58BRTGAEWztPo9WqCIs",
+                "id": "35s58BRTGAEWztPo9WqCIs",
+                "images": [{"height": 640, "url": "https://i.scdn.co/image/3aa37254a41cf96e81572524ec523cb870f2bb89", "width": 640 }, {"height": 300, "url": "https://i.scdn.co/image/c30bfc4adfa8924e87f3dff571d0d8c6f032fa0a", "width": 300 }, {"height": 64, "url": "https://i.scdn.co/image/923b854eefa3fe67c5089c45fb9efea4fbc5c7af", "width": 64 } ],
+                "name": "Spider-Man: Into the Spider-Verse (Soundtrack From & Inspired by the Motion Picture)",
+                "release_date": "2018-12-14",
+                "release_date_precision": "day",
+                "total_tracks": 13,
+                "type": "album",
+                "uri": "spotify:album:35s58BRTGAEWztPo9WqCIs"
+            },
+            {
+                "album_type": "single",
+                "artists": [{"external_urls": {"spotify": "https://open.spotify.com/artist/66CXWjxzNUsdJxJ2JdwvnR"}, "href": "https://api.spotify.com/v1/artists/66CXWjxzNUsdJxJ2JdwvnR", "id": "66CXWjxzNUsdJxJ2JdwvnR", "name": "Ariana Grande", "type": "artist", "uri": "spotify:artist:66CXWjxzNUsdJxJ2JdwvnR"} ],
+                "available_markets": ["AD", "AE", "AR", "AT", "AU", "BE", "BG", "BH", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "DZ", "EC", "EE", "EG", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IL", "IS", "IT", "JO", "JP", "KW", "LB", "LI", "LT", "LU", "LV", "MA", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "OM", "PA", "PE", "PH", "PL", "PS", "PT", "PY", "QA", "RO", "SA", "SE", "SG", "SK", "SV", "TH", "TN", "TR", "TW", "US", "UY", "VN", "ZA"],
+                "external_urls": {"spotify": "https://open.spotify.com/album/61c5zqfBCSPO1tb3DFbbFB"},
+                "href": "https://api.spotify.com/v1/albums/61c5zqfBCSPO1tb3DFbbFB",
+                "id": "61c5zqfBCSPO1tb3DFbbFB",
+                "images": [{"height": 640, "url": "https://i.scdn.co/image/54e0a51655d5fe48e300cf47e3db0e9f35425428", "width": 640 }, {"height": 300, "url": "https://i.scdn.co/image/eee5efda874a69c7a4cddf20729a9dac63e2a8bf", "width": 300 }, {"height": 64, "url": "https://i.scdn.co/image/3631be2737acf8226aaf12dadb10a8f8b58e17f7", "width": 64 } ],
+                "name": "imagine",
+                "release_date": "2018-12-14",
+                "release_date_precision": "day",
+                "total_tracks": 1,
+                "type": "album",
+                "uri": "spotify:album:61c5zqfBCSPO1tb3DFbbFB"
+            }   "uri": "spotify:album:2jQnABIQBCnqYnfjdhNb2q"
+        ],
+        "limit": 20,
+        "next": "https://api.spotify.com/v1/browse/new-releases?offset=20&limit=20",
+        "offset": 0,
+        "previous": null,
+        "total": 500
+    }
+}

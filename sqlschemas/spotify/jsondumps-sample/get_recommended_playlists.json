@@ -1,0 +1,43 @@
+{
+    "message": "Editor's picks",
+    "playlists": {
+        "href": "https://api.spotify.com/v1/browse/featured-playlists?timestamp=2018-12-19T07%3A46%3A16&offset=0&limit=20",
+        "items": [
+            {
+                "collaborative": false,
+                "external_urls": {"spotify": "https://open.spotify.com/playlist/37i9dQZF1DXb7KOnsvmh8V"},
+                "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DXb7KOnsvmh8V",
+                "id": "37i9dQZF1DXb7KOnsvmh8V",
+                "images": [{"height": null, "url": "https://pl.scdn.co/images/pl/default/9178ddc3bb8b9b35c3fcb388396c5efde91a49e4", "width": null } ],
+                "name": "Christmas Coffeehouse",
+                "owner": {"display_name": "Spotify", "external_urls": {"spotify": "https://open.spotify.com/user/spotify"}, "href": "https://api.spotify.com/v1/users/spotify", "id": "spotify", "type": "user", "uri": "spotify:user:spotify"},
+                "primary_color": null,
+                "public": null,
+                "snapshot_id": "MTU0NTE1ODk4NiwwMDAwMDAyMDAwMDAwMTY3YzJhNzBiZDQwMDAwMDE2NzE0NWM5NmNl",
+                "tracks": {"href": "https://api.spotify.com/v1/playlists/37i9dQZF1DXb7KOnsvmh8V/tracks", "total": 50 },
+                "type": "playlist",
+                "uri": "spotify:user:spotify:playlist:37i9dQZF1DXb7KOnsvmh8V"
+            },
+            {
+                "collaborative": false,
+                "external_urls": {"spotify": "https://open.spotify.com/playlist/37i9dQZF1DWSXBu5naYCM9"},
+                "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DWSXBu5naYCM9",
+                "id": "37i9dQZF1DWSXBu5naYCM9",
+                "images": [{"height": null, "url": "https://pl.scdn.co/images/pl/default/6454993b76a659c3658f8f1741e2b5a9d332225f", "width": null } ],
+                "name": "A Perfect Day",
+                "owner": {"display_name": "Spotify", "external_urls": {"spotify": "https://open.spotify.com/user/spotify"}, "href": "https://api.spotify.com/v1/users/spotify", "id": "spotify", "type": "user", "uri": "spotify:user:spotify"},
+                "primary_color": null,
+                "public": null,
+                "snapshot_id": "MTU0NDYxMzI2MCwwMDAwMDA1ZjAwMDAwMTY3YTIxZmVkNWMwMDAwMDE2NjMwMDJlYmNl",
+                "tracks": {"href": "https://api.spotify.com/v1/playlists/37i9dQZF1DWSXBu5naYCM9/tracks", "total": 80 },
+                "type": "playlist",
+                "uri": "spotify:user:spotify:playlist:37i9dQZF1DWSXBu5naYCM9"
+            }
+        ],
+        "limit": 20,
+        "next": null,
+        "offset": 0,
+        "previous": null,
+        "total": 17
+    }
+}
