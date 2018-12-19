@@ -36,25 +36,33 @@ class Artist_SPT(Source):
         :param String jsondump: JSON data in string format
         :return: Class instances of track resources
         """
-        all_artists = []
-        for i,d in enumerate(jsondata['artists']['items']):
-            src = cls(
-                id = d['id'],
-                name = d['name'],
-                genres = str(d['genres']),
-                followers = d['followers']['total'],
-                popularity = d['popularity'],
-                uri = d['uri'],
-                href = d['href'],
-                external_urls = str(d['external_urls'])
-            )
-            session.merge(src)
-            all_artists.append(src)
+        all_sources = []
+        for data in jsondata['artists']['items']:
+            item = cls.add(session, data)
+            all_sources.append( item )
 
         session.commit()
-        print( '[  OK  ] Inserted {} Artists.'.format(len(all_artists )) )
+        print( '[  OK  ] Inserted {} tracks.'.format(len(all_sources)) )
 
-        return all_artists 
+        return all_sources
+
+
+    @classmethod
+    def add(cls, session, jsondata):
+        d = jsondata
+        item = cls(
+            id = d['id'],
+            name = d['name'],
+            genres = str(d['genres']),
+            followers = d['followers']['total'],
+            popularity = d['popularity'],
+            uri = d['uri'],
+            href = d['href'],
+            external_urls = str(d['external_urls'])
+        )
+        session.merge( item )   #Merge existing data
+        #session.commit()
+        return item
 
 
 class Artist_MBZ(Source):
