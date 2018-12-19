@@ -131,10 +131,14 @@ def main():
     with open('{}/spotify/jsondumps-full/get_user_tracks.json'.format(os.path.dirname(cwd)), 'r') as f:
         data = json.loads( f.read() )
 
-    # Get user
+    # Get a user
     user = session.query(User).first()
+    # Get a host
+    host = session.query(Host).first()
+    # Add User Hosts
+    UserHost.add(session, user.uid, host.id)
     # Add User Tracks
-    tracks = UserTrack.add_from_spotify(session, user.uid, data)
+    UserTrack.add_from_spotify(session, user.uid, data)
     # }------- End of Data Insersions
 
     session.commit()
