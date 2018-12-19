@@ -1,4 +1,5 @@
 import uuid
+from datetime import datetime
 
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean, Sequence
@@ -17,68 +18,68 @@ from CREATE_USERS import User
 # ==============================================================
 
 
-class Track_SPT(Source):
-    __tablename__ = 'spotify_Tracks'
 
-    abid = Column('album_id', String)
+class Album_SPT(Source):
+    __tablename__ = 'spotify_Albums'
+
     atids = Column('artist_ids', String)
-    disc_number = Column('disc_number', Integer)
-    duration_ms = Column('duration_ms', Integer)
+    album_type = Column('album_type', String)
+    album_group = Column('album_group', String)
+    release_date = Column('release_date', String)
+    total_tracks = Column('total_tracks', Integer)
+    release_date_precision = Column('release_date_precision', String)
     markets = Column('available_markets', String)
-    preview_url = Column('preview_url', String)
-    popularity = Column('popularity', Integer)
-    explicit = Column('explicit', Boolean)
-    uri = Column('uri', String)
     href = Column('href', String)
     external_urls = Column('external_urls', String)
-    is_local = Column('is_local', Boolean)
+    uri = Column('uri', String)
 
     @classmethod
-    def add_tracks(cls, session, jsondata):
-        """[ Add Spotify's Tracks ]
+    def add_sources(cls, session, jsondata):
+        """[ Add Spotify's Albums ]
         :param session: SQLAlchemy session object connected to DB
         :param String jsondump: JSON data in string format
         :return: Class instances of track resources
         """
-        all_tracks = []
-        for i,data in enumerate(jsondata['items']):
-            t = data['track']
-            track= Track_SPT(
-                id = t['id'],
-                name = t['name'],
-                abid = t['album']['id'],
-                atids = ','.join([ a['id'] for a in t['artists'] ]),
-                disc_number = t['disc_number'],
-                duration_ms = t['duration_ms'],
-                markets = ','.join([ m for m in t['available_markets'] ]),
-                preview_url = t['preview_url'],
-                popularity = t['popularity'],
-                explicit = t['explicit'],
-                uri = t['uri'],
-                href = t['href'],
-                external_urls = t['external_urls']['spotify'],
-                is_local = t['is_local']
+        all_albums = []
+        for i,d in enumerate(jsondata['items']):
+            src = cls(
+                id = d['id'],
+                name = d['name'],
+                album_type = d['album_type'],
+                album_group = d['album_group'],
+                atids = ','.join([ a['id'] for a in d['artists'] ]),
+                release_date = d['release_date'],
+                #release_date = datetime.strptime(d['release_date'], '%Y-%m-%d'),
+                release_date_precision = d['release_date_precision'],
+                total_tracks = d['total_tracks'],
+                markets = ','.join([ m for m in d['available_markets'] ]),
+                uri = d['uri'],
+                href = d['href'],
+                external_urls = d['external_urls']['spotify']
             )
-            session.merge(track)   #Merge existing data
-            all_tracks.append(track)
+            session.merge(src)
+            all_albums.append(src)
 
         session.commit()
-        print( '[  OK  ] Inserted {} tracks.'.format(len(all_tracks)) )
+        print( '[  OK  ] Inserted {} Albums.'.format(len(all_albums)) )
 
-        return all_tracks
-
-
-class Track_MBZ(Source):
-    __tablename__ = 'musicbrainz_Tracks'
-
-class Track_FS(Source):
-    __tablename__ = 'filesystem_tracks'
+        return all_albums
 
 
-class TrackRef(Reference):
-    __tablename__ = 'ref_Tracks'
+class Album_MBZ(Source):
+    __tablename__ = 'musicbrainz_Album'
+
+
+class Album_FS(Source):
+    __tablename__ = 'filesystem_Album'
+
+
+
+class AlbumRef(Reference):
+    __tablename__ = 'ref_Album'
 
     host_id = Column('host_id', Integer, ForeignKey('hosts.id'), primary_key=True)
+
 
 
 
@@ -101,10 +102,10 @@ def main():
     #------- Start of Data Submitting ---------
 
     # Clearout all existing tables
-    TrackRef.__table__.drop(engine)
-    Track_SPT.__table__.drop(engine)
-    Track_MBZ.__table__.drop(engine)
-    Track_FS.__table__.drop(engine)
+    AlbumRef.__table__.drop(engine)
+    Album_SPT.__table__.drop(engine)
+    Album_MBZ.__table__.drop(engine)
+    Album_FS.__table__.drop(engine)
 
     # Let new Schemas take effect
     Base.metadata.create_all(bind=engine)
@@ -117,11 +118,11 @@ def main():
     # Start of Data Insersions --------{
     import os, json
     cwd = os.path.split(os.path.realpath(__file__))[0]
-    with open('{}/spotify/jsondumps-full/get_user_tracks.json'.format(os.path.dirname(cwd)), 'r') as f:
+    with open('{}/spotify/jsondumps-full/get_artist_albums.json'.format(os.path.dirname(cwd)), 'r') as f:
         data = json.loads( f.read() )
 
-    tracks = Track_SPT.add_tracks(session, data)
-    refs = TrackRef.add_reference(session, tracks, 1)
+    sources = Album_SPT.add_sources(session, data)
+    refs = AlbumRef.add_reference(session, sources, 1)
 
     #>> Multiple Primary Key Conflict test
     #ref7 = TrackRef(ref_id=t3.ref_id, src_id=src1_3.id, host_id=h2.id)
@@ -136,6 +137,7 @@ def main():
 
 
 if __name__ == '__main__':
+    pass
     main()
 
 
