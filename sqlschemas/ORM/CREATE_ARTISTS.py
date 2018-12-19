@@ -22,11 +22,12 @@ from CREATE_USERS import User
 class Artist_SPT(Source):
     __tablename__ = 'spotify_Artists'
 
-    atids = Column('artist_ids', String)
-    markets = Column('available_markets', String)
+    genres = Column('genres', String)
+    followers = Column('followers', Integer)
+    popularity = Column('popularity', Integer)
+    uri = Column('uri', String)
     href = Column('href', String)
     external_urls = Column('external_urls', String)
-    uri = Column('uri', String)
 
     @classmethod
     def add_sources(cls, session, jsondata):
@@ -36,17 +37,19 @@ class Artist_SPT(Source):
         :return: Class instances of track resources
         """
         all_artists = []
-        for i,d in enumerate(jsondata['items']):
+        for i,d in enumerate(jsondata['artists']['items']):
             src = cls(
                 id = d['id'],
                 name = d['name'],
-                markets = ','.join([ m for m in d['available_markets'] ]),
+                genres = str(d['genres']),
+                followers = d['followers']['total'],
+                popularity = d['popularity'],
                 uri = d['uri'],
                 href = d['href'],
-                external_urls = d['external_urls']['spotify']
+                external_urls = str(d['external_urls'])
             )
             session.merge(src)
-            all_albums.append(src)
+            all_artists.append(src)
 
         session.commit()
         print( '[  OK  ] Inserted {} Artists.'.format(len(all_artists )) )
@@ -90,10 +93,10 @@ def main():
     #------- Start of Data Submitting ---------
 
     # Clearout all existing tables
-    ArtistRef.__table__.drop(engine)
-    Artist_SPT.__table__.drop(engine)
-    Artist_MBZ.__table__.drop(engine)
-    Artist_FS.__table__.drop(engine)
+    #ArtistRef.__table__.drop(engine)
+    #Artist_SPT.__table__.drop(engine)
+    #Artist_MBZ.__table__.drop(engine)
+    #Artist_FS.__table__.drop(engine)
 
     # Let new Schemas take effect
     Base.metadata.create_all(bind=engine)
@@ -106,8 +109,10 @@ def main():
     # Start of Data Insersions --------{
     import os, json
     cwd = os.path.split(os.path.realpath(__file__))[0]
-    with open('{}/spotify/jsondumps-full/get_artist_related_artists.json'.format(os.path.dirname(cwd)), 'r') as f:
+    with open('{}/spotify/jsondumps-full/get_user_artists.json'.format(os.path.dirname(cwd)), 'r') as f:
         data = json.loads( f.read() )
+
+    next_url = data['artists']['next']
 
     sources = Artist_SPT.add_sources(session, data)
     refs = ArtistRef.add_references(session, h1.id, sources)
