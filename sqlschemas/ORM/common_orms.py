@@ -54,16 +54,22 @@ class Reference(Base):
     def add_references(cls, session, host_id, sources):
         references = []
         for src in sources:
-            ref = cls(
-                ref_id=str(uuid.uuid1()),
-                src_id=src.id,
-                host_id=host_id
-            )
-            session.merge(ref)
+            ref = cls.add(session, host_id, src)
             references.append(ref)
 
         session.commit()
         print( '[  OK  ] Inserted {} references.'.format(len(references)) )
 
         return references
+    
+    @classmethod
+    def add(cls, session, host_id, source):
+        ref = cls(
+            ref_id=str(uuid.uuid1()),
+            src_id=source.id,
+            host_id=host_id
+        )
+        session.merge(ref)
+        #session.commit()
+        return ref
 
