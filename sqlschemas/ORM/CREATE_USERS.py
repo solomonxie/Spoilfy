@@ -72,7 +72,10 @@ def main():
     #------- Start of Data Submitting ---------
 
     # Clearout all existing tables
-    User.__table__.drop(engine)
+    try:
+        User.__table__.drop(engine)
+    except Exception as e:
+        print('Error on dropping User table.')
 
     # Let new Schemas take effect
     Base.metadata.create_all(bind=engine)

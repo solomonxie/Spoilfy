@@ -40,32 +40,38 @@ class Track_SPT(Source):
         :param String jsondump: JSON data in string format
         :return: Class instances of track resources
         """
-        all_tracks = []
-        for i,data in enumerate(jsondata['items']):
-            t = data['track']
-            track= Track_SPT(
-                id = t['id'],
-                name = t['name'],
-                abid = t['album']['id'],
-                atids = ','.join([ a['id'] for a in t['artists'] ]),
-                disc_number = t['disc_number'],
-                duration_ms = t['duration_ms'],
-                markets = ','.join([ m for m in t['available_markets'] ]),
-                preview_url = t['preview_url'],
-                popularity = t['popularity'],
-                explicit = t['explicit'],
-                uri = t['uri'],
-                href = t['href'],
-                external_urls = t['external_urls']['spotify'],
-                is_local = t['is_local']
-            )
-            session.merge(track)   #Merge existing data
-            all_tracks.append(track)
+        all_sources = []
+        for data in jsondata['items']:
+            item = cls.add(session, data)
+            all_sources.append( item )
 
         session.commit()
-        print( '[  OK  ] Inserted {} tracks.'.format(len(all_tracks)) )
+        print( '[  OK  ] Inserted {} tracks.'.format(len(all_sources)) )
 
-        return all_tracks
+        return all_sources
+    
+    @classmethod
+    def add(cls, session, jsondata):
+        t = jsondata['track']
+        item = cls(
+            id = t['id'],
+            name = t['name'],
+            abid = t['album']['id'],
+            atids = ','.join([ a['id'] for a in t['artists'] ]),
+            disc_number = t['disc_number'],
+            duration_ms = t['duration_ms'],
+            markets = ','.join([ m for m in t['available_markets'] ]),
+            preview_url = t['preview_url'],
+            popularity = t['popularity'],
+            explicit = t['explicit'],
+            uri = t['uri'],
+            href = t['href'],
+            external_urls = t['external_urls']['spotify'],
+            is_local = t['is_local']
+        )
+        session.merge( item )   #Merge existing data
+        #session.commit()
+        return item
 
 
 class Track_MBZ(Source):
@@ -101,10 +107,13 @@ def main():
     #------- Start of Data Submitting ---------
 
     # Clearout all existing tables
-    TrackRef.__table__.drop(engine)
-    Track_SPT.__table__.drop(engine)
-    Track_MBZ.__table__.drop(engine)
-    Track_FS.__table__.drop(engine)
+    try:
+        TrackRef.__table__.drop(engine)
+        Track_SPT.__table__.drop(engine)
+        Track_MBZ.__table__.drop(engine)
+        Track_FS.__table__.drop(engine)
+    except Exception as e:
+        print('Error on dropping Track tables.')
 
     # Let new Schemas take effect
     Base.metadata.create_all(bind=engine)

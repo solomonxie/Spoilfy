@@ -47,34 +47,39 @@ class Album_SPT(Source):
         :param String jsondump: JSON data in string format
         :return: Class instances of track resources
         """
-        all_albums = []
-        for item in jsondata['items']:
-            added_at = item['added_at']  #>>For [UserTracks]
-            d = item['album']
-            src = cls(
-                id = d['id'],
-                name = d['name'],
-                atids = ','.join([ a['id'] for a in d['artists'] ]),
-                tids = ','.join([ a['id'] for a in d['tracks']['items'] ]),
-                album_type = d['album_type'],
-                release_date = d['release_date'],
-                release_date_precision = d['release_date_precision'],
-                total_tracks = d['total_tracks'],
-                lable = d['label'],
-                popularity = d['popularity'],
-                copyrights = str(d['copyrights']),
-                uri = d['uri'],
-                href = d['href'],
-                external_urls = str(d['external_urls']),
-                external_ids = str(d['external_ids'])
-            )
-            session.merge(src)
-            all_albums.append(src)
+        all_sources = []
+        for data in jsondata['items']:
+            item = cls.add(session, data)
+            all_sources.append(item)
 
         session.commit()
-        print( '[  OK  ] Inserted {} Albums.'.format(len(all_albums)) )
+        print( '[  OK  ] Inserted {} Albums.'.format(len(all_sources)) )
 
-        return all_albums
+        return all_sources
+
+    @classmethod
+    def add(cls, session, jsondata):
+        d = jsondata['album']
+        item = cls(
+            id = d['id'],
+            name = d['name'],
+            atids = ','.join([ a['id'] for a in d['artists'] ]),
+            tids = ','.join([ a['id'] for a in d['tracks']['items'] ]),
+            album_type = d['album_type'],
+            release_date = d['release_date'],
+            release_date_precision = d['release_date_precision'],
+            total_tracks = d['total_tracks'],
+            lable = d['label'],
+            popularity = d['popularity'],
+            copyrights = str(d['copyrights']),
+            uri = d['uri'],
+            href = d['href'],
+            external_urls = str(d['external_urls']),
+            external_ids = str(d['external_ids'])
+        )
+        session.merge( item )
+        #session.commit()
+        return item
 
 
 class Album_MBZ(Source):
@@ -113,10 +118,13 @@ def main():
     #------- Start of Data Submitting ---------
 
     # Clearout all existing tables
-    AlbumRef.__table__.drop(engine)
-    Album_SPT.__table__.drop(engine)
-    Album_MBZ.__table__.drop(engine)
-    Album_FS.__table__.drop(engine)
+    try:
+        AlbumRef.__table__.drop(engine)
+        Album_SPT.__table__.drop(engine)
+        Album_MBZ.__table__.drop(engine)
+        Album_FS.__table__.drop(engine)
+    except Exception as e:
+        print('Error on dropping Album tables.')
 
     # Let new Schemas take effect
     Base.metadata.create_all(bind=engine)

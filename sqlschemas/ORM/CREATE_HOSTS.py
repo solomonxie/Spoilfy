@@ -71,7 +71,10 @@ class Host(Base):
 def main():
     #------- Start of Data Submitting ---------
     # Clearout all existing tables
-    Host.__table__.drop(engine)
+    try:
+        Host.__table__.drop(engine)
+    except Exception as e:
+        print('Error on dropping Host table.')
 
     # Let new Schemas take effect
     Base.metadata.create_all(bind=engine)

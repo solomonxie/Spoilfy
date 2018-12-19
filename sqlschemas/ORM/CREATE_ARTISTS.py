@@ -93,10 +93,14 @@ def main():
     #------- Start of Data Submitting ---------
 
     # Clearout all existing tables
-    #ArtistRef.__table__.drop(engine)
-    #Artist_SPT.__table__.drop(engine)
-    #Artist_MBZ.__table__.drop(engine)
-    #Artist_FS.__table__.drop(engine)
+    try:
+        ArtistRef.__table__.drop(engine)
+        Artist_SPT.__table__.drop(engine)
+        Artist_MBZ.__table__.drop(engine)
+        Artist_FS.__table__.drop(engine)
+    except Exception as e:
+        print('Error on dropping Artist tables.')
+
 
     # Let new Schemas take effect
     Base.metadata.create_all(bind=engine)

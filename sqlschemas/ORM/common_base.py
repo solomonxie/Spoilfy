@@ -1,4 +1,3 @@
-import os
 
 #-------[  Import SQLAlchemy ]---------
 from sqlalchemy.ext.declarative import declarative_base
@@ -10,8 +9,7 @@ from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean
 Base = declarative_base()
 
 # Connect Database
-cwd = os.path.split(os.path.realpath(__file__))[0]
-engine = create_engine('sqlite:///{}/db_u_spoilfy.sqlite'.format(cwd), echo=False)
+engine = create_engine('sqlite:////tmp/db_u_spoilfy.sqlite', echo=False)
 
 
 print('[  OK  ] IMPORTED: {}'.format(__name__))
