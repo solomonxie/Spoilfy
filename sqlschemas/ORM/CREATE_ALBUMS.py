@@ -7,7 +7,7 @@ from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean
 
 #-------[  Import From Other Modules   ]---------
 from common_base import Base, engine
-from common_orms import Host, User, Resource, Reference
+from common_orms import Host, User, UserItem, Resource, Reference
 
 
 
@@ -74,6 +74,50 @@ class Album_FS(Resource):
 
 
 
+
+# =====================================================================
+# >>>>>>>>>>>>>>>>>>[    User Table     ] >>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# =====================================================================
+
+
+
+class UserAlbum(UserItem):
+    """ [  User's saved albums  ]
+    :PKs: [ref_id, uid]
+    :field last_played: Last time played the album
+    :field added_at: Time added to the source library
+    :field rate: Personal rating to the album
+    :field memo: Personal comments
+    :staticmethod :
+    """
+    __tablename__ = 'u_Albums'
+    src_type = 'album'
+
+    uid = Column('uid', String, ForeignKey('u_Users.uid'), primary_key=True)
+    ref_id = Column('ref_id', String, ForeignKey('references.ref_id'), primary_key=True)
+
+    added_at = Column('added_at', String)
+    count = Column('count', Integer)
+    rate = Column('rate', Integer)
+    memo = Column('memo', String)
+
+    @classmethod
+    def add(cls, session, uid, ref_id, jsondata):
+        item = cls(
+            uid = uid,
+            ref_id = ref_id,
+            added_at = jsondata['added_at'],
+            count = 0,
+            rate = 0,
+            memo = ''
+        )
+        session.merge( item )
+        #session.commit()  #-> Better to commit after multiple inserts
+        return item
+
+
+
+
 # ==============================================================
 # >>>>>>>>>>>>>>>>>>>[    METHODS     ] >>>>>>>>>>>>>>>>>>>>>>>>
 # ==============================================================
@@ -97,6 +141,7 @@ def main():
         Album_SPT.__table__.drop(engine)
         Album_MBZ.__table__.drop(engine)
         Album_FS.__table__.drop(engine)
+        UserAlbum.__table__.drop(engine)
     except Exception as e:
         print('Error on dropping Album tables.')
 
@@ -106,6 +151,9 @@ def main():
     # Declare a common session for multiple files
     session = sessionmaker(bind=engine, autoflush=False)()
 
+    # Get a user
+    user = session.query(User).first()
+    # Get a host
     h1 = session.query(Host).first()
 
     # Start of Data Insersions --------{
@@ -114,8 +162,11 @@ def main():
     with open('{}/spotify/jsondumps-full/get_user_albums.json'.format(os.path.dirname(cwd)), 'r') as f:
         data = json.loads( f.read() )
 
-    sources = Album_SPT.add_sources(session, data['items'])
-    refs = Reference.add_references(session, 'album', h1.id, sources)
+    # Add user albums
+    UserAlbum.add_items(
+        session, h1.id, user.uid,
+        data['items'], Album_SPT
+    )
 
     session.commit()
     session.close()

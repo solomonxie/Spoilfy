@@ -47,109 +47,6 @@ class UserHost(Base):
 
 
 
-
-
-class UserTrack(UserItem):
-    """[  User's favorite tracks  ]
-    :PKs: [ref_id, uid]
-    :field last_played: Last time played the track
-    :field added_at: Time added to the source library
-    :field rate: Personal rating to the track
-    :field memo: Personal comments
-    :staticmethod add_from_spotify: 
-    """
-    __tablename__ = 'u_Tracks'
-    src_type = 'track'
-
-    uid = Column('uid', String, ForeignKey('u_Users.uid'), primary_key=True)
-    ref_id = Column('ref_id', String, ForeignKey('references.ref_id'), primary_key=True)
-
-    last_played = Column('last_played', String)
-    added_at = Column('added_at', String)
-    count = Column('count', Integer)
-    rate = Column('rate', Integer)
-    memo = Column('memo', String)
-
-    @classmethod
-    def add(cls, session, uid, ref_id, jsondata):
-        item = cls(
-            uid = uid,
-            ref_id = ref_id,
-            last_played = None,
-            added_at = jsondata['added_at'],
-            count = 0,
-            rate = 0,
-            memo = ''
-        )
-        session.merge( item )
-        #session.commit()  #-> Better to commit after multiple inserts
-
-
-
-class UserAlbum(UserItem):
-    """ [  User's saved albums  ]
-    :PKs: [ref_id, uid]
-    :field last_played: Last time played the album
-    :field added_at: Time added to the source library
-    :field rate: Personal rating to the album
-    :field memo: Personal comments
-    :staticmethod :
-    """
-    __tablename__ = 'u_Albums'
-    src_type = 'album'
-
-    uid = Column('uid', String, ForeignKey('u_Users.uid'), primary_key=True)
-    ref_id = Column('ref_id', String, ForeignKey('references.ref_id'), primary_key=True)
-
-    added_at = Column('added_at', String)
-    count = Column('count', Integer)
-    rate = Column('rate', Integer)
-    memo = Column('memo', String)
-
-    @classmethod
-    def add(cls, session, uid, ref_id, jsondata):
-        item = cls(
-            uid = uid,
-            ref_id = ref_id,
-            added_at = jsondata['added_at'],
-            count = 0,
-            rate = 0,
-            memo = ''
-        )
-        session.merge( item )
-        #session.commit()  #-> Better to commit after multiple inserts
-
-
-
-class UserArtist(UserItem):
-    """ [  User's followed artists ]
-    :PKs: [ref_id, uid]
-    :field rate: Personal rating to the album
-    :field memo: Personal comments
-    :staticmethod :
-    """
-    __tablename__ = 'u_Artists'
-    src_type = 'artist'
-
-
-    uid = Column('uid', String, ForeignKey('u_Users.uid'), primary_key=True)
-    ref_id = Column('ref_id', String, ForeignKey('references.ref_id'), primary_key=True)
-
-    memo = Column('memo', String)
-
-    @classmethod
-    def add(cls, session, uid, ref_id, jsondata):
-        item = cls(
-            uid = uid,
-            ref_id = ref_id,
-            memo = ''
-        )
-        session.merge( item )
-        #session.commit()  #-> Better to commit after multiple inserts
-
-
-
-
 # ==============================================================
 # >>>>>>>>>>>>>>>>>>>[    METHODS     ] >>>>>>>>>>>>>>>>>>>>>>>>
 # ==============================================================
@@ -168,9 +65,6 @@ def main():
     # Clearout all existing tables
     try:
         UserHost.__table__.drop(engine)
-        UserTrack.__table__.drop(engine)
-        UserAlbum.__table__.drop(engine)
-        UserArtist.__table__.drop(engine)
     except Exception as e:
         print('Error on dropping User Tables.')
 
@@ -192,33 +86,6 @@ def main():
     host = session.query(Host).first()
     # Add User Hosts
     UserHost.add(session, user.uid, host.id)
-    # Add User Tracks
-    with open('{}/spotify/jsondumps-full/get_user_tracks.json'.format(
-        os.path.dirname(cwd)), 'r') as f:
-        data = json.loads( f.read() )
-        #UserTrack.add_from_spotify(session, host.id, user.uid, data)
-        UserTrack.add_items(
-            session, host.id, user.uid,
-            data['items'], Track_SPT
-        )
-    # Add User Albums
-    with open('{}/spotify/jsondumps-full/get_user_albums.json'.format(
-        os.path.dirname(cwd)), 'r') as f:
-        data = json.loads( f.read() )
-        #UserAlbum.add_from_spotify(session, host.id, user.uid, data)
-        UserAlbum.add_items(
-            session, host.id, user.uid,
-            data['items'], Album_SPT
-        )
-    # Add User Artists
-    with open('{}/spotify/jsondumps-full/get_user_artists.json'.format(
-        os.path.dirname(cwd)), 'r') as f:
-        data = json.loads( f.read() )
-        #UserArtist.add_from_spotify(session, host.id, user.uid, data)
-        UserArtist.add_items(
-            session, host.id, user.uid,
-            data['artists']['items'], Artist_SPT
-        )
     # }------- End of Data Insersions
 
     session.commit()
