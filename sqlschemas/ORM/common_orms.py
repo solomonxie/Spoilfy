@@ -26,7 +26,7 @@ class User(Base):
     """ [  Store User's Private Data  ]
     :primary keys: [uid, host_id, user_id]
     :field uid: Unique UserID in current database
-    :field host_id: 
+    :field host_id:
     :field user_id: UserID on specific Host site
     """
     __tablename__ = 'u_Users'
@@ -70,7 +70,7 @@ class Host(Base):
     :KEY host_type: [MediaProvider, InfoProvider, FileSystem]
     :KEY uri: API entry point.
     :KEY tbname_*: Related table names in database
-    :Note : 
+    :Note :
         Host class is an 'origin' class & can't be treated as a resource
         If not so, it'll cause Loop Import problem.
     """
@@ -163,7 +163,7 @@ class Reference(Base):
         ))
 
         return references
-    
+
     @classmethod
     def add(cls, session, src_type, host_id, src_id):
         ref = cls(
@@ -214,7 +214,7 @@ class Resource(Base):
         ))
 
         return all_items
-    
+
 
     @classmethod
     def add(cls, session, jsondata):
@@ -230,7 +230,7 @@ class UserItem(Base):
     __abstract__ = True
 
     #-> To be filled by children classes
-    src_type = None 
+    src_type = None
     uid = None
     ref_id = None
 

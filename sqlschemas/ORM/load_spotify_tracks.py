@@ -162,7 +162,7 @@ def user_add_spotify_tracks(session, uid, jsondata):
     print( '[  OK  ] Inserted User Tracks.' )
 
     return user_tracks
-    
+
 
 with open('{}/spotify/jsondumps-full/get_user_tracks.json'.format(os.path.dirname(cwd)), 'r') as f:
     data = json.loads( f.read() )

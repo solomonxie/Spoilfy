@@ -32,7 +32,7 @@ class Track_SPT(Resource):
     external_urls = Column('external_urls', String)
     is_local = Column('is_local', Boolean)
 
-    
+
     @classmethod
     def add(cls, session, jsondata):
         j = jsondata['track']
@@ -81,7 +81,7 @@ class UserTrack(UserItem):
     :field added_at: Time added to the source library
     :field rate: Personal rating to the track
     :field memo: Personal comments
-    :staticmethod add_from_spotify: 
+    :staticmethod add_from_spotify:
     """
     __tablename__ = 'u_Tracks'
     src_type = 'track'

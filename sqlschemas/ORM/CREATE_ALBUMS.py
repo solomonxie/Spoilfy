@@ -1,5 +1,4 @@
 import uuid
-from datetime import datetime
 
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean, Sequence

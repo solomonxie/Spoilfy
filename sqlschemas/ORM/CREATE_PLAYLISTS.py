@@ -37,7 +37,7 @@ class Playlist_SPT(Resource):
     href = Column('href', String)
     external_urls = Column('external_urls', String)
 
-    
+
     @classmethod
     def add(cls, session, jsondata):
         j = jsondata
@@ -83,7 +83,7 @@ class UserPlaylist(UserItem):
     :field added_at: Time added to the source library
     :field rate: Personal rating to the playlist
     :field memo: Personal comments
-    :staticmethod add_from_spotify: 
+    :staticmethod add_from_spotify:
     """
     __tablename__ = 'u_Playlists'
     src_type = 'playlist'
