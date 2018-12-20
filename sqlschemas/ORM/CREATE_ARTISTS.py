@@ -7,7 +7,7 @@ from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean
 
 #-------[  Import From Other Modules   ]---------
 from common_base import Base, engine
-from common_orms import Source, Reference
+from common_orms import Resource, Reference
 from CREATE_HOSTS import Host
 from CREATE_USERS import User
 
@@ -19,7 +19,7 @@ from CREATE_USERS import User
 
 
 
-class Artist_SPT(Source):
+class Artist_SPT(Resource):
     __tablename__ = 'spotify_Artists'
 
     genres = Column('genres', String)
@@ -28,23 +28,6 @@ class Artist_SPT(Source):
     uri = Column('uri', String)
     href = Column('href', String)
     external_urls = Column('external_urls', String)
-
-    @classmethod
-    def add_sources(cls, session, jsondata):
-        """[ Add Spotify's Artists ]
-        :param session: SQLAlchemy session object connected to DB
-        :param String jsondump: JSON data in string format
-        :return: Class instances of track resources
-        """
-        all_sources = []
-        for data in jsondata['artists']['items']:
-            item = cls.add(session, data)
-            all_sources.append( item )
-
-        session.commit()
-        print( '[  OK  ] Inserted {} tracks.'.format(len(all_sources)) )
-
-        return all_sources
 
 
     @classmethod
@@ -61,23 +44,16 @@ class Artist_SPT(Source):
             external_urls = str(d['external_urls'])
         )
         session.merge( item )   #Merge existing data
-        #session.commit()
+        #session.commit()  #-> Better to commit after multiple inserts
         return item
 
 
-class Artist_MBZ(Source):
+class Artist_MBZ(Resource):
     __tablename__ = 'musicbrainz_Artists'
 
 
-class Artist_FS(Source):
+class Artist_FS(Resource):
     __tablename__ = 'filesystem_Artists'
-
-
-
-class ArtistRef(Reference):
-    __tablename__ = 'ref_Artists'
-
-    host_id = Column('host_id', Integer, ForeignKey('hosts.id'), primary_key=True)
 
 
 
@@ -102,7 +78,6 @@ def main():
 
     # Clearout all existing tables
     try:
-        ArtistRef.__table__.drop(engine)
         Artist_SPT.__table__.drop(engine)
         Artist_MBZ.__table__.drop(engine)
         Artist_FS.__table__.drop(engine)
@@ -126,8 +101,8 @@ def main():
 
     next_url = data['artists']['next']
 
-    sources = Artist_SPT.add_sources(session, data)
-    refs = ArtistRef.add_references(session, h1.id, sources)
+    sources = Artist_SPT.add_sources(session, data['artists']['items'])
+    refs = Reference.add_references(session, 'artist', h1.id, sources)
 
     session.commit()
     session.close()
@@ -135,7 +110,6 @@ def main():
 
 
 if __name__ == '__main__':
-    pass
     main()
 
 

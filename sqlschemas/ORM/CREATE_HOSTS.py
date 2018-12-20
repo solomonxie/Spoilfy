@@ -88,23 +88,6 @@ def main():
         data = json.loads( f.read() )
         Host.add(session, data)
 
-    # Start of Data Insersions --------{
-    #h1 = Host(name='Spotify',
-    #        tbname_track='spotify_Tracks',
-    #        tbname_album='spotify_Albums',
-    #        tbname_artist='spotify_Artists',
-    #        tbname_playlist='spotify_Playlists'
-    #)
-    #h2 = Host(name='MusicBrainz',
-    #        tbname_track='musicbrainz_Tracks',
-    #        tbname_album='musicbrainz_Albums',
-    #        tbname_artist='musicbrainz_Artists',
-    #        tbname_playlist='musicbrainz_Playlists'
-    #)
-    #session.add_all([h1, h2])
-    # }------- End of Data Insersions
-
-
     session.commit()
     session.close()
     #------- End of Data Submitting ---------

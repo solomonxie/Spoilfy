@@ -6,7 +6,7 @@ from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean
 
 #-------[  Import From Other Modules   ]---------
 from common_base import Base, engine
-from common_orms import Source, Reference
+from common_orms import Resource, Reference
 from CREATE_HOSTS import Host
 from CREATE_USERS import User
 
@@ -17,8 +17,9 @@ from CREATE_USERS import User
 # ==============================================================
 
 
-class Track_SPT(Source):
+class Track_SPT(Resource):
     __tablename__ = 'spotify_Tracks'
+    src_type = 'track'
 
     abid = Column('album_id', String)
     atids = Column('artist_ids', String)
@@ -33,58 +34,38 @@ class Track_SPT(Source):
     external_urls = Column('external_urls', String)
     is_local = Column('is_local', Boolean)
 
-    @classmethod
-    def add_sources(cls, session, jsondata):
-        """[ Add Spotify's Tracks ]
-        :param session: SQLAlchemy session object connected to DB
-        :param String jsondump: JSON data in string format
-        :return: Class instances of track resources
-        """
-        all_sources = []
-        for data in jsondata['items']:
-            item = cls.add(session, data)
-            all_sources.append( item )
-
-        session.commit()
-        print( '[  OK  ] Inserted {} tracks.'.format(len(all_sources)) )
-
-        return all_sources
     
     @classmethod
     def add(cls, session, jsondata):
-        t = jsondata['track']
+        j = jsondata['track']
         item = cls(
-            id = t['id'],
-            name = t['name'],
-            abid = t['album']['id'],
-            atids = ','.join([ a['id'] for a in t['artists'] ]),
-            disc_number = t['disc_number'],
-            duration_ms = t['duration_ms'],
-            markets = ','.join([ m for m in t['available_markets'] ]),
-            preview_url = t['preview_url'],
-            popularity = t['popularity'],
-            explicit = t['explicit'],
-            uri = t['uri'],
-            href = t['href'],
-            external_urls = t['external_urls']['spotify'],
-            is_local = t['is_local']
+            id = j['id'],
+            name = j['name'],
+            abid = j['album']['id'],
+            atids = ','.join([ a['id'] for a in j['artists'] ]),
+            disc_number = j['disc_number'],
+            duration_ms = j['duration_ms'],
+            markets = ','.join([ m for m in j['available_markets'] ]),
+            preview_url = j['preview_url'],
+            popularity = j['popularity'],
+            explicit = j['explicit'],
+            uri = j['uri'],
+            href = j['href'],
+            external_urls = j['external_urls']['spotify'],
+            is_local = j['is_local']
         )
         session.merge( item )   #Merge existing data
-        #session.commit()
+        #session.commit()  #-> Better to commit after multiple inserts
+
         return item
 
 
-class Track_MBZ(Source):
+class Track_MBZ(Resource):
     __tablename__ = 'musicbrainz_Tracks'
 
-class Track_FS(Source):
+class Track_FS(Resource):
     __tablename__ = 'filesystem_tracks'
 
-
-class TrackRef(Reference):
-    __tablename__ = 'ref_Tracks'
-
-    host_id = Column('host_id', Integer, ForeignKey('hosts.id'), primary_key=True)
 
 
 
@@ -108,7 +89,6 @@ def main():
 
     # Clearout all existing tables
     try:
-        TrackRef.__table__.drop(engine)
         Track_SPT.__table__.drop(engine)
         Track_MBZ.__table__.drop(engine)
         Track_FS.__table__.drop(engine)
@@ -129,13 +109,8 @@ def main():
     with open('{}/spotify/jsondumps-full/get_user_tracks.json'.format(os.path.dirname(cwd)), 'r') as f:
         data = json.loads( f.read() )
 
-    tracks = Track_SPT.add_sources(session, data)
-    refs = TrackRef.add_references(session, h1.id, tracks)
-
-    #>> Multiple Primary Key Conflict test
-    #ref7 = TrackRef(ref_id=t3.ref_id, src_id=src1_3.id, host_id=h2.id)
-    #session.add(ref7)
-    #session.flush()  # Generate data for Dynamic fileds(primary key) to get values
+    tracks = Track_SPT.add_sources(session, data['items'])
+    refs = Reference.add_references(session, 'track', h1.id, tracks)
     # }------- End of Data Insersions
 
 
