@@ -1,8 +1,9 @@
 {
     "hosts":[
         {
+            "id": "1",
             "name": "Spotify",
-            "type": "Online",
+            "type": "MediaProvider",
             "uri": "",
             "info": "",
             "tbname_track": "spotify_Tracks",
@@ -11,8 +12,9 @@
             "tbname_playlist": "spotify_Playlists"
         },
         {
+            "id": "2",
             "name": "MusicBrainz",
-            "type": "Online",
+            "type": "InfoProvider",
             "uri": "",
             "info": "",
             "tbname_track":    "musicbrainz_Tracks",
