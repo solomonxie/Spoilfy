@@ -5,9 +5,7 @@ from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean
 
 #-------[  Import From Other Modules   ]---------
 from common_base import Base, engine
-from common_orms import UserItem
-from CREATE_HOSTS import Host
-from CREATE_USERS import User
+from common_orms import Host, User, UserItem
 from CREATE_TRACKS import Track_SPT, Track_MBZ, Track_FS
 from CREATE_ALBUMS import Album_SPT, Album_MBZ, Album_FS
 from CREATE_ARTISTS import Artist_SPT, Artist_MBZ, Artist_FS

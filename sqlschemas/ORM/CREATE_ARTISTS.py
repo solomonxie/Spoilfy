@@ -7,9 +7,7 @@ from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean
 
 #-------[  Import From Other Modules   ]---------
 from common_base import Base, engine
-from common_orms import Resource, Reference
-from CREATE_HOSTS import Host
-from CREATE_USERS import User
+from common_orms import Host, User, Resource, Reference
 
 
 
