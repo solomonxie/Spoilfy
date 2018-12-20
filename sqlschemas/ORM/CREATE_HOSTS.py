@@ -21,6 +21,9 @@ class Host(Base):
     :KEY host_type: [MediaProvider, InfoProvider, FileSystem]
     :KEY uri: API entry point.
     :KEY tbname_*: Related table names in database
+    :Note : 
+        Host class is an 'origin' class & can't be treated as a resource
+        If not so, it'll cause Loop Import problem.
     """
     __tablename__ = 'hosts'
 

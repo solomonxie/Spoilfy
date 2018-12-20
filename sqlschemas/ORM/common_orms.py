@@ -4,11 +4,11 @@ import uuid
 #-------[  Import SQLAlchemy ]---------
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean, Sequence
 
 #-------[  Import From Other Modules   ]---------
 from common_base import Base, engine
-from CREATE_USERS import User
 
 
 # ==============================================================
@@ -136,6 +136,175 @@ class UserItem(Base):
         :param {jsondata} single JSON object type:
         """
         pass
+
+
+
+
+# =====================================================================
+# >>>>>>>>>>>>>>>>>>[    Common ORMs     ] >>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# =====================================================================
+"""
+    Common tables can't be treated as resources,
+    If do so, it'll cause Loop Import problems.
+"""
+
+
+class User(Base):
+    """ [  Store User's Private Data  ]
+    :primary keys: [uid, host_id, user_id]
+    :field uid: Unique UserID in current database
+    :field host_id: 
+    :field user_id: UserID on specific Host site
+    """
+    __tablename__ = 'u_Users'
+
+    uid = Column('uid', String, primary_key=True)
+    host_id = Column('host_id', Integer, ForeignKey('hosts.id'), primary_key=True)
+    user_id = Column('user_id', String, primary_key=True)
+
+    name = Column('name', String)
+    external_urls = Column('external_urls', String)
+    followers = Column('followers', Integer, default=0)
+    href = Column('href', String)
+    images = Column('images', String)
+    user_type = Column('type', String)
+    uri = Column('uri', String)
+
+    @staticmethod
+    def add(session, host_id, jsondata):
+        user = User(
+            uid = str(uuid.uuid1()),
+            host_id = host_id,
+            user_id = jsondata['id'],
+            name = jsondata['display_name'],
+            external_urls = jsondata['external_urls']['spotify'],
+            followers = jsondata['followers']['total'],
+            href = jsondata['href'],
+            images = str(jsondata['images']),
+            user_type = jsondata['type'],
+            uri = jsondata['uri']
+        )
+        session.merge(user)
+        session.commit()
+        print('[  OK  ] Inserted User: {}.'.format( user.name ))
+
+        return user
+
+
+class Host(Base):
+    """ [ Music Information Host Providers ]
+    :KEY host_type: [MediaProvider, InfoProvider, FileSystem]
+    :KEY uri: API entry point.
+    :KEY tbname_*: Related table names in database
+    :Note : 
+        Host class is an 'origin' class & can't be treated as a resource
+        If not so, it'll cause Loop Import problem.
+    """
+    __tablename__ = 'hosts'
+
+    id = Column('id', String, primary_key=True)
+    name = Column('name', String)
+
+    host_type = Column('type', String)
+    uri = Column('URI', String)
+    info = Column('info', String)
+
+    tbname_track = Column('tbname_track', String)
+    tbname_album = Column('tbname_album', String)
+    tbname_artist = Column('tbname_artist', String)
+    tbname_playlist = Column('tbname_playlist', String)
+
+    @classmethod
+    def add_sources(cls, session, jsonItems):
+        """[ Add Resources ]
+        :param session: SQLAlchemy session object connected to DB
+        :param String jsondump: JSON data in string format
+        :return: Class instances of track resources
+        """
+        all_items = []
+        for j in jsonItems:
+            item = cls.add(session, j)
+            all_items.append( item )
+
+        session.commit()
+        print('[  OK  ] Inserted {} items to [{}].'.format(
+            len(all_items), cls.__tablename__
+        ))
+
+        return all_items
+
+    @classmethod
+    def add(cls, session, jsondata):
+        j = jsondata
+        item = cls(
+            id=str(uuid.uuid1()),
+            name=j['name'],
+            host_type=j['type'],
+            uri=j['uri'],
+            info=j['info'],
+            tbname_track=j['tbname_track'],
+            tbname_album=j['tbname_album'],
+            tbname_artist=j['tbname_artist'],
+            tbname_playlist=j['tbname_playlist']
+        )
+        session.merge( item )   #Merge existing data
+        #session.commit()  #-> Better to commit after multiple inserts
+
+        return item
+
+
+
+
+
+# ==============================================================
+# >>>>>>>>>>>>>>>>>>>[    METHODS     ] >>>>>>>>>>>>>>>>>>>>>>>>
+# ==============================================================
+
+
+# ==============================================================
+# >>>>>>>>>>>>>>>>>>>>>>[    TEST     ] >>>>>>>>>>>>>>>>>>>>>>>>
+# ==============================================================
+
+
+def main():
+    #------- Start of Data Submitting ---------
+
+    # Clearout all existing tables
+    try:
+        User.__table__.drop(engine)
+    except Exception as e:
+        print('Error on dropping User table.')
+
+    # Let new Schemas take effect
+    Base.metadata.create_all(bind=engine)
+
+    # Declare a common session for multiple files
+    session = sessionmaker(bind=engine, autoflush=False)()
+
+
+    # Start of Data Insersions --------{
+    import os, json
+    cwd = os.path.split(os.path.realpath(__file__))[0]
+    # Add Hosts
+    with open('{}/hosts.json'.format(os.path.dirname(cwd)), 'r') as f:
+        data = json.loads( f.read() )
+    hosts = Host.add_sources(session, data['hosts'])
+    # Add a User
+    h1 = session.query(Host).first()
+    with open('{}/spotify/jsondumps-full/get_user_profile.json'.format(os.path.dirname(cwd)), 'r') as f:
+        data = json.loads( f.read() )
+
+    User.add(session, h1.id, data)
+    # }------- End of Data Insersions
+
+    session.commit()
+    session.close()
+    #------- End of Data Submitting ---------
+
+
+
+if __name__ == '__main__':
+    main()
 
 
 

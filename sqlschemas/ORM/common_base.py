@@ -1,3 +1,4 @@
+import uuid
 
 #-------[  Import SQLAlchemy ]---------
 from sqlalchemy.ext.declarative import declarative_base
@@ -10,6 +11,7 @@ Base = declarative_base()
 
 # Connect Database
 engine = create_engine('sqlite:////tmp/db_u_spoilfy.sqlite', echo=False)
+
 
 
 print('[  OK  ] __IMPORTED__: {}'.format(__name__))
