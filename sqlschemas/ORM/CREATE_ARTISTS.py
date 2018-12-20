@@ -7,7 +7,7 @@ from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean
 
 #-------[  Import From Other Modules   ]---------
 from common_base import Base, engine
-from common_orms import Host, User, Resource, Reference
+from common_orms import Host, User, UserItem, Resource, Reference
 
 
 
@@ -56,11 +56,45 @@ class Artist_FS(Resource):
 
 
 
+
+# =====================================================================
+# >>>>>>>>>>>>>>>>>>[    User Table     ] >>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# =====================================================================
+
+
+
+class UserArtist(UserItem):
+    """ [  User's followed artists ]
+    :PKs: [ref_id, uid]
+    :field rate: Personal rating to the album
+    :field memo: Personal comments
+    :staticmethod :
+    """
+    __tablename__ = 'u_Artists'
+    src_type = 'artist'
+
+
+    uid = Column('uid', String, ForeignKey('u_Users.uid'), primary_key=True)
+    ref_id = Column('ref_id', String, ForeignKey('references.ref_id'), primary_key=True)
+
+    memo = Column('memo', String)
+
+    @classmethod
+    def add(cls, session, uid, ref_id, jsondata):
+        item = cls(
+            uid = uid,
+            ref_id = ref_id,
+            memo = ''
+        )
+        session.merge( item )
+        #session.commit()  #-> Better to commit after multiple inserts
+        return item
+
+
+
 # ==============================================================
 # >>>>>>>>>>>>>>>>>>>[    METHODS     ] >>>>>>>>>>>>>>>>>>>>>>>>
 # ==============================================================
-
-
 
 
 
@@ -79,6 +113,7 @@ def main():
         Artist_SPT.__table__.drop(engine)
         Artist_MBZ.__table__.drop(engine)
         Artist_FS.__table__.drop(engine)
+        UserArtist.__table__.drop(engine)
     except Exception as e:
         print('Error on dropping Artist tables.')
 
@@ -89,6 +124,9 @@ def main():
     # Declare a common session for multiple files
     session = sessionmaker(bind=engine, autoflush=False)()
 
+    # Get a user
+    user = session.query(User).first()
+    # Get a host
     h1 = session.query(Host).first()
 
     # Start of Data Insersions --------{
@@ -99,8 +137,11 @@ def main():
 
     next_url = data['artists']['next']
 
-    sources = Artist_SPT.add_sources(session, data['artists']['items'])
-    refs = Reference.add_references(session, 'artist', h1.id, sources)
+    # Add user artists
+    UserArtist.add_items(
+        session, h1.id, user.uid,
+        data['artists']['items'], Artist_SPT
+    )
 
     session.commit()
     session.close()

@@ -86,7 +86,7 @@
                     "uri": "spotify:track:0kUWYEoJFCOZbuNcfDbPVA"
                 },
                 "video_thumbnail": {"url": null }
-            },
+            }
         ],
         "limit": 100,
         "next": null,

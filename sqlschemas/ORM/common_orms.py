@@ -214,6 +214,7 @@ class Resource(Base):
         ))
 
         return all_items
+    
 
     @classmethod
     def add(cls, session, jsondata):
@@ -243,8 +244,9 @@ class UserItem(Base):
         for data in jsondata:
             src = srcClass.add(session, data)
             ref = Reference.add(session, cls.src_type, host_id, src.id)
-            item = cls.add(session, uid, ref.ref_id, data)
-            user_items.append( item )
+            uitem = cls.add(session, uid, ref.ref_id, data)
+
+            user_items.append( uitem )
 
         session.commit()
         print('[  OK  ] Inserted {} User {}s.'.format(
@@ -257,7 +259,7 @@ class UserItem(Base):
         """ [ add single item ]
         :param {jsondata} single JSON object type:
         """
-        pass
+        print( 'Abstract class method to be implemented.' )
 
 
 
