@@ -114,4 +114,4 @@ if __name__ == '__main__':
 
 
 
-print('[  OK  ] IMPORTED: {}'.format(__name__))
+print('[  OK  ] __IMPORTED__: {}'.format(__name__))

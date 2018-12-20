@@ -8,7 +8,6 @@ from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean
 
 #-------[  Import From Other Modules   ]---------
 from common_base import Base, engine
-from CREATE_HOSTS import Host
 from CREATE_USERS import User
 
 
@@ -126,8 +125,8 @@ class UserItem(Base):
             user_items.append( item )
 
         session.commit()
-        print('[  OK  ] Inserted {} User items.'.format(
-            len(user_items)
+        print('[  OK  ] Inserted {} User {}s.'.format(
+            len(user_items), cls.src_type
         ))
         return user_items
 
@@ -137,3 +136,7 @@ class UserItem(Base):
         :param {jsondata} single JSON object type:
         """
         pass
+
+
+
+print('[  OK  ] __IMPORTED__: {}'.format(__name__))

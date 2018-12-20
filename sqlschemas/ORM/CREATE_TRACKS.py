@@ -7,8 +7,8 @@ from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean
 #-------[  Import From Other Modules   ]---------
 from common_base import Base, engine
 from common_orms import Resource, Reference
-from CREATE_HOSTS import Host
 from CREATE_USERS import User
+from CREATE_HOSTS import Host
 
 
 
@@ -19,10 +19,10 @@ from CREATE_USERS import User
 
 class Track_SPT(Resource):
     __tablename__ = 'spotify_Tracks'
-    src_type = 'track'
 
     abid = Column('album_id', String)
     atids = Column('artist_ids', String)
+
     disc_number = Column('disc_number', Integer)
     duration_ms = Column('duration_ms', Integer)
     markets = Column('available_markets', String)
@@ -124,4 +124,4 @@ if __name__ == '__main__':
 
 
 
-print('[  OK  ] IMPORTED: {}'.format(__name__))
+print('[  OK  ] __IMPORTED__: {}'.format(__name__))

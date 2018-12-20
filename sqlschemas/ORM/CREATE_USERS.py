@@ -24,10 +24,9 @@ class User(Base):
     __tablename__ = 'u_Users'
 
     uid = Column('uid', String, primary_key=True)
-    host_id = Column('host_id', Integer,
-        ForeignKey('hosts.id'), primary_key=True
-    )
+    host_id = Column('host_id', Integer, ForeignKey('hosts.id'), primary_key=True)
     user_id = Column('user_id', String, primary_key=True)
+
     name = Column('name', String)
     external_urls = Column('external_urls', String)
     followers = Column('followers', Integer, default=0)
@@ -52,7 +51,7 @@ class User(Base):
         )
         session.merge(user)
         session.commit()
-        print( '[  OK  ] Inserted User: {}.'.format(user.name) )
+        print('[  OK  ] Inserted User: {}.'.format( user.name ))
 
         return user
 
@@ -85,19 +84,13 @@ def main():
 
     h1 = session.query(Host).first()
 
+    # Start of Data Insersions --------{
     import os, json
     cwd = os.path.split(os.path.realpath(__file__))[0]
     with open('{}/spotify/jsondumps-full/get_user_profile.json'.format(os.path.dirname(cwd)), 'r') as f:
         data = json.loads( f.read() )
 
     User.add(session, h1.id, data)
-
-    # Start of Data Insersions --------{
-    #u1 = User(name='Jason')
-    #u2 = User(name='David')
-    #u3 = User(name='Sol')
-    #session.add_all([u1,u2,u3])
-    #session.flush()  # Generate data for Dynamic fileds(primary key) to get values
     # }------- End of Data Insersions
 
     session.commit()
@@ -111,4 +104,4 @@ if __name__ == '__main__':
 
 
 
-print('[  OK  ] IMPORTED: {}'.format(__name__))
+print('[  OK  ] __IMPORTED__: {}'.format(__name__))

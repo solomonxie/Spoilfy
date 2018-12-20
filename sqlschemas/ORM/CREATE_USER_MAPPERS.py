@@ -25,13 +25,10 @@ class UserHost(Base):
     """
     __tablename__ = 'u_Hosts'
 
-    uid = Column('uid', String,
-        ForeignKey('u_Users.uid'), primary_key=True
-    )
-    host_id = Column('host_id', String,
-        ForeignKey('hosts.id'), primary_key=True
-    )
+    uid = Column('uid', String, ForeignKey('u_Users.uid'), primary_key=True)
+    host_id = Column('host_id', String, ForeignKey('hosts.id'), primary_key=True)
     user_id = Column('user_id', Integer, ForeignKey('u_Users.user_id'))
+
     auth = Column('auth', String)
     name = Column('name', String)
     nickname = Column('nickname', String)
@@ -103,12 +100,9 @@ class UserAlbum(UserItem):
     __tablename__ = 'u_Albums'
     src_type = 'album'
 
-    uid = Column('uid', String,
-        ForeignKey('u_Users.uid'), primary_key=True
-    )
-    ref_id = Column('ref_id', String,
-        ForeignKey('references.ref_id'), primary_key=True
-    )
+    uid = Column('uid', String, ForeignKey('u_Users.uid'), primary_key=True)
+    ref_id = Column('ref_id', String, ForeignKey('references.ref_id'), primary_key=True)
+
     added_at = Column('added_at', String)
     count = Column('count', Integer)
     rate = Column('rate', Integer)
@@ -140,12 +134,9 @@ class UserArtist(UserItem):
     src_type = 'artist'
 
 
-    uid = Column('uid', String,
-        ForeignKey('u_Users.uid'), primary_key=True
-    )
-    ref_id = Column('ref_id', String,
-        ForeignKey('references.ref_id'), primary_key=True
-    )
+    uid = Column('uid', String, ForeignKey('u_Users.uid'), primary_key=True)
+    ref_id = Column('ref_id', String, ForeignKey('references.ref_id'), primary_key=True)
+
     memo = Column('memo', String)
 
     @classmethod
@@ -243,4 +234,4 @@ if __name__ == '__main__':
 
 
 
-print('[  OK  ] IMPORTED: {}'.format(__name__))
+print('[  OK  ] __IMPORTED__: {}'.format(__name__))
