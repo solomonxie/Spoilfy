@@ -24,14 +24,14 @@ class Album_SPT(Resource):
 
     atids = Column('artist_ids', String)
     tids = Column('track_ids', String)
-    album_type = Column('album_type', String)
+
     release_date = Column('release_date', String)
     release_date_precision = Column('release_date_precision', String)
-
     total_tracks = Column('total_tracks', Integer)
     lable = Column('lable', String)
     popularity = Column('popularity', Integer)
     copyrights = Column('copyrights', String)
+    album_type = Column('album_type', String)
     uri = Column('uri', String)
     href = Column('href', String)
     external_urls = Column('external_urls', String)
@@ -130,4 +130,4 @@ if __name__ == '__main__':
 
 
 
-print('[  OK  ] IMPORTED: {}'.format(__name__))
+print('[  OK  ] __IMPORTED__: {}'.format(__name__))

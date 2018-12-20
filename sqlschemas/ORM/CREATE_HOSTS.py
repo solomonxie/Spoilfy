@@ -13,16 +13,20 @@ from common_base import Base, engine
 # >>>>>>>>>>>>>[    Independent Tables     ] >>>>>>>>>>>>>>>>>>>
 # ==============================================================
 
+
+
+
 class Host(Base):
-    """
-    :field host_type: [MediaProvider, InfoProvider, FileSystem]
-    :field uri: API entry point.
-    :field tbname_*: Related table names in database
+    """ [ Music Information Host Providers ]
+    :KEY host_type: [MediaProvider, InfoProvider, FileSystem]
+    :KEY uri: API entry point.
+    :KEY tbname_*: Related table names in database
     """
     __tablename__ = 'hosts'
 
-    id = Column('id', Integer, primary_key=True)
+    id = Column('id', String, primary_key=True)
     name = Column('name', String)
+
     host_type = Column('type', String)
     uri = Column('URI', String)
     info = Column('info', String)
@@ -32,28 +36,44 @@ class Host(Base):
     tbname_artist = Column('tbname_artist', String)
     tbname_playlist = Column('tbname_playlist', String)
 
-
-    @staticmethod
-    def add(session, jsondata):
-        all_hosts = []
-        for h in jsondata['hosts']:
-            host = Host(
-                name=h['name'],
-                host_type=h['type'],
-                uri=h['uri'],
-                info=h['info'],
-                tbname_track=h['tbname_track'],
-                tbname_album=h['tbname_album'],
-                tbname_artist=h['tbname_artist'],
-                tbname_playlist=h['tbname_playlist']
-            )
-            session.merge(host)
-            all_hosts.append(host)
+    @classmethod
+    def add_sources(cls, session, jsonItems):
+        """[ Add Resources ]
+        :param session: SQLAlchemy session object connected to DB
+        :param String jsondump: JSON data in string format
+        :return: Class instances of track resources
+        """
+        all_items = []
+        for j in jsonItems:
+            item = cls.add(session, j)
+            all_items.append( item )
 
         session.commit()
-        print( '[  OK  ] Inserted {} hosts.'.format(len(all_hosts)) )
+        print('[  OK  ] Inserted {} items to [{}].'.format(
+            len(all_items), cls.__tablename__
+        ))
 
-        return all_hosts
+        return all_items
+
+    @classmethod
+    def add(cls, session, jsondata):
+        j = jsondata
+        item = cls(
+            id=str(uuid.uuid1()),
+            name=j['name'],
+            host_type=j['type'],
+            uri=j['uri'],
+            info=j['info'],
+            tbname_track=j['tbname_track'],
+            tbname_album=j['tbname_album'],
+            tbname_artist=j['tbname_artist'],
+            tbname_playlist=j['tbname_playlist']
+        )
+        session.merge( item )   #Merge existing data
+        #session.commit()  #-> Better to commit after multiple inserts
+
+        return item
+
 
 
 # ==============================================================
@@ -82,11 +102,14 @@ def main():
     # Declare a common session for multiple files
     session = sessionmaker(bind=engine, autoflush=False)()
 
+    # Start of Data Insersions --------{
     import os, json
     cwd = os.path.split(os.path.realpath(__file__))[0]
     with open('{}/hosts.json'.format(os.path.dirname(cwd)), 'r') as f:
         data = json.loads( f.read() )
-        Host.add(session, data)
+
+    hosts = Host.add_sources(session, data['hosts'])
+    # }------- End of Data Insersions
 
     session.commit()
     session.close()
@@ -99,4 +122,4 @@ if __name__ == '__main__':
 
 
 
-print('[  OK  ] IMPORTED: {}'.format(__name__))
+print('[  OK  ] __IMPORTED__: {}'.format(__name__))

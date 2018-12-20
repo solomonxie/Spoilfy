@@ -12,4 +12,4 @@ Base = declarative_base()
 engine = create_engine('sqlite:////tmp/db_u_spoilfy.sqlite', echo=False)
 
 
-print('[  OK  ] IMPORTED: {}'.format(__name__))
+print('[  OK  ] __IMPORTED__: {}'.format(__name__))
