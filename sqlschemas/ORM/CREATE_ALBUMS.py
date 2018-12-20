@@ -7,7 +7,7 @@ from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean
 
 #-------[  Import From Other Modules   ]---------
 from common_base import Base, engine
-from common_orms import Source, Reference
+from common_orms import Resource, Reference
 from CREATE_HOSTS import Host
 from CREATE_USERS import User
 
@@ -19,7 +19,7 @@ from CREATE_USERS import User
 
 
 
-class Album_SPT(Source):
+class Album_SPT(Resource):
     __tablename__ = 'spotify_Albums'
 
     atids = Column('artist_ids', String)
@@ -40,22 +40,6 @@ class Album_SPT(Source):
     #tracks = Column('tracks', String)  #>>For [Track_SPT]
     #artists = Column('artists', String)  #>>For [Artist_SPT]
 
-    @classmethod
-    def add_sources(cls, session, jsondata):
-        """[ Add Spotify's Albums ]
-        :param session: SQLAlchemy session object connected to DB
-        :param String jsondump: JSON data in string format
-        :return: Class instances of track resources
-        """
-        all_sources = []
-        for data in jsondata['items']:
-            item = cls.add(session, data)
-            all_sources.append(item)
-
-        session.commit()
-        print( '[  OK  ] Inserted {} Albums.'.format(len(all_sources)) )
-
-        return all_sources
 
     @classmethod
     def add(cls, session, jsondata):
@@ -78,23 +62,16 @@ class Album_SPT(Source):
             external_ids = str(d['external_ids'])
         )
         session.merge( item )
-        #session.commit()
+        #session.commit()  #-> Better to commit after multiple inserts
         return item
 
 
-class Album_MBZ(Source):
+class Album_MBZ(Resource):
     __tablename__ = 'musicbrainz_Albums'
 
 
-class Album_FS(Source):
+class Album_FS(Resource):
     __tablename__ = 'filesystem_Albums'
-
-
-
-class AlbumRef(Reference):
-    __tablename__ = 'ref_Albums'
-
-    host_id = Column('host_id', Integer, ForeignKey('hosts.id'), primary_key=True)
 
 
 
@@ -119,7 +96,6 @@ def main():
 
     # Clearout all existing tables
     try:
-        AlbumRef.__table__.drop(engine)
         Album_SPT.__table__.drop(engine)
         Album_MBZ.__table__.drop(engine)
         Album_FS.__table__.drop(engine)
@@ -140,8 +116,8 @@ def main():
     with open('{}/spotify/jsondumps-full/get_user_albums.json'.format(os.path.dirname(cwd)), 'r') as f:
         data = json.loads( f.read() )
 
-    sources = Album_SPT.add_sources(session, data)
-    refs = AlbumRef.add_references(session, h1.id, sources)
+    sources = Album_SPT.add_sources(session, data['items'])
+    refs = Reference.add_references(session, 'album', h1.id, sources)
 
     session.commit()
     session.close()
