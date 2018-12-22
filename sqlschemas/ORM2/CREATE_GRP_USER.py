@@ -6,7 +6,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean, Sequence
 
 #-------[  Import From Other Modules   ]---------
-from COMMONS import Base, engine, Resource
+from COMMONS import Base, engine, Resource, Reference
 
 
 
@@ -24,62 +24,54 @@ Explain:
 
 class UserResource(Resource):
     """ [ User Resources are bit different ]
-        User items only store ref IDs to REAL resources, like spotify.
+        User items only store real IDs to REAL resources, like spotify.
     """
-    __abstract__ = True
+    __tablename__ = 'u_Resources'
 
-    uri = None
-    ref_id = Column('ref_id', String, primary_key=True)
+    real_uri = Column('real_uri', String, primary_key=True)
+
+    #-> Drop default PK from parent class
+    uri = name = id = provider = None  
+
+    @classmethod
+    def add(cls, session, data):
+        item = cls(
+            real_uri=data.real_uri,
+            type=data.type
+        )
+        session.merge(item)
+        #session.commit()  #-> Better to commit after multiple inserts
+        return item
 
 
-
-class UserAccount(UserResource):
+class UserAccount(Resource):
     """ [ Store all users registered in THIS system ]
         Explain: UserAccount only store users in current system,
         the user which can have multiple binded accounts from other sites.
+        Special setting:
+            User Account's Real_URI == Reference's URI
+            means in Reference, User's reference is himself.
     """
     __tablename__ = 'u_Accounts'
+
+    uri = None #-> Drop default PK from parent class
+
+    real_uri = Column('real_uri', String, primary_key=True)
 
     password = Column('password', String)
     email = Column('email', String)
 
-
-
-class UserTrack(UserResource):
-    """ [ User's liked tracks ]
-    """
-    __tablename__ = 'u_Tracks'
-
-    #uri = Column('uri', String, ForeignKey('references.ref_id'))
-
-
-
-class UserAlbum(UserResource):
-    """ [ User's saved albums ]
-    """
-    __tablename__ = 'u_Albums'
-
-    #uri = Column('uri', String, ForeignKey('references.ref_id'))
-
-
-
-class UserArtist(UserResource):
-    """ [ User's followed artists ]
-    """
-    __tablename__ = 'u_Artists'
-
-    #uri = Column('uri', String, ForeignKey('references.ref_id'))
-
-
-
-class UserPlaylist(UserResource):
-    """ [ User's Playlists ]
-    """
-    __tablename__ = 'u_Playlists'
-
-    #uri = Column('uri', String, ForeignKey('references.ref_id'))
-
-
+    @classmethod
+    def add(cls, session, data):
+        user = cls(
+            real_uri = data['uri'],
+            name = data['name'],
+            email = data['email'],
+            password = data['password']
+        )
+        session.merge(user)
+        #session.commit()  #-> Better to commit after multiple inserts
+        return user
 
 
 
@@ -101,10 +93,7 @@ def main():
     # Clearout all existing tables
     try:
         UserAccount.__table__.drop(engine)
-        UserTrack.__table__.drop(engine)
-        UserAlbum.__table__.drop(engine)
-        UserArtist.__table__.drop(engine)
-        UserPlaylist.__table__.drop(engine)
+        UserResource.__table__.drop(engine)
         pass
     except Exception as e:
         print('Error on dropping User table.')
@@ -117,18 +106,28 @@ def main():
 
 
     # Start of Data Insersions --------{
-    #import os, json
-    #cwd = os.path.split(os.path.realpath(__file__))[0]
-    ## Add Hosts
-    #with open('{}/hosts.json'.format(os.path.dirname(cwd)), 'r') as f:
-    #    data = json.loads( f.read() )
-    #hosts = Host.add_sources(session, data['hosts'])
-    ## Add a User
-    #h1 = session.query(Host).first()
-    #with open('{}/spotify/jsondumps-full/get_user_profile.json'.format(os.path.dirname(cwd)), 'r') as f:
-    #    data = json.loads( f.read() )
+    import os, json
+    cwd = os.path.split(os.path.realpath(__file__))[0]
 
-    #User.add(session, h1.id, data)
+    # Add a User Account
+    with open('{}/users.json'.format(cwd), 'r') as f:
+        jsondata = json.loads( f.read() )
+        UserAccount.add_resources(session, jsondata['users'])
+
+    # Add User tracks
+    items = session.query(Reference).filter(Reference.type=='track').all()
+    UserResource.add_resources(session, items)
+    # Add User albums
+    items = session.query(Reference).filter(Reference.type=='album').all()
+    UserResource.add_resources(session, items)
+    # Add User artists
+    items = session.query(Reference).filter(Reference.type=='artist').all()
+    UserResource.add_resources(session, items)
+    # Add User playlists
+    items = session.query(Reference).filter(Reference.type=='playlist').all()
+    UserResource.add_resources(session, items)
+
+
     # }------- End of Data Insersions
 
     session.commit()
