@@ -136,9 +136,7 @@ class Reference(Base):
         ))
         return all
 
-    @classmethod
-    def bind_account(cls, session, account):
-        pass
+
 
 
 

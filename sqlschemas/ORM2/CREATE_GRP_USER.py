@@ -54,18 +54,17 @@ class UserAccount(Resource):
     """
     __tablename__ = 'u_Accounts'
 
-    uri = None #-> Drop default PK from parent class
-
-    real_uri = Column('real_uri', String, primary_key=True)
-
     password = Column('password', String)
     email = Column('email', String)
 
     @classmethod
     def add(cls, session, data):
         user = cls(
-            real_uri = data['uri'],
+            uri = 'app:user:{}'.format(data['id']),
             name = data['name'],
+            id = data['id'],
+            type = 'user',
+            provider = 'app',
             email = data['email'],
             password = data['password']
         )
@@ -112,7 +111,18 @@ def main():
     # Add a User Account
     with open('{}/users.json'.format(cwd), 'r') as f:
         jsondata = json.loads( f.read() )
-        UserAccount.add_resources(session, jsondata['users'])
+        # Create accounts
+        accounts = UserAccount.add_resources(session, jsondata['users'])
+        # Initial add reference
+        Reference.add_resources(session, accounts)
+        # Bind user account to provider accounts
+        from CREATE_GRP_SPOTIFY import SpotifyAccount
+        app_acc = accounts[0]
+        spotify_acc = session.query(SpotifyAccount).filter().first()
+        #
+        #-> It's critical here we use app account's URI as real_uri
+        #   because we want the User Account to be the real existence.
+        Reference.bind(session, spotify_acc, app_acc.uri)
 
     # Add User tracks
     items = session.query(Reference).filter(Reference.type=='track').all()
