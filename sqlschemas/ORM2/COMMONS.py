@@ -29,8 +29,13 @@ class Resource(Base):
     uri = Column('uri', String, primary_key=True)
     name = Column('name', String)
 
+    #-> These 3 fields are included in URI
+    id = Column('id', String)
+    type = Column('type', String)
+    provider = Column('provider', String)
+
     @classmethod
-    def add_resource(cls, session, item):
+    def add(cls, session, data):
         print('[TO BE IMPLEMENTED].')
 
     @classmethod
@@ -41,9 +46,10 @@ class Resource(Base):
         :return: inserted resource objects.
         """
         all = []
-        for j in items:
-            item = cls.add(session, j)
-            all_items.append( item )
+        for item in items:
+            data = cls.get_sub_data(item)
+            item = cls.add(session, data)
+            all.append( item )
 
         session.commit()
         print('[  OK  ] Inserted {} items to [{}].'.format(
@@ -52,42 +58,77 @@ class Resource(Base):
 
         return all
 
+    @classmethod
+    def get_sub_data(cls, item):
+        """ [ Get sub item's data through Web API  ]
+            This should retrive WebAPI accordingly
+            This is to impelemented by children class.
+        """
+        return item
+            
 
+
+# ==============================================================
+# >>>>>>>>>>>>>>>>[    COMMON ORMs     ] >>>>>>>>>>>>>>>>>>>>>>>
+# ==============================================================
 
 
 class Reference(Base):
     """ [ References to map resources from different providers ]
         It maps things with SAME type but at different places.
     :PK uri: refer to the target resource.
-    :KEY ref_id: as the REAL EXISTENCE of a resource.
+    :KEY real_uri: as the REAL EXISTENCE of a resource.
     """
-    #__abstract__ = True
     __tablename__ = 'references'
 
     uri = Column('uri', String, primary_key=True)
-    ref_id = Column('ref_id', String)
+    real_uri = Column('real_uri', String)
+
+    type = Column('type', String)
+    provider = Column('provider', String)
 
     @classmethod
-    def add_ref(cls, session, uri, ref_id=None):
+    def add(cls, session, item):
+        """ [ Initial Source Reference ]
+        Add initial ref with NEW real_uri
+        """
+        real_uri = '{}:{}:{}'.format(
+            item.provider, item.type, str(uuid.uuid1().hex)
+        )
+        ref = cls.bind(session, item, real_uri)
+        return ref
+
+    @classmethod
+    def add_resources(cls, session, items):
+        all = []
+        for item in items:
+            all.append( cls.add(session, item) )
+        session.commit()
+        return all
+
+    @classmethod
+    def bind(cls, session, item, real_uri):
         ref = cls(
-            uri = uri,
-            ref_id = ref_id if ref_id else str(uuid.uuid1().hex)
+            uri=item.uri,
+            real_uri=real_uri,
+            type=item.type,
+            provider=item.provider
         )
         session.merge(ref)
         #session.commit()  #-> Better to commit after multiple inserts
         return ref
 
     @classmethod
-    def add_refs(cls, session, ref_items):
+    def bind_resources(cls, session, pairs):
         """ [ Add batch references ]
         This method is called when:
           - It's already known which refers to which.
           - The "ref_items" has to be stricly in the format of
-            [('uri', 'ref_id'), ('uri', 'ref_id'), ....]
+            [(item, 'real_uri'), (item, 'real_uri'), ....]
         """
         all = []
-        for pair in refs:
-            ref = cls.add(session, pair[0], pair[1])
+        for item, real_uri in pairs:
+            ref = cls.bind(session, item, real_uri)
             all.append(ref)
         session.commit()
         print('[  OK  ] Inserted {} references.'.format(
@@ -95,12 +136,10 @@ class Reference(Base):
         ))
         return all
 
+    @classmethod
+    def bind_account(cls, session, account):
+        pass
 
-
-
-# ==============================================================
-# >>>>>>>>>>>>>>>>>>>[    METHODS     ] >>>>>>>>>>>>>>>>>>>>>>>>
-# ==============================================================
 
 
 # ==============================================================
@@ -113,7 +152,7 @@ def main():
 
     # Clearout all existing tables
     try:
-        #User.__table__.drop(engine)
+        Reference.__table__.drop(engine)
         pass
     except Exception as e:
         print('Error on dropping User table.')
@@ -121,29 +160,6 @@ def main():
     # Let new Schemas take effect
     Base.metadata.create_all(bind=engine)
 
-    # Declare a common session for multiple files
-    session = sessionmaker(bind=engine, autoflush=False)()
-
-
-    # Start of Data Insersions --------{
-
-    #import os, json
-    #cwd = os.path.split(os.path.realpath(__file__))[0]
-    ## Add Hosts
-    #with open('{}/hosts.json'.format(os.path.dirname(cwd)), 'r') as f:
-    #    data = json.loads( f.read() )
-    #hosts = Host.add_sources(session, data['hosts'])
-    ## Add a User
-    #h1 = session.query(Host).first()
-    #with open('{}/spotify/jsondumps-full/get_user_profile.json'.format(os.path.dirname(cwd)), 'r') as f:
-    #    data = json.loads( f.read() )
-
-    #User.add(session, h1.id, data)
-
-    # }------- End of Data Insersions
-
-    session.commit()
-    session.close()
     #------- End of Data Submitting ---------
 
 
