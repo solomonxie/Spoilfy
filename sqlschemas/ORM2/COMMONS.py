@@ -58,14 +58,14 @@ class Resource(Base):
 class Reference(Base):
     """ [ References to map resources from different providers ]
         It maps things with SAME type but at different places.
+    :PK uri: refer to the target resource.
     :KEY ref_id: as the REAL EXISTENCE of a resource.
-    :KEY uri: refer to the target resource.
     """
     #__abstract__ = True
     __tablename__ = 'references'
 
-    ref_id = Column('ref_id', String, primary_key=True)
-    uri = Column('uri', String)
+    uri = Column('uri', String, primary_key=True)
+    ref_id = Column('ref_id', String)
 
     @classmethod
     def add_ref(cls, session, uri, ref_id=None):

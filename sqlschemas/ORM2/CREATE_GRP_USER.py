@@ -2,8 +2,6 @@ import os
 import uuid
 
 #-------[  Import SQLAlchemy ]---------
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean, Sequence
 
@@ -19,12 +17,23 @@ from COMMONS import Base, engine, Resource
 Explain:
     User's resources could be:
         Account / Track / Albums / Artist / Playlist
-    These tables only store ref IDs to REAL resources, like spotify.
     Except for ACCOUNT, it can store the user's login info.
 """
 
 
-class UserAccount(Resource):
+
+class UserResource(Resource):
+    """ [ User Resources are bit different ]
+        User items only store ref IDs to REAL resources, like spotify.
+    """
+    __abstract__ = True
+
+    uri = None
+    ref_id = Column('ref_id', String, primary_key=True)
+
+
+
+class UserAccount(UserResource):
     """ [ Store all users registered in THIS system ]
         Explain: UserAccount only store users in current system,
         the user which can have multiple binded accounts from other sites.
@@ -36,7 +45,7 @@ class UserAccount(Resource):
 
 
 
-class UserTrack(Resource):
+class UserTrack(UserResource):
     """ [ User's liked tracks ]
     """
     __tablename__ = 'u_Tracks'
@@ -45,7 +54,7 @@ class UserTrack(Resource):
 
 
 
-class UserAlbum(Resource):
+class UserAlbum(UserResource):
     """ [ User's saved albums ]
     """
     __tablename__ = 'u_Albums'
@@ -54,7 +63,7 @@ class UserAlbum(Resource):
 
 
 
-class UserArtist(Resource):
+class UserArtist(UserResource):
     """ [ User's followed artists ]
     """
     __tablename__ = 'u_Artists'
@@ -63,7 +72,7 @@ class UserArtist(Resource):
 
 
 
-class UserPlaylist(Resource):
+class UserPlaylist(UserResource):
     """ [ User's Playlists ]
     """
     __tablename__ = 'u_Playlists'
@@ -80,6 +89,7 @@ class UserPlaylist(Resource):
 # ==============================================================
 
 
+
 # ==============================================================
 # >>>>>>>>>>>>>>>>>>>>>>[    TEST     ] >>>>>>>>>>>>>>>>>>>>>>>>
 # ==============================================================
@@ -92,6 +102,9 @@ def main():
     try:
         UserAccount.__table__.drop(engine)
         UserTrack.__table__.drop(engine)
+        UserAlbum.__table__.drop(engine)
+        UserArtist.__table__.drop(engine)
+        UserPlaylist.__table__.drop(engine)
         pass
     except Exception as e:
         print('Error on dropping User table.')
