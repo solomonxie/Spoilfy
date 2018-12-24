@@ -59,16 +59,26 @@ print( '[Tokens]:', tokens )
 # Make a header with Auth token
 H = {'Authorization': 'Bearer {}'.format(tokens['access_token'])}
 
+# API entry point
+api = 'https://api.spotify.com/v1/me/tracks?offset=0&limit=50'
 
 # Retrive an API  with TOKEN
-r = requests.get('https://api.spotify.com/v1/me/tracks?offset=0&limit=50', headers=H)
-jsondata = r.json()
+#r = requests.get(api, headers=H)
+#jsondata = r.json()
 #print(jsondata['limit'], '/', jsondata['total'])
 
-# Get Next URL
-next = jsondata['next']
-print( next )
+# Interate API
+next = api
+while next:
+    # Retrive api
+    r = requests.get(next, headers=H)
+    jsondata = r.json()
+    # Get paging info
+    limit = jsondata['limit']
+    offset = jsondata['offset']
+    total = jsondata['total']
+    next = jsondata['next']
+    print( 'At {} / {}, {} per page, Next URL: \n\t{}'.format(
+        offset, total, limit, next)
+    )
 
-r = requests.get(next, headers=H)
-jsondata = r.json()
-print( next )
