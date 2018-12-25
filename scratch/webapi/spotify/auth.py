@@ -1,14 +1,11 @@
-import os
 import json
 
 import requests
 from authlib.client import OAuth2Session
 
-# Get current folder path
-cwd = os.path.split(os.path.realpath(__file__))[0]
 
-# Get API's essential info
-with open('{}/.client_secret.json'.format(cwd), 'r') as f:
+# Get auth info
+with open('./.client_secret.json', 'r') as f:
     data = json.loads( f.read() )
 
 client_id = data['client_id']
