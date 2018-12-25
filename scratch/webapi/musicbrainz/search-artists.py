@@ -1,7 +1,9 @@
-
-import os
 import json
 import musicbrainzngs as mb
+
+#====================================================================
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>[ LOG IN ]>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#====================================================================
 
 with open('./.client_secret.json', 'r') as f:
     jsondata = json.loads( f.read() )
@@ -21,8 +23,13 @@ mb.set_useragent(app_name, app_version, app_url)
 # Sign a host engine to search from
 mb.set_hostname(host_url)
 
+
+#====================================================================
+#>>>>>>>>>>>>>>>>>>>>>>>[ SEARCH API ]>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#====================================================================
+
 # Search artist
-artists = mb.search_artists(artist="big bang", type="group", country="Norway")
+artists = mb.search_artists(artist="big bang", type="group", country="'Netherlands")
 
 for a in artists['artist-list']:
     print( a['name'] )
