@@ -1,6 +1,7 @@
 import json
 import musicbrainzngs as mb
 
+
 #====================================================================
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>[ LOG IN ]>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #====================================================================
@@ -28,8 +29,22 @@ mb.set_hostname(host_url)
 #>>>>>>>>>>>>>>>>>>>>>>>[ SEARCH API ]>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #====================================================================
 
-# Search artist
-artists = mb.search_artists(artist="big bang", type="group", country="'Netherlands")
+# -----------[ Get By ID ]------------------
 
-for a in artists['artist-list']:
-    print( a['name'] )
+# Get an artist
+id = 'e86ab653-bec8-46f3-b4b6-a1a866919ef6'
+artist = mb.get_artist_by_id(id)['artist']
+print( '[ Artist Name ]:', artist['name'] )
+
+
+
+# Get an album (Release)
+id = 'ccd708f2-06f5-43d4-8396-032dc7eb1883'
+album = mb.get_release_by_id(id)['release']
+print( '[ Album Title ]:', album['title'] )
+
+
+# Get a track (Recording)
+id = 'c216f892-e329-4986-9373-6d95660801d6'
+track = mb.get_recording_by_id(id)['recording']
+print( '[ Track Title ]:', track['title'] )
