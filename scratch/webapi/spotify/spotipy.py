@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+# NOT WORKING YET !!!!!!!!!!!
+# NOT WORKING YET !!!!!!!!!!!
+# NOT WORKING YET !!!!!!!!!!!
+
 import spotipy
 
 birdy_uri = 'spotify:artist:2WX2uTcsvV5OnS0inACecP'
