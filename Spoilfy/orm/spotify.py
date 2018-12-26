@@ -1,3 +1,10 @@
+#!/usr/bin/env python3
+#
+# MAINTAINER: Solomon Xie <solomonxiewise@gmail.com>
+#
+# DEPENDENCIES:
+#   - ./common.py
+
 import os
 import uuid
 

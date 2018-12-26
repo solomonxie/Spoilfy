@@ -1,3 +1,12 @@
+#!/usr/bin/env python3
+#
+# MAINTAINER: Solomon Xie <solomonxiewise@gmail.com>
+#
+# DEPENDENCIES:
+#   - ./users.json
+#   - ./common.py
+#   - ./spotify.py
+
 import os
 import uuid
 
