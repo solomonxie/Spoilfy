@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+#
+# MAINTAINER: Solomon Xie <14041622+solomonxie@users.noreply.github.com>
+#
+# DEPENDENCIES:
+#   - $ pip install sqlalchemy
+#   - /tmp/db_spoilfy_uri.sqlite
+
 import uuid
 
 #-------[  Import SQLAlchemy ]---------
