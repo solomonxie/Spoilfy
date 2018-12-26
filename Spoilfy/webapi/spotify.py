@@ -17,19 +17,6 @@ class WebAPI:
     pass
 
 
-def retrive(func):
-    """ [ Decorator ]
-
-    """
-    def wrapper(*args, **kargs):
-        #...
-        result = func(*args, **kargs)
-        #...
-        return result
-    return wrapper
-
-
-
 class SpotifyAPI(WebAPI):
     """
 
@@ -40,14 +27,33 @@ class SpotifyAPI(WebAPI):
         self.token = auth.auto_fetch_token()
         self.headers = auth.add_token_to_headers({})
 
-    def get(self, url):
+    def _get(self, url):
         r = requests.get(url, headers=self.headers)
         jsondata = r.json() if r else None
         return jsondata
+    
+    def iterate(self, url):
+        r = requests.get(url, headers=self.headers)
+        jsondata = r.json() if r else None
+        yield jsondata
 
-    #@retrive
+        # Get paging info
+        limit = jsondata['limit']
+        offset = jsondata['offset']
+        total = jsondata['total']
+        next = jsondata['next']
+        print('At {} / {}, {} per page, Next URL: \n\t{}'.format(
+            offset, total, limit, next
+        ))
+        if next:
+            yield from self.iterate(next)
+
+
     def get_my_profile(self):
-        return 'https://api.spotify.com/v1/me'
+        return self._get('https://api.spotify.com/v1/me')
+
+    def get_my_tracks(self):
+        return self.iterate('https://api.spotify.com/v1/me/tracks')
 
 
 
@@ -62,10 +68,13 @@ def main():
         data = json.loads( f.read() )
 
     api = SpotifyAPI(data)
-    print( api.get(api.get_my_profile()) )
+    #print( api.get_my_profile()['display_name'] )
+    api.get_my_tracks()
+    for t in api.get_my_tracks():
+        continue
 
 if __name__ == '__main__':
     main()
 
 
-print('[  OK  ] __IMPORTED__: {}'.format(__name__))
+print('[ OK ] __IMPORTED__: {}'.format(__name__))
