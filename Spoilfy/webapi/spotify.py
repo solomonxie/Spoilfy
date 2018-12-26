@@ -32,21 +32,23 @@ class SpotifyAPI(WebAPI):
         jsondata = r.json() if r else None
         return jsondata
 
-    def _iterate(self, url):
+    def _iterate(self, url, key=None):
         r = requests.get(url, headers=self.headers)
         jsondata = r.json() if r else None
         yield jsondata
 
         # Get paging info
-        limit = jsondata['limit']
-        offset = jsondata['offset']
-        total = jsondata['total']
-        next = jsondata['next']
-        print('At {} / {}, {} per page, Next URL: \n\t{}'.format(
-            offset, total, limit, next
-        ))
+        paging = jsondata[key] if key else jsondata
+        next = paging['next']
+        #limit = paging['limit']
+        #offset = paging['offset']
+        #total = paging['total']
+        #print('At {} / {}, {} per page, Next URL: \n\t{}'.format(
+        #    offset, total, limit, next
+        #))
+        # Recursively retrive next page & yield result
         if next:
-            yield from self._iterate(next)
+            yield from self._iterate(next, key)
 
 
     def get_my_profile(self):
@@ -54,6 +56,12 @@ class SpotifyAPI(WebAPI):
 
     def get_my_tracks(self):
         return self._iterate('https://api.spotify.com/v1/me/tracks')
+
+    def get_my_albums(self):
+        return self._iterate('https://api.spotify.com/v1/me/albums')
+
+    def get_my_artists(self):
+        return self._iterate('https://api.spotify.com/v1/me/following?type=artist', 'artists')
 
 
 
@@ -69,8 +77,7 @@ def main():
 
     api = SpotifyAPI(data)
     #print( api.get_my_profile()['display_name'] )
-    api.get_my_tracks()
-    for t in api.get_my_tracks():
+    for t in api.get_my_artists():
         continue
 
 if __name__ == '__main__':
