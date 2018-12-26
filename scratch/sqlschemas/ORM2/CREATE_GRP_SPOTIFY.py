@@ -32,7 +32,6 @@ class SpotifyAccount(SpotifyResource):
     """
     __tablename__ = 'spotify_Accounts'
 
-    name = Column('name', String)
     external_urls = Column('external_urls', String)
     followers = Column('followers', Integer, default=0)
     href = Column('href', String)

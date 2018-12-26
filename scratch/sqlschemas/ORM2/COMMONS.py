@@ -65,7 +65,7 @@ class Resource(Base):
             This is to impelemented by children class.
         """
         return item
-            
+
 
 
 # ==============================================================
