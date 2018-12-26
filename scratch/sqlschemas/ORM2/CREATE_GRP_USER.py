@@ -31,7 +31,7 @@ class UserResource(Resource):
     real_uri = Column('real_uri', String, primary_key=True)
 
     #-> Drop default PK from parent class
-    uri = name = id = provider = None  
+    uri = name = id = provider = None
 
     @classmethod
     def add(cls, session, data):
