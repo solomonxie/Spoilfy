@@ -31,8 +31,8 @@ class SpotifyAPI(WebAPI):
         r = requests.get(url, headers=self.headers)
         jsondata = r.json() if r else None
         return jsondata
-    
-    def iterate(self, url):
+
+    def _iterate(self, url):
         r = requests.get(url, headers=self.headers)
         jsondata = r.json() if r else None
         yield jsondata
@@ -46,14 +46,14 @@ class SpotifyAPI(WebAPI):
             offset, total, limit, next
         ))
         if next:
-            yield from self.iterate(next)
+            yield from self._iterate(next)
 
 
     def get_my_profile(self):
         return self._get('https://api.spotify.com/v1/me')
 
     def get_my_tracks(self):
-        return self.iterate('https://api.spotify.com/v1/me/tracks')
+        return self._iterate('https://api.spotify.com/v1/me/tracks')
 
 
 
