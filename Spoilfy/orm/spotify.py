@@ -207,7 +207,7 @@ class SpotifyPlaylist(SpotifyResource):
             images = str(j['images']),
             href = j['href'],
             external_urls = j['external_urls']['spotify'],
-            #-> [Keys below are to be retireved from WebAPI]:
+            #-> [Keys below are to be retrieved dynamically]:
             #tids = str(j['tracks']['href']),
             #followers = j['followers']['total'],
             #description = j['description'],
