@@ -16,20 +16,20 @@ class Auth:
     pass
 
 
-class Oauth2(Auth):
+class Oauth2:
     """ [ WebAPI Oauth 2.0 authentication ]
 
     """
 
-    def __init__(self, app):
+    def __init__(self, appdata):
         # App's info
-        self.client_id = app['client_id']
-        self.client_secret = app['client_secret']
-        self.scope = app['scope']
-        self.redirect_uri = app['redirect_uri']
-        self.authorize_url = app['authorize_url']
-        self.access_token_url = app['access_token_url']
-        self.cookies = app['cookies']
+        self.client_id = appdata['client_id']
+        self.client_secret = appdata['client_secret']
+        self.scope = appdata['scope']
+        self.redirect_uri = appdata['redirect_uri']
+        self.authorize_url = appdata['authorize_url']
+        self.access_token_url = appdata['access_token_url']
+        self.cookies = appdata['cookies']
 
         # Dynamic properties
         self.session = None
@@ -45,7 +45,7 @@ class Oauth2(Auth):
         self.auth_uri, self.state = self.get_auth_uri()
         self.callback = self.get_callback()
         self.tokens = self.fetch_tokens()
-        print( '[TOKEN]:{}'.format(self.tokens['access_token']) )
+        # print( '[TOKEN]:{}'.format(self.tokens['access_token']) )
 
         return self.tokens['access_token']
 
@@ -74,7 +74,7 @@ class Oauth2(Auth):
             for jump in r.history:
                 print( jump.status_code, jump.url )
         except requests.exceptions.ConnectionError as e:
-            print( '[Final URL]: ', e.request.url )
+            #print( '[Final URL]: ', e.request.url )
             return e.request.url
 
     def fetch_tokens(self):
@@ -101,6 +101,10 @@ class Oauth2(Auth):
         )
         return headers
 
+
+
+
+
 # ==============================================================
 # >>>>>>>>>>>>>>>>>>>>>>[    TEST     ] >>>>>>>>>>>>>>>>>>>>>>>>
 # ==============================================================
@@ -117,3 +121,6 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+print('[  OK  ] __IMPORTED__: {}'.format(__name__))
