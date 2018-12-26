@@ -1,0 +1,18 @@
+{
+    "users":[
+        {
+            "uri": "app:user:fdbfb0635ec74a30aa366aaa0bc617b6",
+            "id": "fdbfb0635ec74a30aa366aaa0bc617b6",
+            "name": "Solomon",
+            "email": "solomonxiewise@gmail.com",
+            "password": "password123"
+        },
+        {
+            "uri": "app:user:2f58be3e3b154f8f9ed59e76ef6ba533",
+            "id": "2f58be3e3b154f8f9ed59e76ef6ba533",
+            "name": "Jason",
+            "email": "json@test.com",
+            "password": "jason123"
+        }
+    ]
+}
