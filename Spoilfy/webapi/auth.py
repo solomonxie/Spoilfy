@@ -45,6 +45,7 @@ class Oauth2:
         self.auth_uri, self.state = self.get_auth_uri()
         self.callback = self.get_callback()
         self.tokens = self.fetch_tokens()
+        print('[ OK ] Authenticated.')
         # print( '[TOKEN]:{}'.format(self.tokens['access_token']) )
 
         return self.tokens['access_token']
@@ -79,10 +80,12 @@ class Oauth2:
 
     def fetch_tokens(self):
         # Fetch Tokens (in dict format)
-        return self.session.fetch_access_token(
+        tokens = self.session.fetch_access_token(
             self.access_token_url,
             authorization_response = self.callback
         )
+        print('[ OK ] Token retrived.')
+        return tokens
 
     def refresh_tokens(self, refresh_token):
         # Create new session
@@ -91,9 +94,12 @@ class Oauth2:
             scope=scope, redirect_uri=redirect_uri, state=self.state
         )
         # Refresh tokens
-        return self.session.refresh_token(
+        tokens = self.session.refresh_token(
             self.access_token_url, refresh_token=self.tokens['refresh_token']
         )
+        print('[ OK ] Token refreshed.')
+
+        return tokens
 
     def add_token_to_headers(self, headers={}):
         headers['Authorization'] = 'Bearer {}'.format(
@@ -123,4 +129,4 @@ if __name__ == '__main__':
     main()
 
 
-print('[  OK  ] __IMPORTED__: {}'.format(__name__))
+print('[ OK ] __IMPORTED__: {}'.format(__name__))
