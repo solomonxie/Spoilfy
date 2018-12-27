@@ -40,12 +40,6 @@ class SpotifyAPI(WebAPI):
         # Get paging info
         paging = jsondata[key] if key else jsondata
         next = paging['next']
-        #limit = paging['limit']
-        #offset = paging['offset']
-        #total = paging['total']
-        #print('At {} / {}, {} per page, Next URL: \n\t{}'.format(
-        #    offset, total, limit, next
-        #))
         # Recursively retrive next page & yield result
         if next:
             yield from self._iterate(next, key)
@@ -76,9 +70,29 @@ def main():
         data = json.loads( f.read() )
 
     api = SpotifyAPI(data)
-    #print( api.get_my_profile()['display_name'] )
+    # Fetch my profile
+    print('[FETCHING] Profile...')
+    print( api.get_my_profile()['display_name'] )
+
+    # Fetch my tracks
+    print('[FETCHING] Tracks...')
+    for t in api.get_my_tracks():
+        print('At {} / {}, {} per page, Next URL: \n\t{}'.format(
+            t['offset'], t['total'], t['limit'], t['next']
+        ))
+    # Fetch my albums
+    print('[FETCHING] Albums...')
+    for t in api.get_my_albums():
+        print('At {} / {}, {} per page, Next URL: \n\t{}'.format(
+            t['offset'], t['total'], t['limit'], t['next']
+        ))
+    # Fetch my artists
+    print('[FETCHING] Artists...')
     for t in api.get_my_artists():
-        continue
+        # Artist list DOESN'T support [limit], [offset]
+        print('Total {}, Next URL: \n\t{}'.format(
+            t['total'], t['next']
+        ))
 
 if __name__ == '__main__':
     main()
