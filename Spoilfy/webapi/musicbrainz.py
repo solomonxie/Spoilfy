@@ -32,19 +32,19 @@ class MusicBrainzAPI:
     # [Tracks]
     def search_tracks(self, **query):
         return self._get(self.ROOT+'/recording',
-            {'query':self._qs(query)}
+            params={'query':self._qs(query)}
         )
 
     # [Albums]
     def search_albums(self, **query):
         return self._get(self.ROOT+'/release',
-            {'query':self._qs(query)}
+            params={'query':self._qs(query)}
         )
 
     # [Artists]
     def search_artists(self, **query):
         return self._get(self.ROOT+'/artist',
-            {'query':self._qs(query)}
+            params={'query':self._qs(query)}
         )
 
 

@@ -22,7 +22,7 @@ class SpotifyAPI(WebAPI):
     """ [  ]
 
     """
-    root = 'https://api.spotify.com/v1'
+    ROOT = 'https://api.spotify.com/v1'
 
     def __init__(self, appdata):
         auth = Oauth2(appdata)
@@ -48,17 +48,17 @@ class SpotifyAPI(WebAPI):
 
 
     def get_my_profile(self):
-        return self._get('{}/me'.format(self.root))
+        return self._get('{}/me'.format(self.ROOT))
 
     def get_my_tracks(self):
-        return self._iterate('{}/me/tracks'.format(self.root))
+        return self._iterate('{}/me/tracks'.format(self.ROOT))
 
     def get_my_albums(self):
-        return self._iterate('{}/me/albums'.format(self.root))
+        return self._iterate('{}/me/albums'.format(self.ROOT))
 
     def get_my_artists(self):
         return self._iterate(
-            '{}/me/following?type=artist'.format(self.root),
+            '{}/me/following?type=artist'.format(self.ROOT),
             key='artists'
         )
 
