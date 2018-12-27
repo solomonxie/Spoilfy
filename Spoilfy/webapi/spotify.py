@@ -3,7 +3,7 @@
 # MAINTAINER: Solomon Xie <14041622+solomonxie@users.noreply.github.com>
 #
 # DEPENDENCIES:
-#   - 
+#   -
 
 import json
 import requests
