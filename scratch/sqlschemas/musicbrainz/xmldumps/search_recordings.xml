@@ -1,0 +1,1922 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<metadata created="2018-12-27T08:12:31.353Z" xmlns="http://musicbrainz.org/ns/mmd-2.0#" xmlns:ns2="http://musicbrainz.org/ns/ext#-2.0">
+    <recording-list count="2710298" offset="0">
+        <recording id="4ae5ea82-31ef-4099-a315-3c2487d9dd32" ns2:score="100">
+            <title>Now Is Not a Good Time</title>
+            <length>344493</length>
+            <artist-credit>
+                <name-credit>
+                    <artist id="4ef5ed49-7ea3-405c-a381-04cf84e17d8c">
+                        <name>BigBang</name>
+                        <sort-name>BigBang</sort-name>
+                        <disambiguation>Norwegian rock band</disambiguation>
+                        <alias-list>
+                            <alias sort-name="Big Bang">Big Bang</alias>
+                        </alias-list>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-list>
+                <release id="d8507216-2261-4b18-a033-0a8628ecff9e">
+                    <title>Edendale</title>
+                    <status>Official</status>
+                    <artist-credit>
+                        <name-credit>
+                            <artist id="4ef5ed49-7ea3-405c-a381-04cf84e17d8c">
+                                <name>BigBang</name>
+                                <sort-name>BigBang</sort-name>
+                                <disambiguation>Norwegian rock band</disambiguation>
+                            </artist>
+                        </name-credit>
+                    </artist-credit>
+                    <release-group id="83a6a8c7-2383-347f-9b11-6de66aa37004" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                        <title>Edendale</title>
+                        <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+                    </release-group>
+                    <date>2009-03-09</date>
+                    <country>NO</country>
+                    <release-event-list>
+                        <release-event>
+                            <date>2009-03-09</date>
+                            <area id="6743d351-6f37-3049-9724-5041161fff4d">
+                                <name>Norway</name>
+                                <sort-name>Norway</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>NO</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="1">
+                        <track-count>10</track-count>
+                        <medium>
+                            <position>1</position>
+                            <format>CD</format>
+                            <track-list count="10" offset="8">
+                                <track id="c67872f2-fa15-3eaa-8e97-5e1be81673bf">
+                                    <number>9</number>
+                                    <title>Now Is Not a Good Time</title>
+                                    <length>344493</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+                <release id="7f7dd1ba-ca54-4337-89bd-a39a90b0302a">
+                    <title>Edendale</title>
+                    <status>Official</status>
+                    <artist-credit>
+                        <name-credit>
+                            <artist id="4ef5ed49-7ea3-405c-a381-04cf84e17d8c">
+                                <name>BigBang</name>
+                                <sort-name>BigBang</sort-name>
+                                <disambiguation>Norwegian rock band</disambiguation>
+                            </artist>
+                        </name-credit>
+                    </artist-credit>
+                    <release-group id="83a6a8c7-2383-347f-9b11-6de66aa37004" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                        <title>Edendale</title>
+                        <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+                    </release-group>
+                    <date>2010-01-19</date>
+                    <country>US</country>
+                    <release-event-list>
+                        <release-event>
+                            <date>2010-01-19</date>
+                            <area id="489ce91b-6658-3307-9877-795b68554c98">
+                                <name>United States</name>
+                                <sort-name>United States</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>US</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="1">
+                        <track-count>13</track-count>
+                        <medium>
+                            <position>1</position>
+                            <format>CD</format>
+                            <track-list count="13" offset="8">
+                                <track id="29a262c1-b4d0-4f45-9b80-22a3695ef62c">
+                                    <number>9</number>
+                                    <title>Now Is Not a Good Time</title>
+                                    <length>344493</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+            </release-list>
+        </recording>
+        <recording id="f1554272-7309-403b-8804-1ac307104a2d" ns2:score="100">
+            <title>Now Is Not a Good Time</title>
+            <length>179000</length>
+            <artist-credit>
+                <name-credit>
+                    <artist id="2197e6d4-4146-4578-a65d-aeb333b2057c">
+                        <name>Ben Albu</name>
+                        <sort-name>Albu, Ben</sort-name>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-list>
+                <release id="12119b75-97f7-4ace-bc74-e08cbd419944">
+                    <title>Blue Jazz</title>
+                    <status>Official</status>
+                    <release-group id="caa002e4-2dab-4469-954c-7245d94b85c6" type="Other" type-id="4fc3be2b-de1e-396b-a933-beb8f1607a22">
+                        <title>Blue Jazz</title>
+                        <primary-type id="4fc3be2b-de1e-396b-a933-beb8f1607a22">Other</primary-type>
+                    </release-group>
+                    <date/>
+                    <country>US</country>
+                    <release-event-list>
+                        <release-event>
+                            <date/>
+                            <area id="489ce91b-6658-3307-9877-795b68554c98">
+                                <name>United States</name>
+                                <sort-name>United States</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>US</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="1">
+                        <track-count>36</track-count>
+                        <medium>
+                            <position>1</position>
+                            <format>Digital Media</format>
+                            <track-list count="36" offset="5">
+                                <track id="4908afa7-d129-3054-9521-d2a4ca6ead4d">
+                                    <number>6</number>
+                                    <title>Now Is Not a Good Time</title>
+                                    <length>179000</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+            </release-list>
+        </recording>
+        <recording id="c9609d0f-d345-4c89-9130-edc983f18df7" ns2:score="89">
+            <title>Now Is Not a Time</title>
+            <length>251000</length>
+            <artist-credit>
+                <name-credit>
+                    <artist id="d3862db0-9d66-4c0f-a8fb-0cfaf319bc6c">
+                        <name>White Woods</name>
+                        <sort-name>White Woods</sort-name>
+                        <disambiguation>Australian indie band</disambiguation>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-list>
+                <release id="708d168f-ce5a-453c-aee9-b21e39a9add0">
+                    <title>Bellplay</title>
+                    <status>Official</status>
+                    <release-group id="a59fd377-fbfa-458b-ab3c-b105bdde82bb" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                        <title>Bellplay</title>
+                        <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+                    </release-group>
+                    <date>2010-06-26</date>
+                    <country>AU</country>
+                    <release-event-list>
+                        <release-event>
+                            <date>2010-06-26</date>
+                            <area id="106e0bec-b638-3b37-b731-f53d507dc00e">
+                                <name>Australia</name>
+                                <sort-name>Australia</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>AU</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="1">
+                        <track-count>7</track-count>
+                        <medium>
+                            <position>1</position>
+                            <format>CD</format>
+                            <track-list count="7" offset="3">
+                                <track id="0b038bda-db09-410f-8fb7-3c133e98861e">
+                                    <number>4</number>
+                                    <title>Now Is Not a Time</title>
+                                    <length>251000</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+            </release-list>
+        </recording>
+        <recording id="42830fa7-3e07-445e-83f9-2de9898c042e" ns2:score="80">
+            <title>This Is Not a Good Time</title>
+            <length>257000</length>
+            <artist-credit>
+                <name-credit>
+                    <artist id="a6f759a5-4811-4997-a0d0-6b76ff245850">
+                        <name>Ill Lit</name>
+                        <sort-name>Ill Lit</sort-name>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-list>
+                <release id="5ab3209c-5ee8-44fa-8685-ace7f94dff60">
+                    <title>Tom Cruise</title>
+                    <status>Official</status>
+                    <release-group id="9e289cd3-2d40-3f0a-b0a1-e37e438b515a" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                        <title>Tom Cruise</title>
+                        <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+                    </release-group>
+                    <date>2006-05-09</date>
+                    <country>US</country>
+                    <release-event-list>
+                        <release-event>
+                            <date>2006-05-09</date>
+                            <area id="489ce91b-6658-3307-9877-795b68554c98">
+                                <name>United States</name>
+                                <sort-name>United States</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>US</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="1">
+                        <track-count>10</track-count>
+                        <medium>
+                            <position>1</position>
+                            <format>CD</format>
+                            <track-list count="10" offset="7">
+                                <track id="0d61cd40-5df2-31ec-9247-4a656dbd4c91">
+                                    <number>8</number>
+                                    <title>This Is Not a Good Time</title>
+                                    <length>257000</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+            </release-list>
+        </recording>
+        <recording id="763e5680-bec1-4eed-a57d-fa9313c95c0d" ns2:score="80">
+            <title>Now’s a Good Time</title>
+            <length>305000</length>
+            <artist-credit>
+                <name-credit>
+                    <artist id="2a722d95-e054-43b4-94b0-bbc02d5af2d3">
+                        <name>Stoney</name>
+                        <sort-name>Stoney</sort-name>
+                        <disambiguation>British musician Mark Stoney</disambiguation>
+                        <alias-list>
+                            <alias sort-name="Stoney+">Stoney+</alias>
+                        </alias-list>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-list>
+                <release id="8b67f025-2953-40ed-ae37-f2b9702f89a5">
+                    <title>The Scene &amp; The Unseen</title>
+                    <status>Official</status>
+                    <artist-credit>
+                        <name-credit>
+                            <artist id="2a722d95-e054-43b4-94b0-bbc02d5af2d3">
+                                <name>Stoney</name>
+                                <sort-name>Stoney</sort-name>
+                                <disambiguation>British musician Mark Stoney</disambiguation>
+                            </artist>
+                        </name-credit>
+                    </artist-credit>
+                    <release-group id="15c2b966-1da1-4b31-b526-aa1aade787f7" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                        <title>The Scene &amp; The Unseen</title>
+                        <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+                    </release-group>
+                    <date>2014-02-05</date>
+                    <country>DE</country>
+                    <release-event-list>
+                        <release-event>
+                            <date>2014-02-05</date>
+                            <area id="85752fda-13c4-31a3-bee5-0e5cb1f51dad">
+                                <name>Germany</name>
+                                <sort-name>Germany</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>DE</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="1">
+                        <track-count>12</track-count>
+                        <medium>
+                            <position>1</position>
+                            <format>Digital Media</format>
+                            <track-list count="12" offset="9">
+                                <track id="57290a00-c4c3-4144-94e1-6513a2d3109a">
+                                    <number>10</number>
+                                    <title>Now’s a Good Time</title>
+                                    <length>305000</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+                <release id="a1b1741e-5a78-46e1-8fc0-743889712860">
+                    <title>The Scene and the Unseen</title>
+                    <status>Official</status>
+                    <artist-credit>
+                        <name-credit>
+                            <artist id="2a722d95-e054-43b4-94b0-bbc02d5af2d3">
+                                <name>Stoney</name>
+                                <sort-name>Stoney</sort-name>
+                                <disambiguation>British musician Mark Stoney</disambiguation>
+                            </artist>
+                        </name-credit>
+                    </artist-credit>
+                    <release-group id="15c2b966-1da1-4b31-b526-aa1aade787f7" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                        <title>The Scene &amp; The Unseen</title>
+                        <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+                    </release-group>
+                    <date>2007-11-12</date>
+                    <country>GB</country>
+                    <release-event-list>
+                        <release-event>
+                            <date>2007-11-12</date>
+                            <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
+                                <name>United Kingdom</name>
+                                <sort-name>United Kingdom</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>GB</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="1">
+                        <track-count>12</track-count>
+                        <medium>
+                            <position>1</position>
+                            <format>CD</format>
+                            <track-list count="12" offset="9">
+                                <track id="e4ad23b9-0ab6-36ed-a576-f75fbd4ceb89">
+                                    <number>10</number>
+                                    <title>Now’s a Good Time</title>
+                                    <length>305000</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+            </release-list>
+        </recording>
+        <recording id="4c33eeaa-bbc0-4177-a85c-b260ede54072" ns2:score="78">
+            <title>Now Is Not a Good Time (30 second version)</title>
+            <length>30000</length>
+            <artist-credit>
+                <name-credit>
+                    <artist id="2197e6d4-4146-4578-a65d-aeb333b2057c">
+                        <name>Ben Albu</name>
+                        <sort-name>Albu, Ben</sort-name>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-list>
+                <release id="12119b75-97f7-4ace-bc74-e08cbd419944">
+                    <title>Blue Jazz</title>
+                    <status>Official</status>
+                    <release-group id="caa002e4-2dab-4469-954c-7245d94b85c6" type="Other" type-id="4fc3be2b-de1e-396b-a933-beb8f1607a22">
+                        <title>Blue Jazz</title>
+                        <primary-type id="4fc3be2b-de1e-396b-a933-beb8f1607a22">Other</primary-type>
+                    </release-group>
+                    <date/>
+                    <country>US</country>
+                    <release-event-list>
+                        <release-event>
+                            <date/>
+                            <area id="489ce91b-6658-3307-9877-795b68554c98">
+                                <name>United States</name>
+                                <sort-name>United States</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>US</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="1">
+                        <track-count>36</track-count>
+                        <medium>
+                            <position>1</position>
+                            <format>Digital Media</format>
+                            <track-list count="36" offset="23">
+                                <track id="7cc30ebf-4e91-3278-b0cd-069d7ce54ca3">
+                                    <number>24</number>
+                                    <title>Now Is Not a Good Time (30 second version)</title>
+                                    <length>30000</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+            </release-list>
+        </recording>
+        <recording id="d073c0e8-a7a4-4b92-ae20-27ec827697dc" ns2:score="77">
+            <title>Now Is Not the Time</title>
+            <length>182000</length>
+            <artist-credit>
+                <name-credit>
+                    <artist id="a81ae9b7-df5b-4495-a966-862f7cae56f3">
+                        <name>Lonnie James</name>
+                        <sort-name>James, Lonnie</sort-name>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-list>
+                <release id="45305a74-d7fa-4374-8f6c-f4173d8ea68d">
+                    <title>This Land Is Your Land</title>
+                    <status>Official</status>
+                    <release-group id="5ee6573f-fe67-3889-b2a2-ed946abacac6" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                        <title>This Land Is Your Land</title>
+                        <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+                    </release-group>
+                    <date>1998-02-14</date>
+                    <country>CA</country>
+                    <release-event-list>
+                        <release-event>
+                            <date>1998-02-14</date>
+                            <area id="71bbafaa-e825-3e15-8ca9-017dcad1748b">
+                                <name>Canada</name>
+                                <sort-name>Canada</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>CA</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="1">
+                        <track-count>9</track-count>
+                        <medium>
+                            <position>1</position>
+                            <format>CD</format>
+                            <track-list count="9" offset="3">
+                                <track id="ad7e6847-bd2b-302f-bea4-4d171874f6a0">
+                                    <number>4</number>
+                                    <title>Now Is Not the Time</title>
+                                    <length>182000</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+            </release-list>
+        </recording>
+        <recording id="a4a0419c-ee5a-4e4d-a01a-a8702215f763" ns2:score="77">
+            <title>Now is not the Time</title>
+            <length>252520</length>
+            <artist-credit>
+                <name-credit>
+                    <artist id="0561e410-eab3-445e-bc69-cfa56a2f83c6">
+                        <name>Soul Miner's Daughter</name>
+                        <sort-name>Soul Miner's Daughter</sort-name>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-list>
+                <release id="bf733532-bfe1-47e4-91b1-308f949f70ad">
+                    <title>Hallelujah</title>
+                    <status>Official</status>
+                    <release-group id="831dcb84-732e-35e8-b321-d33a48f714ae" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                        <title>Hallelujah</title>
+                        <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+                    </release-group>
+                    <medium-list count="1">
+                        <track-count>12</track-count>
+                        <medium>
+                            <position>1</position>
+                            <track-list count="12" offset="10">
+                                <track id="1b6e610c-b180-3d41-8b81-948dc557bf8d">
+                                    <number>11</number>
+                                    <title>Now is not the Time</title>
+                                    <length>252520</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+            </release-list>
+        </recording>
+        <recording id="dcdb8e70-bade-4579-87ad-ca00d3c2af4c" ns2:score="77">
+            <title>Now Is Not the Time</title>
+            <length>287880</length>
+            <artist-credit>
+                <name-credit>
+                    <artist id="49030bc4-2351-48bf-8b64-67430be4f805">
+                        <name>The Deadly Gentlemen</name>
+                        <sort-name>Deadly Gentlemen, The</sort-name>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-list>
+                <release id="de1cb780-d87d-4424-a190-e113d867f483">
+                    <title>Roll Me, Tumble Me</title>
+                    <status>Official</status>
+                    <release-group id="fb8dc141-64f4-49d7-83de-b15a85216bab" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                        <title>Roll Me, Tumble Me</title>
+                        <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+                    </release-group>
+                    <date>2013-07-09</date>
+                    <country>US</country>
+                    <release-event-list>
+                        <release-event>
+                            <date>2013-07-09</date>
+                            <area id="489ce91b-6658-3307-9877-795b68554c98">
+                                <name>United States</name>
+                                <sort-name>United States</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>US</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="1">
+                        <track-count>10</track-count>
+                        <medium>
+                            <position>1</position>
+                            <format>CD</format>
+                            <track-list count="10" offset="8">
+                                <track id="2a348638-981b-4802-b15f-b9f2479c7ae9">
+                                    <number>9</number>
+                                    <title>Now Is Not the Time</title>
+                                    <length>287880</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+            </release-list>
+        </recording>
+        <recording id="640f405e-e955-43fb-a325-04efe47a3aaf" ns2:score="77">
+            <title>Now Is Not The Time</title>
+            <length>200000</length>
+            <artist-credit>
+                <name-credit>
+                    <artist id="84b453d8-84d0-4de1-9cd8-9daf2378923e">
+                        <name>Jamie N Commons</name>
+                        <sort-name>Commons, Jamie N</sort-name>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-list>
+                <release id="3d55d6c6-5202-4620-8f02-c24bb68be401">
+                    <title>The Baron EP</title>
+                    <status>Promotion</status>
+                    <release-group id="ff24ccbf-1e22-4f16-ba45-5bf59ca23e8d" type="EP" type-id="6d0c5bf6-7a33-3420-a519-44fc63eedebf">
+                        <title>The Baron EP</title>
+                        <primary-type id="6d0c5bf6-7a33-3420-a519-44fc63eedebf">EP</primary-type>
+                    </release-group>
+                    <date>2011-10-10</date>
+                    <country>GB</country>
+                    <release-event-list>
+                        <release-event>
+                            <date>2011-10-10</date>
+                            <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
+                                <name>United Kingdom</name>
+                                <sort-name>United Kingdom</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>GB</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="1">
+                        <track-count>6</track-count>
+                        <medium>
+                            <position>1</position>
+                            <format>CD</format>
+                            <track-list count="6" offset="3">
+                                <track id="b7a583b9-f688-4f4a-97b8-a9cfd1346dd5">
+                                    <number>4</number>
+                                    <title>Now Is Not The Time</title>
+                                    <length>200000</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+            </release-list>
+        </recording>
+        <recording id="b5e85bad-597a-4a51-bfc1-853d3e13472a" ns2:score="77">
+            <title>Now Is Not The Time</title>
+            <length>236400</length>
+            <artist-credit>
+                <name-credit>
+                    <artist id="a1b9c3d2-b627-49f3-942f-af62a17cd40a">
+                        <name>Venus Envy</name>
+                        <sort-name>Venus Envy</sort-name>
+                        <disambiguation>Irish band</disambiguation>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-list>
+                <release id="231d020b-5065-42c5-ad1c-06f1cef78205">
+                    <title>The Age You're At</title>
+                    <release-group id="a222cca3-a768-4fcd-9a80-0dba0715de25" type="EP" type-id="6d0c5bf6-7a33-3420-a519-44fc63eedebf">
+                        <title>The Age You're At</title>
+                        <primary-type id="6d0c5bf6-7a33-3420-a519-44fc63eedebf">EP</primary-type>
+                    </release-group>
+                    <date/>
+                    <country>IE</country>
+                    <release-event-list>
+                        <release-event>
+                            <date/>
+                            <area id="390b05d4-11ec-3bce-a343-703a366b34a5">
+                                <name>Ireland</name>
+                                <sort-name>Ireland</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>IE</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="1">
+                        <track-count>7</track-count>
+                        <medium>
+                            <position>1</position>
+                            <format>CD</format>
+                            <track-list count="7" offset="1">
+                                <track id="ce46fba7-7145-4455-9dae-8b330039111f">
+                                    <number>2</number>
+                                    <title>Now Is Not The Time</title>
+                                    <length>236400</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+            </release-list>
+        </recording>
+        <recording id="abc5bc0d-eadc-4368-9536-3248bf750c4f" ns2:score="77">
+            <title>Now Is Not the Time</title>
+            <length>224746</length>
+            <artist-credit>
+                <name-credit>
+                    <artist id="6a93afbb-257f-4166-b389-9f2a1e5c5df8">
+                        <name>CHVRCHΞS</name>
+                        <sort-name>CHVRCHES</sort-name>
+                        <disambiguation>Glaswegian electronic pop trio</disambiguation>
+                        <alias-list>
+                            <alias sort-name="Churches" type="Search hint" type-id="1937e404-b981-3cb7-8151-4c86ebfc8d8e">Churches</alias>
+                            <alias locale="en" primary="primary" sort-name="CHVRCHES">CHVRCHES</alias>
+                            <alias sort-name="CHURCHES" type="Search hint" type-id="1937e404-b981-3cb7-8151-4c86ebfc8d8e">CHURCHES</alias>
+                            <alias sort-name="CHVRCHES" type="Search hint" type-id="1937e404-b981-3cb7-8151-4c86ebfc8d8e">CHVRCHES</alias>
+                        </alias-list>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-list>
+                <release id="b9725e5b-b59e-4c05-be1d-3f82021704fb">
+                    <title>Recover EP</title>
+                    <status>Official</status>
+                    <artist-credit>
+                        <name-credit>
+                            <artist id="6a93afbb-257f-4166-b389-9f2a1e5c5df8">
+                                <name>CHVRCHΞS</name>
+                                <sort-name>CHVRCHES</sort-name>
+                                <disambiguation>Glaswegian electronic pop trio</disambiguation>
+                            </artist>
+                        </name-credit>
+                    </artist-credit>
+                    <release-group id="ba381f4a-85fd-417e-ab08-1a13997a2fb3" type="EP" type-id="6d0c5bf6-7a33-3420-a519-44fc63eedebf">
+                        <title>Recover EP</title>
+                        <primary-type id="6d0c5bf6-7a33-3420-a519-44fc63eedebf">EP</primary-type>
+                    </release-group>
+                    <date>2013-03-25</date>
+                    <country>GB</country>
+                    <release-event-list>
+                        <release-event>
+                            <date>2013-03-25</date>
+                            <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
+                                <name>United Kingdom</name>
+                                <sort-name>United Kingdom</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>GB</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="1">
+                        <track-count>4</track-count>
+                        <medium>
+                            <position>1</position>
+                            <format>Digital Media</format>
+                            <track-list count="4" offset="2">
+                                <track id="77dc8b61-102d-37c8-9003-dbabcd448883">
+                                    <number>3</number>
+                                    <title>Now Is Not the Time</title>
+                                    <length>225000</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+                <release id="d5b2a610-2203-4355-8b88-efb31245a400">
+                    <title>Recover EP</title>
+                    <status>Official</status>
+                    <artist-credit>
+                        <name-credit>
+                            <artist id="6a93afbb-257f-4166-b389-9f2a1e5c5df8">
+                                <name>CHVRCHΞS</name>
+                                <sort-name>CHVRCHES</sort-name>
+                                <disambiguation>Glaswegian electronic pop trio</disambiguation>
+                            </artist>
+                        </name-credit>
+                    </artist-credit>
+                    <release-group id="ba381f4a-85fd-417e-ab08-1a13997a2fb3" type="EP" type-id="6d0c5bf6-7a33-3420-a519-44fc63eedebf">
+                        <title>Recover EP</title>
+                        <primary-type id="6d0c5bf6-7a33-3420-a519-44fc63eedebf">EP</primary-type>
+                    </release-group>
+                    <date>2013-03-26</date>
+                    <country>XW</country>
+                    <release-event-list>
+                        <release-event>
+                            <date>2013-03-26</date>
+                            <area id="525d4e18-3d00-31b9-a58b-a146a916de8f">
+                                <name>[Worldwide]</name>
+                                <sort-name>[Worldwide]</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>XW</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="1">
+                        <track-count>5</track-count>
+                        <medium>
+                            <position>1</position>
+                            <format>Digital Media</format>
+                            <track-list count="5" offset="2">
+                                <track id="9bbbc452-1635-3c4d-92db-aefda63e7853">
+                                    <number>3</number>
+                                    <title>Now Is Not the Time</title>
+                                    <length>225000</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+                <release id="f00f472a-f816-4c4c-acc7-bbd904ff6f9d">
+                    <title>Recover EP</title>
+                    <status>Promotion</status>
+                    <artist-credit>
+                        <name-credit>
+                            <artist id="6a93afbb-257f-4166-b389-9f2a1e5c5df8">
+                                <name>CHVRCHΞS</name>
+                                <sort-name>CHVRCHES</sort-name>
+                                <disambiguation>Glaswegian electronic pop trio</disambiguation>
+                            </artist>
+                        </name-credit>
+                    </artist-credit>
+                    <release-group id="ba381f4a-85fd-417e-ab08-1a13997a2fb3" type="EP" type-id="6d0c5bf6-7a33-3420-a519-44fc63eedebf">
+                        <title>Recover EP</title>
+                        <primary-type id="6d0c5bf6-7a33-3420-a519-44fc63eedebf">EP</primary-type>
+                    </release-group>
+                    <date>2013</date>
+                    <country>US</country>
+                    <release-event-list>
+                        <release-event>
+                            <date>2013</date>
+                            <area id="489ce91b-6658-3307-9877-795b68554c98">
+                                <name>United States</name>
+                                <sort-name>United States</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>US</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="1">
+                        <track-count>4</track-count>
+                        <medium>
+                            <position>1</position>
+                            <format>CD</format>
+                            <track-list count="4" offset="2">
+                                <track id="3b4c7127-069c-4850-b3c7-772d50543d48">
+                                    <number>3</number>
+                                    <title>Now Is Not The Time</title>
+                                    <length>222000</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+                <release id="ec21e95b-eae0-4aeb-8819-f3b5b1cedadb">
+                    <title>Recover EP</title>
+                    <status>Promotion</status>
+                    <artist-credit>
+                        <name-credit>
+                            <artist id="6a93afbb-257f-4166-b389-9f2a1e5c5df8">
+                                <name>CHVRCHΞS</name>
+                                <sort-name>CHVRCHES</sort-name>
+                                <disambiguation>Glaswegian electronic pop trio</disambiguation>
+                            </artist>
+                        </name-credit>
+                    </artist-credit>
+                    <release-group id="ba381f4a-85fd-417e-ab08-1a13997a2fb3" type="EP" type-id="6d0c5bf6-7a33-3420-a519-44fc63eedebf">
+                        <title>Recover EP</title>
+                        <primary-type id="6d0c5bf6-7a33-3420-a519-44fc63eedebf">EP</primary-type>
+                    </release-group>
+                    <medium-list count="1">
+                        <track-count>4</track-count>
+                        <medium>
+                            <position>1</position>
+                            <format>CD</format>
+                            <track-list count="4" offset="2">
+                                <track id="e43d380a-aa7e-4c4a-99df-9f5a023bcc71">
+                                    <number>3</number>
+                                    <title>Now Is Not The Time</title>
+                                    <length>225000</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+                <release id="daa36672-0ea2-4e84-8910-b4e9ed2341c2">
+                    <title>EP</title>
+                    <status>Official</status>
+                    <artist-credit>
+                        <name-credit>
+                            <artist id="6a93afbb-257f-4166-b389-9f2a1e5c5df8">
+                                <name>CHVRCHΞS</name>
+                                <sort-name>CHVRCHES</sort-name>
+                                <disambiguation>Glaswegian electronic pop trio</disambiguation>
+                            </artist>
+                        </name-credit>
+                    </artist-credit>
+                    <release-group id="c7dd63bd-d1e5-4370-b0b9-2b7cda479b03" type="EP" type-id="6d0c5bf6-7a33-3420-a519-44fc63eedebf">
+                        <title>EP</title>
+                        <primary-type id="6d0c5bf6-7a33-3420-a519-44fc63eedebf">EP</primary-type>
+                    </release-group>
+                    <date>2013-07-10</date>
+                    <country>JP</country>
+                    <release-event-list>
+                        <release-event>
+                            <date>2013-07-10</date>
+                            <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                                <name>Japan</name>
+                                <sort-name>Japan</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>JP</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="1">
+                        <track-count>6</track-count>
+                        <medium>
+                            <position>1</position>
+                            <format>CD</format>
+                            <track-list count="6" offset="3">
+                                <track id="82ad13cc-b615-4f5f-b9b7-e3d2d5553982">
+                                    <number>4</number>
+                                    <title>Now Is Not the Time</title>
+                                    <length>224000</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+                <release id="2befdbb5-6173-44f7-b5e7-e4896d775883">
+                    <title>The Bones of What You Believe</title>
+                    <status>Official</status>
+                    <disambiguation>Deluxe Edition</disambiguation>
+                    <artist-credit>
+                        <name-credit>
+                            <artist id="6a93afbb-257f-4166-b389-9f2a1e5c5df8">
+                                <name>CHVRCHΞS</name>
+                                <sort-name>CHVRCHES</sort-name>
+                                <disambiguation>Glaswegian electronic pop trio</disambiguation>
+                            </artist>
+                        </name-credit>
+                    </artist-credit>
+                    <release-group id="b2cbaa83-cb77-4961-8ca3-816b24e5204f" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                        <title>The Bones of What You Believe</title>
+                        <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+                    </release-group>
+                    <date>2014-05-02</date>
+                    <country>AU</country>
+                    <release-event-list>
+                        <release-event>
+                            <date>2014-05-02</date>
+                            <area id="106e0bec-b638-3b37-b731-f53d507dc00e">
+                                <name>Australia</name>
+                                <sort-name>Australia</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>AU</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="2">
+                        <track-count>29</track-count>
+                        <medium>
+                            <position>2</position>
+                            <format>CD</format>
+                            <track-list count="17" offset="3">
+                                <track id="8272ecaa-9596-4e5d-acd2-5510beb1914b">
+                                    <number>4</number>
+                                    <title>Now Is Not The Time</title>
+                                    <length>224746</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+                <release id="e399b9fe-1f52-450a-9a16-1fb805fd948b">
+                    <title>The Bones of What You Believe</title>
+                    <status>Official</status>
+                    <disambiguation>iTunes Deluxe Edition</disambiguation>
+                    <artist-credit>
+                        <name-credit>
+                            <artist id="6a93afbb-257f-4166-b389-9f2a1e5c5df8">
+                                <name>CHVRCHΞS</name>
+                                <sort-name>CHVRCHES</sort-name>
+                                <disambiguation>Glaswegian electronic pop trio</disambiguation>
+                            </artist>
+                        </name-credit>
+                    </artist-credit>
+                    <release-group id="b2cbaa83-cb77-4961-8ca3-816b24e5204f" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                        <title>The Bones of What You Believe</title>
+                        <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+                    </release-group>
+                    <date>2014-05-02</date>
+                    <country>AU</country>
+                    <release-event-list>
+                        <release-event>
+                            <date>2014-05-02</date>
+                            <area id="106e0bec-b638-3b37-b731-f53d507dc00e">
+                                <name>Australia</name>
+                                <sort-name>Australia</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>AU</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="1">
+                        <track-count>29</track-count>
+                        <medium>
+                            <position>1</position>
+                            <format>Digital Media</format>
+                            <track-list count="29" offset="15">
+                                <track id="8242397e-539a-46ad-98d2-baef2d20fcd5">
+                                    <number>16</number>
+                                    <title>Now Is Not The Time</title>
+                                    <length>225000</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+                <release id="e4275392-be8d-4d5a-8ce1-ccead9a03319">
+                    <title>The Bones Of What You Believe</title>
+                    <status>Official</status>
+                    <disambiguation>Asia Deluxe Edition</disambiguation>
+                    <artist-credit>
+                        <name-credit>
+                            <artist id="6a93afbb-257f-4166-b389-9f2a1e5c5df8">
+                                <name>CHVRCHΞS</name>
+                                <sort-name>CHVRCHES</sort-name>
+                                <disambiguation>Glaswegian electronic pop trio</disambiguation>
+                            </artist>
+                        </name-credit>
+                    </artist-credit>
+                    <release-group id="b2cbaa83-cb77-4961-8ca3-816b24e5204f" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                        <title>The Bones of What You Believe</title>
+                        <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+                    </release-group>
+                    <medium-list count="2">
+                        <track-count>30</track-count>
+                        <medium>
+                            <position>2</position>
+                            <format>CD</format>
+                            <track-list count="18" offset="3">
+                                <track id="8661f945-f79b-4505-9320-dcf80830603b">
+                                    <number>4</number>
+                                    <title>Now Is Not The Time</title>
+                                    <length>224746</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+            </release-list>
+        </recording>
+        <recording id="6c9e7dd1-fbf1-4def-9271-52a62a3d2402" ns2:score="77">
+            <title>Now Is Not the Time</title>
+            <length>236000</length>
+            <disambiguation>live, 2013-04-29: Daytrotter Session, Studio Paradiso, San Francisco, CA, USA</disambiguation>
+            <artist-credit>
+                <name-credit>
+                    <artist id="6a93afbb-257f-4166-b389-9f2a1e5c5df8">
+                        <name>CHVRCHΞS</name>
+                        <sort-name>CHVRCHES</sort-name>
+                        <disambiguation>Glaswegian electronic pop trio</disambiguation>
+                        <alias-list>
+                            <alias sort-name="Churches" type="Search hint" type-id="1937e404-b981-3cb7-8151-4c86ebfc8d8e">Churches</alias>
+                            <alias locale="en" primary="primary" sort-name="CHVRCHES">CHVRCHES</alias>
+                            <alias sort-name="CHURCHES" type="Search hint" type-id="1937e404-b981-3cb7-8151-4c86ebfc8d8e">CHURCHES</alias>
+                            <alias sort-name="CHVRCHES" type="Search hint" type-id="1937e404-b981-3cb7-8151-4c86ebfc8d8e">CHVRCHES</alias>
+                        </alias-list>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-list>
+                <release id="44e30124-67f2-445c-aadc-9b303da1bf9b">
+                    <title>Daytrotter Session</title>
+                    <status>Promotion</status>
+                    <artist-credit>
+                        <name-credit>
+                            <artist id="6a93afbb-257f-4166-b389-9f2a1e5c5df8">
+                                <name>CHVRCHΞS</name>
+                                <sort-name>CHVRCHES</sort-name>
+                                <disambiguation>Glaswegian electronic pop trio</disambiguation>
+                            </artist>
+                        </name-credit>
+                    </artist-credit>
+                    <release-group id="59983bf9-4570-478a-b357-e3ff9306d862" type="Other" type-id="4fc3be2b-de1e-396b-a933-beb8f1607a22">
+                        <title>Daytrotter Session</title>
+                        <primary-type id="4fc3be2b-de1e-396b-a933-beb8f1607a22">Other</primary-type>
+                        <secondary-type-list>
+                            <secondary-type id="6fd474e2-6b58-3102-9d17-d6f7eb7da0a0">Live</secondary-type>
+                        </secondary-type-list>
+                    </release-group>
+                    <date>2013-04-29</date>
+                    <country>XW</country>
+                    <release-event-list>
+                        <release-event>
+                            <date>2013-04-29</date>
+                            <area id="525d4e18-3d00-31b9-a58b-a146a916de8f">
+                                <name>[Worldwide]</name>
+                                <sort-name>[Worldwide]</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>XW</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="1">
+                        <track-count>5</track-count>
+                        <medium>
+                            <position>1</position>
+                            <format>Digital Media</format>
+                            <track-list count="5" offset="1">
+                                <track id="d4834099-228f-4177-b03d-c6c20a7d0867">
+                                    <number>2</number>
+                                    <title>Now Is Not the Time</title>
+                                    <length>236000</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+            </release-list>
+        </recording>
+        <recording id="5ef63398-3ed2-49e3-a35d-796086ffb014" ns2:score="72">
+            <title>Now Is Good</title>
+            <length>216000</length>
+            <artist-credit>
+                <name-credit>
+                    <artist id="46d72c85-ba81-4d50-bb6e-5d628dc08d55">
+                        <name>김재중</name>
+                        <sort-name>Kim, Jae Joong</sort-name>
+                        <alias-list>
+                            <alias sort-name="英雄在中">英雄在中</alias>
+                            <alias sort-name="영웅재중">영웅재중</alias>
+                            <alias sort-name="Hero Jae Joong">Hero Jae Joong</alias>
+                            <alias sort-name="JaeJoong">JaeJoong</alias>
+                            <alias sort-name="Hero">Hero</alias>
+                            <alias sort-name="Youngwoong, Jaejoong">영웅제중</alias>
+                            <alias sort-name="YoungWoong JaeJoong">YoungWoong JaeJoong</alias>
+                        </alias-list>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-list>
+                <release id="1de89c79-e0f0-446c-b1c1-415fc01d88c1">
+                    <title>WWW</title>
+                    <status>Official</status>
+                    <artist-credit>
+                        <name-credit>
+                            <artist id="46d72c85-ba81-4d50-bb6e-5d628dc08d55">
+                                <name>김재중</name>
+                                <sort-name>Kim, Jae Joong</sort-name>
+                            </artist>
+                        </name-credit>
+                    </artist-credit>
+                    <release-group id="afeb55d9-d688-4aff-80d2-3cfa55c30eff" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                        <title>WWW</title>
+                        <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+                    </release-group>
+                    <date>2013-10-29</date>
+                    <country>KR</country>
+                    <release-event-list>
+                        <release-event>
+                            <date>2013-10-29</date>
+                            <area id="b9f7d640-46e8-313e-b158-ded6d18593b3">
+                                <name>South Korea</name>
+                                <sort-name>South Korea</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>KR</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="1">
+                        <track-count>13</track-count>
+                        <medium>
+                            <position>1</position>
+                            <format>Digital Media</format>
+                            <track-list count="13" offset="8">
+                                <track id="1155ca25-c1d3-4358-9f22-db28e20f0585">
+                                    <number>9</number>
+                                    <title>Now Is Good</title>
+                                    <length>216000</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+                <release id="1715c017-d117-4353-8ac1-69ebce27cd6e">
+                    <title>WWW</title>
+                    <status>Official</status>
+                    <artist-credit>
+                        <name-credit>
+                            <artist id="46d72c85-ba81-4d50-bb6e-5d628dc08d55">
+                                <name>김재중</name>
+                                <sort-name>Kim, Jae Joong</sort-name>
+                            </artist>
+                        </name-credit>
+                    </artist-credit>
+                    <release-group id="afeb55d9-d688-4aff-80d2-3cfa55c30eff" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                        <title>WWW</title>
+                        <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+                    </release-group>
+                    <date>2013-10-29</date>
+                    <country>KR</country>
+                    <release-event-list>
+                        <release-event>
+                            <date>2013-10-29</date>
+                            <area id="b9f7d640-46e8-313e-b158-ded6d18593b3">
+                                <name>South Korea</name>
+                                <sort-name>South Korea</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>KR</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="1">
+                        <track-count>13</track-count>
+                        <medium>
+                            <position>1</position>
+                            <format>CD</format>
+                            <track-list count="13" offset="8">
+                                <track id="6bd2e8ec-7aca-42f2-b50a-da22773f73cc">
+                                    <number>9</number>
+                                    <title>Now Is Good</title>
+                                    <length>216000</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+            </release-list>
+        </recording>
+        <recording id="a90d8efe-4317-48e6-9602-dfb80aba64a5" ns2:score="72">
+            <title>Now Is Good</title>
+            <length>216000</length>
+            <artist-credit>
+                <name-credit>
+                    <artist id="46d72c85-ba81-4d50-bb6e-5d628dc08d55">
+                        <name>김재중</name>
+                        <sort-name>Kim, Jae Joong</sort-name>
+                        <alias-list>
+                            <alias sort-name="英雄在中">英雄在中</alias>
+                            <alias sort-name="영웅재중">영웅재중</alias>
+                            <alias sort-name="Hero Jae Joong">Hero Jae Joong</alias>
+                            <alias sort-name="JaeJoong">JaeJoong</alias>
+                            <alias sort-name="Hero">Hero</alias>
+                            <alias sort-name="Youngwoong, Jaejoong">영웅제중</alias>
+                            <alias sort-name="YoungWoong JaeJoong">YoungWoong JaeJoong</alias>
+                        </alias-list>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-list>
+                <release id="d6f36bf6-a12b-4dff-b612-47847649d83f">
+                    <title>WWW 화장을 지우다</title>
+                    <status>Official</status>
+                    <artist-credit>
+                        <name-credit>
+                            <artist id="46d72c85-ba81-4d50-bb6e-5d628dc08d55">
+                                <name>김재중</name>
+                                <sort-name>Kim, Jae Joong</sort-name>
+                            </artist>
+                        </name-credit>
+                    </artist-credit>
+                    <release-group id="afeb55d9-d688-4aff-80d2-3cfa55c30eff" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                        <title>WWW</title>
+                        <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+                    </release-group>
+                    <date>2014-01-20</date>
+                    <country>KR</country>
+                    <release-event-list>
+                        <release-event>
+                            <date>2014-01-20</date>
+                            <area id="b9f7d640-46e8-313e-b158-ded6d18593b3">
+                                <name>South Korea</name>
+                                <sort-name>South Korea</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>KR</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="1">
+                        <track-count>15</track-count>
+                        <medium>
+                            <position>1</position>
+                            <format>CD</format>
+                            <track-list count="15" offset="10">
+                                <track id="721ad077-0116-42e4-9531-316db2b258b4">
+                                    <number>11</number>
+                                    <title>Now Is Good</title>
+                                    <length>216000</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+            </release-list>
+        </recording>
+        <recording id="9873554b-ce63-4cd3-bce3-e830cb085a40" ns2:score="72">
+            <title>Is Not Good</title>
+            <length>264320</length>
+            <artist-credit>
+                <name-credit>
+                    <artist id="6ea980af-482c-4619-9d6f-46ed0ffaf81a">
+                        <name>David’s Sammarco</name>
+                        <sort-name>David’s Sammarco</sort-name>
+                        <disambiguation>house</disambiguation>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-list>
+                <release id="12d6caf9-fa18-40ed-89e9-f01d1c22edba">
+                    <title>Deep in Ibiza: Dive in a Deep House Journey</title>
+                    <status>Official</status>
+                    <artist-credit>
+                        <name-credit>
+                            <artist id="89ad4ac3-39f7-470e-963a-56509c546377">
+                                <name>Various Artists</name>
+                                <sort-name>Various Artists</sort-name>
+                                <disambiguation>add compilations to this artist</disambiguation>
+                            </artist>
+                        </name-credit>
+                    </artist-credit>
+                    <release-group id="6cd34036-4105-4c16-9520-ab75d5d48b62" type="Compilation" type-id="dd2a21e1-0c00-3729-a7a0-de60b84eb5d1">
+                        <title>Deep in Ibiza: Dive in a Deep House Journey</title>
+                        <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+                        <secondary-type-list>
+                            <secondary-type id="dd2a21e1-0c00-3729-a7a0-de60b84eb5d1">Compilation</secondary-type>
+                        </secondary-type-list>
+                    </release-group>
+                    <date>2016-07-20</date>
+                    <country>XW</country>
+                    <release-event-list>
+                        <release-event>
+                            <date>2016-07-20</date>
+                            <area id="525d4e18-3d00-31b9-a58b-a146a916de8f">
+                                <name>[Worldwide]</name>
+                                <sort-name>[Worldwide]</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>XW</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="1">
+                        <track-count>14</track-count>
+                        <medium>
+                            <position>1</position>
+                            <format>Digital Media</format>
+                            <track-list count="14" offset="6">
+                                <track id="50e54a02-2994-4cca-8ff1-9f99f82c8d95">
+                                    <number>7</number>
+                                    <title>Is Not Good</title>
+                                    <length>264320</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+            </release-list>
+        </recording>
+        <recording id="9e707330-a5ed-44aa-8ad4-09a83fd6c3f7" ns2:score="71">
+            <title>A Good Name</title>
+            <length>77640</length>
+            <artist-credit>
+                <name-credit>
+                    <artist id="92c352f5-d701-441f-91cc-e817c4e7d1bc">
+                        <name>Stephen Elkins</name>
+                        <sort-name>Elkins, Stephen</sort-name>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-list>
+                <release id="fff161ba-2572-4fca-9598-5c2c5b8445b3">
+                    <title>100 Bible Heroes, 100 Bible Songs</title>
+                    <status>Official</status>
+                    <release-group id="b37810a6-b755-4c18-ac7f-7944521ab7b6" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                        <title>100 Bible Heroes, 100 Bible Songs</title>
+                        <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+                    </release-group>
+                    <date>2007</date>
+                    <country>US</country>
+                    <release-event-list>
+                        <release-event>
+                            <date>2007</date>
+                            <area id="489ce91b-6658-3307-9877-795b68554c98">
+                                <name>United States</name>
+                                <sort-name>United States</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>US</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="2">
+                        <track-count>100</track-count>
+                        <medium>
+                            <position>2</position>
+                            <format>CD</format>
+                            <track-list count="50" offset="31">
+                                <track id="effe394f-d5c3-36dd-953c-6d245ba5b4e7">
+                                    <number>32</number>
+                                    <title>A Good Name</title>
+                                    <length>77640</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+            </release-list>
+        </recording>
+        <recording id="25297d8f-f35e-41b9-9950-19ad478a2ef4" ns2:score="71">
+            <title>A Good Name</title>
+            <length>154000</length>
+            <artist-credit>
+                <name-credit>
+                    <artist id="15d58b2e-63f9-454b-845b-397dc443f17f">
+                        <name>Shad</name>
+                        <sort-name>Shad</sort-name>
+                        <disambiguation>Shadrach Kabango hip hop artist from Canada</disambiguation>
+                        <alias-list>
+                            <alias sort-name="Shad Kabango" type="Search hint" type-id="1937e404-b981-3cb7-8151-4c86ebfc8d8e">Shad Kabango</alias>
+                            <alias sort-name="Kabango, Shadrach">Shadrach Kabango</alias>
+                        </alias-list>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-list>
+                <release id="6e7b18bb-f4cf-41ad-a1af-4e47ba963b32">
+                    <title>iTunes Session</title>
+                    <status>Official</status>
+                    <artist-credit>
+                        <name-credit>
+                            <artist id="15d58b2e-63f9-454b-845b-397dc443f17f">
+                                <name>Shad</name>
+                                <sort-name>Shad</sort-name>
+                                <disambiguation>Shadrach Kabango hip hop artist from Canada</disambiguation>
+                            </artist>
+                        </name-credit>
+                    </artist-credit>
+                    <release-group id="a0dade90-2333-4687-a8a8-c2ca1710a06f" type="Live" type-id="6fd474e2-6b58-3102-9d17-d6f7eb7da0a0">
+                        <title>iTunes Session</title>
+                        <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+                        <secondary-type-list>
+                            <secondary-type id="6fd474e2-6b58-3102-9d17-d6f7eb7da0a0">Live</secondary-type>
+                        </secondary-type-list>
+                    </release-group>
+                    <date>2011-03-01</date>
+                    <country>XW</country>
+                    <release-event-list>
+                        <release-event>
+                            <date>2011-03-01</date>
+                            <area id="525d4e18-3d00-31b9-a58b-a146a916de8f">
+                                <name>[Worldwide]</name>
+                                <sort-name>[Worldwide]</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>XW</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="1">
+                        <track-count>6</track-count>
+                        <medium>
+                            <position>1</position>
+                            <format>Digital Media</format>
+                            <track-list count="6" offset="4">
+                                <track id="0ff90869-ae33-3ab4-a896-38c2772dcb1c">
+                                    <number>5</number>
+                                    <title>A Good Name</title>
+                                    <length>154000</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+            </release-list>
+        </recording>
+        <recording id="0b88f44d-8874-4d31-8969-87be59e5da76" ns2:score="71">
+            <title>A Good Name</title>
+            <length>149000</length>
+            <artist-credit>
+                <name-credit>
+                    <artist id="15d58b2e-63f9-454b-845b-397dc443f17f">
+                        <name>Shad</name>
+                        <sort-name>Shad</sort-name>
+                        <disambiguation>Shadrach Kabango hip hop artist from Canada</disambiguation>
+                        <alias-list>
+                            <alias sort-name="Shad Kabango" type="Search hint" type-id="1937e404-b981-3cb7-8151-4c86ebfc8d8e">Shad Kabango</alias>
+                            <alias sort-name="Kabango, Shadrach">Shadrach Kabango</alias>
+                        </alias-list>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-list>
+                <release id="efdb0632-1ab7-4e41-8098-83d0355c1853">
+                    <title>TSOL</title>
+                    <status>Official</status>
+                    <artist-credit>
+                        <name-credit>
+                            <artist id="15d58b2e-63f9-454b-845b-397dc443f17f">
+                                <name>Shad</name>
+                                <sort-name>Shad</sort-name>
+                                <disambiguation>Shadrach Kabango hip hop artist from Canada</disambiguation>
+                            </artist>
+                        </name-credit>
+                    </artist-credit>
+                    <release-group id="26d25c83-d3d2-4626-80cb-6eddcc757965" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                        <title>TSOL</title>
+                        <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+                    </release-group>
+                    <date>2010-05-25</date>
+                    <country>CA</country>
+                    <release-event-list>
+                        <release-event>
+                            <date>2010-05-25</date>
+                            <area id="71bbafaa-e825-3e15-8ca9-017dcad1748b">
+                                <name>Canada</name>
+                                <sort-name>Canada</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>CA</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="1">
+                        <track-count>13</track-count>
+                        <medium>
+                            <position>1</position>
+                            <format>CD</format>
+                            <track-list count="13" offset="4">
+                                <track id="221155b7-3935-3088-b252-c965489282ca">
+                                    <number>5</number>
+                                    <title>A Good Name</title>
+                                    <length>149000</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+                <release id="b0825eec-18bc-4a35-895a-59d657a09cb8">
+                    <title>TSOL</title>
+                    <status>Official</status>
+                    <artist-credit>
+                        <name-credit>
+                            <artist id="15d58b2e-63f9-454b-845b-397dc443f17f">
+                                <name>Shad</name>
+                                <sort-name>Shad</sort-name>
+                                <disambiguation>Shadrach Kabango hip hop artist from Canada</disambiguation>
+                            </artist>
+                        </name-credit>
+                    </artist-credit>
+                    <release-group id="26d25c83-d3d2-4626-80cb-6eddcc757965" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                        <title>TSOL</title>
+                        <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+                    </release-group>
+                    <date>2010-10-05</date>
+                    <country>US</country>
+                    <release-event-list>
+                        <release-event>
+                            <date>2010-10-05</date>
+                            <area id="489ce91b-6658-3307-9877-795b68554c98">
+                                <name>United States</name>
+                                <sort-name>United States</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>US</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="1">
+                        <track-count>14</track-count>
+                        <medium>
+                            <position>1</position>
+                            <format>CD</format>
+                            <track-list count="14" offset="4">
+                                <track id="e2d1f1e9-0580-3f7e-bb27-5dce373db2d5">
+                                    <number>5</number>
+                                    <title>A Good Name</title>
+                                    <length>149000</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+            </release-list>
+        </recording>
+        <recording id="69dfb6da-02d0-46ba-aedf-0c40984989ce" ns2:score="71">
+            <title>A Good Name</title>
+            <length>222000</length>
+            <artist-credit>
+                <name-credit>
+                    <artist id="c0c99c8f-4779-4c35-9497-67d60a73310a">
+                        <name>Victor Hugo</name>
+                        <sort-name>Hugo, Victor</sort-name>
+                        <disambiguation>French novelist</disambiguation>
+                        <alias-list>
+                            <alias locale="ru" sort-name="Гюго, Виктор">Виктор Гюго</alias>
+                            <alias sort-name="Hugo, Victor Marie" type="Legal name" type-id="d4dcd0c0-b341-3612-a332-c0ce797b25cf">Victor Marie Hugo</alias>
+                        </alias-list>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-list>
+                <release id="4871aa33-c976-4804-b796-40d4975d984c">
+                    <title>Les Misérables (Focus on the Family Radio Theatre)</title>
+                    <status>Official</status>
+                    <artist-credit>
+                        <name-credit>
+                            <artist id="c0c99c8f-4779-4c35-9497-67d60a73310a">
+                                <name>Victor Hugo</name>
+                                <sort-name>Hugo, Victor</sort-name>
+                                <disambiguation>French novelist</disambiguation>
+                            </artist>
+                        </name-credit>
+                    </artist-credit>
+                    <release-group id="188eab4c-8ec5-32d2-896e-c96c27a91a74" type="Other" type-id="4fc3be2b-de1e-396b-a933-beb8f1607a22">
+                        <title>Les Misérables (Focus on the Family Radio Theatre)</title>
+                        <primary-type id="4fc3be2b-de1e-396b-a933-beb8f1607a22">Other</primary-type>
+                        <secondary-type-list>
+                            <secondary-type id="66b8a13e-43ff-3ac0-ac6c-73659d3817c6">Spokenword</secondary-type>
+                        </secondary-type-list>
+                    </release-group>
+                    <date>2007-03</date>
+                    <country>DE</country>
+                    <release-event-list>
+                        <release-event>
+                            <date>2007-03</date>
+                            <area id="85752fda-13c4-31a3-bee5-0e5cb1f51dad">
+                                <name>Germany</name>
+                                <sort-name>Germany</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>DE</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                        <release-event>
+                            <date>2007-05</date>
+                            <area id="489ce91b-6658-3307-9877-795b68554c98">
+                                <name>United States</name>
+                                <sort-name>United States</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>US</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="3">
+                        <track-count>33</track-count>
+                        <medium>
+                            <position>2</position>
+                            <format>CD</format>
+                            <track-list count="12" offset="6">
+                                <track id="f19d0fe6-9624-3a48-bfe0-34b7b8e260a3">
+                                    <number>7</number>
+                                    <title>A Good Name</title>
+                                    <length>222000</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+            </release-list>
+        </recording>
+        <recording id="9a6e7406-db69-4de4-ada7-be3cecceb51b" ns2:score="70">
+            <title>Now Is Not the Best Time</title>
+            <length>140294</length>
+            <artist-credit>
+                <name-credit>
+                    <artist id="a67d2694-1ffa-46b3-82ce-7401b528fb18">
+                        <name>Thee Headcoats</name>
+                        <sort-name>Headcoats, Thee</sort-name>
+                        <alias-list>
+                            <alias sort-name="Billy Childish and His Famous Headcoats">Billy Childish and His Famous Headcoats</alias>
+                            <alias sort-name="Wild Billy Childish and His Famous Headcoats">Wild Billy Childish and His Famous Headcoats</alias>
+                            <alias sort-name="Billy Childish and Thee Headcoats">Billy Childish and Thee Headcoats</alias>
+                        </alias-list>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-list>
+                <release id="aafd1053-ae8d-44bd-a377-ef3fd6034a6d">
+                    <title>Elementary Headcoats</title>
+                    <status>Official</status>
+                    <artist-credit>
+                        <name-credit>
+                            <artist id="a67d2694-1ffa-46b3-82ce-7401b528fb18">
+                                <name>Thee Headcoats</name>
+                                <sort-name>Headcoats, Thee</sort-name>
+                            </artist>
+                        </name-credit>
+                    </artist-credit>
+                    <release-group id="49288931-0160-38b0-aafc-a4a14a17c4a4" type="Compilation" type-id="dd2a21e1-0c00-3729-a7a0-de60b84eb5d1">
+                        <title>Elementary Headcoats</title>
+                        <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+                        <secondary-type-list>
+                            <secondary-type id="dd2a21e1-0c00-3729-a7a0-de60b84eb5d1">Compilation</secondary-type>
+                        </secondary-type-list>
+                    </release-group>
+                    <date>2000-08-14</date>
+                    <country>GB</country>
+                    <release-event-list>
+                        <release-event>
+                            <date>2000-08-14</date>
+                            <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
+                                <name>United Kingdom</name>
+                                <sort-name>United Kingdom</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>GB</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="2">
+                        <track-count>50</track-count>
+                        <medium>
+                            <position>1</position>
+                            <format>CD</format>
+                            <track-list count="26" offset="25">
+                                <track id="2cf35dab-b789-3883-b9bc-952bdc48fc61">
+                                    <number>26</number>
+                                    <title>Now Is Not the Best Time</title>
+                                    <length>140294</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+            </release-list>
+        </recording>
+        <recording id="cd7ba12a-f207-45e0-a63f-3366bb7c51b3" ns2:score="70">
+            <title>Now Is Not the Best Time</title>
+            <length>136600</length>
+            <artist-credit>
+                <name-credit>
+                    <artist id="f56c6e48-5d33-454e-8744-67e197e20fe0">
+                        <name>Thee Headcoatees</name>
+                        <sort-name>Headcoatees, Thee</sort-name>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-list>
+                <release id="564d7203-c7b3-4f30-82e1-36097938b693">
+                    <title>Ballad of the Insolent Pup</title>
+                    <status>Official</status>
+                    <release-group id="dcd49f45-143f-393d-87db-87049ea6b7fd" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                        <title>Ballad of the Insolent Pup</title>
+                        <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+                    </release-group>
+                    <date>1994</date>
+                    <country>GB</country>
+                    <release-event-list>
+                        <release-event>
+                            <date>1994</date>
+                            <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
+                                <name>United Kingdom</name>
+                                <sort-name>United Kingdom</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>GB</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="1">
+                        <track-count>14</track-count>
+                        <medium>
+                            <position>1</position>
+                            <format>CD</format>
+                            <track-list count="14" offset="11">
+                                <track id="8df39baf-69ad-38e7-8d71-2231b6378172">
+                                    <number>12</number>
+                                    <title>Now Is Not the Best Time</title>
+                                    <length>136600</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+            </release-list>
+        </recording>
+        <recording id="44873fe5-e497-407c-8485-a72147e6d7c7" ns2:score="70">
+            <title>Now Is Not the Best Time</title>
+            <length>138000</length>
+            <artist-credit>
+                <name-credit>
+                    <artist id="a67d2694-1ffa-46b3-82ce-7401b528fb18">
+                        <name>Thee Headcoats</name>
+                        <sort-name>Headcoats, Thee</sort-name>
+                        <alias-list>
+                            <alias sort-name="Wild Billy Childish and His Famous Headcoats">Wild Billy Childish and His Famous Headcoats</alias>
+                            <alias sort-name="Billy Childish and His Famous Headcoats">Billy Childish and His Famous Headcoats</alias>
+                            <alias sort-name="Billy Childish and Thee Headcoats">Billy Childish and Thee Headcoats</alias>
+                        </alias-list>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-list>
+                <release id="73d910b6-a2e7-4749-b46d-5afecb3513de">
+                    <title>Thoughts of a Hangman</title>
+                    <status>Official</status>
+                    <artist-credit>
+                        <name-credit>
+                            <artist id="a67d2694-1ffa-46b3-82ce-7401b528fb18">
+                                <name>Thee Headcoats</name>
+                                <sort-name>Headcoats, Thee</sort-name>
+                            </artist>
+                        </name-credit>
+                    </artist-credit>
+                    <release-group id="cbe45b92-47a5-48db-84dc-7f32257b796c" type="EP" type-id="6d0c5bf6-7a33-3420-a519-44fc63eedebf">
+                        <title>Thoughts of a Hangman</title>
+                        <primary-type id="6d0c5bf6-7a33-3420-a519-44fc63eedebf">EP</primary-type>
+                    </release-group>
+                    <date>1993-10</date>
+                    <country>FR</country>
+                    <release-event-list>
+                        <release-event>
+                            <date>1993-10</date>
+                            <area id="08310658-51eb-3801-80de-5a0739207115">
+                                <name>France</name>
+                                <sort-name>France</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>FR</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="1">
+                        <track-count>4</track-count>
+                        <medium>
+                            <position>1</position>
+                            <format>7&quot; Vinyl</format>
+                            <track-list count="4" offset="2">
+                                <track id="eba2d18d-e3d6-356b-8184-82223a894d08">
+                                    <number>B1</number>
+                                    <title>Now Is Not the Best Time</title>
+                                    <length>138000</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+            </release-list>
+        </recording>
+        <recording id="072d1a72-9b9c-412a-b3cf-bcd337e8bba6" ns2:score="70">
+            <title>Time Is Now</title>
+            <length>312000</length>
+            <artist-credit>
+                <name-credit>
+                    <artist id="8b544084-5060-46eb-9113-1610ff0f0c32">
+                        <name>Brickman</name>
+                        <sort-name>Brickman</sort-name>
+                        <disambiguation>Russian techno</disambiguation>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-list>
+                <release id="32b45e8c-a864-4755-8fd9-afeefd03dc98">
+                    <title>Dub Sunset</title>
+                    <status>Official</status>
+                    <artist-credit>
+                        <name-credit>
+                            <artist id="89ad4ac3-39f7-470e-963a-56509c546377">
+                                <name>Various Artists</name>
+                                <sort-name>Various Artists</sort-name>
+                                <disambiguation>add compilations to this artist</disambiguation>
+                            </artist>
+                        </name-credit>
+                    </artist-credit>
+                    <release-group id="74df617a-5712-4230-a007-e93f027adb45" type="Compilation" type-id="dd2a21e1-0c00-3729-a7a0-de60b84eb5d1">
+                        <title>Dub Sunset</title>
+                        <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+                        <secondary-type-list>
+                            <secondary-type id="dd2a21e1-0c00-3729-a7a0-de60b84eb5d1">Compilation</secondary-type>
+                        </secondary-type-list>
+                    </release-group>
+                    <date>2012-10-24</date>
+                    <country>IT</country>
+                    <release-event-list>
+                        <release-event>
+                            <date>2012-10-24</date>
+                            <area id="c6500277-9a3d-349b-bf30-41afdbf42add">
+                                <name>Italy</name>
+                                <sort-name>Italy</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>IT</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="1">
+                        <track-count>9</track-count>
+                        <medium>
+                            <position>1</position>
+                            <format>CD</format>
+                            <track-list count="9" offset="1">
+                                <track id="3fc563a5-8be2-3184-a701-fceabefb0364">
+                                    <number>2</number>
+                                    <title>Time Is Now</title>
+                                    <length>312000</length>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+            </release-list>
+        </recording>
+        <recording id="20bcd2b1-fae8-45d8-bf6f-c933eced4593" ns2:score="70">
+            <title>Time Is Now</title>
+            <artist-credit>
+                <name-credit joinphrase=" &amp; ">
+                    <artist id="6816e2aa-97d4-4100-8d6e-ca009d5ca23e">
+                        <name>Judge The Disciple</name>
+                        <sort-name>Judge The Disciple</sort-name>
+                    </artist>
+                </name-credit>
+                <name-credit>
+                    <artist id="36bb4291-2904-4b80-8125-eecfc71607c1">
+                        <name>DJ Daredevil</name>
+                        <sort-name>DJ Daredevil</sort-name>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-list>
+                <release id="a891e579-0805-433c-9b2d-1f6bef4ba55f">
+                    <title>One Time LP</title>
+                    <release-group id="604ac867-530e-4e4b-adad-5074da9a2789" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                        <title>One Time LP</title>
+                        <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+                    </release-group>
+                    <date>2018</date>
+                    <country>GB</country>
+                    <release-event-list>
+                        <release-event>
+                            <date>2018</date>
+                            <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
+                                <name>United Kingdom</name>
+                                <sort-name>United Kingdom</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>GB</iso-3166-1-code>
+                                </iso-3166-1-code-list>
+                            </area>
+                        </release-event>
+                    </release-event-list>
+                    <medium-list count="1">
+                        <track-count>10</track-count>
+                        <medium>
+                            <position>1</position>
+                            <format>12&quot; Vinyl</format>
+                            <track-list count="10" offset="2">
+                                <track id="fd71687d-4fe6-43ed-bd19-0585d30dcc84">
+                                    <number>A3</number>
+                                    <title>Time Is Now</title>
+                                </track>
+                            </track-list>
+                        </medium>
+                    </medium-list>
+                </release>
+            </release-list>
+        </recording>
+    </recording-list>
+</metadata>

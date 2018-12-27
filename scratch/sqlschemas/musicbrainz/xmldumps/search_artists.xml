@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<metadata created="2018-12-27T08:05:31.249Z" xmlns="http://musicbrainz.org/ns/mmd-2.0#" xmlns:ns2="http://musicbrainz.org/ns/ext#-2.0">
+    <artist-list count="1598" offset="0">
+        <artist id="ec2bcb77-b9a1-49e2-bfe7-419586bbef48" ns2:score="100" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+            <name>BIGBANG</name>
+            <sort-name>BIGBANG</sort-name>
+            <country>KR</country>
+            <area id="b9f7d640-46e8-313e-b158-ded6d18593b3" type="Country" type-id="06dd0ae4-8c74-30bb-b43d-95dcedf961de">
+                <name>South Korea</name>
+                <sort-name>South Korea</sort-name>
+                <life-span>
+                    <ended>false</ended>
+                </life-span>
+            </area>
+            <begin-area id="aa03e165-4c73-4959-91c0-a99f9fa8ecab" type="City" type-id="6fd8f29a-3d0a-32fc-980d-ea697b69da78">
+                <name>Seoul</name>
+                <sort-name>Seoul</sort-name>
+                <life-span>
+                    <ended>false</ended>
+                </life-span>
+            </begin-area>
+            <disambiguation>South Korean boy band</disambiguation>
+            <life-span>
+                <begin>2006-08-19</begin>
+                <ended>false</ended>
+            </life-span>
+            <alias-list>
+                <alias sort-name="Big Bang" type="Search hint" type-id="1937e404-b981-3cb7-8151-4c86ebfc8d8e">Big Bang</alias>
+                <alias locale="ko" primary="primary" sort-name="빅뱅">빅뱅</alias>
+                <alias sort-name="BigBang">BigBang</alias>
+                <alias locale="ja" primary="primary" sort-name="ビッグバン" type="Artist name" type-id="894afba6-2816-3c24-8072-eadb66bd04bc">BIGBANG</alias>
+                <alias sort-name="BIG BANG">BIG BANG</alias>
+            </alias-list>
+            <tag-list>
+                <tag count="2">
+                    <name>kpop</name>
+                </tag>
+                <tag count="2">
+                    <name>yg family</name>
+                </tag>
+            </tag-list>
+        </artist>
+        <artist id="4ef5ed49-7ea3-405c-a381-04cf84e17d8c" ns2:score="96" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+            <name>BigBang</name>
+            <sort-name>BigBang</sort-name>
+            <country>NO</country>
+            <area id="6743d351-6f37-3049-9724-5041161fff4d" type="Country" type-id="06dd0ae4-8c74-30bb-b43d-95dcedf961de">
+                <name>Norway</name>
+                <sort-name>Norway</sort-name>
+                <life-span>
+                    <ended>false</ended>
+                </life-span>
+            </area>
+            <begin-area id="f80d529e-f242-46ef-a090-d193ed23075f" type="City" type-id="6fd8f29a-3d0a-32fc-980d-ea697b69da78">
+                <name>Oslo</name>
+                <sort-name>Oslo</sort-name>
+                <life-span>
+                    <ended>false</ended>
+                </life-span>
+            </begin-area>
+            <disambiguation>Norwegian rock band</disambiguation>
+            <life-span>
+                <begin>1992</begin>
+                <ended>false</ended>
+            </life-span>
+            <alias-list>
+                <alias sort-name="Big Bang">Big Bang</alias>
+            </alias-list>
+            <tag-list>
+                <tag count="2">
+                    <name>rock</name>
+                </tag>
+                <tag count="1">
+                    <name>indie rock</name>
+                </tag>
+                <tag count="1">
+                    <name>blues rock</name>
+                </tag>
+                <tag count="1">
+                    <name>rock and roll</name>
+                </tag>
+            </tag-list>
+        </artist>
+        <artist id="ddac37af-7e70-4014-96e3-69894ee9646e" ns2:score="70" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+            <name>N.A.M.E</name>
+            <sort-name>N.A.M.E</sort-name>
+            <disambiguation>Grindcore band from California</disambiguation>
+            <life-span>
+                <begin>1999</begin>
+                <ended>false</ended>
+            </life-span>
+        </artist>
+        <artist id="c0ef661a-571b-44fd-996c-a4be28afb86e" ns2:score="70">
+            <name>Name</name>
+            <sort-name>Name</sort-name>
+            <life-span>
+                <ended>false</ended>
+            </life-span>
+        </artist>
+        <artist id="a5df4df5-2602-44b5-989c-cbdb73f166b7" ns2:score="70">
+            <name>Name</name>
+            <sort-name>Name</sort-name>
+            <disambiguation>appears on Peace Power by Malik B</disambiguation>
+            <life-span>
+                <ended>false</ended>
+            </life-span>
+        </artist>
+        <artist id="f353b91a-2d13-4254-97d1-17ab9599e6e2" ns2:score="63" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+            <name>No Name</name>
+            <sort-name>No Name</sort-name>
+            <country>SK</country>
+            <area id="eb52ca74-dd11-37a1-a3fa-154430bf2df2" type="Country" type-id="06dd0ae4-8c74-30bb-b43d-95dcedf961de">
+                <name>Slovakia</name>
+                <sort-name>Slovakia</sort-name>
+                <life-span>
+                    <begin>1993-01-01</begin>
+                    <ended>false</ended>
+                </life-span>
+            </area>
+            <disambiguation>Slovak pop band</disambiguation>
+            <life-span>
+                <ended>false</ended>
+            </life-span>
+            <alias-list>
+                <alias sort-name="NoName">NoName</alias>
+            </alias-list>
+            <tag-list>
+                <tag count="1">
+                    <name>pop</name>
+                </tag>
+                <tag count="1">
+                    <name>slovak</name>
+                </tag>
+                <tag count="1">
+                    <name>rock</name>
+                </tag>
+            </tag-list>
+        </artist>
+        <artist id="0947fcb0-9810-4018-ad44-dee1a118c6cb" ns2:score="61" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+            <name>No Name</name>
+            <sort-name>No Name</sort-name>
+            <country>LU</country>
+            <area id="563d21b7-4a8e-35e2-83a7-7804baefbfa7" type="Country" type-id="06dd0ae4-8c74-30bb-b43d-95dcedf961de">
+                <name>Luxembourg</name>
+                <sort-name>Luxembourg</sort-name>
+                <life-span>
+                    <ended>false</ended>
+                </life-span>
+            </area>
+            <begin-area id="4ea5b9a3-a6d8-409a-b3a4-6438669d5b49" type="City" type-id="6fd8f29a-3d0a-32fc-980d-ea697b69da78">
+                <name>Dudelange</name>
+                <sort-name>Dudelange</sort-name>
+                <life-span>
+                    <ended>false</ended>
+                </life-span>
+            </begin-area>
+            <end-area id="4ea5b9a3-a6d8-409a-b3a4-6438669d5b49" type="City" type-id="6fd8f29a-3d0a-32fc-980d-ea697b69da78">
+                <name>Dudelange</name>
+                <sort-name>Dudelange</sort-name>
+                <life-span>
+                    <ended>false</ended>
+                </life-span>
+            </end-area>
+            <disambiguation>Group from Luxembourg</disambiguation>
+            <life-span>
+                <begin>1988</begin>
+                <end>2011-02</end>
+                <ended>true</ended>
+            </life-span>
+            <tag-list>
+                <tag count="1">
+                    <name>progressive rock</name>
+                </tag>
+                <tag count="1">
+                    <name>neo-prog</name>
+                </tag>
+            </tag-list>
+        </artist>
+        <artist id="5a4c4813-b5ee-47ba-beb5-c480333fb8e4" ns2:score="61" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+            <name>NO NAME</name>
+            <sort-name>NO NAME</sort-name>
+            <country>JP</country>
+            <area id="2db42837-c832-3c27-b4a3-08198f75693c" type="Country" type-id="06dd0ae4-8c74-30bb-b43d-95dcedf961de">
+                <name>Japan</name>
+                <sort-name>Japan</sort-name>
+                <life-span>
+                    <ended>false</ended>
+                </life-span>
+            </area>
+            <disambiguation>AKB0048</disambiguation>
+            <life-span>
+                <begin>2012-02</begin>
+                <end>2013-04</end>
+                <ended>true</ended>
+            </life-span>
+            <tag-list>
+                <tag count="1">
+                    <name>related-akb48</name>
+                </tag>
+                <tag count="1">
+                    <name>fixme character group with non-character members</name>
+                </tag>
+            </tag-list>
+        </artist>
+        <artist id="2cbab299-ed33-48cb-8a22-cc410a292b43" ns2:score="61" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+            <name>Name Taken</name>
+            <sort-name>Name Taken</sort-name>
+            <country>US</country>
+            <area id="489ce91b-6658-3307-9877-795b68554c98" type="Country" type-id="06dd0ae4-8c74-30bb-b43d-95dcedf961de">
+                <name>United States</name>
+                <sort-name>United States</sort-name>
+                <life-span>
+                    <ended>false</ended>
+                </life-span>
+            </area>
+            <begin-area id="bf51dede-2c6c-4908-abaa-3d6b491d0cf5" type="City" type-id="6fd8f29a-3d0a-32fc-980d-ea697b69da78">
+                <name>Orange</name>
+                <sort-name>Orange</sort-name>
+                <life-span>
+                    <ended>false</ended>
+                </life-span>
+            </begin-area>
+            <life-span>
+                <begin>2000</begin>
+                <end>2007</end>
+                <ended>true</ended>
+            </life-span>
+        </artist>
+        <artist id="6cd6b61e-ebca-4868-a9a5-bf058ce60a97" ns2:score="61" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+            <name>My Name</name>
+            <sort-name>My Name</sort-name>
+            <country>US</country>
+            <area id="489ce91b-6658-3307-9877-795b68554c98" type="Country" type-id="06dd0ae4-8c74-30bb-b43d-95dcedf961de">
+                <name>United States</name>
+                <sort-name>United States</sort-name>
+                <life-span>
+                    <ended>false</ended>
+                </life-span>
+            </area>
+            <life-span>
+                <ended>false</ended>
+            </life-span>
+        </artist>
+        <artist id="1472411a-ed98-4a84-aab8-a652e5a282d5" ns2:score="60" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+            <name>The Name</name>
+            <sort-name>Name, The</sort-name>
+            <country>GB</country>
+            <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed" type="Country" type-id="06dd0ae4-8c74-30bb-b43d-95dcedf961de">
+                <name>United Kingdom</name>
+                <sort-name>United Kingdom</sort-name>
+                <life-span>
+                    <ended>false</ended>
+                </life-span>
+            </area>
+            <begin-area id="f03d09b3-39dc-4083-afd6-159e3f0d462f" type="City" type-id="6fd8f29a-3d0a-32fc-980d-ea697b69da78">
+                <name>London</name>
+                <sort-name>London</sort-name>
+                <life-span>
+                    <ended>false</ended>
+                </life-span>
+            </begin-area>
+            <disambiguation>New wave/indie rock band, UK</disambiguation>
+            <life-span>
+                <ended>false</ended>
+            </life-span>
+        </artist>
+        <artist id="fb1ad7b1-482a-42ab-8354-d7636211c9da" ns2:score="60" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+            <name>The Name</name>
+            <sort-name>Name, The</sort-name>
+            <country>FR</country>
+            <area id="08310658-51eb-3801-80de-5a0739207115" type="Country" type-id="06dd0ae4-8c74-30bb-b43d-95dcedf961de">
+                <name>France</name>
+                <sort-name>France</sort-name>
+                <life-span>
+                    <ended>false</ended>
+                </life-span>
+            </area>
+            <disambiguation>French electro/disco/rock duo</disambiguation>
+            <life-span>
+                <ended>false</ended>
+            </life-span>
+        </artist>
+        <artist id="bc256cce-a3ae-4e5e-9de4-8b7eb5978445" ns2:score="60" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
+            <name>Jack Name</name>
+            <sort-name>Name, Jack</sort-name>
+            <gender>male</gender>
+            <life-span>
+                <ended>false</ended>
+            </life-span>
+        </artist>
+        <artist id="71abb171-9e93-49b3-9a4c-301f57c27427" ns2:score="60">
+            <name>Name One</name>
+            <sort-name>Name One</sort-name>
+            <life-span>
+                <ended>false</ended>
+            </life-span>
+        </artist>
+        <artist id="9866d5d4-f50d-4d52-a7df-31c0855ae480" ns2:score="60" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+            <name>Lost Name</name>
+            <sort-name>Lost Name</sort-name>
+            <area id="89bbbab6-72de-43eb-81ba-e620ab207008" type="City" type-id="6fd8f29a-3d0a-32fc-980d-ea697b69da78">
+                <name>Munich</name>
+                <sort-name>Munich</sort-name>
+                <life-span>
+                    <ended>false</ended>
+                </life-span>
+            </area>
+            <life-span>
+                <ended>false</ended>
+            </life-span>
+        </artist>
+        <artist id="d811d345-252a-4bfe-a64b-4646926d5c41" ns2:score="60" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
+            <name>Name UL</name>
+            <sort-name>Name UL</sort-name>
+            <gender>male</gender>
+            <area id="817a3404-240e-49c0-b799-21bf578b3991" type="Subdivision" type-id="fd3d44c5-80a1-3842-9745-2c4972d35afa">
+                <name>City of London</name>
+                <sort-name>City of London</sort-name>
+                <life-span>
+                    <ended>false</ended>
+                </life-span>
+            </area>
+            <begin-area id="e6e36a58-3344-4d84-a9ab-d001e5a02330" type="City" type-id="6fd8f29a-3d0a-32fc-980d-ea697b69da78">
+                <name>Wellington</name>
+                <sort-name>Wellington</sort-name>
+                <life-span>
+                    <ended>false</ended>
+                </life-span>
+            </begin-area>
+            <disambiguation>Name You - EL</disambiguation>
+            <life-span>
+                <begin>1996-05-21</begin>
+                <ended>false</ended>
+            </life-span>
+        </artist>
+        <artist id="b03b0174-f92e-495e-a2cd-54240bd72d9f" ns2:score="60">
+            <name>Insert Name</name>
+            <sort-name>Insert Name</sort-name>
+            <life-span>
+                <ended>false</ended>
+            </life-span>
+        </artist>
+        <artist id="12bff22c-8f84-4881-9f71-d8316135e9e9" ns2:score="60" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+            <name>No Name</name>
+            <sort-name>No Name</sort-name>
+            <country>JP</country>
+            <area id="2db42837-c832-3c27-b4a3-08198f75693c" type="Country" type-id="06dd0ae4-8c74-30bb-b43d-95dcedf961de">
+                <name>Japan</name>
+                <sort-name>Japan</sort-name>
+                <life-span>
+                    <ended>false</ended>
+                </life-span>
+            </area>
+            <disambiguation>進撃! 巨人中学校</disambiguation>
+            <life-span>
+                <ended>false</ended>
+            </life-span>
+        </artist>
+        <artist id="97949e6c-505a-4112-9448-7ef61039ef12" ns2:score="60" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+            <name>Grandmas Basement</name>
+            <sort-name>Name:</sort-name>
+            <disambiguation>Faroese group</disambiguation>
+            <life-span>
+                <ended>false</ended>
+            </life-span>
+        </artist>
+        <artist id="a35d1b99-7dd9-4bf0-91c8-cd5b0dd0a5a5" ns2:score="59">
+            <name>DJ Name</name>
+            <sort-name>Name, DJ</sort-name>
+            <life-span>
+                <ended>false</ended>
+            </life-span>
+        </artist>
+        <artist id="319f64cd-d34a-4222-b435-0d007afb0a5f" ns2:score="59" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+            <name>No Name</name>
+            <sort-name>No Name</sort-name>
+            <country>DK</country>
+            <area id="4757b525-2a60-324a-b060-578765d2c993" type="Country" type-id="06dd0ae4-8c74-30bb-b43d-95dcedf961de">
+                <name>Denmark</name>
+                <sort-name>Denmark</sort-name>
+                <life-span>
+                    <ended>false</ended>
+                </life-span>
+            </area>
+            <disambiguation>Danish rock band</disambiguation>
+            <life-span>
+                <ended>false</ended>
+            </life-span>
+        </artist>
+        <artist id="2d0eb2ba-972e-4686-9bd0-6e7c14b58aae" ns2:score="59" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
+            <name>No Name</name>
+            <sort-name>No Name</sort-name>
+            <gender>female</gender>
+            <disambiguation>Poka Michelson, hardcore techno produced on Amiga</disambiguation>
+            <life-span>
+                <ended>false</ended>
+            </life-span>
+        </artist>
+        <artist id="8a5e576c-0cdc-42dc-bdd3-2cddf1735e67" ns2:score="59">
+            <name>No Name</name>
+            <sort-name>No Name</sort-name>
+            <disambiguation>Artist on Hard-Trance X-Plosion 27</disambiguation>
+            <life-span>
+                <ended>false</ended>
+            </life-span>
+        </artist>
+        <artist id="3a809a60-0b5d-48e6-8097-4c65d7e4c1d5" ns2:score="59" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+            <name>No Name</name>
+            <sort-name>No Name</sort-name>
+            <country>SE</country>
+            <area id="23d10872-f5ae-3f0c-bf55-332788a16ecb" type="Country" type-id="06dd0ae4-8c74-30bb-b43d-95dcedf961de">
+                <name>Sweden</name>
+                <sort-name>Sweden</sort-name>
+                <life-span>
+                    <ended>false</ended>
+                </life-span>
+            </area>
+            <disambiguation>Swedish group</disambiguation>
+            <life-span>
+                <ended>false</ended>
+            </life-span>
+        </artist>
+        <artist id="2ef83746-8f81-49fb-8ccc-e7d5cdaf7acd" ns2:score="59" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+            <name>No Name</name>
+            <sort-name>No Name</sort-name>
+            <country>NL</country>
+            <area id="ef1b7cc0-cd26-36f4-8ea0-04d9623786c7" type="Country" type-id="06dd0ae4-8c74-30bb-b43d-95dcedf961de">
+                <name>Netherlands</name>
+                <sort-name>Netherlands</sort-name>
+                <life-span>
+                    <ended>false</ended>
+                </life-span>
+            </area>
+            <disambiguation>Dutch group</disambiguation>
+            <life-span>
+                <ended>false</ended>
+            </life-span>
+        </artist>
+    </artist-list>
+</metadata>

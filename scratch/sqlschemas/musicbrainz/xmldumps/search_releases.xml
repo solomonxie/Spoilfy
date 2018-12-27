@@ -1,0 +1,1345 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<metadata created="2018-12-27T08:06:50.391Z" xmlns="http://musicbrainz.org/ns/mmd-2.0#" xmlns:ns2="http://musicbrainz.org/ns/ext#-2.0">
+    <release-list count="3106" offset="0">
+        <release id="d8507216-2261-4b18-a033-0a8628ecff9e" ns2:score="100">
+            <title>Edendale</title>
+            <status>Official</status>
+            <text-representation>
+                <language>eng</language>
+                <script>Latn</script>
+            </text-representation>
+            <artist-credit>
+                <name-credit>
+                    <artist id="4ef5ed49-7ea3-405c-a381-04cf84e17d8c">
+                        <name>BigBang</name>
+                        <sort-name>BigBang</sort-name>
+                        <disambiguation>Norwegian rock band</disambiguation>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-group id="83a6a8c7-2383-347f-9b11-6de66aa37004" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                <title>Edendale</title>
+                <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+            </release-group>
+            <date>2009-03-09</date>
+            <country>NO</country>
+            <release-event-list>
+                <release-event>
+                    <date>2009-03-09</date>
+                    <area id="6743d351-6f37-3049-9724-5041161fff4d">
+                        <name>Norway</name>
+                        <sort-name>Norway</sort-name>
+                        <iso-3166-1-code-list>
+                            <iso-3166-1-code>NO</iso-3166-1-code>
+                        </iso-3166-1-code-list>
+                    </area>
+                </release-event>
+            </release-event-list>
+            <barcode>5051865342021</barcode>
+            <label-info-list>
+                <label-info>
+                    <catalog-number>5051865342021</catalog-number>
+                    <label id="e7e26981-ff85-4e83-a972-8cdef6f78447">
+                        <name>Warner Music Norway</name>
+                    </label>
+                </label-info>
+            </label-info-list>
+            <medium-list count="1">
+                <track-count>10</track-count>
+                <medium>
+                    <format>CD</format>
+                    <disc-list count="1"/>
+                    <track-list count="10"/>
+                </medium>
+            </medium-list>
+            <tag-list/>
+        </release>
+        <release id="7f7dd1ba-ca54-4337-89bd-a39a90b0302a" ns2:score="100">
+            <title>Edendale</title>
+            <status>Official</status>
+            <packaging>Jewel Case</packaging>
+            <text-representation>
+                <language>eng</language>
+                <script>Latn</script>
+            </text-representation>
+            <artist-credit>
+                <name-credit>
+                    <artist id="4ef5ed49-7ea3-405c-a381-04cf84e17d8c">
+                        <name>BigBang</name>
+                        <sort-name>BigBang</sort-name>
+                        <disambiguation>Norwegian rock band</disambiguation>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-group id="83a6a8c7-2383-347f-9b11-6de66aa37004" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                <title>Edendale</title>
+                <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+            </release-group>
+            <date>2010-01-19</date>
+            <country>US</country>
+            <release-event-list>
+                <release-event>
+                    <date>2010-01-19</date>
+                    <area id="489ce91b-6658-3307-9877-795b68554c98">
+                        <name>United States</name>
+                        <sort-name>United States</sort-name>
+                        <iso-3166-1-code-list>
+                            <iso-3166-1-code>US</iso-3166-1-code>
+                        </iso-3166-1-code-list>
+                    </area>
+                </release-event>
+            </release-event-list>
+            <barcode>790058203729</barcode>
+            <asin>B00307Q8TW</asin>
+            <label-info-list>
+                <label-info>
+                    <label id="c9fd5cc3-b916-4f1e-94ed-56e217d98681">
+                        <name>GrandSport Records</name>
+                    </label>
+                </label-info>
+            </label-info-list>
+            <medium-list count="1">
+                <track-count>13</track-count>
+                <medium>
+                    <format>CD</format>
+                    <disc-list count="1"/>
+                    <track-list count="13"/>
+                </medium>
+            </medium-list>
+            <tag-list/>
+        </release>
+        <release id="1f1fc882-f9fb-425b-9255-9212ab946164" ns2:score="75">
+            <title>Garden Of Edendale</title>
+            <status>Official</status>
+            <text-representation>
+                <language>eng</language>
+                <script>Latn</script>
+            </text-representation>
+            <artist-credit>
+                <name-credit>
+                    <artist id="f51d9961-ae88-482a-9fc5-dec2ac2371db">
+                        <name>David Haerle</name>
+                        <sort-name>Haerle, David</sort-name>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-group id="3832d294-b931-4bfa-a905-f27bab8f9821" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                <title>Garden Of Edendale</title>
+                <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+            </release-group>
+            <date>2018-06-29</date>
+            <country>XW</country>
+            <release-event-list>
+                <release-event>
+                    <date>2018-06-29</date>
+                    <area id="525d4e18-3d00-31b9-a58b-a146a916de8f">
+                        <name>[Worldwide]</name>
+                        <sort-name>[Worldwide]</sort-name>
+                        <iso-3166-1-code-list>
+                            <iso-3166-1-code>XW</iso-3166-1-code>
+                        </iso-3166-1-code-list>
+                    </area>
+                </release-event>
+            </release-event-list>
+            <barcode>027297500129</barcode>
+            <label-info-list>
+                <label-info>
+                    <catalog-number>CD 5001</catalog-number>
+                    <label id="91c86cf6-9249-48f6-914a-cb775741e020">
+                        <name>Edendale Records</name>
+                    </label>
+                </label-info>
+            </label-info-list>
+            <medium-list count="1">
+                <track-count>13</track-count>
+                <medium>
+                    <format>CD</format>
+                    <disc-list count="0"/>
+                    <track-list count="13"/>
+                </medium>
+            </medium-list>
+            <tag-list/>
+        </release>
+        <release id="d348f113-c921-4abb-905d-ffebabce31ed" ns2:score="75">
+            <title>Garden Of Edendale</title>
+            <status>Official</status>
+            <packaging>None</packaging>
+            <text-representation>
+                <language>eng</language>
+                <script>Latn</script>
+            </text-representation>
+            <artist-credit>
+                <name-credit>
+                    <artist id="f51d9961-ae88-482a-9fc5-dec2ac2371db">
+                        <name>David Haerle</name>
+                        <sort-name>Haerle, David</sort-name>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-group id="3832d294-b931-4bfa-a905-f27bab8f9821" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                <title>Garden Of Edendale</title>
+                <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+            </release-group>
+            <date>2018-06-29</date>
+            <country>XW</country>
+            <release-event-list>
+                <release-event>
+                    <date>2018-06-29</date>
+                    <area id="525d4e18-3d00-31b9-a58b-a146a916de8f">
+                        <name>[Worldwide]</name>
+                        <sort-name>[Worldwide]</sort-name>
+                        <iso-3166-1-code-list>
+                            <iso-3166-1-code>XW</iso-3166-1-code>
+                        </iso-3166-1-code-list>
+                    </area>
+                </release-event>
+            </release-event-list>
+            <barcode/>
+            <label-info-list>
+                <label-info>
+                    <catalog-number>[none]</catalog-number>
+                    <label id="157afde4-4bf5-4039-8ad2-5a15acc85176">
+                        <name>[no label]</name>
+                    </label>
+                </label-info>
+            </label-info-list>
+            <medium-list count="1">
+                <track-count>13</track-count>
+                <medium>
+                    <format>Digital Media</format>
+                    <disc-list count="0"/>
+                    <track-list count="13"/>
+                </medium>
+            </medium-list>
+            <tag-list>
+                <tag count="1">
+                    <name>rock</name>
+                </tag>
+                <tag count="1">
+                    <name>guitar</name>
+                </tag>
+            </tag-list>
+        </release>
+        <release id="af37abcf-ccb8-4700-8522-1fec09ee964d" ns2:score="54">
+            <title>Name</title>
+            <status>Official</status>
+            <text-representation>
+                <language>eng</language>
+                <script>Latn</script>
+            </text-representation>
+            <artist-credit>
+                <name-credit>
+                    <artist id="e2c00c56-8365-4160-9f40-a64682917633">
+                        <name>Goo Goo Dolls</name>
+                        <sort-name>Goo Goo Dolls</sort-name>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-group id="239085d6-e920-3916-8e40-ad6b356ecd00" type="Single" type-id="d6038452-8ee0-3f68-affc-2de9a1ede0b9">
+                <title>Name</title>
+                <primary-type id="d6038452-8ee0-3f68-affc-2de9a1ede0b9">Single</primary-type>
+            </release-group>
+            <date>1996</date>
+            <country>US</country>
+            <release-event-list>
+                <release-event>
+                    <date>1996</date>
+                    <area id="489ce91b-6658-3307-9877-795b68554c98">
+                        <name>United States</name>
+                        <sort-name>United States</sort-name>
+                        <iso-3166-1-code-list>
+                            <iso-3166-1-code>US</iso-3166-1-code>
+                        </iso-3166-1-code-list>
+                    </area>
+                </release-event>
+            </release-event-list>
+            <medium-list count="1">
+                <track-count>3</track-count>
+                <medium>
+                    <format>CD</format>
+                    <disc-list count="0"/>
+                    <track-list count="3"/>
+                </medium>
+            </medium-list>
+            <tag-list/>
+        </release>
+        <release id="acc5864a-a6f3-4525-8554-3123f5abeb68" ns2:score="54">
+            <title>NAME</title>
+            <status>Official</status>
+            <text-representation>
+                <language>jpn</language>
+                <script>Jpan</script>
+            </text-representation>
+            <artist-credit>
+                <name-credit>
+                    <artist id="23cbefa7-20c8-4cbf-8f72-43beae66fe41">
+                        <name>サクラメリーメン</name>
+                        <sort-name>Sakura merry-men</sort-name>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-group id="5acfcf15-3ab5-4d3d-90f3-ec2fcfb01c72" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                <title>NAME</title>
+                <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+            </release-group>
+            <date>2011-09-14</date>
+            <country>JP</country>
+            <release-event-list>
+                <release-event>
+                    <date>2011-09-14</date>
+                    <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                        <name>Japan</name>
+                        <sort-name>Japan</sort-name>
+                        <iso-3166-1-code-list>
+                            <iso-3166-1-code>JP</iso-3166-1-code>
+                        </iso-3166-1-code-list>
+                    </area>
+                </release-event>
+            </release-event-list>
+            <barcode>4988002611942</barcode>
+            <label-info-list>
+                <label-info>
+                    <catalog-number>VICB-60080</catalog-number>
+                    <label id="296ef71a-18bf-476e-b7a2-2af271dfde12">
+                        <name>FlyingStar Records</name>
+                    </label>
+                </label-info>
+            </label-info-list>
+            <medium-list count="1">
+                <track-count>12</track-count>
+                <medium>
+                    <format>CD</format>
+                    <disc-list count="0"/>
+                    <track-list count="12"/>
+                </medium>
+            </medium-list>
+            <tag-list/>
+        </release>
+        <release id="b7fe6df4-c953-4bb1-becf-0584cb450417" ns2:score="54">
+            <title>NAME</title>
+            <status>Official</status>
+            <text-representation>
+                <language>jpn</language>
+                <script>Jpan</script>
+            </text-representation>
+            <artist-credit>
+                <name-credit>
+                    <artist id="55d9d521-e74c-46be-bbef-ff9807c82ea1">
+                        <name>RIZE</name>
+                        <sort-name>RIZE</sort-name>
+                        <disambiguation>Japanese band</disambiguation>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-group id="d6db81b1-5847-48d5-bdac-1397eb28e2b3" type="Single" type-id="d6038452-8ee0-3f68-affc-2de9a1ede0b9">
+                <title>NAME</title>
+                <primary-type id="d6038452-8ee0-3f68-affc-2de9a1ede0b9">Single</primary-type>
+            </release-group>
+            <date>2001-04-25</date>
+            <country>JP</country>
+            <release-event-list>
+                <release-event>
+                    <date>2001-04-25</date>
+                    <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                        <name>Japan</name>
+                        <sort-name>Japan</sort-name>
+                        <iso-3166-1-code-list>
+                            <iso-3166-1-code>JP</iso-3166-1-code>
+                        </iso-3166-1-code-list>
+                    </area>
+                </release-event>
+            </release-event-list>
+            <barcode>4988010222826</barcode>
+            <label-info-list>
+                <label-info>
+                    <catalog-number>ESCB-2228</catalog-number>
+                </label-info>
+            </label-info-list>
+            <medium-list count="1">
+                <track-count>2</track-count>
+                <medium>
+                    <format>CD</format>
+                    <disc-list count="0"/>
+                    <track-list count="2"/>
+                </medium>
+            </medium-list>
+            <tag-list/>
+        </release>
+        <release id="16774304-0ec5-473c-9e8f-d5a8b34c0c82" ns2:score="54">
+            <title>NAME</title>
+            <status>Official</status>
+            <packaging>None</packaging>
+            <text-representation>
+                <language>kor</language>
+                <script>Latn</script>
+            </text-representation>
+            <artist-credit>
+                <name-credit>
+                    <artist id="cf1c3069-fd2a-44af-bd9a-81aed7cac8d1">
+                        <name>UZA</name>
+                        <sort-name>UZA</sort-name>
+                        <disambiguation>Korean singer</disambiguation>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-group id="fc643877-b011-4287-9470-a945c7d80382" type="Single" type-id="d6038452-8ee0-3f68-affc-2de9a1ede0b9">
+                <title>NAME</title>
+                <primary-type id="d6038452-8ee0-3f68-affc-2de9a1ede0b9">Single</primary-type>
+            </release-group>
+            <date>2018-10-02</date>
+            <country>XW</country>
+            <release-event-list>
+                <release-event>
+                    <date>2018-10-02</date>
+                    <area id="525d4e18-3d00-31b9-a58b-a146a916de8f">
+                        <name>[Worldwide]</name>
+                        <sort-name>[Worldwide]</sort-name>
+                        <iso-3166-1-code-list>
+                            <iso-3166-1-code>XW</iso-3166-1-code>
+                        </iso-3166-1-code-list>
+                    </area>
+                </release-event>
+            </release-event-list>
+            <medium-list count="1">
+                <track-count>1</track-count>
+                <medium>
+                    <format>Digital Media</format>
+                    <disc-list count="0"/>
+                    <track-list count="1"/>
+                </medium>
+            </medium-list>
+            <tag-list/>
+        </release>
+        <release id="26cf1337-c849-4a56-bbd4-36fb4905760b" ns2:score="54">
+            <title>&quot;Name&quot;</title>
+            <status>Official</status>
+            <text-representation>
+                <language>eng</language>
+                <script>Latn</script>
+            </text-representation>
+            <artist-credit>
+                <name-credit>
+                    <artist id="e2c00c56-8365-4160-9f40-a64682917633">
+                        <name>Goo Goo Dolls</name>
+                        <sort-name>Goo Goo Dolls</sort-name>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-group id="239085d6-e920-3916-8e40-ad6b356ecd00" type="Single" type-id="d6038452-8ee0-3f68-affc-2de9a1ede0b9">
+                <title>Name</title>
+                <primary-type id="d6038452-8ee0-3f68-affc-2de9a1ede0b9">Single</primary-type>
+            </release-group>
+            <medium-list count="1">
+                <track-count>3</track-count>
+                <medium>
+                    <disc-list count="0"/>
+                    <track-list count="3"/>
+                </medium>
+            </medium-list>
+            <tag-list/>
+        </release>
+        <release id="7861173b-be7d-4b0b-8305-5784f0d99e31" ns2:score="54">
+            <title>Name</title>
+            <status>Official</status>
+            <packaging>Jewel Case</packaging>
+            <text-representation>
+                <language>eng</language>
+                <script>Latn</script>
+            </text-representation>
+            <artist-credit>
+                <name-credit>
+                    <artist id="e2c00c56-8365-4160-9f40-a64682917633">
+                        <name>Goo Goo Dolls</name>
+                        <sort-name>Goo Goo Dolls</sort-name>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-group id="239085d6-e920-3916-8e40-ad6b356ecd00" type="Single" type-id="d6038452-8ee0-3f68-affc-2de9a1ede0b9">
+                <title>Name</title>
+                <primary-type id="d6038452-8ee0-3f68-affc-2de9a1ede0b9">Single</primary-type>
+            </release-group>
+            <date>1996</date>
+            <country>AU</country>
+            <release-event-list>
+                <release-event>
+                    <date>1996</date>
+                    <area id="106e0bec-b638-3b37-b731-f53d507dc00e">
+                        <name>Australia</name>
+                        <sort-name>Australia</sort-name>
+                        <iso-3166-1-code-list>
+                            <iso-3166-1-code>AU</iso-3166-1-code>
+                        </iso-3166-1-code-list>
+                    </area>
+                </release-event>
+            </release-event-list>
+            <label-info-list>
+                <label-info>
+                    <catalog-number>5439177582</catalog-number>
+                    <label id="c595c289-47ce-4fba-b999-b87503e8cb71">
+                        <name>Warner Bros. Records</name>
+                    </label>
+                </label-info>
+            </label-info-list>
+            <medium-list count="1">
+                <track-count>3</track-count>
+                <medium>
+                    <format>CD</format>
+                    <disc-list count="0"/>
+                    <track-list count="3"/>
+                </medium>
+            </medium-list>
+            <tag-list/>
+        </release>
+        <release id="b6570e24-c3b7-462b-87f9-08864389f38f" ns2:score="54">
+            <title>name</title>
+            <status>Official</status>
+            <disambiguation>初回盤</disambiguation>
+            <packaging>Digipak</packaging>
+            <text-representation>
+                <language>jpn</language>
+                <script>Jpan</script>
+            </text-representation>
+            <artist-credit>
+                <name-credit>
+                    <artist id="b872b5f2-5250-4d2e-a9b4-b279e918657b">
+                        <name>Salyu</name>
+                        <sort-name>Salyu</sort-name>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-group id="83503b44-14b9-3757-b904-3a50988ea8dc" type="Single" type-id="d6038452-8ee0-3f68-affc-2de9a1ede0b9">
+                <title>name</title>
+                <primary-type id="d6038452-8ee0-3f68-affc-2de9a1ede0b9">Single</primary-type>
+            </release-group>
+            <date>2006-09-06</date>
+            <country>JP</country>
+            <release-event-list>
+                <release-event>
+                    <date>2006-09-06</date>
+                    <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                        <name>Japan</name>
+                        <sort-name>Japan</sort-name>
+                        <iso-3166-1-code-list>
+                            <iso-3166-1-code>JP</iso-3166-1-code>
+                        </iso-3166-1-code-list>
+                    </area>
+                </release-event>
+            </release-event-list>
+            <barcode>4988061891811</barcode>
+            <asin>B000H5TXV0</asin>
+            <label-info-list>
+                <label-info>
+                    <catalog-number>TFCC-89181</catalog-number>
+                    <label id="5f7aa61d-cf77-4c2a-9a43-41682508dccd">
+                        <name>TOY’S FACTORY</name>
+                    </label>
+                </label-info>
+                <label-info>
+                    <catalog-number>TFBC-89181D</catalog-number>
+                    <label id="5f7aa61d-cf77-4c2a-9a43-41682508dccd">
+                        <name>TOY’S FACTORY</name>
+                    </label>
+                </label-info>
+            </label-info-list>
+            <medium-list count="2">
+                <track-count>5</track-count>
+                <medium>
+                    <format>CD</format>
+                    <disc-list count="1"/>
+                    <track-list count="3"/>
+                </medium>
+                <medium>
+                    <format>DVD-Video</format>
+                    <disc-list count="0"/>
+                    <track-list count="2"/>
+                </medium>
+            </medium-list>
+            <tag-list>
+                <tag count="1">
+                    <name>isrc</name>
+                </tag>
+                <tag count="1">
+                    <name>dr8</name>
+                </tag>
+            </tag-list>
+        </release>
+        <release id="c9840fa4-7d13-307f-a5e5-fb1ef9b440a2" ns2:score="54">
+            <title>name</title>
+            <status>Official</status>
+            <disambiguation>通常盤</disambiguation>
+            <text-representation>
+                <language>jpn</language>
+                <script>Jpan</script>
+            </text-representation>
+            <artist-credit>
+                <name-credit>
+                    <artist id="b872b5f2-5250-4d2e-a9b4-b279e918657b">
+                        <name>Salyu</name>
+                        <sort-name>Salyu</sort-name>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-group id="83503b44-14b9-3757-b904-3a50988ea8dc" type="Single" type-id="d6038452-8ee0-3f68-affc-2de9a1ede0b9">
+                <title>name</title>
+                <primary-type id="d6038452-8ee0-3f68-affc-2de9a1ede0b9">Single</primary-type>
+            </release-group>
+            <date>2006-09-06</date>
+            <country>JP</country>
+            <release-event-list>
+                <release-event>
+                    <date>2006-09-06</date>
+                    <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                        <name>Japan</name>
+                        <sort-name>Japan</sort-name>
+                        <iso-3166-1-code-list>
+                            <iso-3166-1-code>JP</iso-3166-1-code>
+                        </iso-3166-1-code-list>
+                    </area>
+                </release-event>
+            </release-event-list>
+            <barcode>4988061891828</barcode>
+            <asin>B000H5TXVA</asin>
+            <label-info-list>
+                <label-info>
+                    <catalog-number>TFCC-89182</catalog-number>
+                    <label id="5f7aa61d-cf77-4c2a-9a43-41682508dccd">
+                        <name>TOY’S FACTORY</name>
+                    </label>
+                </label-info>
+            </label-info-list>
+            <medium-list count="1">
+                <track-count>3</track-count>
+                <medium>
+                    <format>CD</format>
+                    <disc-list count="0"/>
+                    <track-list count="3"/>
+                </medium>
+            </medium-list>
+            <tag-list/>
+        </release>
+        <release id="6f0bf476-512b-41ca-b148-6feb0ec9eb42" ns2:score="51">
+            <title>First Name/Last Name</title>
+            <status>Official</status>
+            <text-representation>
+                <language>eng</language>
+                <script>Latn</script>
+            </text-representation>
+            <artist-credit>
+                <name-credit>
+                    <artist id="b310694b-bd25-47d9-8d35-01e7b6e41c8f">
+                        <name>Brook Pridemore</name>
+                        <sort-name>Pridemore, Brook</sort-name>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-group id="5a1f9e74-0e72-3796-b5f1-56045a89dfd8" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                <title>First Name/Last Name</title>
+                <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+            </release-group>
+            <date>2004</date>
+            <country>US</country>
+            <release-event-list>
+                <release-event>
+                    <date>2004</date>
+                    <area id="489ce91b-6658-3307-9877-795b68554c98">
+                        <name>United States</name>
+                        <sort-name>United States</sort-name>
+                        <iso-3166-1-code-list>
+                            <iso-3166-1-code>US</iso-3166-1-code>
+                        </iso-3166-1-code-list>
+                    </area>
+                </release-event>
+            </release-event-list>
+            <barcode>692863069821</barcode>
+            <label-info-list>
+                <label-info>
+                    <catalog-number>CFT008</catalog-number>
+                    <label id="a25c8341-328a-4b93-8b5c-c7c9e31d49a8">
+                        <name>Crafty Records</name>
+                    </label>
+                </label-info>
+            </label-info-list>
+            <medium-list count="1">
+                <track-count>11</track-count>
+                <medium>
+                    <format>CD</format>
+                    <disc-list count="0"/>
+                    <track-list count="11"/>
+                </medium>
+            </medium-list>
+            <tag-list/>
+        </release>
+        <release id="188a1c7b-6d5c-4fa7-8224-cff5bb4703a6" ns2:score="47">
+            <title>My Name Is My Name</title>
+            <status>Official</status>
+            <packaging>Cardboard/Paper Sleeve</packaging>
+            <text-representation>
+                <language>eng</language>
+                <script>Latn</script>
+            </text-representation>
+            <artist-credit>
+                <name-credit>
+                    <artist id="14ecd19f-7121-4192-8549-e5056241a42f">
+                        <name>Pusha T</name>
+                        <sort-name>Pusha T</sort-name>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-group id="1e39598e-63de-4232-a5dc-555834ca7f2f" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                <title>My Name Is My Name</title>
+                <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+            </release-group>
+            <date>2013-10-08</date>
+            <country>US</country>
+            <release-event-list>
+                <release-event>
+                    <date>2013-10-08</date>
+                    <area id="489ce91b-6658-3307-9877-795b68554c98">
+                        <name>United States</name>
+                        <sort-name>United States</sort-name>
+                        <iso-3166-1-code-list>
+                            <iso-3166-1-code>US</iso-3166-1-code>
+                        </iso-3166-1-code-list>
+                    </area>
+                </release-event>
+            </release-event-list>
+            <barcode>602537411016</barcode>
+            <asin>B00EV1AR7U</asin>
+            <label-info-list>
+                <label-info>
+                    <catalog-number>B0018704-02</catalog-number>
+                    <label id="a92d1684-4edb-48aa-b913-30e9da213004">
+                        <name>Def Jam Recordings</name>
+                    </label>
+                </label-info>
+                <label-info>
+                    <catalog-number>B0018704-02</catalog-number>
+                    <label id="e36fde8b-924d-4ed0-9c8b-1fcb70ce42ec">
+                        <name>G.O.O.D. Music</name>
+                    </label>
+                </label-info>
+            </label-info-list>
+            <medium-list count="1">
+                <track-count>12</track-count>
+                <medium>
+                    <format>CD</format>
+                    <disc-list count="1"/>
+                    <track-list count="12"/>
+                </medium>
+            </medium-list>
+            <tag-list/>
+        </release>
+        <release id="212447aa-119a-406f-b368-983f69e18b2e" ns2:score="47">
+            <title>My Name Is My Name</title>
+            <status>Official</status>
+            <packaging>None</packaging>
+            <text-representation>
+                <language>eng</language>
+                <script>Latn</script>
+            </text-representation>
+            <artist-credit>
+                <name-credit>
+                    <artist id="14ecd19f-7121-4192-8549-e5056241a42f">
+                        <name>Pusha T</name>
+                        <sort-name>Pusha T</sort-name>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-group id="1e39598e-63de-4232-a5dc-555834ca7f2f" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                <title>My Name Is My Name</title>
+                <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+            </release-group>
+            <date>2013-10-08</date>
+            <country>US</country>
+            <release-event-list>
+                <release-event>
+                    <date>2013-10-08</date>
+                    <area id="489ce91b-6658-3307-9877-795b68554c98">
+                        <name>United States</name>
+                        <sort-name>United States</sort-name>
+                        <iso-3166-1-code-list>
+                            <iso-3166-1-code>US</iso-3166-1-code>
+                        </iso-3166-1-code-list>
+                    </area>
+                </release-event>
+            </release-event-list>
+            <asin>B00FGF9FRS</asin>
+            <label-info-list>
+                <label-info>
+                    <label id="a92d1684-4edb-48aa-b913-30e9da213004">
+                        <name>Def Jam Recordings</name>
+                    </label>
+                </label-info>
+                <label-info>
+                    <label id="e36fde8b-924d-4ed0-9c8b-1fcb70ce42ec">
+                        <name>G.O.O.D. Music</name>
+                    </label>
+                </label-info>
+            </label-info-list>
+            <medium-list count="1">
+                <track-count>12</track-count>
+                <medium>
+                    <format>Digital Media</format>
+                    <disc-list count="0"/>
+                    <track-list count="12"/>
+                </medium>
+            </medium-list>
+            <tag-list/>
+        </release>
+        <release id="3f95a54c-49c6-3f8d-9a75-bb7f0a86901c" ns2:score="47">
+            <title>New Name</title>
+            <status>Official</status>
+            <text-representation>
+                <language>eng</language>
+                <script>Latn</script>
+            </text-representation>
+            <artist-credit>
+                <name-credit>
+                    <artist id="eebd211e-a641-4447-9409-411a0faeec56">
+                        <name>Ras Michael &amp; The Sons of Negus</name>
+                        <sort-name>Michael, Ras &amp; Sons of Negus, The</sort-name>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-group id="35331850-8fc2-3114-a856-ae4d768db3ab" type="Compilation" type-id="dd2a21e1-0c00-3729-a7a0-de60b84eb5d1">
+                <title>New Name</title>
+                <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+                <secondary-type-list>
+                    <secondary-type id="dd2a21e1-0c00-3729-a7a0-de60b84eb5d1">Compilation</secondary-type>
+                </secondary-type-list>
+            </release-group>
+            <date>2001</date>
+            <country>GB</country>
+            <release-event-list>
+                <release-event>
+                    <date>2001</date>
+                    <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
+                        <name>United Kingdom</name>
+                        <sort-name>United Kingdom</sort-name>
+                        <iso-3166-1-code-list>
+                            <iso-3166-1-code>GB</iso-3166-1-code>
+                        </iso-3166-1-code-list>
+                    </area>
+                </release-event>
+            </release-event-list>
+            <label-info-list>
+                <label-info>
+                    <catalog-number>CP 6024</catalog-number>
+                    <label id="1c11aeaf-e849-446b-96ab-4355f7d1f261">
+                        <name>Culture Press</name>
+                    </label>
+                </label-info>
+            </label-info-list>
+            <medium-list count="1">
+                <track-count>13</track-count>
+                <medium>
+                    <format>CD</format>
+                    <disc-list count="0"/>
+                    <track-list count="13"/>
+                </medium>
+            </medium-list>
+            <tag-list/>
+        </release>
+        <release id="f1c81da0-c130-467a-a19a-bfc1b6cd368f" ns2:score="47">
+            <title>Name Symphonies</title>
+            <status>Official</status>
+            <text-representation>
+                <language>eng</language>
+                <script>Latn</script>
+            </text-representation>
+            <artist-credit>
+                <name-credit joinphrase="; ">
+                    <artist id="c130b0fb-5dce-449d-9f40-1437f889f7fe">
+                        <name>Joseph Haydn</name>
+                        <sort-name>Haydn, Joseph</sort-name>
+                    </artist>
+                </name-credit>
+                <name-credit joinphrase=", ">
+                    <artist id="f0ac992d-edd9-4672-ac23-ba0ca93f6539">
+                        <name>Academy of St Martin in the Fields</name>
+                        <sort-name>Academy of St Martin in the Fields</sort-name>
+                    </artist>
+                </name-credit>
+                <name-credit>
+                    <artist id="afb8d624-52d7-4a72-8d0b-62fff3e29f79">
+                        <name>Sir Neville Marriner</name>
+                        <sort-name>Marriner, Neville, Sir</sort-name>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-group id="04539c2c-b645-3e5d-805a-fe097e2e23ae" type="Compilation" type-id="dd2a21e1-0c00-3729-a7a0-de60b84eb5d1">
+                <title>Name Symphonies</title>
+                <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+                <secondary-type-list>
+                    <secondary-type id="dd2a21e1-0c00-3729-a7a0-de60b84eb5d1">Compilation</secondary-type>
+                </secondary-type-list>
+            </release-group>
+            <date>1997-09-16</date>
+            <country>US</country>
+            <release-event-list>
+                <release-event>
+                    <date>1997-09-16</date>
+                    <area id="489ce91b-6658-3307-9877-795b68554c98">
+                        <name>United States</name>
+                        <sort-name>United States</sort-name>
+                        <iso-3166-1-code-list>
+                            <iso-3166-1-code>US</iso-3166-1-code>
+                        </iso-3166-1-code-list>
+                    </area>
+                </release-event>
+            </release-event-list>
+            <asin>B0000041LS</asin>
+            <medium-list count="10">
+                <track-count>118</track-count>
+                <medium>
+                    <disc-list count="1"/>
+                    <track-list count="17"/>
+                </medium>
+                <medium>
+                    <disc-list count="1"/>
+                    <track-list count="11"/>
+                </medium>
+                <medium>
+                    <disc-list count="1"/>
+                    <track-list count="12"/>
+                </medium>
+                <medium>
+                    <disc-list count="1"/>
+                    <track-list count="12"/>
+                </medium>
+                <medium>
+                    <disc-list count="1"/>
+                    <track-list count="14"/>
+                </medium>
+                <medium>
+                    <disc-list count="1"/>
+                    <track-list count="12"/>
+                </medium>
+                <medium>
+                    <disc-list count="1"/>
+                    <track-list count="12"/>
+                </medium>
+                <medium>
+                    <disc-list count="1"/>
+                    <track-list count="8"/>
+                </medium>
+                <medium>
+                    <disc-list count="1"/>
+                    <track-list count="12"/>
+                </medium>
+                <medium>
+                    <disc-list count="1"/>
+                    <track-list count="8"/>
+                </medium>
+            </medium-list>
+            <tag-list/>
+        </release>
+        <release id="f74394c0-fc3f-36e4-9691-cdef59046ce7" ns2:score="47">
+            <title>Last Name</title>
+            <status>Official</status>
+            <packaging>None</packaging>
+            <text-representation>
+                <language>eng</language>
+                <script>Latn</script>
+            </text-representation>
+            <artist-credit>
+                <name-credit joinphrase=" feat. ">
+                    <artist id="29542149-a818-4167-aa91-439adc9d61f5">
+                        <name>Glee Cast</name>
+                        <sort-name>Glee Cast</sort-name>
+                    </artist>
+                </name-credit>
+                <name-credit>
+                    <artist id="9031b393-ced7-4685-9e25-d0b43996158a">
+                        <name>Kristin Chenoweth</name>
+                        <sort-name>Chenoweth, Kristin</sort-name>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-group id="e43fa7ff-e7ef-465b-b9c6-85b979e48d62" type="Single" type-id="d6038452-8ee0-3f68-affc-2de9a1ede0b9">
+                <title>Last Name</title>
+                <primary-type id="d6038452-8ee0-3f68-affc-2de9a1ede0b9">Single</primary-type>
+                <secondary-type-list>
+                    <secondary-type id="22a628ad-c082-3c4f-b1b6-d41665107b88">Soundtrack</secondary-type>
+                </secondary-type-list>
+            </release-group>
+            <date>2009-09-29</date>
+            <country>US</country>
+            <release-event-list>
+                <release-event>
+                    <date>2009-09-29</date>
+                    <area id="489ce91b-6658-3307-9877-795b68554c98">
+                        <name>United States</name>
+                        <sort-name>United States</sort-name>
+                        <iso-3166-1-code-list>
+                            <iso-3166-1-code>US</iso-3166-1-code>
+                        </iso-3166-1-code-list>
+                    </area>
+                </release-event>
+            </release-event-list>
+            <label-info-list>
+                <label-info>
+                    <label id="288fbe00-9804-478c-9efa-5390e0502105">
+                        <name>20th Century Fox TV Records</name>
+                    </label>
+                </label-info>
+            </label-info-list>
+            <medium-list count="1">
+                <track-count>1</track-count>
+                <medium>
+                    <format>Digital Media</format>
+                    <disc-list count="0"/>
+                    <track-list count="1"/>
+                </medium>
+            </medium-list>
+            <tag-list/>
+        </release>
+        <release id="6f71c589-4ae3-4182-baf4-d352444568c7" ns2:score="47">
+            <title>Name Dropper</title>
+            <status>Official</status>
+            <packaging>Gatefold Cover</packaging>
+            <text-representation>
+                <language>eng</language>
+                <script>Latn</script>
+            </text-representation>
+            <artist-credit>
+                <name-credit>
+                    <artist id="9c58e732-214e-4180-8910-2fb1df3b15cd">
+                        <name>Oh Susanna</name>
+                        <sort-name>Oh Susanna</sort-name>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-group id="36014d9b-a443-40b6-8c28-afd6b79cd309" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                <title>Name Dropper</title>
+                <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+            </release-group>
+            <date>2014-10-21</date>
+            <country>CA</country>
+            <release-event-list>
+                <release-event>
+                    <date>2014-10-21</date>
+                    <area id="71bbafaa-e825-3e15-8ca9-017dcad1748b">
+                        <name>Canada</name>
+                        <sort-name>Canada</sort-name>
+                        <iso-3166-1-code-list>
+                            <iso-3166-1-code>CA</iso-3166-1-code>
+                        </iso-3166-1-code-list>
+                    </area>
+                </release-event>
+            </release-event-list>
+            <barcode>621617015326</barcode>
+            <asin>B00NOTPMGG</asin>
+            <label-info-list>
+                <label-info>
+                    <catalog-number>SUNCD1532</catalog-number>
+                    <label id="529875d7-b9f8-461a-a939-1ce3d9c6f0c4">
+                        <name>Sonic Unyon Records</name>
+                    </label>
+                </label-info>
+            </label-info-list>
+            <medium-list count="1">
+                <track-count>14</track-count>
+                <medium>
+                    <format>CD</format>
+                    <disc-list count="2"/>
+                    <track-list count="14"/>
+                </medium>
+            </medium-list>
+            <tag-list/>
+        </release>
+        <release id="50bd4ce5-e85b-4d0b-9f59-74f8926a6e2c" ns2:score="47">
+            <title>NO NAME</title>
+            <status>Official</status>
+            <artist-credit>
+                <name-credit>
+                    <artist id="60bfe49d-9eba-4c1d-82e3-43c6662c58e0">
+                        <name>東野純直</name>
+                        <sort-name>Azumano, Sumitada</sort-name>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-group id="4dd6ad0c-6418-4deb-b03e-c72dbbea940f" type="Single" type-id="d6038452-8ee0-3f68-affc-2de9a1ede0b9">
+                <title>NO NAME</title>
+                <primary-type id="d6038452-8ee0-3f68-affc-2de9a1ede0b9">Single</primary-type>
+            </release-group>
+            <date/>
+            <country>JP</country>
+            <release-event-list>
+                <release-event>
+                    <date/>
+                    <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                        <name>Japan</name>
+                        <sort-name>Japan</sort-name>
+                        <iso-3166-1-code-list>
+                            <iso-3166-1-code>JP</iso-3166-1-code>
+                        </iso-3166-1-code-list>
+                    </area>
+                </release-event>
+            </release-event-list>
+            <medium-list count="1">
+                <track-count>2</track-count>
+                <medium>
+                    <format>8cm CD</format>
+                    <disc-list count="0"/>
+                    <track-list count="2"/>
+                </medium>
+            </medium-list>
+            <tag-list/>
+        </release>
+        <release id="1016b739-c971-4a32-9cc2-2f629edd67f8" ns2:score="47">
+            <title>Your Name</title>
+            <status>Official</status>
+            <packaging>None</packaging>
+            <text-representation>
+                <language>eng</language>
+                <script>Latn</script>
+            </text-representation>
+            <artist-credit>
+                <name-credit joinphrase=" &amp; ">
+                    <artist id="b635a97f-a971-4d53-8317-b21d3ca4f901">
+                        <name>Phil Wickham</name>
+                        <sort-name>Wickham, Phil</sort-name>
+                    </artist>
+                </name-credit>
+                <name-credit>
+                    <artist id="e793cb09-28b8-4120-872f-109b2b8fb0bd">
+                        <name>Paul Baloche</name>
+                        <sort-name>Baloche, Paul</sort-name>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-group id="6818e16b-921e-4f56-aebd-e3eea0b0a030" type="Single" type-id="d6038452-8ee0-3f68-affc-2de9a1ede0b9">
+                <title>Your Name</title>
+                <primary-type id="d6038452-8ee0-3f68-affc-2de9a1ede0b9">Single</primary-type>
+            </release-group>
+            <date>2008-08-31</date>
+            <country>US</country>
+            <release-event-list>
+                <release-event>
+                    <date>2008-08-31</date>
+                    <area id="489ce91b-6658-3307-9877-795b68554c98">
+                        <name>United States</name>
+                        <sort-name>United States</sort-name>
+                        <iso-3166-1-code-list>
+                            <iso-3166-1-code>US</iso-3166-1-code>
+                        </iso-3166-1-code-list>
+                    </area>
+                </release-event>
+            </release-event-list>
+            <label-info-list>
+                <label-info>
+                    <label id="f9ada3ae-3081-44df-8581-ca27a3462b68">
+                        <name>Sony BMG Music Entertainment</name>
+                    </label>
+                </label-info>
+            </label-info-list>
+            <medium-list count="1">
+                <track-count>1</track-count>
+                <medium>
+                    <disc-list count="0"/>
+                    <track-list count="1"/>
+                </medium>
+            </medium-list>
+            <tag-list/>
+        </release>
+        <release id="366b6965-32d0-4276-8750-27d273a8d059" ns2:score="47">
+            <title>New Name</title>
+            <status>Official</status>
+            <packaging>None</packaging>
+            <text-representation>
+                <language>eng</language>
+                <script>Latn</script>
+            </text-representation>
+            <artist-credit>
+                <name-credit>
+                    <artist id="cac634ea-5a1b-4004-a94e-35cdd4e27f13">
+                        <name>Jah9</name>
+                        <sort-name>Jah9</sort-name>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-group id="f1ba3cd4-9bdb-40c4-b5b4-d67dbca14bdc" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                <title>New Name</title>
+                <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+            </release-group>
+            <date>2013-03-26</date>
+            <country>US</country>
+            <release-event-list>
+                <release-event>
+                    <date>2013-03-26</date>
+                    <area id="489ce91b-6658-3307-9877-795b68554c98">
+                        <name>United States</name>
+                        <sort-name>United States</sort-name>
+                        <iso-3166-1-code-list>
+                            <iso-3166-1-code>US</iso-3166-1-code>
+                        </iso-3166-1-code-list>
+                    </area>
+                </release-event>
+            </release-event-list>
+            <asin>B00BYOSDX2</asin>
+            <label-info-list>
+                <label-info>
+                    <label id="bc2ffac5-7f0a-4a85-be19-25d05a9c7f44">
+                        <name>Rorystonelove</name>
+                    </label>
+                </label-info>
+            </label-info-list>
+            <medium-list count="1">
+                <track-count>12</track-count>
+                <medium>
+                    <format>Digital Media</format>
+                    <disc-list count="0"/>
+                    <track-list count="12"/>
+                </medium>
+            </medium-list>
+            <tag-list/>
+        </release>
+        <release id="1f3c4dc6-7317-4fa8-a66d-33ca7d09f08d" ns2:score="47">
+            <title>album name</title>
+            <status>Official</status>
+            <packaging>None</packaging>
+            <text-representation>
+                <language>eng</language>
+                <script>Latn</script>
+            </text-representation>
+            <artist-credit>
+                <name-credit>
+                    <artist id="aafd4387-3ddc-4a46-8ec9-30daaca7766c">
+                        <name>Jay Kubes</name>
+                        <sort-name>Kubes, Jay</sort-name>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-group id="f30151ec-b15d-4988-b654-50ad1f6642cf" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                <title>album name</title>
+                <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+            </release-group>
+            <date>2015-10-24</date>
+            <country>XW</country>
+            <release-event-list>
+                <release-event>
+                    <date>2015-10-24</date>
+                    <area id="525d4e18-3d00-31b9-a58b-a146a916de8f">
+                        <name>[Worldwide]</name>
+                        <sort-name>[Worldwide]</sort-name>
+                        <iso-3166-1-code-list>
+                            <iso-3166-1-code>XW</iso-3166-1-code>
+                        </iso-3166-1-code-list>
+                    </area>
+                </release-event>
+            </release-event-list>
+            <medium-list count="1">
+                <track-count>11</track-count>
+                <medium>
+                    <format>Digital Media</format>
+                    <disc-list count="0"/>
+                    <track-list count="11"/>
+                </medium>
+            </medium-list>
+            <tag-list/>
+        </release>
+        <release id="308c7561-ec15-4639-8d4c-6c75bb40a5a0" ns2:score="47">
+            <title>First Name</title>
+            <status>Official</status>
+            <text-representation>
+                <language>eng</language>
+                <script>Latn</script>
+            </text-representation>
+            <artist-credit>
+                <name-credit>
+                    <artist id="3555d6ea-f930-46ce-9c80-31217386c374">
+                        <name>あみのめ</name>
+                        <sort-name>Aminome</sort-name>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-group id="1cc145d3-5f84-43f4-a35d-0a3ee35c9897" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                <title>First Name</title>
+                <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+            </release-group>
+            <date>2007-09-17</date>
+            <country>JP</country>
+            <release-event-list>
+                <release-event>
+                    <date>2007-09-17</date>
+                    <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                        <name>Japan</name>
+                        <sort-name>Japan</sort-name>
+                        <iso-3166-1-code-list>
+                            <iso-3166-1-code>JP</iso-3166-1-code>
+                        </iso-3166-1-code-list>
+                    </area>
+                </release-event>
+            </release-event-list>
+            <label-info-list>
+                <label-info>
+                    <label id="157afde4-4bf5-4039-8ad2-5a15acc85176">
+                        <name>[no label]</name>
+                    </label>
+                </label-info>
+            </label-info-list>
+            <medium-list count="1">
+                <track-count>9</track-count>
+                <medium>
+                    <format>CD-R</format>
+                    <disc-list count="0"/>
+                    <track-list count="9"/>
+                </medium>
+            </medium-list>
+            <tag-list/>
+        </release>
+        <release id="b7074244-ffc7-455f-8a35-f04071982002" ns2:score="47">
+            <title>New Name</title>
+            <status>Official</status>
+            <disambiguation>Deluxe Edition</disambiguation>
+            <packaging>None</packaging>
+            <text-representation>
+                <language>eng</language>
+                <script>Latn</script>
+            </text-representation>
+            <artist-credit>
+                <name-credit>
+                    <artist id="cac634ea-5a1b-4004-a94e-35cdd4e27f13">
+                        <name>Jah9</name>
+                        <sort-name>Jah9</sort-name>
+                    </artist>
+                </name-credit>
+            </artist-credit>
+            <release-group id="f1ba3cd4-9bdb-40c4-b5b4-d67dbca14bdc" type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc">
+                <title>New Name</title>
+                <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
+            </release-group>
+            <date>2013-02-26</date>
+            <country>US</country>
+            <release-event-list>
+                <release-event>
+                    <date>2013-02-26</date>
+                    <area id="489ce91b-6658-3307-9877-795b68554c98">
+                        <name>United States</name>
+                        <sort-name>United States</sort-name>
+                        <iso-3166-1-code-list>
+                            <iso-3166-1-code>US</iso-3166-1-code>
+                        </iso-3166-1-code-list>
+                    </area>
+                </release-event>
+            </release-event-list>
+            <label-info-list>
+                <label-info>
+                    <label id="bc2ffac5-7f0a-4a85-be19-25d05a9c7f44">
+                        <name>Rorystonelove</name>
+                    </label>
+                </label-info>
+            </label-info-list>
+            <medium-list count="1">
+                <track-count>15</track-count>
+                <medium>
+                    <format>Digital Media</format>
+                    <disc-list count="0"/>
+                    <track-list count="15"/>
+                </medium>
+            </medium-list>
+            <tag-list/>
+        </release>
+    </release-list>
+</metadata>
