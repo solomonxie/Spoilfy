@@ -29,7 +29,8 @@ mb.set_hostname(host_url)
 #====================================================================
 
 # Search artist
-artists = mb.search_artists(artist="big bang", type="group", country="'Netherlands")
+artists = mb.search_artists(artist="bigbang", type="group", country="NO")
 
 for a in artists['artist-list']:
-    print( a['name'] )
+    if 'country' in a.keys():
+        print( a['name'],'\t',a['country'] )
