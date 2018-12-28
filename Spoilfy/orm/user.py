@@ -6,8 +6,6 @@
 #   - ./common.py
 #   - ./spotify.py
 
-import os
-import json
 import uuid
 
 #-------[  Import SQLAlchemy ]---------
@@ -39,19 +37,34 @@ class UserResource(Resource):
     __tablename__ = 'u_Resources'
 
     real_uri = Column('real_uri', String, primary_key=True)
+    owner_uri = Column('owner_uri', String)
 
     #-> Drop default PK from parent class
     uri = name = id = provider = None
 
     @classmethod
-    def add(cls, data):
+    def add(cls, owner_uri, data):
         item = cls(
             real_uri=data.real_uri,
+            owner_uri=owner_uri,
             type=data.type
         )
         cls.session.merge(item)
         #cls.session.commit()  #-> Better to commit after multiple inserts
         return item
+
+    @classmethod
+    def add_resources(cls, owner_uri, items):
+        all = []
+        for item in items:
+            all.append( cls.add(owner_uri, item) )
+
+        cls.session.commit()
+        print('[  OK  ] Inserted {} items to [{}].'.format(
+            len(all), cls.__tablename__
+        ))
+
+        return all
 
 
 class UserAccount(Resource):
@@ -75,6 +88,7 @@ class UserAccount(Resource):
             name = data['name'],
             id = data['id'],
             type = 'user',
+            provider = 'app',
             email = data['email'],
             password = data['password']
         )

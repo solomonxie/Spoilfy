@@ -9,6 +9,7 @@ import json
 
 from common import engine, Resource, Reference
 from user import UserAccount, UserResource
+from spotify import SpotifyAccount
 
 
 
@@ -31,12 +32,13 @@ def test_UserAccount():
         # Initial add reference
         Reference.add_resources(accounts)
         # Bind user account to provider accounts
-        spotify_acc = SpotifyAccount.query.filter().first()
-        user_acc = accounts[0]
-        #
-        #-> It's critical here we use app account's URI as real_uri
-        #   because we want the User Account to be the real existence.
-        Reference.bind(spotify_acc, user_acc.uri)
+        # spotify_acc = SpotifyAccount.query.filter().first()
+        for acc in SpotifyAccount.query.filter().all():
+            user_acc = acc
+            #
+            #-> It's critical here we use app account's URI as real_uri
+            #   because we want the User Account to be the real existence.
+            Reference.bind(acc, user_acc.uri)
 
 
 
@@ -47,23 +49,25 @@ def test_UserResource():
     except Exception as e:
         print('Error on dropping User table.')
 
+    # Get a user
+    user = UserAccount.query.first()
+
     # Add User tracks
     items = Reference.query.filter(Reference.type=='track').all()
-    UserResource.add_resources(items)
+    UserResource.add_resources(user.uri, items)
     ## Add User albums
-    #items = session.query(Reference).filter(Reference.type=='album').all()
-    #UserResource.add_resources(session, items)
+    items = Reference.query.filter(Reference.type=='album').all()
+    UserResource.add_resources(user.uri, items)
     ## Add User artists
-    #items = session.query(Reference).filter(Reference.type=='artist').all()
-    #UserResource.add_resources(session, items)
+    items = Reference.query.filter(Reference.type=='artist').all()
+    UserResource.add_resources(user.uri, items)
     ## Add User playlists
-    #items = session.query(Reference).filter(Reference.type=='playlist').all()
-    #UserResource.add_resources(session, items)
+    items = Reference.query.filter(Reference.type=='playlist').all()
+    UserResource.add_resources(user.uri, items)
 
 
 
 
 if __name__ == '__main__':
-    # test_query()
-    # test_UserAccount()
+    test_UserAccount()
     test_UserResource()
