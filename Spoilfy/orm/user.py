@@ -7,16 +7,16 @@
 #   - ./spotify.py
 
 import os
+import json
 import uuid
 
 #-------[  Import SQLAlchemy ]---------
-from sqlalchemy.orm import sessionmaker
 from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean, Sequence
 
 #-------[  Import From Other Modules   ]---------
 # Package Import Hint: $ python -m Spoilfy.orm.spotify
-from Spoilfy.orm.common import Base, engine, Resource, Reference
-from Spoilfy.orm.spotify import SpotifyAccount
+from common import Base, engine, Resource, Reference
+from spotify import SpotifyAccount
 
 
 
@@ -44,13 +44,13 @@ class UserResource(Resource):
     uri = name = id = provider = None
 
     @classmethod
-    def add(cls, session, data):
+    def add(cls, data):
         item = cls(
             real_uri=data.real_uri,
             type=data.type
         )
-        session.merge(item)
-        #session.commit()  #-> Better to commit after multiple inserts
+        cls.session.merge(item)
+        #cls.session.commit()  #-> Better to commit after multiple inserts
         return item
 
 
@@ -69,7 +69,7 @@ class UserAccount(Resource):
     provider = Column('provider', String, default='app')
 
     @classmethod
-    def add(cls, session, data):
+    def add(cls, data):
         user = cls(
             uri = 'app:user:{}'.format(data['id']),
             name = data['name'],
@@ -78,8 +78,8 @@ class UserAccount(Resource):
             email = data['email'],
             password = data['password']
         )
-        session.merge(user)
-        #session.commit()  #-> Better to commit after multiple inserts
+        cls.session.merge(user)
+        #cls.session.commit()  #-> Better to commit after multiple inserts
         return user
 
 
@@ -95,64 +95,54 @@ class UserAccount(Resource):
 # >>>>>>>>>>>>>>>>>>>>>>[    TEST     ] >>>>>>>>>>>>>>>>>>>>>>>>
 # ==============================================================
 
-
-def main():
-    #------- Start of Data Submitting ---------
-
-    # Clearout all existing tables
+def test_UserAccount():
     try:
         UserAccount.__table__.drop(engine)
-        UserResource.__table__.drop(engine)
-        pass
+        UserAccount.metadata.create_all(bind=engine)
     except Exception as e:
         print('Error on dropping User table.')
 
-    # Let new Schemas take effect
-    Base.metadata.create_all(bind=engine)
-
-    # Declare a common session for multiple files
-    session = sessionmaker(bind=engine, autoflush=False)()
-
-
-    # Start of Data Insersions --------{
-    import os, json
-    cwd = os.path.split(os.path.realpath(__file__))[0]
-
     # Add a User Account
-    with open('./users.json'.format(cwd), 'r') as f:
+    with open('./users.json', 'r') as f:
         jsondata = json.loads( f.read() )
         # Create accounts
-        accounts = UserAccount.add_resources(session, jsondata['users'])
+        accounts = UserAccount.add_resources(jsondata['users'])
         # Initial add reference
-        Reference.add_resources(session, accounts)
+        Reference.add_resources(accounts)
         # Bind user account to provider accounts
-        app_acc = accounts[0]
-        spotify_acc = session.query(SpotifyAccount).filter().first()
+        spotify_acc = SpotifyAccount.query.filter().first()
+        user_acc = accounts[0]
         #
         #-> It's critical here we use app account's URI as real_uri
         #   because we want the User Account to be the real existence.
-        Reference.bind(session, spotify_acc, app_acc.uri)
+        Reference.bind(spotify_acc, user_acc.uri)
+
+
+
+def test_UserResource():
+    try:
+        UserResource.__table__.drop(engine)
+        UserResource.metadata.create_all(bind=engine)
+    except Exception as e:
+        print('Error on dropping User table.')
 
     # Add User tracks
-    items = session.query(Reference).filter(Reference.type=='track').all()
-    UserResource.add_resources(session, items)
-    # Add User albums
-    items = session.query(Reference).filter(Reference.type=='album').all()
-    UserResource.add_resources(session, items)
-    # Add User artists
-    items = session.query(Reference).filter(Reference.type=='artist').all()
-    UserResource.add_resources(session, items)
-    # Add User playlists
-    items = session.query(Reference).filter(Reference.type=='playlist').all()
-    UserResource.add_resources(session, items)
+    items = Reference.query.filter(Reference.type=='track').all()
+    UserResource.add_resources(items)
+    ## Add User albums
+    #items = session.query(Reference).filter(Reference.type=='album').all()
+    #UserResource.add_resources(session, items)
+    ## Add User artists
+    #items = session.query(Reference).filter(Reference.type=='artist').all()
+    #UserResource.add_resources(session, items)
+    ## Add User playlists
+    #items = session.query(Reference).filter(Reference.type=='playlist').all()
+    #UserResource.add_resources(session, items)
 
 
-    # }------- End of Data Insersions
-
-    session.commit()
-    session.close()
-    #------- End of Data Submitting ---------
 
 
 if __name__ == '__main__':
-    main()
+    # test_query()
+    # test_UserAccount()
+    test_UserResource()

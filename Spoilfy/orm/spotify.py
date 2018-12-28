@@ -5,20 +5,15 @@
 # DEPENDENCIES:
 #   - ./common.py
 
-import os
 import json
 import uuid
 
 #-------[  Import SQLAlchemy ]---------
-from sqlalchemy.orm import sessionmaker
 from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean, Sequence
 
 #-------[  Import From Other Modules   ]---------
 # Package Import Hint: $ python -m Spoilfy.orm.spotify
 from common import Base, engine, Resource, Reference
-
-
-cwd = os.path.split(os.path.realpath(__file__))[0]
 
 
 # ==============================================================
@@ -34,7 +29,6 @@ Explain:
 class SpotifyResource(Resource):
     __abstract__ = True
 
-    provider = Column('prvider', String, default='spotify')
     href = Column('href', String)
     external_urls = Column('external_urls', String)
 
@@ -55,6 +49,7 @@ class SpotifyAccount(SpotifyResource):
             uri = jsondata['uri'],
             id = jsondata['id'],
             type = jsondata['type'],
+            provider = 'spotify',
             name = jsondata['display_name'],
             external_urls = jsondata['external_urls']['spotify'],
             followers = jsondata['followers']['total'],
@@ -94,6 +89,7 @@ class SpotifyTrack(SpotifyResource):
             name = j['name'],
             id = j['id'],
             type = j['type'],
+            provider = 'spotify',
             is_local = j['is_local'],
             atids = ','.join([ a['id'] for a in j['artists'] ]),
             disc_number = j['disc_number'],
@@ -137,6 +133,7 @@ class SpotifyAlbum(SpotifyResource):
             name = d['name'],
             id = d['id'],
             type = d['type'],
+            provider = 'spotify',
             atids = ','.join([ a['id'] for a in d['artists'] ]),
             tids = ','.join([ a['id'] for a in d['tracks']['items'] ]),
             album_type = d['album_type'],
@@ -174,6 +171,7 @@ class SpotifyArtist(SpotifyResource):
             name = d['name'],
             id = d['id'],
             type = d['type'],
+            provider = 'spotify',
             genres = str(d['genres']),
             followers = d['followers']['total'],
             popularity = d['popularity'],
@@ -211,6 +209,7 @@ class SpotifyPlaylist(SpotifyResource):
             name = j['name'],
             id = j['id'],
             type = j['type'],
+            provider = 'spotify',
             owner_id = j['owner']['id'],
             snapshot_id = j['snapshot_id'],
             total_tracks = j['tracks']['total'],
@@ -254,9 +253,10 @@ def test_SpotifyAccount():
     with open('../../scratch/sqlschemas/spotify/jsondumps-full/get_user_profile.json', 'r') as f:
         jsondata = json.loads( f.read() )
         # Create items
-        items = SpotifyAccount.add(jsondata)
+        item = SpotifyAccount.add(jsondata)
         # Add reference
-        # ...
+        Reference.add(item)
+
 
 
 def test_SpotifyTrack():
@@ -273,6 +273,9 @@ def test_SpotifyTrack():
         items = SpotifyTrack.add_resources(jsondata['items'])
         # Add reference
         Reference.add_resources(items)
+
+    # Get tracks from DB
+    #SpotifyTrack.session.query()
 
 
 def test_SpotifyAlbum():
@@ -298,7 +301,7 @@ def test_SpotifyArtist():
         print('Error on dropping Spotify table.')
 
     # Add an artist
-    with open('../../scratch/sqlschemas/spotify/jsondumps-full/get_user_artists.json'.format(os.path.dirname(cwd)), 'r') as f:
+    with open('../../scratch/sqlschemas/spotify/jsondumps-full/get_user_artists.json', 'r') as f:
         jsondata = json.loads( f.read() )
         items = SpotifyArtist.add_resources(jsondata['artists']['items'])
         # Add reference
@@ -314,7 +317,7 @@ def test_SpotifyPlaylist():
         print('Error on dropping Spotify table.')
 
     # Add a playlist
-    with open('../../scratch/sqlschemas/spotify/jsondumps-full/get_user_playlists.json'.format(os.path.dirname(cwd)), 'r') as f:
+    with open('../../scratch/sqlschemas/spotify/jsondumps-full/get_user_playlists.json', 'r') as f:
         jsondata = json.loads( f.read() )
         items = SpotifyPlaylist.add_resources(jsondata['items'])
         # Add reference
@@ -322,16 +325,20 @@ def test_SpotifyPlaylist():
 
 
 
+def test_query_track():
+    print( SpotifyTrack.query.all() )
 
-def main():
-    pass
+    # Get all spotify tracks of a user
+    # print( Resource.metadata.__dict__['tables'] )
+
+
 
 
 if __name__ == '__main__':
-    main()
     test_SpotifyAccount()
     test_SpotifyTrack()
     test_SpotifyAlbum()
     test_SpotifyArtist()
     test_SpotifyPlaylist()
+    # test_query_track()
 
