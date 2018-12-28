@@ -33,7 +33,10 @@ class Resource(Base):
         Manually search by id if needed.
     """
     __abstract__ = True
+    #-> Shared session
+    session = sessionmaker(bind=engine, autoflush=False)()
 
+    # PKs
     uri = Column('uri', String, primary_key=True)
     name = Column('name', String)
 
@@ -43,11 +46,11 @@ class Resource(Base):
     provider = Column('provider', String)
 
     @classmethod
-    def add(cls, session, data):
+    def add(cls, data):
         print('[TO BE IMPLEMENTED].')
 
     @classmethod
-    def add_resources(cls, session, items):
+    def add_resources(cls, items):
         """[ Add Resources ]
         :param session: sqlalchemy SESSION binded to DB.
         :param LIST items: must be iteratable.
@@ -56,10 +59,10 @@ class Resource(Base):
         all = []
         for item in items:
             data = cls.get_sub_data(item)
-            item = cls.add(session, data)
-            all.append( item )
+            obj = cls.add(data)
+            all.append( obj )
 
-        session.commit()
+        cls.session.commit()
         print('[  OK  ] Inserted {} items to [{}].'.format(
             len(all), cls.__tablename__
         ))
@@ -88,6 +91,8 @@ class Reference(Base):
     :KEY real_uri: as the REAL EXISTENCE of a resource.
     """
     __tablename__ = 'references'
+    #-> Shared session
+    session = sessionmaker(bind=engine, autoflush=False)()
 
     uri = Column('uri', String, primary_key=True)
     real_uri = Column('real_uri', String)
@@ -96,38 +101,38 @@ class Reference(Base):
     provider = Column('provider', String)
 
     @classmethod
-    def add(cls, session, item):
+    def add(cls, item):
         """ [ Initial Source Reference ]
         Add initial ref with NEW real_uri
         """
         real_uri = '{}:{}:{}'.format(
             item.provider, item.type, str(uuid.uuid1().hex)
         )
-        ref = cls.bind(session, item, real_uri)
+        ref = cls.bind(item, real_uri)
         return ref
 
     @classmethod
-    def add_resources(cls, session, items):
+    def add_resources(cls, items):
         all = []
         for item in items:
-            all.append( cls.add(session, item) )
-        session.commit()
+            all.append( cls.add(item) )
+        cls.session.commit()
         return all
 
     @classmethod
-    def bind(cls, session, item, real_uri):
+    def bind(cls, item, real_uri):
         ref = cls(
             uri=item.uri,
             real_uri=real_uri,
             type=item.type,
             provider=item.provider
         )
-        session.merge(ref)
-        #session.commit()  #-> Better to commit after multiple inserts
+        cls.session.merge(ref)
+        #cls.session.commit()  #-> Better to commit after multiple inserts
         return ref
 
     @classmethod
-    def bind_resources(cls, session, pairs):
+    def bind_resources(cls, pairs):
         """ [ Add batch references ]
         This method is called when:
           - It's already known which refers to which.
@@ -136,9 +141,9 @@ class Reference(Base):
         """
         all = []
         for item, real_uri in pairs:
-            ref = cls.bind(session, item, real_uri)
+            ref = cls.bind(item, real_uri)
             all.append(ref)
-        session.commit()
+        cls.session.commit()
         print('[  OK  ] Inserted {} references.'.format(
             len(all)
         ))
@@ -152,26 +157,16 @@ class Reference(Base):
 # >>>>>>>>>>>>>>>>>>>>>>[    TEST     ] >>>>>>>>>>>>>>>>>>>>>>>>
 # ==============================================================
 
-
-def main():
-    #------- Start of Data Submitting ---------
-
-    # Clearout all existing tables
+def test_Reference():
     try:
         Reference.__table__.drop(engine)
-        pass
+        Reference.metadata.create_all(bind=engine)
     except Exception as e:
         print('Error on dropping User table.')
 
-    # Let new Schemas take effect
-    Base.metadata.create_all(bind=engine)
-
-    #------- End of Data Submitting ---------
-
-
 
 if __name__ == '__main__':
-    main()
+    test_Reference()
 
 
 

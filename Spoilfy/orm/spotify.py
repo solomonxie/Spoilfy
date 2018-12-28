@@ -6,6 +6,7 @@
 #   - ./common.py
 
 import os
+import json
 import uuid
 
 #-------[  Import SQLAlchemy ]---------
@@ -14,8 +15,10 @@ from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean
 
 #-------[  Import From Other Modules   ]---------
 # Package Import Hint: $ python -m Spoilfy.orm.spotify
-from Spoilfy.orm.common import Base, engine, Resource, Reference
+from common import Base, engine, Resource, Reference
 
+
+cwd = os.path.split(os.path.realpath(__file__))[0]
 
 
 # ==============================================================
@@ -36,6 +39,7 @@ class SpotifyResource(Resource):
     external_urls = Column('external_urls', String)
 
 
+
 class SpotifyAccount(SpotifyResource):
     """ [ Store User Accounts with Spotify ]
         Information might involve with Authentication / Password.
@@ -46,7 +50,7 @@ class SpotifyAccount(SpotifyResource):
     images = Column('images', String)
 
     @classmethod
-    def add(cls, session, jsondata):
+    def add(cls, jsondata):
         user = cls(
             uri = jsondata['uri'],
             id = jsondata['id'],
@@ -57,8 +61,8 @@ class SpotifyAccount(SpotifyResource):
             href = jsondata['href'],
             images = str(jsondata['images'])
         )
-        session.merge(user)
-        # session.commit()
+        cls.session.merge(user)
+        # cls.session.commit()
         print('[  OK  ] Inserted Spotify User: {}.'.format( user.name ))
 
         return user
@@ -83,7 +87,7 @@ class SpotifyTrack(SpotifyResource):
 
 
     @classmethod
-    def add(cls, session, jsondata):
+    def add(cls, jsondata):
         j = jsondata['track']
         item = cls(
             uri = j['uri'],
@@ -101,8 +105,8 @@ class SpotifyTrack(SpotifyResource):
             href = j['href'],
             external_urls = j['external_urls']['spotify']
         )
-        session.merge( item )   #Merge existing data
-        #session.commit()  #-> Better to commit after multiple inserts
+        cls.session.merge( item )   #Merge existing data
+        #cls.session.commit()  #-> Better to commit after multiple inserts
 
         return item
 
@@ -126,7 +130,7 @@ class SpotifyAlbum(SpotifyResource):
 
 
     @classmethod
-    def add(cls, session, jsondata):
+    def add(cls, jsondata):
         d = jsondata['album']
         item = cls(
             uri = d['uri'],
@@ -146,8 +150,8 @@ class SpotifyAlbum(SpotifyResource):
             external_urls = str(d['external_urls']),
             external_ids = str(d['external_ids'])
         )
-        session.merge( item )
-        #session.commit()  #-> Better to commit after multiple inserts
+        cls.session.merge( item )
+        #cls.session.commit()  #-> Better to commit after multiple inserts
         return item
 
 
@@ -163,7 +167,7 @@ class SpotifyArtist(SpotifyResource):
 
 
     @classmethod
-    def add(cls, session, jsondata):
+    def add(cls, jsondata):
         d = jsondata
         item = cls(
             uri = d['uri'],
@@ -176,8 +180,8 @@ class SpotifyArtist(SpotifyResource):
             href = d['href'],
             external_urls = str(d['external_urls'])
         )
-        session.merge( item )   #Merge existing data
-        #session.commit()  #-> Better to commit after multiple inserts
+        cls.session.merge( item )   #Merge existing data
+        #cls.session.commit()  #-> Better to commit after multiple inserts
         return item
 
 
@@ -199,7 +203,7 @@ class SpotifyPlaylist(SpotifyResource):
     images = Column('images', String)
 
     @classmethod
-    def add(cls, session, jsondata):
+    def add(cls, jsondata):
         j = jsondata
         u = j['uri'].split(':')
         item = cls(
@@ -220,9 +224,9 @@ class SpotifyPlaylist(SpotifyResource):
             #followers = j['followers']['total'],
             #description = j['description'],
         )
-        session.merge( item )   #Merge existing data
+        cls.session.merge( item )   #Merge existing data
         #-> Temporary: For test only to solve repeated ID issue.
-        session.commit()  #-> Better to commit after multiple inserts
+        cls.session.commit()  #-> Better to commit after multiple inserts
         return item
 
 
@@ -239,76 +243,95 @@ class SpotifyPlaylist(SpotifyResource):
 # >>>>>>>>>>>>>>>>>>>>>>[    TEST     ] >>>>>>>>>>>>>>>>>>>>>>>>
 # ==============================================================
 
-
-def main():
-    #------- Start of Data Submitting ---------
-
-    # Clearout all existing tables
+def test_SpotifyAccount():
     try:
         SpotifyAccount.__table__.drop(engine)
-        SpotifyTrack.__table__.drop(engine)
-        SpotifyAlbum.__table__.drop(engine)
-        SpotifyArtist.__table__.drop(engine)
-        SpotifyPlaylist.__table__.drop(engine)
-        pass
+        SpotifyAccount.metadata.create_all(bind=engine)
     except Exception as e:
         print('Error on dropping Spotify table.')
-
-    # Let new Schemas take effect
-    Base.metadata.create_all(bind=engine)
-
-    # Declare a common session for multiple files
-    session = sessionmaker(bind=engine, autoflush=False)()
-
-
-    # Start of Data Insersions --------{
-    import os, json
-    cwd = os.path.split(os.path.realpath(__file__))[0]
 
     # Add an account
     with open('../../scratch/sqlschemas/spotify/jsondumps-full/get_user_profile.json', 'r') as f:
         jsondata = json.loads( f.read() )
         # Create items
-        items = SpotifyAccount.add(session, jsondata)
-        session.commit()
+        items = SpotifyAccount.add(jsondata)
         # Add reference
+        # ...
+
+
+def test_SpotifyTrack():
+    try:
+        SpotifyTrack.__table__.drop(engine)
+        SpotifyTrack.metadata.create_all(bind=engine)
+    except Exception as e:
+        print('Error on dropping Spotify table.')
 
     # Add a track
     with open('../../scratch/sqlschemas/spotify/jsondumps-full/get_user_tracks.json', 'r') as f:
         jsondata = json.loads( f.read() )
         # Create items
-        items = SpotifyTrack.add_resources(session, jsondata['items'])
+        items = SpotifyTrack.add_resources(jsondata['items'])
         # Add reference
-        Reference.add_resources(session, items)
+        Reference.add_resources(items)
+
+
+def test_SpotifyAlbum():
+    try:
+        SpotifyAlbum.__table__.drop(engine)
+        SpotifyAlbum.metadata.create_all(bind=engine)
+    except Exception as e:
+        print('Error on dropping Spotify table.')
 
     # Add an album
     with open('../../scratch/sqlschemas/spotify/jsondumps-full/get_user_albums.json', 'r') as f:
         jsondata = json.loads( f.read() )
-        items = SpotifyAlbum.add_resources(session, jsondata['items'])
+        items = SpotifyAlbum.add_resources(jsondata['items'])
         # Add reference
-        Reference.add_resources(session, items)
+        Reference.add_resources(items)
+
+
+def test_SpotifyArtist():
+    try:
+        SpotifyArtist.__table__.drop(engine)
+        SpotifyArtist.metadata.create_all(bind=engine)
+    except Exception as e:
+        print('Error on dropping Spotify table.')
 
     # Add an artist
     with open('../../scratch/sqlschemas/spotify/jsondumps-full/get_user_artists.json'.format(os.path.dirname(cwd)), 'r') as f:
         jsondata = json.loads( f.read() )
-        items = SpotifyArtist.add_resources(session, jsondata['artists']['items'])
+        items = SpotifyArtist.add_resources(jsondata['artists']['items'])
         # Add reference
-        Reference.add_resources(session, items)
+        Reference.add_resources(items)
+
+
+
+def test_SpotifyPlaylist():
+    try:
+        SpotifyPlaylist.__table__.drop(engine)
+        SpotifyPlaylist.metadata.create_all(bind=engine)
+    except Exception as e:
+        print('Error on dropping Spotify table.')
 
     # Add a playlist
     with open('../../scratch/sqlschemas/spotify/jsondumps-full/get_user_playlists.json'.format(os.path.dirname(cwd)), 'r') as f:
         jsondata = json.loads( f.read() )
-        items = SpotifyPlaylist.add_resources(session, jsondata['items'])
+        items = SpotifyPlaylist.add_resources(jsondata['items'])
         # Add reference
-        Reference.add_resources(session, items)
+        Reference.add_resources(items)
 
-    # }------- End of Data Insersions
 
-    session.commit()
-    session.close()
-    #------- End of Data Submitting ---------
+
+
+def main():
+    pass
 
 
 if __name__ == '__main__':
     main()
+    test_SpotifyAccount()
+    test_SpotifyTrack()
+    test_SpotifyAlbum()
+    test_SpotifyArtist()
+    test_SpotifyPlaylist()
 
