@@ -5,7 +5,6 @@
 # DEPENDENCIES:
 #   - ./common.py
 
-import json
 import uuid
 
 #-------[  Import SQLAlchemy ]---------
@@ -34,7 +33,7 @@ class SpotifyResource(Resource):
 
 
 
-class SpotifyAccount(SpotifyResource):
+class SpotifyAccount(Resource):
     """ [ Store User Accounts with Spotify ]
         Information might involve with Authentication / Password.
     """
@@ -42,6 +41,8 @@ class SpotifyAccount(SpotifyResource):
 
     followers = Column('followers', Integer, default=0)
     images = Column('images', String)
+    href = Column('href', String)
+    external_urls = Column('external_urls', String)
 
     @classmethod
     def add(cls, jsondata):
@@ -64,7 +65,7 @@ class SpotifyAccount(SpotifyResource):
 
 
 
-class SpotifyTrack(SpotifyResource):
+class SpotifyTrack(Resource):
     """ [ Track resources in Spotify ]
     """
     __tablename__ = 'spotify_Tracks'
@@ -79,6 +80,8 @@ class SpotifyTrack(SpotifyResource):
     preview_url = Column('preview_url', String)
     popularity = Column('popularity', Integer)
     explicit = Column('explicit', Boolean)
+    href = Column('href', String)
+    external_urls = Column('external_urls', String)
 
 
     @classmethod
@@ -107,7 +110,7 @@ class SpotifyTrack(SpotifyResource):
         return item
 
 
-class SpotifyAlbum(SpotifyResource):
+class SpotifyAlbum(Resource):
     """ [ Album resources in Spotify ]
     """
     __tablename__ = 'spotify_Albums'
@@ -123,6 +126,9 @@ class SpotifyAlbum(SpotifyResource):
     copyrights = Column('copyrights', String)
     album_type = Column('album_type', String)
     external_ids = Column('external_ids', String)
+    href = Column('href', String)
+    external_urls = Column('external_urls', String)
+
 
 
     @classmethod
@@ -153,7 +159,7 @@ class SpotifyAlbum(SpotifyResource):
 
 
 
-class SpotifyArtist(SpotifyResource):
+class SpotifyArtist(Resource):
     """ [ Artist resources in Spotify ]
     """
     __tablename__ = 'spotify_Artists'
@@ -161,6 +167,8 @@ class SpotifyArtist(SpotifyResource):
     genres = Column('genres', String)
     followers = Column('followers', Integer)
     popularity = Column('popularity', Integer)
+    href = Column('href', String)
+    external_urls = Column('external_urls', String)
 
 
     @classmethod
@@ -184,7 +192,7 @@ class SpotifyArtist(SpotifyResource):
 
 
 
-class SpotifyPlaylist(SpotifyResource):
+class SpotifyPlaylist(Resource):
     """ [ Playlist resources in Spotify ]
     """
     __tablename__ = 'spotify_Playlists'
@@ -199,6 +207,8 @@ class SpotifyPlaylist(SpotifyResource):
     description = Column('description', String)
     public = Column('public', Boolean)
     images = Column('images', String)
+    href = Column('href', String)
+    external_urls = Column('external_urls', String)
 
     @classmethod
     def add(cls, jsondata):
@@ -237,7 +247,7 @@ class SpotifyPlaylist(SpotifyResource):
         """
         all = []
         for item in items:
-            data = cls.get_sub_data(item)
+            data = cls.get_playlist_tracks(item)
             obj = cls.add(data)
             all.append( obj )
 
@@ -249,7 +259,7 @@ class SpotifyPlaylist(SpotifyResource):
         return all
 
     @classmethod
-    def get_sub_data(cls, item):
+    def get_playlist_tracks(cls, item):
         """ [ Get sub item's data through Web API  ]
             This should retrive WebAPI accordingly
             This is to impelemented by children class.
