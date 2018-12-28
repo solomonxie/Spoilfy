@@ -9,6 +9,7 @@ import json
 
 from common import engine, Resource, Reference
 from spotify import SpotifyAccount, SpotifyTrack, SpotifyAlbum, SpotifyArtist, SpotifyPlaylist
+from user import UserAccount, UserResource
 
 
 
@@ -101,19 +102,27 @@ def test_SpotifyPlaylist():
 
 
 def test_query_track():
-    print( SpotifyTrack.query.all() )
+    # print( SpotifyTrack.query.all() )
 
+    # Get a user
+    user = UserAccount.query.first()
+    print( '[USER]', user.uri )
     # Get all spotify tracks of a user
-    # print( Resource.metadata.__dict__['tables'] )
+    tracks = UserResource.query.filter(
+        UserResource.uri == user.uri
+    ).filter(
+        Reference.type == 'track'
+    ).all()
+    print( tracks )
 
 
 
 
 if __name__ == '__main__':
-    test_SpotifyAccount()
-    test_SpotifyTrack()
-    test_SpotifyAlbum()
-    test_SpotifyArtist()
-    test_SpotifyPlaylist()
-    # test_query_track()
+    # test_SpotifyAccount()
+    # test_SpotifyTrack()
+    # test_SpotifyAlbum()
+    # test_SpotifyArtist()
+    # test_SpotifyPlaylist()
+    test_query_track()
 
