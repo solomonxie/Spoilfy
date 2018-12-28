@@ -4,12 +4,16 @@
 #
 # DEPENDENCIES:
 
-import unittest
 import json
+import unittest
+
+from sqlalchemy.orm import sessionmaker
 
 from common import engine, Resource, Reference
-from spotify import SpotifyAccount, SpotifyTrack, SpotifyAlbum, SpotifyArtist, SpotifyPlaylist
 from user import UserAccount, UserResource
+from spotify import SpotifyAccount, SpotifyTrack, SpotifyAlbum, SpotifyArtist, SpotifyPlaylist
+
+session = sessionmaker(bind=engine, autoflush=False)()
 
 
 
@@ -105,24 +109,107 @@ def test_query_track():
     # print( SpotifyTrack.query.all() )
 
     # Get a user
-    user = UserAccount.query.first()
-    print( '[USER]', user.uri )
-    # Get all spotify tracks of a user
-    tracks = UserResource.query.filter(
-        UserResource.uri == user.uri
+    me = UserAccount.query.first()
+    print( '[USER]', me.uri )
+
+    # Search all tracks of a user
+    query = session.query(
+        UserResource, Reference, SpotifyTrack
     ).filter(
-        Reference.type == 'track'
-    ).all()
-    print( tracks )
+        UserResource.owner_uri == me.uri,
+        UserResource.type == 'track'
+    ).filter(
+        Reference.real_uri == UserResource.real_uri
+    ).filter(
+        SpotifyTrack.uri == Reference.uri
+    )
+    print( '[SQL]', query )
+    results = query.all()
+    print( '[RESULTS]', len(results) )
+    for rsc, ref, t in results:
+        print( '[NAME]', t.name )
 
 
+def test_query_album():
+    # Get a user
+    me = UserAccount.query.first()
+    print( '[USER]', me.uri )
+
+    # search all albums of a user
+    query = session.query(
+        UserResource, Reference, SpotifyAlbum
+    ).filter(
+        UserResource.owner_uri == me.uri,
+        UserResource.type == 'album'
+    ).filter(
+        Reference.real_uri == UserResource.real_uri
+    ).filter(
+        SpotifyAlbum.uri == Reference.uri
+    )
+    print( '[SQL]', query )
+    results = query.all()
+    print( '[RESULTS]', len(results) )
+    for rsc, ref, t in results:
+        print( '[NAME]', t.name )
+
+
+def test_query_artist():
+    # Get a user
+    me = UserAccount.query.first()
+    print( '[USER]', me.uri )
+
+    # search all albums of a user
+    query = session.query(
+        UserResource, Reference, SpotifyArtist
+    ).filter(
+        UserResource.owner_uri == me.uri,
+        UserResource.type == 'artist'
+    ).filter(
+        Reference.real_uri == UserResource.real_uri
+    ).filter(
+        SpotifyArtist.uri == Reference.uri
+    )
+    print( '[SQL]', query )
+    results = query.all()
+    print( '[RESULTS]', len(results) )
+    for rsc, ref, t in results:
+        print( '[NAME]', t.name )
+
+
+def test_query_playlist():
+    # Get a user
+    me = UserAccount.query.first()
+    print( '[USER]', me.uri )
+
+    # search all albums of a user
+    query = session.query(
+        UserResource, Reference, SpotifyPlaylist
+    ).filter(
+        UserResource.owner_uri == me.uri,
+        UserResource.type == 'playlist'
+    ).filter(
+        Reference.real_uri == UserResource.real_uri
+    ).filter(
+        SpotifyPlaylist.uri == Reference.uri
+    )
+    print( '[SQL]', query )
+    results = query.all()
+    print( '[RESULTS]', len(results) )
+    for rsc, ref, t in results:
+        print( '[NAME]', t.name )
 
 
 if __name__ == '__main__':
-    # test_SpotifyAccount()
-    # test_SpotifyTrack()
-    # test_SpotifyAlbum()
-    # test_SpotifyArtist()
-    # test_SpotifyPlaylist()
+    #=> Insert data
+    test_SpotifyAccount()
+    test_SpotifyTrack()
+    test_SpotifyAlbum()
+    test_SpotifyArtist()
+    test_SpotifyPlaylist()
+
+    #=> Query
     test_query_track()
+    test_query_album()
+    test_query_artist()
+    test_query_playlist()
 
