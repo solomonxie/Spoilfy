@@ -3,7 +3,6 @@
 # MAINTAINER: Solomon Xie <solomonxiewise@gmail.com>
 #
 # DEPENDENCIES:
-#   - ./users.json
 #   - ./common.py
 #   - ./spotify.py
 
@@ -15,8 +14,9 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean, Sequence
 
 #-------[  Import From Other Modules   ]---------
-from common import Base, engine, Resource, Reference
-from spotify import SpotifyAccount
+# Package Import Hint: $ python -m Spoilfy.orm.spotify
+from Spoilfy.orm.common import Base, engine, Resource, Reference
+from Spoilfy.orm.spotify import SpotifyAccount
 
 
 
