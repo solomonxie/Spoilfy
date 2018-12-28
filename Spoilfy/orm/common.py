@@ -22,6 +22,13 @@ Base = declarative_base()
 engine = create_engine('sqlite:////tmp/db_spoilfy_uri.sqlite', echo=False)
 
 
+# Decorator: @classproperty
+class classproperty(object):
+    def __init__(self, getter):
+        self.getter= getter
+    def __get__(self, instance, owner):
+        return self.getter(owner)
+
 
 # ==============================================================
 # >>>>>>>>>>>>>>>>>>[    Abstract ORMs     ] >>>>>>>>>>>>>>>>>>>
@@ -33,8 +40,12 @@ class Resource(Base):
         Manually search by id if needed.
     """
     __abstract__ = True
-    #-> Shared session
+
+    #-> Class properties
     session = sessionmaker(bind=engine, autoflush=False)()
+    @classproperty
+    def query(cls):
+        return cls.session.query(cls)
 
     # PKs
     uri = Column('uri', String, primary_key=True)
@@ -43,7 +54,14 @@ class Resource(Base):
     #-> These 3 fields are included in URI
     id = Column('id', String)
     type = Column('type', String)
-    provider = Column('provider', String)
+    provider = Column('provider', String, default='NONE')
+    # ^ default value only work in DB
+    # ^ but you can't get it within the program
+    # ^ so you have to explicitly give value to it
+
+    def __init__(self, *args, **kargs):
+        super().__init__(*args, **kargs)
+        self.query = self.session.query(self.__class__)
 
     @classmethod
     def add(cls, data):
@@ -78,7 +96,6 @@ class Resource(Base):
         return item
 
 
-
 # ==============================================================
 # >>>>>>>>>>>>>>>>[    COMMON ORMs     ] >>>>>>>>>>>>>>>>>>>>>>>
 # ==============================================================
@@ -91,23 +108,28 @@ class Reference(Base):
     :KEY real_uri: as the REAL EXISTENCE of a resource.
     """
     __tablename__ = 'references'
-    #-> Shared session
-    session = sessionmaker(bind=engine, autoflush=False)()
 
+    #-> Shared properties
+    session = sessionmaker(bind=engine, autoflush=False)()
+    @classproperty
+    def query(cls):
+        return cls.session.query(cls)
+
+    # PKs
     uri = Column('uri', String, primary_key=True)
     real_uri = Column('real_uri', String)
 
     type = Column('type', String)
-    provider = Column('provider', String)
+    provider = Column('provider', String, default='NONE')
+    #^ default value only take effect after inserted to DB
 
     @classmethod
     def add(cls, item):
         """ [ Initial Source Reference ]
         Add initial ref with NEW real_uri
         """
-        real_uri = '{}:{}:{}'.format(
-            item.provider, item.type, str(uuid.uuid1().hex)
-        )
+        id = str(uuid.uuid1().hex)
+        real_uri = 'app:{}:{}'.format(item.type, id)
         ref = cls.bind(item, real_uri)
         return ref
 
@@ -117,6 +139,10 @@ class Reference(Base):
         for item in items:
             all.append( cls.add(item) )
         cls.session.commit()
+
+        print('[  OK  ] Initialized {} items to [{}].'.format(
+            len(all), cls.__tablename__
+        ))
         return all
 
     @classmethod
@@ -144,7 +170,7 @@ class Reference(Base):
             ref = cls.bind(item, real_uri)
             all.append(ref)
         cls.session.commit()
-        print('[  OK  ] Inserted {} references.'.format(
+        print('[  OK  ] Binded {} references.'.format(
             len(all)
         ))
         return all
