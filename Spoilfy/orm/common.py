@@ -76,9 +76,7 @@ class Resource(Base):
         """
         all = []
         for item in items:
-            data = cls.get_sub_data(item)
-            obj = cls.add(data)
-            all.append( obj )
+            all.append( cls.add(item) )
 
         cls.session.commit()
         print('[  OK  ] Inserted {} items to [{}].'.format(
@@ -86,14 +84,6 @@ class Resource(Base):
         ))
 
         return all
-
-    @classmethod
-    def get_sub_data(cls, item):
-        """ [ Get sub item's data through Web API  ]
-            This should retrive WebAPI accordingly
-            This is to impelemented by children class.
-        """
-        return item
 
 
 # ==============================================================
@@ -140,9 +130,7 @@ class Reference(Base):
             all.append( cls.add(item) )
         cls.session.commit()
 
-        print('[  OK  ] Initialized {} items to [{}].'.format(
-            len(all), cls.__tablename__
-        ))
+        print('[  OK  ] Inserted {} new references.'.format( len(all) ))
         return all
 
     @classmethod
@@ -170,29 +158,8 @@ class Reference(Base):
             ref = cls.bind(item, real_uri)
             all.append(ref)
         cls.session.commit()
-        print('[  OK  ] Binded {} references.'.format(
-            len(all)
-        ))
+        print('[  OK  ] Binded {} references.'.format( len(all) ))
         return all
-
-
-
-
-
-# ==============================================================
-# >>>>>>>>>>>>>>>>>>>>>>[    TEST     ] >>>>>>>>>>>>>>>>>>>>>>>>
-# ==============================================================
-
-def test_Reference():
-    try:
-        Reference.__table__.drop(engine)
-        Reference.metadata.create_all(bind=engine)
-    except Exception as e:
-        print('Error on dropping User table.')
-
-
-if __name__ == '__main__':
-    test_Reference()
 
 
 
