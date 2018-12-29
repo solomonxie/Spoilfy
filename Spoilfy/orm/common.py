@@ -74,10 +74,7 @@ class Resource(Base):
         :param LIST items: must be iteratable.
         :return: inserted resource objects.
         """
-        all = []
-        for item in items:
-            all.append( cls.add(item) )
-
+        all = [ cls(o) for o in items ]
         cls.session.commit()
         print('[  OK  ] Inserted {} items to [{}].'.format(
             len(all), cls.__tablename__

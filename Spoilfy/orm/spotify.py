@@ -70,10 +70,12 @@ class SpotifyTrack(Resource):
     """
     __tablename__ = 'spotify_Tracks'
 
-    atids = Column('artist_ids', String)
+    album_uri = Column('album_uri', String)
+    artist_uris = Column('artist_uris', String)
     #-> When is_local=True, the URI is NONE
     is_local = Column('is_local', Boolean)
 
+    added_at = Column('added_at', Integer)
     disc_number = Column('disc_number', Integer)
     duration_ms = Column('duration_ms', Integer)
     markets = Column('available_markets', String)
@@ -83,18 +85,18 @@ class SpotifyTrack(Resource):
     href = Column('href', String)
     external_urls = Column('external_urls', String)
 
-
-    @classmethod
-    def add(cls, jsondata):
+    def __init__(self, jsondata):
         j = jsondata['track']
-        item = cls(
+        super().__init__(
             uri = j['uri'],
             name = j['name'],
             id = j['id'],
             type = j['type'],
             provider = 'spotify',
             is_local = j['is_local'],
-            atids = ','.join([ a['id'] for a in j['artists'] ]),
+            album_uri = j['album']['uri'],
+            artist_uris = ','.join([ a['uri'] for a in j['artists'] ]),
+            added_at = jsondata['added_at'],
             disc_number = j['disc_number'],
             duration_ms = j['duration_ms'],
             markets = ','.join([ m for m in j['available_markets'] ]),
@@ -104,10 +106,7 @@ class SpotifyTrack(Resource):
             href = j['href'],
             external_urls = j['external_urls']['spotify']
         )
-        cls.session.merge( item )   #Merge existing data
-        #cls.session.commit()  #-> Better to commit after multiple inserts
-
-        return item
+        self.session.merge( self )
 
 
 class SpotifyAlbum(Resource):
@@ -130,11 +129,9 @@ class SpotifyAlbum(Resource):
     external_urls = Column('external_urls', String)
 
 
-
-    @classmethod
-    def add(cls, jsondata):
+    def __init__(self, jsondata):
         d = jsondata['album']
-        item = cls(
+        super().__init__(
             uri = d['uri'],
             name = d['name'],
             id = d['id'],
@@ -153,9 +150,7 @@ class SpotifyAlbum(Resource):
             external_urls = str(d['external_urls']),
             external_ids = str(d['external_ids'])
         )
-        cls.session.merge( item )
-        #cls.session.commit()  #-> Better to commit after multiple inserts
-        return item
+        self.session.merge( self )
 
 
 
@@ -170,11 +165,9 @@ class SpotifyArtist(Resource):
     href = Column('href', String)
     external_urls = Column('external_urls', String)
 
-
-    @classmethod
-    def add(cls, jsondata):
+    def __init__(self, jsondata):
         d = jsondata
-        item = cls(
+        super().__init__(
             uri = d['uri'],
             name = d['name'],
             id = d['id'],
@@ -186,9 +179,7 @@ class SpotifyArtist(Resource):
             href = d['href'],
             external_urls = str(d['external_urls'])
         )
-        cls.session.merge( item )   #Merge existing data
-        #cls.session.commit()  #-> Better to commit after multiple inserts
-        return item
+        self.session.merge( self )   #Merge existing data
 
 
 
@@ -210,11 +201,10 @@ class SpotifyPlaylist(Resource):
     href = Column('href', String)
     external_urls = Column('external_urls', String)
 
-    @classmethod
-    def add(cls, jsondata):
+    def __init__(self, jsondata):
         j = jsondata
         u = j['uri'].split(':')
-        item = cls(
+        super().__init__(
             uri = '{}:{}:{}'.format(u[0],u[3],u[4]),
             name = j['name'],
             id = j['id'],
@@ -233,10 +223,9 @@ class SpotifyPlaylist(Resource):
             #followers = j['followers']['total'],
             #description = j['description'],
         )
-        cls.session.merge( item )   #Merge existing data
+        self.session.merge( self )   #Merge existing data
         #-> Temporary: For test only to solve repeated ID issue.
-        cls.session.commit()  #-> Better to commit after multiple inserts
-        return item
+        self.session.commit()  #-> Better to commit after multiple inserts
 
     @classmethod
     def add_resources(cls, items):
@@ -248,8 +237,7 @@ class SpotifyPlaylist(Resource):
         all = []
         for item in items:
             data = cls.get_playlist_tracks(item)
-            obj = cls.add(data)
-            all.append( obj )
+            all.append( cls(data) )
 
         cls.session.commit()
         print('[  OK  ] Inserted {} items to [{}].'.format(

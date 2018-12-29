@@ -201,11 +201,11 @@ def test_query_playlist():
 
 if __name__ == '__main__':
     #=> Insert data
-    test_SpotifyAccount()
-    test_SpotifyTrack()
-    test_SpotifyAlbum()
-    test_SpotifyArtist()
-    test_SpotifyPlaylist()
+    #test_SpotifyAccount()
+    # test_SpotifyTrack()
+    # test_SpotifyAlbum()
+    # test_SpotifyArtist()
+    # test_SpotifyPlaylist()
 
     #=> Query
     test_query_track()
