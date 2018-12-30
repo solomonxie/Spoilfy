@@ -44,24 +44,29 @@ class SpotifyAccount(Resource):
     href = Column('href', String)
     external_urls = Column('external_urls', String)
 
-    @classmethod
-    def add(cls, jsondata):
-        user = cls(
-            uri = jsondata['uri'],
-            id = jsondata['id'],
-            type = jsondata['type'],
+    def __init__(self, jsondata):
+        j = jsondata
+        super().__init__(
+            uri = j['uri'],
+            id = j['id'],
+            type = j['type'],
             provider = 'spotify',
-            name = jsondata['display_name'],
-            external_urls = jsondata['external_urls']['spotify'],
-            followers = jsondata['followers']['total'],
-            href = jsondata['href'],
-            images = str(jsondata['images'])
+            name = j['display_name'],
+            external_urls = j['external_urls']['spotify'],
+            followers = j['followers']['total'],
+            href = j['href'],
+            images = str( j['images'] )
         )
-        cls.session.merge(user)
-        # cls.session.commit()
-        print('[  OK  ] Inserted Spotify User: {}.'.format( user.name ))
+        self.session.merge( self )
+        print('[  OK  ] Inserted Spotify User: {}.'.format( self.name ))
 
-        return user
+    @classmethod
+    def get_user_by_name(cls, name):
+        return cls.query.filter(cls.name == name).first()
+
+    @classmethod
+    def get_user_by_id(cls, id):
+        return cls.query.filter(cls.id == id).first()
 
 
 
@@ -114,8 +119,8 @@ class SpotifyAlbum(Resource):
     """
     __tablename__ = 'spotify_Albums'
 
-    atids = Column('artist_ids', String)
-    tids = Column('track_ids', String)
+    artist_uris = Column('artist_uris', String)
+    track_uris = Column('track_uris', String)
 
     release_date = Column('release_date', String)
     release_date_precision = Column('release_date_precision', String)
@@ -137,8 +142,8 @@ class SpotifyAlbum(Resource):
             id = d['id'],
             type = d['type'],
             provider = 'spotify',
-            atids = ','.join([ a['id'] for a in d['artists'] ]),
-            tids = ','.join([ a['id'] for a in d['tracks']['items'] ]),
+            artist_uris = ','.join([ a['uri'] for a in d['artists'] ]),
+            track_uris = ','.join([ a['uri'] for a in d['tracks']['items'] ]),
             album_type = d['album_type'],
             release_date = d['release_date'],
             release_date_precision = d['release_date_precision'],
@@ -188,7 +193,7 @@ class SpotifyPlaylist(Resource):
     """
     __tablename__ = 'spotify_Playlists'
 
-    owner_id = Column('owner_id', String)
+    owner_uri = Column('owner_uri', String)
     snapshot_id = Column('snapshot_id', String)
     tids = Column('track_ids', String)
 
@@ -210,7 +215,7 @@ class SpotifyPlaylist(Resource):
             id = j['id'],
             type = j['type'],
             provider = 'spotify',
-            owner_id = j['owner']['id'],
+            owner_uri = j['owner']['uri'],
             snapshot_id = j['snapshot_id'],
             total_tracks = j['tracks']['total'],
             public = j['public'],
