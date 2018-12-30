@@ -38,11 +38,12 @@ class MusicbrainzTrack(Resource):
     """
     __tablename__ = 'mbz_Tracks'
 
-    album_uris = Column('album_uris', String)
-    artist_uris = Column('artist_uri', String)
+    releases = Column('releases', String)
+    artist_credit = Column('artist_credit', String)
 
-    length = Column('length', String)
+    length = Column('length', Integer)
     score = Column('score', String)
+    video = Column('video', String)
 
     def __init__(self, data):
         d = data
@@ -52,14 +53,11 @@ class MusicbrainzTrack(Resource):
             type = 'track',
             provider = 'musicbrainz',
             name = d.get('title'),
-            album_uris = 'musicbrainz:album:{}'.format(','.join(
-                [ r.get('id') for r in d.get('releases',{}) ]
-            )),
-            artist_uris = 'musicbrainz:artist:{}'.format(','.join(
-                [a.get('artist',{}).get('id') for a in d.get('artist-credit',{})]
-            )),
+            artist_credit = str(d.get('artist-credit')),
+            releases = str(d.get('releases')),
             score = d.get('score'),
-            length = d.get('length')
+            length = d.get('length'),
+            video = d.get('video'),
         )
         self.session.merge( self )
 
@@ -69,7 +67,7 @@ class MusicbrainzAlbum(Resource):
     """
     __tablename__ = 'mbz_Albums'
 
-    artist_uris = Column('artist_uris', String)
+    artist_credit = Column('artist_credit', String)
     track_uris = Column('track_uris', String)
 
     score = Column('score', Integer)
@@ -95,9 +93,7 @@ class MusicbrainzAlbum(Resource):
             type = 'album',
             provider = 'musicbrainz',
             track_uris = None,
-            artist_uris = 'musicbrainz:artist:{}'.format(','.join(
-                [a.get('artist',{}).get('id') for a in d.get('artist-credit',{})]
-            )),
+            artist_credit = str(d.get('artist-credit')),
             score = d.get('score'),
             track_count = d.get('track-count'),
             status = d.get('status'),
