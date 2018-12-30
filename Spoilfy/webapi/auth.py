@@ -110,23 +110,4 @@ class Oauth2:
 
 
 
-
-# ==============================================================
-# >>>>>>>>>>>>>>>>>>>>>>[    TEST     ] >>>>>>>>>>>>>>>>>>>>>>>>
-# ==============================================================
-
-
-def main():
-    # Get auth info
-    with open('./.spotify_app.json', 'r') as f:
-        data = json.loads( f.read() )
-    # Authenticate
-    auth = Oauth2(data)
-    token = auth.auto_fetch_token()
-    print( auth.add_token_to_headers() )
-
-if __name__ == '__main__':
-    main()
-
-
 print('[ OK ] __IMPORTED__: {}'.format(__name__))
