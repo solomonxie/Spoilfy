@@ -1,0 +1,362 @@
+{
+  "count": 6,
+  "created": "2018-12-30T15:06:19.191Z",
+  "offset": 0,
+  "releases": [
+    {
+      "artist-credit": [
+        {
+          "artist": {
+            "disambiguation": "Norwegian rock band",
+            "id": "4ef5ed49-7ea3-405c-a381-04cf84e17d8c",
+            "name": "BigBang",
+            "sort-name": "BigBang"
+          }
+        }
+      ],
+      "barcode": "5051865342021",
+      "count": 1,
+      "country": "NO",
+      "date": "2009-03-09",
+      "id": "d8507216-2261-4b18-a033-0a8628ecff9e",
+      "label-info": [
+        {
+          "catalog-number": "5051865342021",
+          "label": {
+            "id": "e7e26981-ff85-4e83-a972-8cdef6f78447",
+            "name": "Warner Music Norway"
+          }
+        }
+      ],
+      "media": [
+        {
+          "disc-count": 1,
+          "format": "CD",
+          "track-count": 10
+        }
+      ],
+      "release-events": [
+        {
+          "area": {
+            "id": "6743d351-6f37-3049-9724-5041161fff4d",
+            "iso-3166-1-codes": [
+              "NO"
+            ],
+            "name": "Norway",
+            "sort-name": "Norway"
+          },
+          "date": "2009-03-09"
+        }
+      ],
+      "release-group": {
+        "id": "83a6a8c7-2383-347f-9b11-6de66aa37004",
+        "primary-type": "Album",
+        "title": "Edendale",
+        "type-id": "f529b476-6e62-324f-b0aa-1f3e33d313fc"
+      },
+      "score": 100,
+      "status": "Official",
+      "text-representation": {
+        "language": "eng",
+        "script": "Latn"
+      },
+      "title": "Edendale",
+      "track-count": 10
+    },
+    {
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "eb5f1f04-0174-4534-996f-e8d944ed2a77",
+            "name": "Ida Maria",
+            "sort-name": "Ida Maria"
+          }
+        }
+      ],
+      "barcode": "7041889642120",
+      "count": 1,
+      "country": "NO",
+      "date": "2016",
+      "id": "0ba1e09e-5b24-47dc-a822-d63b5d540e23",
+      "label-info": [
+        {
+          "catalog-number": "FXCD 421",
+          "label": {
+            "id": "14fe5b00-a064-45b6-bf09-9926d43805ae",
+            "name": "Kirkelig Kulturverksted"
+          }
+        }
+      ],
+      "media": [
+        {
+          "disc-count": 1,
+          "format": "CD",
+          "track-count": 12
+        }
+      ],
+      "packaging": "Digipak",
+      "release-events": [
+        {
+          "area": {
+            "id": "6743d351-6f37-3049-9724-5041161fff4d",
+            "iso-3166-1-codes": [
+              "NO"
+            ],
+            "name": "Norway",
+            "sort-name": "Norway"
+          },
+          "date": "2016"
+        }
+      ],
+      "release-group": {
+        "id": "76b5838a-975a-457b-90fc-60140fecf66c",
+        "primary-type": "Album",
+        "title": "Scandalize My Name",
+        "type-id": "f529b476-6e62-324f-b0aa-1f3e33d313fc"
+      },
+      "score": 48,
+      "status": "Official",
+      "text-representation": {
+        "language": "eng",
+        "script": "Latn"
+      },
+      "title": "Scandalize My Name",
+      "track-count": 12
+    },
+    {
+      "artist-credit": [
+        {
+          "artist": {
+            "disambiguation": "Norwegian",
+            "id": "11231000-062d-4b15-b3c2-678b4ea2c8bd",
+            "name": "Blomst",
+            "sort-name": "Blomst"
+          }
+        }
+      ],
+      "count": 1,
+      "country": "NO",
+      "date": "2015",
+      "id": "7fe20a6b-9587-47f9-a354-867ff3550be3",
+      "label-info": [
+        {
+          "label": {
+            "id": "a6ab1c49-dd34-47fd-a8a9-d3d7559e6e89",
+            "name": "Name Music"
+          }
+        }
+      ],
+      "media": [
+        {
+          "disc-count": 1,
+          "format": "CD",
+          "track-count": 10
+        }
+      ],
+      "packaging": "Jewel Case",
+      "release-events": [
+        {
+          "area": {
+            "id": "6743d351-6f37-3049-9724-5041161fff4d",
+            "iso-3166-1-codes": [
+              "NO"
+            ],
+            "name": "Norway",
+            "sort-name": "Norway"
+          },
+          "date": "2015"
+        }
+      ],
+      "release-group": {
+        "id": "62123cf0-e6cc-4278-a730-989a1f8219d7",
+        "primary-type": "Album",
+        "title": "Blomst",
+        "type-id": "f529b476-6e62-324f-b0aa-1f3e33d313fc"
+      },
+      "score": 35,
+      "status": "Official",
+      "text-representation": {
+        "language": "nob",
+        "script": "Latn"
+      },
+      "title": "Blomst",
+      "track-count": 10
+    },
+    {
+      "artist-credit": [
+        {
+          "artist": {
+            "disambiguation": "Norway-based American rock singer",
+            "id": "8ac201a5-c923-4636-b2cc-bd6f5c3fd026",
+            "name": "Luke Elliot",
+            "sort-name": "Elliot, Luke"
+          }
+        }
+      ],
+      "barcode": "7090014390849",
+      "count": 1,
+      "country": "NO",
+      "date": "2015",
+      "id": "583236c9-6ff3-434b-9b50-acf8a30cce3d",
+      "label-info": [
+        {
+          "catalog-number": "NAME003CD",
+          "label": {
+            "id": "a6ab1c49-dd34-47fd-a8a9-d3d7559e6e89",
+            "name": "Name Music"
+          }
+        }
+      ],
+      "media": [
+        {
+          "disc-count": 1,
+          "format": "CD",
+          "track-count": 11
+        }
+      ],
+      "packaging": "Digipak",
+      "release-events": [
+        {
+          "area": {
+            "id": "6743d351-6f37-3049-9724-5041161fff4d",
+            "iso-3166-1-codes": [
+              "NO"
+            ],
+            "name": "Norway",
+            "sort-name": "Norway"
+          },
+          "date": "2015"
+        }
+      ],
+      "release-group": {
+        "id": "fdb5d7fa-0f7c-45bb-913a-b145c562ef51",
+        "primary-type": "Album",
+        "title": "Dressed for the Occasion",
+        "type-id": "f529b476-6e62-324f-b0aa-1f3e33d313fc"
+      },
+      "score": 35,
+      "status": "Official",
+      "text-representation": {
+        "language": "eng",
+        "script": "Latn"
+      },
+      "title": "Dressed for the Occasion",
+      "track-count": 11
+    },
+    {
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "01a7fd22-0d4a-4c7c-9fb9-281f362ec784",
+            "name": "Kristoffer Lo",
+            "sort-name": "Lo, Kristoffer"
+          }
+        }
+      ],
+      "barcode": "7090014391051",
+      "count": 1,
+      "country": "NO",
+      "date": "2016-02-24",
+      "id": "70bfa7cb-e061-47e5-af4d-1b2a82a6cf35",
+      "label-info": [
+        {
+          "catalog-number": "NAME005LP",
+          "label": {
+            "id": "a6ab1c49-dd34-47fd-a8a9-d3d7559e6e89",
+            "name": "Name Music"
+          }
+        }
+      ],
+      "media": [
+        {
+          "disc-count": 0,
+          "format": "12\" Vinyl",
+          "track-count": 3
+        }
+      ],
+      "release-events": [
+        {
+          "area": {
+            "id": "6743d351-6f37-3049-9724-5041161fff4d",
+            "iso-3166-1-codes": [
+              "NO"
+            ],
+            "name": "Norway",
+            "sort-name": "Norway"
+          },
+          "date": "2016-02-24"
+        }
+      ],
+      "release-group": {
+        "id": "48b39e64-2bb9-4da7-aa36-4afc74ed11dc",
+        "primary-type": "Album",
+        "title": "The Black Meat",
+        "type-id": "f529b476-6e62-324f-b0aa-1f3e33d313fc"
+      },
+      "score": 35,
+      "status": "Official",
+      "title": "The Black Meat",
+      "track-count": 3
+    },
+    {
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "5ff46212-a0f8-4b63-a01f-19ef1352e15c",
+            "name": "Frøkedal",
+            "sort-name": "Frøkedal"
+          }
+        }
+      ],
+      "asin": "B019ET9RFQ",
+      "barcode": "7090014390528",
+      "count": 1,
+      "country": "NO",
+      "date": "2016",
+      "id": "9f73c674-7439-487f-b050-efcba99e0df1",
+      "label-info": [
+        {
+          "catalog-number": "NAME010CD",
+          "label": {
+            "id": "a6ab1c49-dd34-47fd-a8a9-d3d7559e6e89",
+            "name": "Name Music"
+          }
+        }
+      ],
+      "media": [
+        {
+          "disc-count": 0,
+          "format": "CD",
+          "track-count": 10
+        }
+      ],
+      "release-events": [
+        {
+          "area": {
+            "id": "6743d351-6f37-3049-9724-5041161fff4d",
+            "iso-3166-1-codes": [
+              "NO"
+            ],
+            "name": "Norway",
+            "sort-name": "Norway"
+          },
+          "date": "2016"
+        }
+      ],
+      "release-group": {
+        "id": "6b141227-cf2f-43fd-8632-7c74354101f2",
+        "primary-type": "Album",
+        "title": "Hold On Dreamer",
+        "type-id": "f529b476-6e62-324f-b0aa-1f3e33d313fc"
+      },
+      "score": 35,
+      "status": "Official",
+      "text-representation": {
+        "language": "eng",
+        "script": "Latn"
+      },
+      "title": "Hold On Dreamer",
+      "track-count": 10
+    }
+  ]
+}
