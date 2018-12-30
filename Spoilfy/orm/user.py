@@ -42,22 +42,20 @@ class UserResource(Resource):
     #-> Drop default PK from parent class
     uri = name = id = provider = None
 
-    @classmethod
-    def add(cls, owner_uri, data):
-        item = cls(
+    def __init__(self, owner_uri, data):
+        super().__init__(
             real_uri=data.real_uri,
             owner_uri=owner_uri,
             type=data.type
         )
-        cls.session.merge(item)
-        #cls.session.commit()  #-> Better to commit after multiple inserts
-        return item
+        self.session.merge( self )
+        #self.session.commit()  #-> Better to commit after multiple inserts
 
     @classmethod
     def add_resources(cls, owner_uri, items):
         all = []
         for item in items:
-            all.append( cls.add(owner_uri, item) )
+            all.append( cls(owner_uri, item) )
 
         cls.session.commit()
         print('[  OK  ] Inserted {} items to [{}].'.format(
@@ -81,20 +79,18 @@ class UserAccount(Resource):
     email = Column('email', String)
     provider = Column('provider', String, default='app')
 
-    @classmethod
-    def add(cls, data):
-        user = cls(
-            uri = 'app:user:{}'.format(data['id']),
-            name = data['name'],
-            id = data['id'],
+    def __init__(self, data):
+        super().__init__(
+            uri = 'app:user:{}'.format(data.get('id')),
+            name = data.get('name'),
+            id = data.get('id'),
             type = 'user',
             provider = 'app',
-            email = data['email'],
-            password = data['password']
+            email = data.get('email'),
+            password = data.get('password'),
         )
-        cls.session.merge(user)
-        #cls.session.commit()  #-> Better to commit after multiple inserts
-        return user
+        self.session.merge( self )
+        #self.session.commit()  #-> Better to commit after multiple inserts
 
 
 
