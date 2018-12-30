@@ -33,7 +33,7 @@ def test_SpotifyAccount():
     with open('../../scratch/sqlschemas/spotify/jsondumps-full/get_user_profile.json', 'r') as f:
         jsondata = json.loads( f.read() )
         # Create items
-        item = SpotifyAccount.add(jsondata)
+        item = SpotifyAccount(jsondata)
         # Add reference
         Reference.add(item)
 
@@ -201,15 +201,15 @@ def test_query_playlist():
 
 if __name__ == '__main__':
     #=> Insert data
-    #test_SpotifyAccount()
-    # test_SpotifyTrack()
-    # test_SpotifyAlbum()
-    # test_SpotifyArtist()
-    # test_SpotifyPlaylist()
+    test_SpotifyAccount()
+    test_SpotifyTrack()
+    test_SpotifyAlbum()
+    test_SpotifyArtist()
+    test_SpotifyPlaylist()
 
     #=> Query
-    test_query_track()
-    test_query_album()
-    test_query_artist()
-    test_query_playlist()
+    # test_query_track()
+    # test_query_album()
+    # test_query_artist()
+    # test_query_playlist()
 
