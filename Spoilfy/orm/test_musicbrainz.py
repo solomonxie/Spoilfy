@@ -36,7 +36,7 @@ def test_MusicbrainzTrack():
         jsondata = json.loads( f.read() )
         # Create items
         items = MusicbrainzTrack.add_resources(jsondata['recordings'])
-        # Add reference
+        # Make NEW reference
         Reference.add_resources(items)
 
 
@@ -54,8 +54,8 @@ def test_MusicbrainzAlbum():
         jsondata = json.loads( f.read() )
         # Create items
         items = MusicbrainzAlbum.add_resources(jsondata.get('releases',{}))
-        # Add reference
-        # Reference.add_resources(items)
+        # Make NEW reference
+        Reference.add_resources(items)
 
 
 def test_MusicbrainzArtist():
@@ -72,8 +72,8 @@ def test_MusicbrainzArtist():
         jsondata = json.loads( f.read() )
         # Create items
         items = MusicbrainzArtist.add_resources(jsondata.get('artists',{}))
-        # Add reference
-        # Reference.add_resources(items)
+        # Make NEW reference
+        Reference.add_resources(items)
 
 
 
@@ -89,9 +89,6 @@ def test_query_album():
 def test_query_artist():
     pass
 
-
-def test_query_playlist():
-    pass
 
 
 
