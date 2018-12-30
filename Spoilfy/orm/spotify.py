@@ -45,17 +45,17 @@ class SpotifyAccount(Resource):
     external_urls = Column('external_urls', String)
 
     def __init__(self, jsondata):
-        j = jsondata
+        d = jsondata
         super().__init__(
-            uri = j['uri'],
-            id = j['id'],
-            type = j['type'],
+            uri = d.get('uri'),
+            id = d.get('id'),
+            type = d.get('type'),
             provider = 'spotify',
-            name = j['display_name'],
-            external_urls = j['external_urls']['spotify'],
-            followers = j['followers']['total'],
-            href = j['href'],
-            images = str( j['images'] )
+            name = d.get('display_name'),
+            followers = d.get('followers').get('total'),
+            href = d.get('href'),
+            images = str( d.get('images') ),
+            external_urls = d.get('external_urls',{}).get('spotify'),
         )
         self.session.merge( self )
         print('[  OK  ] Inserted Spotify User: {}.'.format( self.name ))
@@ -75,8 +75,8 @@ class SpotifyTrack(Resource):
     """
     __tablename__ = 'spotify_Tracks'
 
-    album_uri = Column('album_uri', String)
-    artist_uris = Column('artist_uris', String)
+    albums = Column('albums', String)
+    artists = Column('artists', String)
     #-> When is_local=True, the URI is NONE
     is_local = Column('is_local', Boolean)
 
@@ -91,25 +91,25 @@ class SpotifyTrack(Resource):
     external_urls = Column('external_urls', String)
 
     def __init__(self, jsondata):
-        j = jsondata['track']
+        d = jsondata['track']
         super().__init__(
-            uri = j['uri'],
-            name = j['name'],
-            id = j['id'],
-            type = j['type'],
+            uri = d.get('uri', str(uuid.uuid1())),
+            name = d.get('name'),
+            id = d.get('id'),
+            type = d.get('type'),
             provider = 'spotify',
-            is_local = j['is_local'],
-            album_uri = j['album']['uri'],
-            artist_uris = ','.join([ a['uri'] for a in j['artists'] ]),
-            added_at = jsondata['added_at'],
-            disc_number = j['disc_number'],
-            duration_ms = j['duration_ms'],
-            markets = ','.join([ m for m in j['available_markets'] ]),
-            preview_url = j['preview_url'],
-            popularity = j['popularity'],
-            explicit = j['explicit'],
-            href = j['href'],
-            external_urls = j['external_urls']['spotify']
+            is_local = d.get('is_local'),
+            albums = str(d.get('album')),
+            artists = str(d.get('artists')),
+            added_at = jsondata.get('added_at'),
+            disc_number = d.get('disc_number'),
+            duration_ms = d.get('duration_ms'),
+            markets = str(d.get('available_markets')),
+            preview_url = d.get('preview_url'),
+            popularity = d.get('popularity'),
+            explicit = d.get('explicit'),
+            href = d.get('href'),
+            external_urls = d.get('external_urls',{}).get('spotify'),
         )
         self.session.merge( self )
 
@@ -119,8 +119,8 @@ class SpotifyAlbum(Resource):
     """
     __tablename__ = 'spotify_Albums'
 
-    artist_uris = Column('artist_uris', String)
-    track_uris = Column('track_uris', String)
+    artists = Column('artists', String)
+    tracks = Column('tracks', String)
 
     release_date = Column('release_date', String)
     release_date_precision = Column('release_date_precision', String)
@@ -137,23 +137,23 @@ class SpotifyAlbum(Resource):
     def __init__(self, jsondata):
         d = jsondata['album']
         super().__init__(
-            uri = d['uri'],
-            name = d['name'],
-            id = d['id'],
-            type = d['type'],
+            uri = d.get('uri', str(uuid.uuid1())),
+            name = d.get('name'),
+            id = d.get('id'),
+            type = d.get('type'),
             provider = 'spotify',
-            artist_uris = ','.join([ a['uri'] for a in d['artists'] ]),
-            track_uris = ','.join([ a['uri'] for a in d['tracks']['items'] ]),
-            album_type = d['album_type'],
-            release_date = d['release_date'],
-            release_date_precision = d['release_date_precision'],
-            total_tracks = d['total_tracks'],
-            lable = d['label'],
-            popularity = d['popularity'],
-            copyrights = str(d['copyrights']),
-            href = d['href'],
-            external_urls = str(d['external_urls']),
-            external_ids = str(d['external_ids'])
+            artists = str(d.get('artists')),
+            tracks = str(d.get('tracks')),
+            album_type = d.get('album_type'),
+            release_date = d.get('release_date'),
+            release_date_precision = d.get('release_date_precision'),
+            total_tracks = d.get('total_tracks'),
+            lable = d.get('label'),
+            popularity = d.get('popularity'),
+            copyrights = str(d.get('copyrights')),
+            href = d.get('href'),
+            external_urls = d.get('external_urls',{}).get('spotify'),
+            external_ids = str(d.get('external_ids',{}))
         )
         self.session.merge( self )
 
@@ -173,16 +173,16 @@ class SpotifyArtist(Resource):
     def __init__(self, jsondata):
         d = jsondata
         super().__init__(
-            uri = d['uri'],
-            name = d['name'],
-            id = d['id'],
-            type = d['type'],
+            uri = d.get('uri', str(uuid.uuid1())),
+            name = d.get('name'),
+            id = d.get('id'),
+            type = d.get('type'),
             provider = 'spotify',
-            genres = str(d['genres']),
-            followers = d['followers']['total'],
-            popularity = d['popularity'],
-            href = d['href'],
-            external_urls = str(d['external_urls'])
+            genres = str(d.get('genres')),
+            followers = d.get('followers',{}).get('total'),
+            popularity = d.get('popularity'),
+            href = d.get('href'),
+            external_urls = d.get('external_urls',{}).get('spotify'),
         )
         self.session.merge( self )   #Merge existing data
 
@@ -207,26 +207,26 @@ class SpotifyPlaylist(Resource):
     external_urls = Column('external_urls', String)
 
     def __init__(self, jsondata):
-        j = jsondata
-        u = j['uri'].split(':')
+        d = jsondata
+        u = d.get('uri','').split(':')
         super().__init__(
             uri = '{}:{}:{}'.format(u[0],u[3],u[4]),
-            name = j['name'],
-            id = j['id'],
-            type = j['type'],
+            name = d.get('name'),
+            id = d.get('id'),
+            type = d.get('type'),
             provider = 'spotify',
-            owner_uri = j['owner']['uri'],
-            snapshot_id = j['snapshot_id'],
-            total_tracks = j['tracks']['total'],
-            public = j['public'],
-            collaborative = j['collaborative'],
-            images = str(j['images']),
-            href = j['href'],
-            external_urls = j['external_urls']['spotify'],
+            owner_uri = d.get('owner',{}).get('uri'),
+            snapshot_id = d.get('snapshot_id'),
+            total_tracks = d.get('tracks',{}).get('total'),
+            public = d.get('public'),
+            collaborative = d.get('collaborative'),
+            images = str(d.get('images')),
+            href = d.get('href'),
+            external_urls = d.get('external_urls',{}).get('spotify'),
             #-> [Keys below are to be retrieved dynamically]:
-            #tids = str(j['tracks']['href']),
-            #followers = j['followers']['total'],
-            #description = j['description'],
+            tids = str(d.get('tracks',{}).get('href')),
+            followers = d.get('followers',{}).get('total'),
+            description = d.get('description'),
         )
         self.session.merge( self )   #Merge existing data
         #-> Temporary: For test only to solve repeated ID issue.
