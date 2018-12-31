@@ -9,7 +9,7 @@ import xmltodict
 import requests
 
 
-class MusicBrainzAPI:
+class MusicbrainzAPI:
     """ [  ]
 
     """

@@ -7,7 +7,7 @@
 import json
 import unittest
 
-from musicbrainz import MusicBrainzAPI
+from musicbrainz import MusicbrainzAPI
 
 
 
@@ -18,7 +18,7 @@ from musicbrainz import MusicBrainzAPI
 
 
 def main():
-    mba = MusicBrainzAPI()
+    mba = MusicbrainzAPI()
 
     # Search Tracks
     results = mba.search_tracks(name='bigbang', country='NO')
