@@ -12,7 +12,11 @@ from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean
 
 #-------[  Import From Other Modules   ]---------
 # Package Import Hint: $ python -m Spoilfy.orm.spotify
-from common import Base, engine, Resource, Reference
+#-> TEST only
+if __name__ == '__main__':
+    from common import Base, engine, Resource, Reference
+else:
+    from orm.common import Base, engine, Resource, Reference
 
 
 # ==============================================================
