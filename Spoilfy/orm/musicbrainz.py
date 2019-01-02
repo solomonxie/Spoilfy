@@ -14,7 +14,7 @@ from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean
 # Package Import Hint: $ python -m Spoilfy.orm.musicbrainz
 
 #-> TEST only
-if __name__ == '__main__':
+if __name__ in ['__main__', 'musicbrainz']:
     from common import Base, engine, Resource, Reference
 else:
     from orm.common import Base, engine, Resource, Reference

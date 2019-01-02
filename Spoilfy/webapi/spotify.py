@@ -154,4 +154,4 @@ class SpotifyOAuth2:
         )
         return headers
 
-print('[ OK ] __IMPORTED__: {}'.format(__name__))
+print('[  OK  ] __IMPORTED__: {}'.format(__name__))
