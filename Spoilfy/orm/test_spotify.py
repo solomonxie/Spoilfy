@@ -24,6 +24,7 @@ session = sessionmaker(bind=engine, autoflush=False)()
 
 def test_SpotifyAccount():
     try:
+        pass
         SpotifyAccount.__table__.drop(engine)
         SpotifyAccount.metadata.create_all(bind=engine)
     except Exception as e:
@@ -41,6 +42,7 @@ def test_SpotifyAccount():
 
 def test_SpotifyTrack():
     try:
+        pass
         SpotifyTrack.__table__.drop(engine)
         SpotifyTrack.metadata.create_all(bind=engine)
     except Exception as e:
@@ -60,6 +62,7 @@ def test_SpotifyTrack():
 
 def test_SpotifyAlbum():
     try:
+        pass
         SpotifyAlbum.__table__.drop(engine)
         SpotifyAlbum.metadata.create_all(bind=engine)
     except Exception as e:
@@ -68,6 +71,7 @@ def test_SpotifyAlbum():
     # Add an album
     with open('../../scratch/sqlschemas/spotify/jsondumps-full/get_user_albums.json', 'r') as f:
         jsondata = json.loads( f.read() )
+        # item = jsondata['items'][0]['album']['tracks']['items'][0]
         items = SpotifyAlbum.add_resources(jsondata['items'])
         # Add reference
         Reference.add_resources(items)
@@ -75,6 +79,7 @@ def test_SpotifyAlbum():
 
 def test_SpotifyArtist():
     try:
+        pass
         SpotifyArtist.__table__.drop(engine)
         SpotifyArtist.metadata.create_all(bind=engine)
     except Exception as e:
@@ -91,6 +96,7 @@ def test_SpotifyArtist():
 
 def test_SpotifyPlaylist():
     try:
+        pass
         SpotifyPlaylist.__table__.drop(engine)
         SpotifyPlaylist.metadata.create_all(bind=engine)
     except Exception as e:
@@ -201,11 +207,11 @@ def test_query_playlist():
 
 if __name__ == '__main__':
     #=> Insert data
-    test_SpotifyAccount()
+    # test_SpotifyAccount()
     test_SpotifyTrack()
     test_SpotifyAlbum()
-    test_SpotifyArtist()
-    test_SpotifyPlaylist()
+    # test_SpotifyArtist()
+    # test_SpotifyPlaylist()
 
     #=> Query
     # test_query_track()

@@ -11,11 +11,14 @@ import requests
 
 ROOT = 'http://musicbrainz.org/ws/2'
 APP = {'User-Agent':'Spoilfy/0.0.1 (solomonxiewise@gmail)'}
+oparams = {'fmt':'json','limit':3,'inc':''}
 
 def _get(url, params={}):
+    params.update(oparams)
     r = requests.get(url, headers=APP, params=params)
     print( '[FETCHING]', params, r.url )
-    return xmltodict.parse(r.content)
+    # return xmltodict.parse(r.content)
+    return r.json()
 
 def _qs(query):
     """[ Get formated query string ]

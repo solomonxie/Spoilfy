@@ -6,7 +6,7 @@
 
 import unittest
 
-from common import engine, Resource, Reference
+from common import engine, Resource, Reference, Include
 
 
 
@@ -24,10 +24,20 @@ def test_Reference():
     except Exception as e:
         print('Error on dropping User table.')
 
+def test_Include():
+    try:
+        Include.__table__.drop(engine)
+        Include.metadata.create_all(bind=engine)
+    except Exception as e:
+        print('Error on dropping User table.')
+
+
+
 
 if __name__ == '__main__':
     test_Resource()
     test_Reference()
+    test_Include()
 
 
 

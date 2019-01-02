@@ -7,7 +7,7 @@
 import json
 import unittest
 
-import musicbrainz as mbz
+import musicbrainz as mba
 
 
 
@@ -16,23 +16,47 @@ import musicbrainz as mbz
 # ==============================================================
 
 
+def test_jsonapi():
+    # Search Tracks
+    results = mba.search_tracks(name='Pristine', country='NO')
+    for obj in results.get('recordings'):
+        print( '\t[TRACK]:',
+            obj.get('title'), obj.get('length'),
+            obj.get('id'), obj.get('score')
+        )
 
-def main():
+    # Search Albums
+    results = mba.search_albums(name='edendale', country='NO')
+    for obj in results.get('releases'):
+        print( '\t[ALBUM]:',
+            obj.get('title'), obj.get('date'),
+            obj.get('id'), obj.get('score')
+        )
+
+    # Search Artists
+    results = mba.search_artists(name='bigbang', country='NO')
+    for obj in results.get('artists'):
+        print( '\t[ARTIST]:',
+            obj.get('country'), obj.get('name'),
+            obj.get('id'), obj.get('score')
+        )
+
+def test_xmlapi():
 
     # Search Tracks
-    results = mbz.search_tracks(name='bigbang', country='NO')
+    results = mba.search_tracks(name='bigbang', country='NO')
     for obj in results['metadata']['recording-list']['recording']:
         print( '\t[TRACK]:', obj['title'], obj['length'], obj['@id'] )
     #obj = results['metadata']['artist-list']['artist'][0]
 
     # Search Albums
-    results = mbz.search_albums(name='edendale', country='NO')
+    results = mba.search_albums(name='edendale', country='NO')
     #obj = results['metadata']['artist-list']['artist'][0]
     for obj in results['metadata']['release-list']['release']:
         print( '\t[ALBUM]:', obj['title'], obj['date'], obj['@id'] )
 
     # Search Artists
-    results = mbz.search_artists(name='bigbang', country='NO')
+    results = mba.search_artists(name='bigbang', country='NO')
     #obj = results['metadata']['artist-list']['artist'][0]
     for obj in results['metadata']['artist-list']['artist']:
         print( '\t[ARTIST]:', obj['country'], obj['name'], obj['@id'] )
@@ -40,4 +64,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    # test_xmlapi()
+    test_jsonapi()

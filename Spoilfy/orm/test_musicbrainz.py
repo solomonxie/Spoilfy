@@ -24,6 +24,7 @@ session = sessionmaker(bind=engine, autoflush=False)()
 
 def test_MusicbrainzTrack():
     try:
+        pass
         MusicbrainzTrack.__table__.drop(engine)
         MusicbrainzTrack.metadata.create_all(bind=engine)
     except Exception as e:
@@ -42,6 +43,7 @@ def test_MusicbrainzTrack():
 
 def test_MusicbrainzAlbum():
     try:
+        pass
         MusicbrainzAlbum.__table__.drop(engine)
         MusicbrainzAlbum.metadata.create_all(bind=engine)
     except Exception as e:
@@ -60,6 +62,7 @@ def test_MusicbrainzAlbum():
 
 def test_MusicbrainzArtist():
     try:
+        pass
         MusicbrainzArtist.__table__.drop(engine)
         MusicbrainzArtist.metadata.create_all(bind=engine)
     except Exception as e:

@@ -13,8 +13,8 @@ from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean
 #-------[  Import From Other Modules   ]---------
 # Package Import Hint: $ python -m Spoilfy.orm.spotify
 #-> TEST only
-if __name__ == '__main__':
-    from common import Base, engine, Resource, Reference
+if __name__ in ['__main__', 'spotify']:
+    from common import Base, engine, Resource, Reference, Include
 else:
     from orm.common import Base, engine, Resource, Reference
 
@@ -79,14 +79,14 @@ class SpotifyTrack(Resource):
     """
     __tablename__ = 'spotify_Tracks'
 
-    albums = Column('albums', String)
+    album = Column('album', String)
     artists = Column('artists', String)
     #-> When is_local=True, the URI is NONE
     is_local = Column('is_local', Boolean)
 
     added_at = Column('added_at', Integer)
     disc_number = Column('disc_number', Integer)
-    duration_ms = Column('duration_ms', Integer)
+    length = Column('length', Integer)
     markets = Column('available_markets', String)
     preview_url = Column('preview_url', String)
     popularity = Column('popularity', Integer)
@@ -95,20 +95,23 @@ class SpotifyTrack(Resource):
     external_urls = Column('external_urls', String)
 
     def __init__(self, jsondata):
-        d = jsondata['track']
+        d = jsondata.get('track')
         super().__init__(
+            # -> Common identifiers
             uri = d.get('uri', str(uuid.uuid1())),
             name = d.get('name'),
             id = d.get('id'),
             type = d.get('type'),
             provider = 'spotify',
+            # -> Multiple Foreign Keys
+            album = self.__bind_album(d.get('album',{}), d.get('uri')),
+            artists = ','.join([a.get('uri') for a in d.get('artists',[])]),
+            # -> Spotify specific
             is_local = d.get('is_local'),
-            albums = str(d.get('album')),
-            artists = str(d.get('artists')),
             added_at = jsondata.get('added_at'),
             disc_number = d.get('disc_number'),
-            duration_ms = d.get('duration_ms'),
-            markets = str(d.get('available_markets')),
+            length = d.get('duration_ms'),
+            markets = ','.join( d.get('available_markets') ),
             preview_url = d.get('preview_url'),
             popularity = d.get('popularity'),
             explicit = d.get('explicit'),
@@ -116,6 +119,15 @@ class SpotifyTrack(Resource):
             external_urls = d.get('external_urls',{}).get('spotify'),
         )
         self.session.merge( self )
+
+    def __bind_album(self, jsondata, self_uri):
+        # Add relationship to [includes] table
+        child = Include(jsondata.get('uri'), self_uri, 'album')
+        # Also fill up column for current table
+        # album = SpotifyAlbum( {'album':jsondata} )
+        # self.session.flush()
+        # return album.uri
+        return jsondata.get('uri')
 
 
 class SpotifyAlbum(Resource):
@@ -140,14 +152,18 @@ class SpotifyAlbum(Resource):
 
     def __init__(self, jsondata):
         d = jsondata['album']
+        uri = d.get('uri', str(uuid.uuid1()))
         super().__init__(
-            uri = d.get('uri', str(uuid.uuid1())),
+            # Common identifiers ->
+            uri = uri,
             name = d.get('name'),
             id = d.get('id'),
             type = d.get('type'),
             provider = 'spotify',
-            artists = str(d.get('artists')),
-            tracks = str(d.get('tracks')),
+            # Multiple Foreign Keys ->
+            tracks = self.__add_tracks(d, uri),
+            artists = self.__add_artists(d.get('artists',[]), uri),
+            # Spotify specific ->
             album_type = d.get('album_type'),
             release_date = d.get('release_date'),
             release_date_precision = d.get('release_date_precision'),
@@ -161,12 +177,28 @@ class SpotifyAlbum(Resource):
         )
         self.session.merge( self )
 
+    def __add_tracks(self, jsondata, self_uri):
+        items = jsondata.get('tracks',{}).get('items',[])
+        # Add relationship to [includes] table
+        children = [ Include(self_uri, d.get('uri'), 'album') for d in items ]
+        # Also fill up column for current table
+        # tracks = [ SpotifyTrack({'track':d}) for d in jsondata ]
+        # return ','.join([ t.uri for t in tracks ])
+        return ','.join([ t.get('uri') for t in items ])
+
+    def __add_artists(self, jsondata, self_uri):
+        # artists = [ SpotifyArtist(d) for d in jsondata ]
+        # self.session.flush()
+        # return ','.join([ a.uri for a in artists ])
+        return ','.join([ a.get('uri') for a in jsondata ])
 
 
 class SpotifyArtist(Resource):
     """ [ Artist resources in Spotify ]
     """
     __tablename__ = 'spotify_Artists'
+
+    albums = Column('albums', String)
 
     genres = Column('genres', String)
     followers = Column('followers', Integer)
@@ -177,11 +209,15 @@ class SpotifyArtist(Resource):
     def __init__(self, jsondata):
         d = jsondata
         super().__init__(
+            # Common identifiers ->
             uri = d.get('uri', str(uuid.uuid1())),
             name = d.get('name'),
             id = d.get('id'),
             type = d.get('type'),
             provider = 'spotify',
+            # Multiple Foreign Keys ->
+            albums = self.__add_albums({}),
+            # Spotify specific ->
             genres = str(d.get('genres')),
             followers = d.get('followers',{}).get('total'),
             popularity = d.get('popularity'),
@@ -189,6 +225,9 @@ class SpotifyArtist(Resource):
             external_urls = d.get('external_urls',{}).get('spotify'),
         )
         self.session.merge( self )   #Merge existing data
+
+    def __add_albums(self, jsondata):
+        return str(jsondata)
 
 
 
@@ -200,6 +239,7 @@ class SpotifyPlaylist(Resource):
     owner_uri = Column('owner_uri', String)
     snapshot_id = Column('snapshot_id', String)
     tids = Column('track_ids', String)
+    tracks = Column('tracks', String)
 
     total_tracks = Column('total_tracks', Integer)
     followers = Column('followers', Integer)
@@ -214,12 +254,16 @@ class SpotifyPlaylist(Resource):
         d = jsondata
         u = d.get('uri','').split(':')
         super().__init__(
+            # Common identifiers ->
             uri = '{}:{}:{}'.format(u[0],u[3],u[4]),
             name = d.get('name'),
             id = d.get('id'),
             type = d.get('type'),
             provider = 'spotify',
             owner_uri = d.get('owner',{}).get('uri'),
+            # Multiple Foreign Keys ->
+            tracks = self.__add_tracks({}),
+            # Spotify specific ->
             snapshot_id = d.get('snapshot_id'),
             total_tracks = d.get('tracks',{}).get('total'),
             public = d.get('public'),
@@ -235,6 +279,9 @@ class SpotifyPlaylist(Resource):
         self.session.merge( self )   #Merge existing data
         #-> Temporary: For test only to solve repeated ID issue.
         self.session.commit()  #-> Better to commit after multiple inserts
+
+    def __add_tracks(self, jsondata):
+        return str(jsondata)
 
     @classmethod
     def add_resources(cls, items):

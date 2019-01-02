@@ -12,7 +12,7 @@ import uuid
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean, Sequence
+from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean, Float
 
 
 # Declare a common base for multiple files
@@ -21,31 +21,46 @@ Base = declarative_base()
 # Connect Database
 engine = create_engine('sqlite:////tmp/db_spoilfy_uri.sqlite', echo=False)
 
+# Session
+session = sessionmaker(bind=engine, autoflush=False)()
 
 # Decorator: @classproperty
-class classproperty(object):
-    def __init__(self, getter):
-        self.getter= getter
-    def __get__(self, instance, owner):
-        return self.getter(owner)
+# class classproperty(object):
+    # def __init__(self, getter):
+        # self.getter= getter
+    # def __get__(self, instance, owner):
+        # return self.getter(owner)
 
 
 # ==============================================================
 # >>>>>>>>>>>>>>>>>>[    Abstract ORMs     ] >>>>>>>>>>>>>>>>>>>
 # ==============================================================
 
-class Resource(Base):
+class SpoilfyORM(Base):
+    """ [ Abstract ORM class ]
+    """
+    __abstract__ = True
+
+    session = sessionmaker(bind=engine, autoflush=False)()
+
+    # Decorator: @classproperty
+    class classproperty(object):
+        def __init__(self, getter):
+            self.getter= getter
+        def __get__(self, instance, owner):
+            return self.getter(owner)
+
+    @classproperty
+    def query(cls):
+        return cls.session.query(cls)
+
+
+class Resource(SpoilfyORM):
     """ [ Abstract ORM class ]
         Independent table, without any setup to relate User tables
         Manually search by id if needed.
     """
     __abstract__ = True
-
-    #-> Class properties
-    session = sessionmaker(bind=engine, autoflush=False)()
-    @classproperty
-    def query(cls):
-        return cls.session.query(cls)
 
     # PKs
     uri = Column('uri', String, primary_key=True)
@@ -88,7 +103,7 @@ class Resource(Base):
 # ==============================================================
 
 
-class Reference(Base):
+class Reference(SpoilfyORM):
     """ [ References to map resources from different providers ]
         It maps things with SAME type but at different places.
     :PK uri: refer to the target resource.
@@ -96,28 +111,25 @@ class Reference(Base):
     """
     __tablename__ = 'references'
 
-    #-> Shared properties
-    session = sessionmaker(bind=engine, autoflush=False)()
-    @classproperty
-    def query(cls):
-        return cls.session.query(cls)
-
     # PKs
     uri = Column('uri', String, primary_key=True)
     real_uri = Column('real_uri', String)
 
+    nlinked = Column('nlinked', Integer, default=1)
+    confidence = Column('confidence', Float, default=0)
+
     type = Column('type', String)
-    provider = Column('provider', String, default='NONE')
+    provider = Column('provider', String)
     #^ default value only take effect after inserted to DB
 
     @classmethod
-    def add(cls, item):
+    def add(cls, item, confidence=1):
         """ [ Initial Source Reference ]
         Add initial ref with NEW real_uri
         """
         id = str(uuid.uuid1().hex)
         real_uri = 'app:{}:{}'.format(item.type, id)
-        ref = cls.bind(item, real_uri)
+        ref = cls.bind(item, real_uri, confidence)
         return ref
 
     @classmethod
@@ -131,12 +143,13 @@ class Reference(Base):
         return all
 
     @classmethod
-    def bind(cls, item, real_uri):
+    def bind(cls, item, real_uri, confidence):
         ref = cls(
             uri=item.uri,
             real_uri=real_uri,
             type=item.type,
-            provider=item.provider
+            provider=item.provider,
+            confidence=confidence,
         )
         cls.session.merge(ref)
         #cls.session.commit()  #-> Better to commit after multiple inserts
@@ -157,6 +170,33 @@ class Reference(Base):
         cls.session.commit()
         print('[  OK  ] Binded {} references.'.format( len(all) ))
         return all
+
+
+
+class Include(SpoilfyORM):
+    """ [ A Middleware for Many-to-Many relationship ]
+
+        It maps:
+        - Artist(s) include -> Album(s)
+        - Album(s)  include -> Track(s)
+    """
+
+    __tablename__ = 'includes'
+
+    # PKs/FKs
+    parent_uri = Column('parent_uri', String, primary_key=True)
+    child_uri = Column('child_uri', String, primary_key=True)
+
+    type = Column('type', String)
+
+    def __init__(self, parent_uri, child_uri, type):
+        super().__init__(
+            parent_uri = parent_uri,
+            child_uri = child_uri,
+            type = type,
+        )
+        self.session.merge( self )
+        # self.session.commit()
 
 
 

@@ -19,6 +19,7 @@ from spotify import SpotifyAccount
 
 def test_UserAccount():
     try:
+        pass
         UserAccount.__table__.drop(engine)
         UserAccount.metadata.create_all(bind=engine)
     except Exception as e:
@@ -38,12 +39,13 @@ def test_UserAccount():
             #
             #-> It's critical here we use app account's URI as real_uri
             #   because we want the User Account to be the real existence.
-            Reference.bind(acc, user_acc.uri)
+            Reference.bind(acc, user_acc.uri, 1)
 
 
 
 def test_UserResource():
     try:
+        pass
         UserResource.__table__.drop(engine)
         UserResource.metadata.create_all(bind=engine)
     except Exception as e:
