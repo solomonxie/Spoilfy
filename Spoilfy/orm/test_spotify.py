@@ -44,9 +44,10 @@ def test_SpotifyTrack():
     try:
         # pass
         SpotifyTrack.__table__.drop(engine)
-        SpotifyTrack.metadata.create_all(bind=engine)
     except Exception as e:
         print('Error on dropping Spotify table.')
+    finally:
+        SpotifyTrack.metadata.create_all(bind=engine)
 
     # Add a track
     with open('../../scratch/sqlschemas/spotify/jsondumps-full/get_user_tracks.json', 'r') as f:
@@ -66,9 +67,6 @@ def test_SpotifyTrack():
                 ab = session.merge( SpotifyAlbum({'album':album}) )
                 print( ab.name, ab.uri )
                 session.commit()
-
-    # Get tracks from DB
-    #SpotifyTrack.session.query()
 
 
 def test_SpotifyAlbum():
