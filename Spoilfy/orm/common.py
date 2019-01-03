@@ -70,10 +70,6 @@ class Resource(SpoilfyORM):
         self.query = session.query(self.__class__)
 
     @classmethod
-    def add(cls, data):
-        print('[TO BE IMPLEMENTED].')
-
-    @classmethod
     def add_resources(cls, items):
         """[ Add Resources ]
         :param session: sqlalchemy SESSION binded to DB.
@@ -86,7 +82,6 @@ class Resource(SpoilfyORM):
         print('[  OK  ] Inserted {} items to [{}].'.format(
             len(all), cls.__tablename__
         ))
-
         return all
 
 
