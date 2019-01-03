@@ -79,8 +79,6 @@ class SpotifyTrack(Resource):
     """
     __tablename__ = 'spotify_Tracks'
 
-    album = Column('album', String)
-    artists = Column('artists', String)
     #-> When is_local=True, the URI is NONE
     is_local = Column('is_local', Boolean)
 
@@ -95,6 +93,7 @@ class SpotifyTrack(Resource):
     external_urls = Column('external_urls', String)
 
     def __init__(self, jsondata):
+        # -> Instanize
         d = jsondata.get('track')
         uri = d.get('uri', str(uuid.uuid1()))
         super().__init__(
@@ -104,10 +103,6 @@ class SpotifyTrack(Resource):
             id = d.get('id'),
             type = d.get('type'),
             provider = 'spotify',
-            # -> Multiple Foreign Keys
-            album = self.__bind_album(d.get('album',{}), uri),
-            # artists = ','.join([a.get('uri') for a in d.get('artists',[])]),
-            artists = self.__add_artists(d.get('artists',[]), uri),
             # -> Spotify specific
             is_local = d.get('is_local'),
             added_at = jsondata.get('added_at'),
@@ -122,34 +117,21 @@ class SpotifyTrack(Resource):
         )
         self.session.merge( self )
 
-    def __bind_album(self, jsondata, self_uri):
-        # Add relationship to [includes] table
-        child = Include(jsondata.get('uri'), self_uri, 'album')
-        # Also fill up column for current table
-        # album = SpotifyAlbum( {'album':jsondata} )
-        # self.session.flush()
-        # return album.uri
-        return jsondata.get('uri')
+        # -> Bind One-to-Many relationships
+        album = Include( d.get('album',{}).get('uri'), uri )
+        artists = [ Include( a.get('uri'), uri)
+                    for a in d.get('artists',[]) ]
 
-    def __add_artists(self, jsondata, self_uri):
-        # Add relationship to [includes] table
-        # children = [Include(self_uri,d.get('uri'),'artist') for d in jsondata]
-        # print( '[  OK  ] Included {} albums'.format(len(children)) )
-        # Also fill up column for current table
-        artists = [ SpotifyArtist(d) for d in jsondata ]
-        self.session.flush()
-        self.session.commit()
-        # return ','.join([ a.uri for a in artists ])
-        return ','.join([ a.get('uri') for a in jsondata ])
+        # -> Insert data to other ORMs
+        # album = SpotifyAlbum( {'album':jsondata} )
+        # artists = [ SpotifyArtist(d) for d in jsondata ]
+
 
 
 class SpotifyAlbum(Resource):
     """ [ Album resources in Spotify ]
     """
     __tablename__ = 'spotify_Albums'
-
-    artists = Column('artists', String)
-    tracks = Column('tracks', String)
 
     release_date = Column('release_date', String)
     release_date_precision = Column('release_date_precision', String)
@@ -167,16 +149,13 @@ class SpotifyAlbum(Resource):
         d = jsondata['album']
         uri = d.get('uri', str(uuid.uuid1()))
         super().__init__(
-            # Common identifiers ->
+            # -> Common identifiers
             uri = uri,
             name = d.get('name'),
             id = d.get('id'),
             type = d.get('type'),
             provider = 'spotify',
-            # Multiple Foreign Keys ->
-            tracks = self.__add_tracks(d, uri),
-            artists = self.__add_artists(d.get('artists',[]), uri),
-            # Spotify specific ->
+            # -> Spotify specific
             album_type = d.get('album_type'),
             release_date = d.get('release_date'),
             release_date_precision = d.get('release_date_precision'),
@@ -190,33 +169,17 @@ class SpotifyAlbum(Resource):
         )
         self.session.merge( self )
 
-    def __add_tracks(self, jsondata, self_uri):
-        items = jsondata.get('tracks',{}).get('items',[])
-        # Add relationship to [includes] table
-        children = [ Include(self_uri, d.get('uri'), 'album') for d in items ]
-        # print( '[  OK  ] Included {} tracks'.format(len(children)) )
-        # Also fill up column for current table
-        # tracks = [ SpotifyTrack({'track':d}) for d in jsondata ]
-        # return ','.join([ t.uri for t in tracks ])
-        return ','.join([ t.get('uri') for t in items ])
+        # -> Bind Many-to-Many relationships
+        artists = [ Include( a.get('uri'), uri) for a in d.get('artists',[]) ]
+        tracks = [ Include(uri, t.get('uri'))
+                    for t in d.get('tracks').get('items',[]) ]
 
-    def __add_artists(self, jsondata, self_uri):
-        # Add relationship to [includes] table
-        children = [Include(d.get('uri'),self_uri,'artist') for d in jsondata]
-        # print( '[  OK  ] Included {} albums'.format(len(children)) )
-        # Also fill up column for current table
-        # artists = [ SpotifyArtist(d) for d in jsondata ]
-        # self.session.flush()
-        # return ','.join([ a.uri for a in artists ])
-        return ','.join([ a.get('uri') for a in jsondata ])
 
 
 class SpotifyArtist(Resource):
     """ [ Artist resources in Spotify ]
     """
     __tablename__ = 'spotify_Artists'
-
-    albums = Column('albums', String)
 
     genres = Column('genres', String)
     followers = Column('followers', Integer)
@@ -233,8 +196,6 @@ class SpotifyArtist(Resource):
             id = d.get('id'),
             type = d.get('type'),
             provider = 'spotify',
-            # Multiple Foreign Keys ->
-            albums = self.__add_albums({}),
             # Spotify specific ->
             genres = str(d.get('genres')),
             followers = d.get('followers',{}).get('total'),
@@ -242,10 +203,7 @@ class SpotifyArtist(Resource):
             href = d.get('href'),
             external_urls = d.get('external_urls',{}).get('spotify'),
         )
-        self.session.merge( self )   #Merge existing data
-
-    def __add_albums(self, jsondata):
-        return str(jsondata)
+        self.session.merge( self )
 
 
 
@@ -256,8 +214,6 @@ class SpotifyPlaylist(Resource):
 
     owner_uri = Column('owner_uri', String)
     snapshot_id = Column('snapshot_id', String)
-    tids = Column('track_ids', String)
-    tracks = Column('tracks', String)
 
     total_tracks = Column('total_tracks', Integer)
     followers = Column('followers', Integer)
@@ -279,8 +235,6 @@ class SpotifyPlaylist(Resource):
             type = d.get('type'),
             provider = 'spotify',
             owner_uri = d.get('owner',{}).get('uri'),
-            # Multiple Foreign Keys ->
-            tracks = self.__add_tracks({}),
             # Spotify specific ->
             snapshot_id = d.get('snapshot_id'),
             total_tracks = d.get('tracks',{}).get('total'),
@@ -290,7 +244,6 @@ class SpotifyPlaylist(Resource):
             href = d.get('href'),
             external_urls = d.get('external_urls',{}).get('spotify'),
             #-> [Keys below are to be retrieved dynamically]:
-            tids = str(d.get('tracks',{}).get('href')),
             followers = d.get('followers',{}).get('total'),
             description = d.get('description'),
         )
