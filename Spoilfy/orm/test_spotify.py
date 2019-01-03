@@ -152,20 +152,18 @@ def test_query_album():
 
     # search all albums of a user
     query = session.query(
-        UserResource, Reference, SpotifyAlbum
+        SpotifyAlbum.name
     ).filter(
         UserResource.owner_uri == me.uri,
-        UserResource.type == 'album'
-    ).filter(
-        Reference.real_uri == UserResource.real_uri
-    ).filter(
+        UserResource.type == 'album',
+        Reference.real_uri == UserResource.real_uri,
         SpotifyAlbum.uri == Reference.uri
     )
     print( '[SQL]', query )
     results = query.all()
     print( '[RESULTS]', len(results) )
-    for rsc, ref, t in results:
-        print( '[NAME]', t.name )
+    for name in results:
+        print( '[NAME]', name )
 
 
 def test_query_artist():
@@ -175,20 +173,18 @@ def test_query_artist():
 
     # search all albums of a user
     query = session.query(
-        UserResource, Reference, SpotifyArtist
+        SpotifyArtist.name
     ).filter(
         UserResource.owner_uri == me.uri,
-        UserResource.type == 'artist'
-    ).filter(
-        Reference.real_uri == UserResource.real_uri
-    ).filter(
+        UserResource.type == 'artist',
+        Reference.real_uri == UserResource.real_uri,
         SpotifyArtist.uri == Reference.uri
     )
     print( '[SQL]', query )
     results = query.all()
     print( '[RESULTS]', len(results) )
-    for rsc, ref, t in results:
-        print( '[NAME]', t.name )
+    for name in results:
+        print( '[NAME]', name )
 
 
 def test_query_playlist():
@@ -198,20 +194,18 @@ def test_query_playlist():
 
     # search all albums of a user
     query = session.query(
-        UserResource, Reference, SpotifyPlaylist
+        SpotifyPlaylist.name
     ).filter(
         UserResource.owner_uri == me.uri,
-        UserResource.type == 'playlist'
-    ).filter(
-        Reference.real_uri == UserResource.real_uri
-    ).filter(
+        UserResource.type == 'playlist',
+        Reference.real_uri == UserResource.real_uri,
         SpotifyPlaylist.uri == Reference.uri
     )
     print( '[SQL]', query )
     results = query.all()
     print( '[RESULTS]', len(results) )
-    for rsc, ref, t in results:
-        print( '[NAME]', t.name )
+    for name in results:
+        print( '[NAME]', name )
 
 
 if __name__ == '__main__':
@@ -224,7 +218,7 @@ if __name__ == '__main__':
 
     #=> Query
     test_query_track()
-    #test_query_album()
-    #test_query_artist()
-    #test_query_playlist()
+    test_query_album()
+    test_query_artist()
+    test_query_playlist()
 
