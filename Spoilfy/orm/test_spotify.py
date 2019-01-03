@@ -10,7 +10,7 @@ import unittest
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import exists
 
-from common import engine, session, Resource, Reference
+from common import engine, Base, session, Resource, Reference
 from user import UserAccount, UserResource
 from spotify import SpotifyAccount, SpotifyTrack, SpotifyAlbum, SpotifyArtist, SpotifyPlaylist
 
@@ -22,13 +22,7 @@ from spotify import SpotifyAccount, SpotifyTrack, SpotifyAlbum, SpotifyArtist, S
 # ==============================================================
 
 def test_SpotifyAccount():
-    try:
-        SpotifyAccount.__table__.drop(engine)
-    except Exception as e:
-        print('Error on dropping Spotify table.')
-    finally:
-        SpotifyAccount.metadata.create_all(bind=engine)
-
+    print( '\n[  TEST  ] SpotifyAccount' )
     # Add an account
     with open('../../scratch/sqlschemas/spotify/jsondumps-full/get_user_profile.json', 'r') as f:
         jsondata = json.loads( f.read() )
@@ -41,14 +35,7 @@ def test_SpotifyAccount():
 
 
 def test_SpotifyTrack():
-    try:
-        # pass
-        SpotifyTrack.__table__.drop(engine)
-    except Exception as e:
-        print('Error on dropping Spotify table.')
-    finally:
-        SpotifyTrack.metadata.create_all(bind=engine)
-
+    print( '\n[  TEST  ] SpotifyTrack' )
     # Add a track
     with open('../../scratch/sqlschemas/spotify/jsondumps-full/get_user_tracks.json', 'r') as f:
         jsondata = json.loads( f.read() )
@@ -56,27 +43,15 @@ def test_SpotifyTrack():
         items = SpotifyTrack.add_resources(jsondata['items'])
         # Add reference
         Reference.add_resources(items)
-        # Add binded album
-        for track in items:
-            album = track.album
-            has, = session.query(exists().where(
-                SpotifyAlbum.uri == album.get('uri')
-            )).first()
-            if not has:
-                # print( album.get('name') )
-                ab = session.merge( SpotifyAlbum({'album':album}) )
-                print( ab.name, ab.uri )
-                session.commit()
-
+        # Bind relationships
+        for track in jsondata['items']:
+            # Bind album
+            SpotifyTrack.bind_album(track)
+            # Bind artists
+            SpotifyTrack.bind_artists(track)
 
 def test_SpotifyAlbum():
-    try:
-        SpotifyAlbum.__table__.drop(engine)
-    except Exception as e:
-        print('Error on dropping Spotify table.')
-    finally:
-        SpotifyAlbum.metadata.create_all(bind=engine)
-
+    print( '\n[  TEST  ] SpotifyAlbum' )
     # Add an album
     with open('../../scratch/sqlschemas/spotify/jsondumps-full/get_user_albums.json', 'r') as f:
         jsondata = json.loads( f.read() )
@@ -84,16 +59,17 @@ def test_SpotifyAlbum():
         items = SpotifyAlbum.add_resources(jsondata['items'])
         # Add reference
         Reference.add_resources(items)
+        # Bind relationships
+        for album in jsondata['items']:
+            # Bind tracks
+            SpotifyAlbum.bind_tracks(album)
+            # Bind artists
+            SpotifyAlbum.bind_artists(album)
+
 
 
 def test_SpotifyArtist():
-    try:
-        SpotifyArtist.__table__.drop(engine)
-    except Exception as e:
-        print('Error on dropping Spotify table.')
-    finally:
-        SpotifyArtist.metadata.create_all(bind=engine)
-
+    print( '\n[  TEST  ] SpotifyArtist' )
     # Add an artist
     with open('../../scratch/sqlschemas/spotify/jsondumps-full/get_user_artists.json', 'r') as f:
         jsondata = json.loads( f.read() )
@@ -104,13 +80,7 @@ def test_SpotifyArtist():
 
 
 def test_SpotifyPlaylist():
-    try:
-        SpotifyPlaylist.__table__.drop(engine)
-    except Exception as e:
-        print('Error on dropping Spotify table.')
-    finally:
-        SpotifyPlaylist.metadata.create_all(bind=engine)
-
+    print( '\n[  TEST  ] SpotifyPlaylist' )
     # Add a playlist
     with open('../../scratch/sqlschemas/spotify/jsondumps-full/get_user_playlists.json', 'r') as f:
         jsondata = json.loads( f.read() )
@@ -121,6 +91,7 @@ def test_SpotifyPlaylist():
 
 
 def test_query_track():
+    print( '\n[  TEST  ] Query Track' )
     # print( SpotifyTrack.query.all() )
 
     # Get a user
@@ -136,7 +107,7 @@ def test_query_track():
         UserResource.real_uri == Reference.real_uri,
         Reference.uri == SpotifyTrack.uri
     )
-    print( '[SQL]', query )
+    print( '\t[SQL]', query )
     results = query.all()
     print( '[RESULTS]', len(results) )
     for name in results:
@@ -144,6 +115,7 @@ def test_query_track():
 
 
 def test_query_album():
+    print( '\n[  TEST  ] Query Album' )
     # Get a user
     me = UserAccount.query.first()
     print( '[USER]', me.uri )
@@ -157,7 +129,7 @@ def test_query_album():
         Reference.real_uri == UserResource.real_uri,
         SpotifyAlbum.uri == Reference.uri
     )
-    print( '[SQL]', query )
+    print( '\t[SQL]', query )
     results = query.all()
     print( '[RESULTS]', len(results) )
     for name in results:
@@ -165,6 +137,7 @@ def test_query_album():
 
 
 def test_query_artist():
+    print( '\n[  TEST  ] Query Artist' )
     # Get a user
     me = UserAccount.query.first()
     print( '[USER]', me.uri )
@@ -178,7 +151,7 @@ def test_query_artist():
         Reference.real_uri == UserResource.real_uri,
         SpotifyArtist.uri == Reference.uri
     )
-    print( '[SQL]', query )
+    print( '\t[SQL]', query )
     results = query.all()
     print( '[RESULTS]', len(results) )
     for name in results:
@@ -186,6 +159,7 @@ def test_query_artist():
 
 
 def test_query_playlist():
+    print( '\n[  TEST  ] Query Playlist' )
     # Get a user
     me = UserAccount.query.first()
     print( '[USER]', me.uri )
@@ -199,7 +173,7 @@ def test_query_playlist():
         Reference.real_uri == UserResource.real_uri,
         SpotifyPlaylist.uri == Reference.uri
     )
-    print( '[SQL]', query )
+    print( '\t[SQL]', query )
     results = query.all()
     print( '[RESULTS]', len(results) )
     for name in results:
@@ -207,16 +181,27 @@ def test_query_playlist():
 
 
 if __name__ == '__main__':
+    try:
+        SpotifyAccount.__table__.drop(engine)
+        SpotifyTrack.__table__.drop(engine)
+        SpotifyAlbum.__table__.drop(engine)
+        SpotifyArtist.__table__.drop(engine)
+        SpotifyPlaylist.__table__.drop(engine)
+    except Exception as e:
+        print('Error on dropping Spotify table.')
+    finally:
+        Base.metadata.create_all(bind=engine)
+
     #=> Insert data
-    test_SpotifyAccount()
     test_SpotifyTrack()
     test_SpotifyAlbum()
-    test_SpotifyArtist()
-    test_SpotifyPlaylist()
+    # test_SpotifyArtist()
+    # test_SpotifyPlaylist()
+    # test_SpotifyAccount()
 
     #=> Query
-    test_query_track()
-    test_query_album()
-    test_query_artist()
-    test_query_playlist()
+    # test_query_track()
+    # test_query_album()
+    # test_query_artist()
+    # test_query_playlist()
 
