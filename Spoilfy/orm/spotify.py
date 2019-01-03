@@ -9,14 +9,15 @@ import uuid
 
 #-------[  Import SQLAlchemy ]---------
 from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean, Sequence
+from sqlalchemy import exists
 
 #-------[  Import From Other Modules   ]---------
 # Package Import Hint: $ python -m Spoilfy.orm.spotify
 #-> TEST only
 if __name__ in ['__main__', 'spotify']:
-    from common import Base, engine, Resource, Reference, Include
+    from common import Base, engine, session, Resource, Reference, Include
 else:
-    from orm.common import Base, engine, Resource, Reference
+    from orm.common import Base, engine, session, Resource, Reference
 
 
 # ==============================================================
@@ -61,7 +62,6 @@ class SpotifyAccount(Resource):
             images = str( d.get('images') ),
             external_urls = d.get('external_urls',{}).get('spotify'),
         )
-        self.session.merge( self )
         print('[  OK  ] Inserted Spotify User: {}.'.format( self.name ))
 
     @classmethod
@@ -115,16 +115,28 @@ class SpotifyTrack(Resource):
             href = d.get('href'),
             external_urls = d.get('external_urls',{}).get('spotify'),
         )
-        self.session.merge( self )
+
+        self.__bind_relationships(uri, d)
+
+    def __bind_relationships(self, uri, d):
+        # -> Bind One-to-One relationships
+        self.album = album = d.get('album', {})
+        if album:
+            Include(album.get('uri'), uri)
+        # Add binded album
+        # has, = session.query(exists().where(
+            # SpotifyAlbum.uri == album.get('uri')
+        # )).first()
+        # if not has:
+            # # print( album.get('name') )
+            # ab = SpotifyAlbum({'album':album})
+            # print( ab.name, ab.uri )
+            # session.add(ab)
+            # session.commit()
 
         # -> Bind One-to-Many relationships
-        album = Include( d.get('album',{}).get('uri'), uri )
-        artists = [ Include( a.get('uri'), uri)
-                    for a in d.get('artists',[]) ]
-
-        # -> Insert data to other ORMs
-        # album = SpotifyAlbum( {'album':jsondata} )
-        # artists = [ SpotifyArtist(d) for d in jsondata ]
+        self.artists = d.get('artists', [])
+        [ Include(a.get('uri'), uri) for a in self.artists ]
 
 
 
@@ -137,6 +149,7 @@ class SpotifyAlbum(Resource):
     release_date_precision = Column('release_date_precision', String)
     total_tracks = Column('total_tracks', Integer)
     lable = Column('lable', String)
+    markets = Column('available_markets', Integer)
     popularity = Column('popularity', Integer)
     copyrights = Column('copyrights', String)
     album_type = Column('album_type', String)
@@ -161,18 +174,23 @@ class SpotifyAlbum(Resource):
             release_date_precision = d.get('release_date_precision'),
             total_tracks = d.get('total_tracks'),
             lable = d.get('label'),
+            markets = ','.join( d.get('available_markets') ),
             popularity = d.get('popularity'),
             copyrights = str(d.get('copyrights')),
             href = d.get('href'),
             external_urls = d.get('external_urls',{}).get('spotify'),
             external_ids = str(d.get('external_ids',{}))
         )
-        self.session.merge( self )
 
+        self.__bind_relationships(uri, d)
+
+    def __bind_relationships(self, uri, jsondata):
+        d = jsondata
         # -> Bind Many-to-Many relationships
-        artists = [ Include( a.get('uri'), uri) for a in d.get('artists',[]) ]
-        tracks = [ Include(uri, t.get('uri'))
-                    for t in d.get('tracks').get('items',[]) ]
+        self.tracks = d.get('tracks',{}).get('itmes',[])
+        [ Include(uri, t.get('uri')) for t in self.tracks ]
+        self.artists = d.get('artists', [])
+        [ Include( a.get('uri'), uri) for a in self.artists ]
 
 
 
@@ -203,7 +221,6 @@ class SpotifyArtist(Resource):
             href = d.get('href'),
             external_urls = d.get('external_urls',{}).get('spotify'),
         )
-        self.session.merge( self )
 
 
 
@@ -247,9 +264,9 @@ class SpotifyPlaylist(Resource):
             followers = d.get('followers',{}).get('total'),
             description = d.get('description'),
         )
-        self.session.merge( self )   #Merge existing data
+        session.merge( self )   #Merge existing data
         #-> Temporary: For test only to solve repeated ID issue.
-        self.session.commit()  #-> Better to commit after multiple inserts
+        session.commit()  #-> Better to commit after multiple inserts
 
     def __add_tracks(self, jsondata):
         return str(jsondata)
@@ -263,10 +280,11 @@ class SpotifyPlaylist(Resource):
         """
         all = []
         for item in items:
-            data = cls.get_playlist_tracks(item)
-            all.append( cls(data) )
+            playlist = cls( cls.get_playlist_tracks(item) )
+            session.merge( playlist )
+            all.append( playlist )
 
-        cls.session.commit()
+        session.commit()
         print('[  OK  ] Inserted {} items to [{}].'.format(
             len(all), cls.__tablename__
         ))

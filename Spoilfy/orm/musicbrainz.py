@@ -15,9 +15,9 @@ from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean
 
 #-> TEST only
 if __name__ in ['__main__', 'musicbrainz']:
-    from common import Base, engine, Resource, Reference
+    from common import Base, engine, session, Resource, Reference
 else:
-    from orm.common import Base, engine, Resource, Reference
+    from orm.common import Base, engine, session, Resource, Reference
 
 
 # ==============================================================
@@ -64,7 +64,7 @@ class MusicbrainzTrack(Resource):
             length = d.get('length'),
             video = d.get('video'),
         )
-        self.session.merge( self )
+        session.merge( self )
 
 
 class MusicbrainzAlbum(Resource):
@@ -112,7 +112,7 @@ class MusicbrainzAlbum(Resource):
             media = str(d.get('media')),
             text_representation = str(d.get('text-representation')),
         )
-        self.session.merge( self )
+        ession.merge( self )
 
 
 
@@ -153,7 +153,7 @@ class MusicbrainzArtist(Resource):
             lifespan = str(d.get('lifespan')),
             tags = str(d.get('tags')),
         )
-        self.session.merge( self )   #Merge existing data
+        session.merge( self )   #Merge existing data
 
 
 
