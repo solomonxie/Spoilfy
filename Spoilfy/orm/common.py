@@ -122,54 +122,25 @@ class Reference(SpoilfyORM):
     provider = Column('provider', String)
     #^ default value only take effect after inserted to DB
 
-    @classmethod
-    def add(cls, item, confidence=1):
-        """ [ Initial Source Reference ]
-        Add initial ref with NEW real_uri
-        """
-        id = str(uuid.uuid1().hex)
-        real_uri = 'app:{}:{}'.format(item.type, id)
-        ref = cls.bind(item, real_uri, confidence)
-        return ref
-
-    @classmethod
-    def add_resources(cls, items):
-        all = []
-        for item in items:
-            all.append( cls.add(item) )
-        cls.session.commit()
-
-        print('[  OK  ] Inserted {} new references.'.format( len(all) ))
-        return all
-
-    @classmethod
-    def bind(cls, item, real_uri, confidence):
-        ref = cls(
+    def __init__(self, item, real_uri=None, confidence=1):
+        super().__init__(
             uri=item.uri,
-            real_uri=real_uri,
+            real_uri=real_uri if real_uri else 'app:{}:{}'.format(
+                item.type, str(uuid.uuid1().hex)
+            ),
             type=item.type,
             provider=item.provider,
             confidence=confidence,
         )
-        cls.session.merge(ref)
-        #cls.session.commit()  #-> Better to commit after multiple inserts
-        return ref
+
 
     @classmethod
-    def bind_resources(cls, pairs):
-        """ [ Add batch references ]
-        This method is called when:
-          - It's already known which refers to which.
-          - The "ref_items" has to be stricly in the format of
-            [(item, 'real_uri'), (item, 'real_uri'), ....]
-        """
-        all = []
-        for item, real_uri in pairs:
-            ref = cls.bind(item, real_uri)
-            all.append(ref)
-        cls.session.commit()
-        print('[  OK  ] Binded {} references.'.format( len(all) ))
+    def add_resources(cls, items):
+        all = [ session.merge( cls(o) ) for o in items ]
+        session.commit()
+        print('[  OK  ] Inserted {} new references.'.format( len(all) ))
         return all
+
 
 
 
