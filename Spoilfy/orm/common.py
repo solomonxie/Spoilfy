@@ -187,13 +187,15 @@ class Include(SpoilfyORM):
     parent_uri = Column('parent_uri', String, primary_key=True)
     child_uri = Column('child_uri', String, primary_key=True)
 
-    type = Column('type', String)
+    parent_type = Column('parent_type', String)
+    child_type = Column('child_type', String)
 
-    def __init__(self, parent_uri, child_uri, type):
+    def __init__(self, p_uri, c_uri):
         super().__init__(
-            parent_uri = parent_uri,
-            child_uri = child_uri,
-            type = type,
+            parent_uri = p_uri,
+            child_uri = c_uri,
+            parent_type = p_uri.split(':')[1],
+            child_type = c_uri.split(':')[1],
         )
         self.session.merge( self )
         # self.session.commit()
