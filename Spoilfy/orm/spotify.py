@@ -96,16 +96,18 @@ class SpotifyTrack(Resource):
 
     def __init__(self, jsondata):
         d = jsondata.get('track')
+        uri = d.get('uri', str(uuid.uuid1()))
         super().__init__(
             # -> Common identifiers
-            uri = d.get('uri', str(uuid.uuid1())),
+            uri = uri,
             name = d.get('name'),
             id = d.get('id'),
             type = d.get('type'),
             provider = 'spotify',
             # -> Multiple Foreign Keys
-            album = self.__bind_album(d.get('album',{}), d.get('uri')),
-            artists = ','.join([a.get('uri') for a in d.get('artists',[])]),
+            album = self.__bind_album(d.get('album',{}), uri),
+            # artists = ','.join([a.get('uri') for a in d.get('artists',[])]),
+            artists = self.__add_artists(d.get('artists',[]), uri),
             # -> Spotify specific
             is_local = d.get('is_local'),
             added_at = jsondata.get('added_at'),
@@ -128,6 +130,17 @@ class SpotifyTrack(Resource):
         # self.session.flush()
         # return album.uri
         return jsondata.get('uri')
+
+    def __add_artists(self, jsondata, self_uri):
+        # Add relationship to [includes] table
+        # children = [Include(self_uri,d.get('uri'),'artist') for d in jsondata]
+        # print( '[  OK  ] Included {} albums'.format(len(children)) )
+        # Also fill up column for current table
+        artists = [ SpotifyArtist(d) for d in jsondata ]
+        self.session.flush()
+        self.session.commit()
+        # return ','.join([ a.uri for a in artists ])
+        return ','.join([ a.get('uri') for a in jsondata ])
 
 
 class SpotifyAlbum(Resource):
@@ -181,12 +194,17 @@ class SpotifyAlbum(Resource):
         items = jsondata.get('tracks',{}).get('items',[])
         # Add relationship to [includes] table
         children = [ Include(self_uri, d.get('uri'), 'album') for d in items ]
+        # print( '[  OK  ] Included {} tracks'.format(len(children)) )
         # Also fill up column for current table
         # tracks = [ SpotifyTrack({'track':d}) for d in jsondata ]
         # return ','.join([ t.uri for t in tracks ])
         return ','.join([ t.get('uri') for t in items ])
 
     def __add_artists(self, jsondata, self_uri):
+        # Add relationship to [includes] table
+        children = [Include(d.get('uri'),self_uri,'artist') for d in jsondata]
+        # print( '[  OK  ] Included {} albums'.format(len(children)) )
+        # Also fill up column for current table
         # artists = [ SpotifyArtist(d) for d in jsondata ]
         # self.session.flush()
         # return ','.join([ a.uri for a in artists ])

@@ -210,7 +210,7 @@ if __name__ == '__main__':
     # test_SpotifyAccount()
     test_SpotifyTrack()
     test_SpotifyAlbum()
-    # test_SpotifyArtist()
+    test_SpotifyArtist()
     # test_SpotifyPlaylist()
 
     #=> Query
