@@ -13,7 +13,7 @@ from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean
 
 #-------[  Import From Other Modules   ]---------
 # Package Import Hint: $ python -m Spoilfy.orm.spotify
-from common import Base, engine, Resource, Reference
+from common import Base, engine, session, Resource, Reference
 from spotify import SpotifyAccount
 
 
@@ -36,11 +36,12 @@ class UserResource(Resource):
     """
     __tablename__ = 'u_Resources'
 
+    #-> Drop default identifiers from PARENT class
+    uri = name = id = provider = None
+
+    # -> PKs
     real_uri = Column('real_uri', String, primary_key=True)
     owner_uri = Column('owner_uri', String)
-
-    #-> Drop default PK from parent class
-    uri = name = id = provider = None
 
     def __init__(self, owner_uri, data):
         super().__init__(
@@ -48,16 +49,11 @@ class UserResource(Resource):
             owner_uri=owner_uri,
             type=data.type
         )
-        self.session.merge( self )
-        #self.session.commit()  #-> Better to commit after multiple inserts
 
     @classmethod
     def add_resources(cls, owner_uri, items):
-        all = []
-        for item in items:
-            all.append( cls(owner_uri, item) )
-
-        cls.session.commit()
+        all = [ session.merge( cls(owner_uri, a) ) for a in items ]
+        session.commit()
         print('[  OK  ] Inserted {} items to [{}].'.format(
             len(all), cls.__tablename__
         ))
@@ -89,8 +85,6 @@ class UserAccount(Resource):
             email = data.get('email'),
             password = data.get('password'),
         )
-        self.session.merge( self )
-        #self.session.commit()  #-> Better to commit after multiple inserts
 
 
 

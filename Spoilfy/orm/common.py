@@ -24,13 +24,6 @@ engine = create_engine('sqlite:////tmp/db_spoilfy_uri.sqlite', echo=False)
 # Session
 session = sessionmaker(bind=engine, autoflush=False)()
 
-# Decorator: @classproperty
-# class classproperty(object):
-    # def __init__(self, getter):
-        # self.getter= getter
-    # def __get__(self, instance, owner):
-        # return self.getter(owner)
-
 
 # ==============================================================
 # >>>>>>>>>>>>>>>>>>[    Abstract ORMs     ] >>>>>>>>>>>>>>>>>>>
@@ -41,8 +34,6 @@ class SpoilfyORM(Base):
     """
     __abstract__ = True
 
-    session = sessionmaker(bind=engine, autoflush=False)()
-
     # Decorator: @classproperty
     class classproperty(object):
         def __init__(self, getter):
@@ -52,7 +43,7 @@ class SpoilfyORM(Base):
 
     @classproperty
     def query(cls):
-        return cls.session.query(cls)
+        return session.query(cls)
 
 
 class Resource(SpoilfyORM):
@@ -76,7 +67,7 @@ class Resource(SpoilfyORM):
 
     def __init__(self, *args, **kargs):
         super().__init__(*args, **kargs)
-        self.query = self.session.query(self.__class__)
+        self.query = session.query(self.__class__)
 
     @classmethod
     def add(cls, data):
@@ -90,7 +81,8 @@ class Resource(SpoilfyORM):
         :return: inserted resource objects.
         """
         all = [ cls(o) for o in items ]
-        cls.session.commit()
+        updates = [ session.merge( a ) for a in all ]
+        session.commit()
         print('[  OK  ] Inserted {} items to [{}].'.format(
             len(all), cls.__tablename__
         ))
@@ -168,8 +160,8 @@ class Include(SpoilfyORM):
             parent_type = p_uri.split(':')[1],
             child_type = c_uri.split(':')[1],
         )
-        self.session.merge( self )
-        # self.session.commit()
+        session.merge( self )
+        # session.commit()
 
 
 

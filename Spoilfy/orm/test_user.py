@@ -7,7 +7,7 @@
 import unittest
 import json
 
-from common import engine, Resource, Reference
+from common import engine, session, Resource, Reference
 from user import UserAccount, UserResource
 from spotify import SpotifyAccount
 
@@ -21,9 +21,10 @@ def test_UserAccount():
     try:
         pass
         UserAccount.__table__.drop(engine)
-        UserAccount.metadata.create_all(bind=engine)
     except Exception as e:
         print('Error on dropping User table.')
+    finally:
+        UserAccount.metadata.create_all(bind=engine)
 
     # Add a User Account
     with open('./users.json', 'r') as f:
@@ -39,7 +40,8 @@ def test_UserAccount():
             #
             #-> It's critical here we use app account's URI as real_uri
             #   because we want the User Account to be the real existence.
-            Reference.bind(acc, user_acc.uri, 1)
+            session.merge( Reference(acc,user_acc.uri,1) )
+        session.commit()
 
 
 
@@ -47,23 +49,24 @@ def test_UserResource():
     try:
         pass
         UserResource.__table__.drop(engine)
-        UserResource.metadata.create_all(bind=engine)
     except Exception as e:
         print('Error on dropping User table.')
+    finally:
+        UserResource.metadata.create_all(bind=engine)
 
     # Get a user
     user = UserAccount.query.first()
 
-    # Add User tracks
+    # 1.Add User tracks
     items = Reference.query.filter(Reference.type=='track').all()
     UserResource.add_resources(user.uri, items)
-    ## Add User albums
+    # 2.Add User albums
     items = Reference.query.filter(Reference.type=='album').all()
     UserResource.add_resources(user.uri, items)
-    ## Add User artists
+    # 3.Add User artists
     items = Reference.query.filter(Reference.type=='artist').all()
     UserResource.add_resources(user.uri, items)
-    ## Add User playlists
+    # 4.Add User playlists
     items = Reference.query.filter(Reference.type=='playlist').all()
     UserResource.add_resources(user.uri, items)
 
@@ -71,5 +74,5 @@ def test_UserResource():
 
 
 if __name__ == '__main__':
-    test_UserAccount()
     test_UserResource()
+    test_UserAccount()
