@@ -5,18 +5,22 @@
 # DEPENDENCIES:
 
 
+from sqlalchemy import exists
+
 
 #-> TEST only
 if __name__ in ['__main__', 'spotify2mbz']:
     from orm.spotify import SpotifyTrack, SpotifyAlbum, SpotifyArtist, SpotifyPlaylist, SpotifyAccount
     from orm.musicbrainz import MusicbrainzTrack, MusicbrainzAlbum, MusicbrainzAlbum, MusicbrainzArtist
-    from orm.common import Base, engine, Resource, Reference, session
+    from orm.common import Base, engine, session
+    from orm.common import Resource, Reference, Include
     from webapi.spotify import SpotifyAPI
     import webapi.musicbrainz as mba
 else:
     from Spoilfy.orm.spotify import SpotifyTrack, SpotifyAlbum, SpotifyArtist, SpotifyPlaylist, SpotifyAccount
     from Spoilfy.orm.musicbrainz import MusicbrainzTrack, MusicbrainzAlbum, MusicbrainzAlbum, MusicbrainzArtist
-    from Spoilfy.orm.common import Base, engine, Resource, Reference, session
+    from Spoilfy.orm.common import Base, engine, session
+    from Spoilfy.orm.common import Resource, Reference, Include
     from Spoilfy.webapi.spotify import SpotifyAPI
     import Spoilfy.webapi.musicbrainz as mba
 
@@ -74,28 +78,40 @@ def main():
         # print( '[  OK  ]',r )
     import json
     # Get track info
-    track = session.query(SpotifyTrack, SpotifyAlbum, SpotifyArtist).filter(
-        SpotifyTrack.uri == 'spotify:track:0NQX8uIipe2SbgjgKyfq59',
-    ).filter(
-        SpotifyAlbum.uri.like('%'+SpotifyTrack.albums+'%'),
+    track_uri = 'spotify:track:01cCX1iNks6Ob0Ynwwg8tX'
+    # ========
+    # =>TODO<= merge two queries to one
+    # ========
+    track, album = session.query(SpotifyTrack, SpotifyAlbum).filter(
+        SpotifyTrack.uri == track_uri,
+        Include.child_uri == track_uri,
+        Include.parent_uri == SpotifyAlbum.uri,
     ).first()
-    print( track )
-    return
+    artist = session.query(SpotifyArtist).filter(
+        Include.child_uri == track.uri,
+        Include.parent_uri == SpotifyArtist.uri
+    ).first()
+    print('Track:[{}], Album:[{}], Artist:[{}]'.format(
+        track.name, album.name, artist.name
+    ))
     # Check existence
     tag = session.query(Reference.uri).filter(
-        Reference.uri == track.uri,
+        Reference.uri == track_uri,
         Reference.provider == 'musicbrainz'
     ).first()
-    print( '[  RESULT  ]',tag )
+    print( '[  TAG  ]',tag )
     # Request MBZ WebAPI
     if not tag:
         results = mba.search_tracks(
             name=track.name,
-            release=album.get('name'),
-            artist=artist.get('name'),
+            release=album.name,
+            artist=artist.name,
         )
         for obj in results.get('recordings'):
-            print( '\t[TRACK]:', obj.get('title'), obj.get('score'))
+            print('\t[TRACK]:',
+                obj.get('title'), obj.get('score'),
+                obj.get('artist-credit')[0].get('artist').get('name')
+            )
     # Make reference
 
 if __name__ == '__main__':
