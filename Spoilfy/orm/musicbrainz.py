@@ -64,7 +64,6 @@ class MusicbrainzTrack(Resource):
             length = d.get('length'),
             video = d.get('video'),
         )
-        session.merge( self )
 
 
 class MusicbrainzAlbum(Resource):
@@ -112,7 +111,6 @@ class MusicbrainzAlbum(Resource):
             media = str(d.get('media')),
             text_representation = str(d.get('text-representation')),
         )
-        ession.merge( self )
 
 
 
@@ -153,7 +151,6 @@ class MusicbrainzArtist(Resource):
             lifespan = str(d.get('lifespan')),
             tags = str(d.get('tags')),
         )
-        session.merge( self )   #Merge existing data
 
 
 
