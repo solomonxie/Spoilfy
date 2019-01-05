@@ -24,11 +24,11 @@ session = sessionmaker(bind=engine, autoflush=False)()
 
 def test_MusicbrainzTrack():
     try:
-        pass
         MusicbrainzTrack.__table__.drop(engine)
-        MusicbrainzTrack.metadata.create_all(bind=engine)
     except Exception as e:
         print('Error on dropping Musicbrainz table.')
+    finally:
+        MusicbrainzTrack.metadata.create_all(bind=engine)
 
 
     # Add a track
@@ -43,11 +43,11 @@ def test_MusicbrainzTrack():
 
 def test_MusicbrainzAlbum():
     try:
-        pass
         MusicbrainzAlbum.__table__.drop(engine)
-        MusicbrainzAlbum.metadata.create_all(bind=engine)
     except Exception as e:
         print('Error on dropping Musicbrainz table.')
+    finally:
+        MusicbrainzAlbum.metadata.create_all(bind=engine)
 
 
     # Add a track
@@ -62,11 +62,11 @@ def test_MusicbrainzAlbum():
 
 def test_MusicbrainzArtist():
     try:
-        pass
         MusicbrainzArtist.__table__.drop(engine)
-        MusicbrainzArtist.metadata.create_all(bind=engine)
     except Exception as e:
         print('Error on dropping Musicbrainz table.')
+    finally:
+        MusicbrainzArtist.metadata.create_all(bind=engine)
 
 
     # Add a track
