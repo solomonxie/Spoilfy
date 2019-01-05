@@ -78,7 +78,7 @@ def main():
         # print( '[  OK  ]',r )
     import json
     # Get track info
-    track_uri = 'spotify:track:01cCX1iNks6Ob0Ynwwg8tX'
+    track_uri = 'spotify:track:4BXos4QJgyEF3dytRNNytV'
     # ========
     # =>TODO<= merge two queries to one
     # ========

@@ -74,5 +74,5 @@ def test_UserResource():
 
 
 if __name__ == '__main__':
-    test_UserResource()
     test_UserAccount()
+    test_UserResource()
