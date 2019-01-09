@@ -267,7 +267,7 @@ class SpotifyPlaylist(Resource):
 
 
 
-def bind_tracks(uri, jsondata):
+def spt_bind_tracks(uri, jsondata):
     # -> Bind One-to-Many relationships
     for t in jsondata:
         # -> Add Foreign keys to Table [includes]
@@ -283,7 +283,7 @@ def bind_tracks(uri, jsondata):
 
 
 
-def bind_album(uri, jsondata):
+def spt_bind_album(uri, jsondata):
     # -> Bind One-to-One relationships
     album = jsondata
     # -> Add Foreign keys to Table [includes]
@@ -298,7 +298,7 @@ def bind_album(uri, jsondata):
         print( '\t[APPENDIX ALBUM]',ab.name, ab.uri )
         session.commit()
 
-def bind_artists(uri, jsondata):
+def spt_bind_artists(uri, jsondata):
     # -> Bind One-to-Many relationships
     for a in jsondata:
         # -> Add Foreign keys to Table [includes]

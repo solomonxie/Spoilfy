@@ -96,7 +96,7 @@ def test_get_track_info(track_uri):
 def main():
 
     # Get track info
-    track_uri = 'spotify:track:4BXos4QJgyEF3dytRNNytV'
+    track_uri = 'spotify:track:1WvIkhx5AxsA4N9TgkYSQG'
     track, album, artist = test_get_track_info(track_uri)
     print( track.name, album.name, artist.name )
 
