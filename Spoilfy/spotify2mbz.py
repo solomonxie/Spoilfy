@@ -66,9 +66,7 @@ class MapTrack(Tagger):
 # ==============================================================
 
 
-def test_get_track_info():
-    # Get track info
-    track_uri = 'spotify:track:4BXos4QJgyEF3dytRNNytV'
+def test_get_track_info(track_uri):
     # Compose SQL
     # -> Middlewares for Many-to-Many tables
     trackAlbum = aliased(Include)
@@ -88,47 +86,20 @@ def test_get_track_info():
         ).filter(
             SpotifyTrack.uri == track_uri
         )
-    print( query, query.all().__len__() )
+    # print( query, query.all().__len__() )
     # ->
-    track, album, artist = query.first()
-    print( track.name, album.name, artist.name )
+    return query.first()
 
 
 
 
 def main():
-    # results = session.query(
-        # Reference, Reference.real_uri, Reference.nlinked
-    # ).filter(
-        # Reference.type == 'track',
-        # # Reference.nlinked < 2 # ->Filter out untagged tracks
-    # )
-    # print( results )
-    # for r in results:
-        # r[0].nlinked += 1
-        # session.commit()
-        # print( '[  OK  ]',r )
-
-    test_get_track_info()
-    return
 
     # Get track info
     track_uri = 'spotify:track:4BXos4QJgyEF3dytRNNytV'
-    # ========
-    # =>TODO<= merge two queries to one
-    # ========
-    track, album = session.query(SpotifyTrack, SpotifyAlbum).filter(
-        SpotifyTrack.uri == track_uri,
-        Include.child_uri == track_uri,
-        Include.parent_uri == SpotifyAlbum.uri,
-    ).first()
-    artist = session.query(SpotifyArtist).filter(
-        Include.child_uri == track.uri,
-        Include.parent_uri == SpotifyArtist.uri
-    ).first()
-    print('Track:[{}], Album:[{}], Artist:[{}]'.format(
-        track.name, album.name, artist.name
-    ))
+    track, album, artist = test_get_track_info(track_uri)
+    print( track.name, album.name, artist.name )
+
     # Check existence
     tag = session.query(Reference.uri).filter(
         Reference.uri == track_uri,
