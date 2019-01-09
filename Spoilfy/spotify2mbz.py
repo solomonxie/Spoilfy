@@ -4,8 +4,10 @@
 #
 # DEPENDENCIES:
 
+import json
 
 from sqlalchemy import exists
+from sqlalchemy.orm import aliased
 
 
 #-> TEST only
@@ -64,6 +66,36 @@ class MapTrack(Tagger):
 # ==============================================================
 
 
+def test_get_track_info():
+    # Get track info
+    track_uri = 'spotify:track:4BXos4QJgyEF3dytRNNytV'
+    # Compose SQL
+    # -> Middlewares for Many-to-Many tables
+    trackAlbum = aliased(Include)
+    trackArtists = aliased(Include)
+    # -> Query
+    query = session.query(
+            SpotifyTrack, SpotifyAlbum, SpotifyArtist
+            #Debug: SpotifyTrack.name, SpotifyAlbum.name, SpotifyArtist.name
+        ).join(
+            trackAlbum, SpotifyTrack.uri == trackAlbum.child_uri
+        ).join(
+            SpotifyAlbum, SpotifyAlbum.uri == trackAlbum.parent_uri
+        ).join(
+            trackArtists, SpotifyTrack.uri == trackArtists.child_uri
+        ).join(
+            SpotifyArtist, SpotifyArtist.uri == trackArtists.parent_uri
+        ).filter(
+            SpotifyTrack.uri == track_uri
+        )
+    print( query, query.all().__len__() )
+    # ->
+    track, album, artist = query.first()
+    print( track.name, album.name, artist.name )
+
+
+
+
 def main():
     # results = session.query(
         # Reference, Reference.real_uri, Reference.nlinked
@@ -76,7 +108,10 @@ def main():
         # r[0].nlinked += 1
         # session.commit()
         # print( '[  OK  ]',r )
-    import json
+
+    test_get_track_info()
+    return
+
     # Get track info
     track_uri = 'spotify:track:4BXos4QJgyEF3dytRNNytV'
     # ========
