@@ -13,7 +13,7 @@ from sqlalchemy import exists
 from common import engine, Base, session, Resource, Reference
 from user import UserAccount, UserResource
 from spotify import SpotifyAccount, SpotifyTrack, SpotifyAlbum, SpotifyArtist, SpotifyPlaylist
-from spotify import bind_tracks, bind_album, bind_artists
+from spotify import spt_bind_tracks, spt_bind_album, spt_bind_artists
 
 
 
@@ -48,10 +48,10 @@ def test_SpotifyTrack():
         for track in jsondata['items']:
             t = track.get('track',{})
             # Bind album
-            bind_album(t.get('uri'), t.get('album',{}))
+            spt_bind_album(t.get('uri'), t.get('album',{}))
             # Bind artists
-            # SpotifyTrack.bind_artists(track)
-            bind_artists(t.get('uri'), t.get('artists',[]))
+            # SpotifyTrack.spt_bind_artists(track)
+            spt_bind_artists(t.get('uri'), t.get('artists',[]))
 
 def test_SpotifyAlbum():
     print( '\n[  TEST  ] SpotifyAlbum' )
@@ -66,9 +66,9 @@ def test_SpotifyAlbum():
         for album in jsondata['items']:
             b = album.get('album',{})
             # Bind tracks
-            bind_tracks(b.get('uri'), b.get('tracks',{}).get('items',[]))
+            spt_bind_tracks(b.get('uri'), b.get('tracks',{}).get('items',[]))
             # Bind artists
-            bind_artists(b.get('uri'), b.get('artists',[]))
+            spt_bind_artists(b.get('uri'), b.get('artists',[]))
 
 
 
