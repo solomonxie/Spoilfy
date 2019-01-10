@@ -40,8 +40,9 @@ def test_MusicbrainzTrack():
         Reference.add_resources(items)
         # Bind each track's [albums] & [artists]
         for track in jsondata['recordings']:
-            MusicbrainzTrack.include_albums( track )
-            # MusicbrainzTrack.include_artists( track )
+            album_ids, artist_ids = MusicbrainzTrack.get_sub_ids( track )
+            print( '\t[SUB:ALBUM]', album_ids )
+            print( '\t[SUB:ARTIST]', artist_ids )
 
 
 def test_MusicbrainzAlbum():
@@ -61,8 +62,10 @@ def test_MusicbrainzAlbum():
         # Make NEW NEW NEW reference
         Reference.add_resources(items)
         # Bind each album's [artists] & [tracks]
-        for album in jsondata['recordings']:
-            MusicBrainzAlbum.include_artists( album )
+        for album in jsondata['releases']:
+            track_ids, artist_ids = MusicbrainzAlbum.get_sub_ids( album )
+            print( '\t[SUB:TRACK]', track_ids )
+            print( '\t[SUB:ARTIST]', artist_ids )
 
 
 def test_MusicbrainzArtist():
@@ -103,7 +106,7 @@ def test_query_artist():
 if __name__ == '__main__':
     #=> Insert data
     test_MusicbrainzTrack()
-    # test_MusicbrainzAlbum()
+    test_MusicbrainzAlbum()
     # test_MusicbrainzArtist()
 
     #=> Query
