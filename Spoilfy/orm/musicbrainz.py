@@ -74,6 +74,27 @@ class MusicbrainzTrack(Resource):
                 for a in trackdata.get('artist-credit', []) ]
         return album_ids, artist_ids
 
+    @classmethod
+    def include_albums(cls, trackdata):
+        child = 'musicbrainz:track:{}'.format( trackdata.get('id') )
+        for album in trackdata.get('releases', []):
+            parent = 'musicbrainz:album:{}'.format( album.get('id') )
+            #->
+            Include(parent, child)
+            print( '[INCLUDE:TRACK-ALBUM]', parent, child )
+        # Submit changes
+        session.commit()
+
+    @classmethod
+    def include_artists(cls, trackdata):
+        child = 'musicbrainz:track:{}'.format( trackdata.get('id') )
+        for r in trackdata.get('artist-credit', []):
+            parent = 'musicbrainz:artist:' + r.get('artist',{}).get('id')
+            # ->
+            Include(parent, child)
+            print( '[INCLUDE:TRACK-ARTIST]', parent, child )
+        # Submit changes
+        session.commit()
 
 
 class MusicbrainzAlbum(Resource):
@@ -129,6 +150,16 @@ class MusicbrainzAlbum(Resource):
                 for a in albumdata.get('artist-credit', []) ]
         return track_ids, artist_ids
 
+    @classmethod
+    def include_artists(cls, albumdata):
+        child = 'musicbrainz:album:{}'.format( albumdata.get('id') )
+        for r in albumdata.get('artist-credit', []):
+            parent = 'musicbrainz:artist:' + r.get('artist',{}).get('id')
+            # ->
+            Include(parent, child)
+            print( '[INCLUDE:ALBUM-ARTIST]', parent, child )
+        # Submit changes
+        session.commit()
 
 
 class MusicbrainzArtist(Resource):

@@ -124,9 +124,8 @@ class SpotifyTrack(Resource):
         parent = album.get('uri')
         #->
         Include(parent, child)
-        # Check if album data exists
-        has, = session.query(exists().where(SpotifyAlbum.uri==parent)).first()
         # Insert album data if not exists
+        has, = session.query(exists().where(SpotifyAlbum.uri==parent)).first()
         if not has:
             ab = session.merge( SpotifyAlbum({'album': album}) )
             print( '\t[APPENDIX:ALBUM]', ab.name, ab.uri )
@@ -141,11 +140,10 @@ class SpotifyTrack(Resource):
             parent = r.get('uri')
             # ->
             Include(parent, child)
-            # Check if album data exists
+            # Insert album data if not exists
             has, = session.query(
                 exists().where( SpotifyArtist.uri==parent )
             ).first()
-            # Insert album data if not exists
             if not has:
                 artist = session.merge( SpotifyArtist(r) )
                 print( '\t[APPENDIX ARTIST]', artist.name, artist.uri )
@@ -203,11 +201,10 @@ class SpotifyAlbum(Resource):
             # ->
             child = t.get('uri')
             Include(parent, child)
-            # Check if track data exists
+            # Insert track data if not exists
             has, = session.query(
                 exists().where( SpotifyTrack.uri == child )
             ).first()
-            # Insert track data if not exists
             if not has:
                 track = session.merge( SpotifyTrack({'track':t}) )
                 print( '\t[APPENDIX TRACK]', track.name, track.uri )
@@ -222,11 +219,10 @@ class SpotifyAlbum(Resource):
             parent = r.get('uri')
             # ->
             Include(parent, child)
-            # Check if artist data exists
+            # Insert artist data if not exists
             has, = session.query(
                 exists().where( SpotifyArtist.uri == r.get('uri') )
             ).first()
-            # Insert artist data if not exists
             if not has:
                 artist = session.merge( SpotifyArtist(r) )
                 print( '\t[APPENDIX ARTIST]', artist.name, artist.uri )
