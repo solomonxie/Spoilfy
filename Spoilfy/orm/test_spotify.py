@@ -194,13 +194,13 @@ if __name__ == '__main__':
     #=> Insert data
     test_SpotifyTrack()
     test_SpotifyAlbum()
-    # test_SpotifyArtist()
-    # test_SpotifyPlaylist()
-    # test_SpotifyAccount()
+    test_SpotifyArtist()
+    test_SpotifyPlaylist()
+    test_SpotifyAccount()
 
     #=> Query
-    # test_query_track()
-    # test_query_album()
-    # test_query_artist()
-    # test_query_playlist()
+    test_query_track()
+    test_query_album()
+    test_query_artist()
+    test_query_playlist()
 
