@@ -13,7 +13,6 @@ from sqlalchemy import exists
 from common import engine, Base, session, Resource, Reference
 from user import UserAccount, UserResource
 from spotify import SpotifyAccount, SpotifyTrack, SpotifyAlbum, SpotifyArtist, SpotifyPlaylist
-from spotify import spt_bind_tracks, spt_bind_album, spt_bind_artists
 
 
 
@@ -46,13 +45,10 @@ def test_SpotifyTrack():
         Reference.add_resources(items)
         # Bind relationships
         for track in jsondata['items']:
-            t = track.get('track',{})
-            uri = t.get('uri')
-            album = t.get('album', {})
-            artists = t.get('artists',[])
-            # Do binding [album] & [artists]
-            spt_bind_album(uri, album)
-            spt_bind_artists(uri, artists)
+            SpotifyTrack.include_album( track )
+            SpotifyTrack.include_artists( track )
+
+
 
 def test_SpotifyAlbum():
     print( '\n[  TEST  ] SpotifyAlbum' )
@@ -65,13 +61,8 @@ def test_SpotifyAlbum():
         Reference.add_resources(items)
         # Bind relationships
         for album in jsondata['items']:
-            b = album.get('album',{})
-            uri = b.get('uri')
-            tracks = b.get('tracks',{}).get('items',[])
-            artists = b.get('artists',[])
-            # Do binding [tracks] & [artists]
-            spt_bind_tracks(uri, tracks)
-            spt_bind_artists(uri, artists)
+            SpotifyAlbum.include_tracks( album )
+            SpotifyAlbum.include_artists( album )
 
 
 
@@ -80,6 +71,7 @@ def test_SpotifyArtist():
     # Add an artist
     with open('../../scratch/sqlschemas/spotify/jsondumps-full/get_user_artists.json', 'r') as f:
         jsondata = json.loads( f.read() )
+        # Insert items to DB
         items = SpotifyArtist.add_resources(jsondata['artists']['items'])
         # Add reference
         Reference.add_resources(items)

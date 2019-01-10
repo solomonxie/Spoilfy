@@ -116,6 +116,38 @@ class SpotifyTrack(Resource):
             external_urls = d.get('external_urls',{}).get('spotify'),
         )
 
+    @classmethod
+    def include_album(cls, trackdata):
+        t = trackdata.get('track',{})
+        child = t.get('uri')
+        album = t.get('album', {})
+        parent = album.get('uri')
+        #->
+        Include(parent, child)
+        # Check if album data exists
+        has, = session.query(exists().where(SpotifyAlbum.uri==parent)).first()
+        # Insert album data if not exists
+        if not has:
+            ab = session.merge( SpotifyAlbum({'album': album}) )
+            print( '\t[APPENDIX:ALBUM]', ab.name, ab.uri )
+            session.commit()
+
+    @classmethod
+    def include_artists(cls, trackdata):
+        track = trackdata.get('track', {})
+        t_uri = track.get('uri')
+        for r in track.get('artists', []):
+            # -> Add Foreign keys to Table [includes]
+            Include( r.get('uri'), t_uri )
+            # -> Add binded artists data
+            has, = session.query(
+                exists().where( SpotifyArtist.uri == r.get('uri') )
+            ).first()
+            if not has:
+                artist = session.merge( SpotifyArtist(r) )
+                print( '\t[APPENDIX ARTIST]', artist.name, artist.uri )
+        session.commit()
+
 
 
 class SpotifyAlbum(Resource):
@@ -158,6 +190,41 @@ class SpotifyAlbum(Resource):
             external_urls = d.get('external_urls',{}).get('spotify',''),
             external_ids = str(d.get('external_ids',{}))
         )
+
+
+    @classmethod
+    def include_tracks(cls, albumdata):
+        album = albumdata.get('album', {})
+        parent = album.get('uri')
+        for t in album.get('tracks',{}).get('items',[]):
+            # -> Add Foreign keys to Table [includes]
+            child = t.get('uri')
+            Include(parent, child)
+            # -> Add binded tracks data
+            has, = session.query(
+                exists().where( SpotifyTrack.uri == child )
+            ).first()
+            if not has:
+                track = session.merge( SpotifyTrack({'track':t}) )
+                print( '\t[APPENDIX TRACK]', track.name, track.uri )
+        session.commit()
+
+    @classmethod
+    def include_artists(cls, albumdata):
+        album = albumdata.get('album', {})
+        child = album.get('uri')
+        for r in album.get('artists',[]):
+            parent = r.get('uri')
+            # -> Add Foreign keys to Table [includes]
+            Include(parent, child)
+            # -> Add binded artists data
+            has, = session.query(
+                exists().where( SpotifyArtist.uri == r.get('uri') )
+            ).first()
+            if not has:
+                artist = session.merge( SpotifyArtist(r) )
+                print( '\t[APPENDIX ARTIST]', artist.name, artist.uri )
+        session.commit()
 
 
 class SpotifyArtist(Resource):
@@ -265,52 +332,6 @@ class SpotifyPlaylist(Resource):
         """
         return item
 
-
-
-def spt_bind_tracks(uri, jsondata):
-    # -> Bind One-to-Many relationships
-    for t in jsondata:
-        # -> Add Foreign keys to Table [includes]
-        Include(uri, t.get('uri'))
-        # -> Add binded tracks data
-        has, = session.query(exists().where(
-            SpotifyTrack.uri == t.get('uri')
-        )).first()
-        if not has:
-            track = session.merge( SpotifyTrack({'track': t}) )
-            print( '\t[APPENDIX TRACK]', track.name, track.uri )
-    session.commit()
-
-
-
-def spt_bind_album(uri, jsondata):
-    # -> Bind One-to-One relationships
-    album = jsondata
-    # -> Add Foreign keys to Table [includes]
-    if album:
-        Include(album.get('uri'), uri)
-    # -> Add binded album data
-    has, = session.query(exists().where(
-        SpotifyAlbum.uri == album.get('uri')
-    )).first()
-    if not has:
-        ab = session.merge( SpotifyAlbum({'album': album}) )
-        print( '\t[APPENDIX ALBUM]',ab.name, ab.uri )
-        session.commit()
-
-def spt_bind_artists(uri, jsondata):
-    # -> Bind One-to-Many relationships
-    for a in jsondata:
-        # -> Add Foreign keys to Table [includes]
-        Include(a.get('uri'), uri)
-        # -> Add binded artists data
-        has, = session.query(exists().where(
-            SpotifyArtist.uri == a.get('uri')
-        )).first()
-        if not has:
-            r = session.merge( SpotifyArtist(a) )
-            print( '\t[APPENDIX ARTIST]', r.name, r.uri )
-    session.commit()
 
 
 
