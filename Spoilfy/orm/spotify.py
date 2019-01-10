@@ -135,13 +135,14 @@ class SpotifyTrack(Resource):
     @classmethod
     def include_artists(cls, trackdata):
         track = trackdata.get('track', {})
-        t_uri = track.get('uri')
+        child = track.get('uri')
         for r in track.get('artists', []):
+            parent = r.get('uri')
             # -> Add Foreign keys to Table [includes]
-            Include( r.get('uri'), t_uri )
+            Include(parent, child)
             # -> Add binded artists data
             has, = session.query(
-                exists().where( SpotifyArtist.uri == r.get('uri') )
+                exists().where( SpotifyArtist.uri==parent )
             ).first()
             if not has:
                 artist = session.merge( SpotifyArtist(r) )
@@ -190,7 +191,6 @@ class SpotifyAlbum(Resource):
             external_urls = d.get('external_urls',{}).get('spotify',''),
             external_ids = str(d.get('external_ids',{}))
         )
-
 
     @classmethod
     def include_tracks(cls, albumdata):
