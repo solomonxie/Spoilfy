@@ -186,6 +186,7 @@ if __name__ == '__main__':
         SpotifyAlbum.__table__.drop(engine)
         SpotifyArtist.__table__.drop(engine)
         SpotifyPlaylist.__table__.drop(engine)
+        Include.__table__.drop(engine)
     except Exception as e:
         print('Error on dropping Spotify table.')
     finally:

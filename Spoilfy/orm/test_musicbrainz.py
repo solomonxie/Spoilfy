@@ -9,11 +9,9 @@ import unittest
 
 from sqlalchemy.orm import sessionmaker
 
-from common import engine, Resource, Reference
+from common import Base, engine, session, Resource, Reference
 from user import UserAccount, UserResource
 from musicbrainz import MusicbrainzTrack, MusicbrainzAlbum, MusicbrainzArtist
-
-session = sessionmaker(bind=engine, autoflush=False)()
 
 
 
@@ -40,9 +38,8 @@ def test_MusicbrainzTrack():
         Reference.add_resources(items)
         # Bind each track's [albums] & [artists]
         for track in jsondata['recordings']:
-            album_ids, artist_ids = MusicbrainzTrack.get_sub_ids( track )
-            print( '\t[SUB:ALBUM]', album_ids )
-            print( '\t[SUB:ARTIST]', artist_ids )
+            MusicbrainzTrack.include_albums( track )
+            MusicbrainzTrack.include_artists( track )
 
 
 def test_MusicbrainzAlbum():
@@ -63,20 +60,10 @@ def test_MusicbrainzAlbum():
         Reference.add_resources(items)
         # Bind each album's [artists] & [tracks]
         for album in jsondata['releases']:
-            track_ids, artist_ids = MusicbrainzAlbum.get_sub_ids( album )
-            print( '\t[SUB:TRACK]', track_ids )
-            print( '\t[SUB:ARTIST]', artist_ids )
+            MusicbrainzAlbum.include_artists( album )
 
 
 def test_MusicbrainzArtist():
-    try:
-        MusicbrainzArtist.__table__.drop(engine)
-    except Exception as e:
-        print('Error on dropping Musicbrainz table.')
-    finally:
-        MusicbrainzArtist.metadata.create_all(bind=engine)
-
-
     # Add a track
     path = '../../scratch/sqlschemas/musicbrainz/jsondumps/search_artists.json'
     with open(path, 'r') as f:
@@ -104,6 +91,17 @@ def test_query_artist():
 
 
 if __name__ == '__main__':
+    try:
+        MusicbrainzTrack.__table__.drop(engine)
+        MusicbrainzAlbum.__table__.drop(engine)
+        MusicbrainzArtist.__table__.drop(engine)
+        Include.__table__.drop(engine)
+    except Exception as e:
+        print('Error on dropping Musicbrainz table.')
+    finally:
+        Base.metadata.create_all(bind=engine)
+
+
     #=> Insert data
     test_MusicbrainzTrack()
     test_MusicbrainzAlbum()
