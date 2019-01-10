@@ -43,7 +43,7 @@ def test_SpotifyTrack():
         items = SpotifyTrack.add_resources(jsondata['items'])
         # Add reference
         Reference.add_resources(items)
-        # Bind relationships
+        # Bind each track's [album] & [artists]
         for track in jsondata['items']:
             SpotifyTrack.include_album( track )
             SpotifyTrack.include_artists( track )
@@ -59,7 +59,7 @@ def test_SpotifyAlbum():
         items = SpotifyAlbum.add_resources(jsondata['items'])
         # Add reference
         Reference.add_resources(items)
-        # Bind relationships
+        # Bind each album's [tracks] & [artists]
         for album in jsondata['items']:
             SpotifyAlbum.include_tracks( album )
             SpotifyAlbum.include_artists( album )

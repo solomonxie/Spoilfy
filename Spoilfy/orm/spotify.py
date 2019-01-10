@@ -118,9 +118,9 @@ class SpotifyTrack(Resource):
 
     @classmethod
     def include_album(cls, trackdata):
-        t = trackdata.get('track',{})
-        child = t.get('uri')
-        album = t.get('album', {})
+        track = trackdata.get('track',{})
+        child = track.get('uri')
+        album = track.get('album', {})
         parent = album.get('uri')
         #->
         Include(parent, child)
@@ -130,7 +130,8 @@ class SpotifyTrack(Resource):
         if not has:
             ab = session.merge( SpotifyAlbum({'album': album}) )
             print( '\t[APPENDIX:ALBUM]', ab.name, ab.uri )
-            session.commit()
+        # Submit changes
+        session.commit()
 
     @classmethod
     def include_artists(cls, trackdata):
@@ -138,15 +139,17 @@ class SpotifyTrack(Resource):
         child = track.get('uri')
         for r in track.get('artists', []):
             parent = r.get('uri')
-            # -> Add Foreign keys to Table [includes]
+            # ->
             Include(parent, child)
-            # -> Add binded artists data
+            # Check if album data exists
             has, = session.query(
                 exists().where( SpotifyArtist.uri==parent )
             ).first()
+            # Insert album data if not exists
             if not has:
                 artist = session.merge( SpotifyArtist(r) )
                 print( '\t[APPENDIX ARTIST]', artist.name, artist.uri )
+        # Submit changes
         session.commit()
 
 
@@ -197,16 +200,18 @@ class SpotifyAlbum(Resource):
         album = albumdata.get('album', {})
         parent = album.get('uri')
         for t in album.get('tracks',{}).get('items',[]):
-            # -> Add Foreign keys to Table [includes]
+            # ->
             child = t.get('uri')
             Include(parent, child)
-            # -> Add binded tracks data
+            # Check if track data exists
             has, = session.query(
                 exists().where( SpotifyTrack.uri == child )
             ).first()
+            # Insert track data if not exists
             if not has:
                 track = session.merge( SpotifyTrack({'track':t}) )
                 print( '\t[APPENDIX TRACK]', track.name, track.uri )
+        # Submit changes
         session.commit()
 
     @classmethod
@@ -215,15 +220,17 @@ class SpotifyAlbum(Resource):
         child = album.get('uri')
         for r in album.get('artists',[]):
             parent = r.get('uri')
-            # -> Add Foreign keys to Table [includes]
+            # ->
             Include(parent, child)
-            # -> Add binded artists data
+            # Check if artist data exists
             has, = session.query(
                 exists().where( SpotifyArtist.uri == r.get('uri') )
             ).first()
+            # Insert artist data if not exists
             if not has:
                 artist = session.merge( SpotifyArtist(r) )
                 print( '\t[APPENDIX ARTIST]', artist.name, artist.uri )
+        # Submit changes
         session.commit()
 
 
