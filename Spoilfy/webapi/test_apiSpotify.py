@@ -7,7 +7,7 @@
 import json
 import unittest
 
-from spotify import SpotifyAPI
+from apiSpotify import SpotifyAPI
 
 
 

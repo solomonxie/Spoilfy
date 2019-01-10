@@ -65,8 +65,12 @@ class Resource(SpoilfyORM):
     # ^ but you can't get it within the program
     # ^ so you have to explicitly give value to it
 
-    def __init__(self, *args, **kargs):
-        super().__init__(*args, **kargs)
+    def __new__(cls, *args, **kwargs):
+        # print( '[  OK  ]__new__ {}'.format(cls) )
+        return super().__new__(cls)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.query = session.query(self.__class__)
 
     @classmethod
