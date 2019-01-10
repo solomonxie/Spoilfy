@@ -67,42 +67,12 @@ class MusicbrainzTrack(Resource):
         )
 
     @classmethod
-    def include_albums(cls, trackdata):
-        child = 'musicbrainz:track:{}'.format( trackdata.get('id') )
-        for album in trackdata.get('releases', []):
-            parent = 'musicbrainz:album:{}'.format( album.get('id') )
-            print( '[INCLUDE:ALBUM]', parent, child )
-            #->
-            Include(parent, child)
-            # Check if album data exists
-            has, = session.query(
-                exists().where(MusicbrainzAlbum.uri==parent)
-            ).first()
-            # Insert album data if not exists
-            if not has:
-                ab = session.merge( MusicbrainzAlbum({'album': album}) )
-                print( '\t[APPENDIX:ALBUM]', ab.name, ab.uri )
-        # Submit changes
-        session.commit()
-
-    @classmethod
-    def include_artists(cls, trackdata):
-        child = 'musicbrainz:track:{}'.format( trackdata.get('id') )
-        for r in trackdata.get('artist-credit', []):
-            parent = 'musicbrainz:artist:' + r.get('artist',{}).get('id')
-            print( '[INCLUDE:artist]',parent )
-            # ->
-            Include(parent, child)
-            # Check if album data exists
-            has, = session.query(
-                exists().where( MusicbrainzArtist.uri==parent )
-            ).first()
-            # Insert album data if not exists
-            if not has:
-                artist = session.merge( MusicbrainzArtist(r) )
-                print( '\t[APPENDIX ARTIST]', artist.name, artist.uri )
-        # Submit changes
-        session.commit()
+    def get_sub_ids(cls, trackdata):
+        album_ids  = [ a.get('id')
+                for a in trackdata.get('releases', []) ]
+        artist_ids = [ a.get('artist', {}).get('id')
+                for a in trackdata.get('artist-credit', []) ]
+        return album_ids, artist_ids
 
 
 
@@ -153,22 +123,11 @@ class MusicbrainzAlbum(Resource):
         )
 
     @classmethod
-    def include_artists(cls, album):
-        child = 'musicbrainz:album:{}'.format( albumdata.get('id') ),
-        for r in albumdata.get('artist-credit', []):
-            parent = 'musicbrainz:artist:{}'.format( r.get('id') ),
-            # ->
-            Include(parent, child)
-            # Insert artist data if not exists
-            has, = session.query(
-                exists().where( MusicbrainzArtist.uri==parent )
-            ).first()
-            # Check if artist data exists
-            if not has:
-                artist = session.merge( MusicbrainzArtist(r) )
-                print( '\t[APPENDIX ARTIST]', artist.name, artist.uri )
-        # Submit changes
-        session.commit()
+    def get_sub_ids(cls, albumdata):
+        track_ids  = []
+        artist_ids = [ a.get('artist', {}).get('id')
+                for a in albumdata.get('artist-credit', []) ]
+        return track_ids, artist_ids
 
 
 
