@@ -30,15 +30,18 @@ def test_MusicbrainzTrack():
     finally:
         MusicbrainzTrack.metadata.create_all(bind=engine)
 
-
     # Add a track
     path = '../../scratch/sqlschemas/musicbrainz/jsondumps/search_recording.json'
     with open(path, 'r') as f:
         jsondata = json.loads( f.read() )
         # Create items
         items = MusicbrainzTrack.add_resources(jsondata['recordings'])
-        # Make NEW reference
+        # Add NEW NEW NEW reference
         Reference.add_resources(items)
+        # Bind each track's [albums] & [artists]
+        for track in jsondata['recordings']:
+            MusicbrainzTrack.include_albums( track )
+            # MusicbrainzTrack.include_artists( track )
 
 
 def test_MusicbrainzAlbum():
@@ -49,15 +52,17 @@ def test_MusicbrainzAlbum():
     finally:
         MusicbrainzAlbum.metadata.create_all(bind=engine)
 
-
     # Add a track
     path = '../../scratch/sqlschemas/musicbrainz/jsondumps/search_release.json'
     with open(path, 'r') as f:
         jsondata = json.loads( f.read() )
         # Create items
         items = MusicbrainzAlbum.add_resources(jsondata.get('releases',{}))
-        # Make NEW reference
+        # Make NEW NEW NEW reference
         Reference.add_resources(items)
+        # Bind each album's [artists] & [tracks]
+        for album in jsondata['recordings']:
+            MusicBrainzAlbum.include_artists( album )
 
 
 def test_MusicbrainzArtist():
@@ -98,8 +103,8 @@ def test_query_artist():
 if __name__ == '__main__':
     #=> Insert data
     test_MusicbrainzTrack()
-    test_MusicbrainzAlbum()
-    test_MusicbrainzArtist()
+    # test_MusicbrainzAlbum()
+    # test_MusicbrainzArtist()
 
     #=> Query
     # test_query_track()
