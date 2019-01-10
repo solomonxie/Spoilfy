@@ -40,35 +40,38 @@ def test_SpotifyTrack():
     # Add a track
     with open('../../scratch/sqlschemas/spotify/jsondumps-full/get_user_tracks.json', 'r') as f:
         jsondata = json.loads( f.read() )
-        # Create items
+        # Insert items to DB
         items = SpotifyTrack.add_resources(jsondata['items'])
         # Add reference
         Reference.add_resources(items)
         # Bind relationships
         for track in jsondata['items']:
             t = track.get('track',{})
-            # Bind album
-            spt_bind_album(t.get('uri'), t.get('album',{}))
-            # Bind artists
-            # SpotifyTrack.spt_bind_artists(track)
-            spt_bind_artists(t.get('uri'), t.get('artists',[]))
+            uri = t.get('uri')
+            album = t.get('album', {})
+            artists = t.get('artists',[])
+            # Do binding [album] & [artists]
+            spt_bind_album(uri, album)
+            spt_bind_artists(uri, artists)
 
 def test_SpotifyAlbum():
     print( '\n[  TEST  ] SpotifyAlbum' )
     # Add an album
     with open('../../scratch/sqlschemas/spotify/jsondumps-full/get_user_albums.json', 'r') as f:
         jsondata = json.loads( f.read() )
-        # item = jsondata['items'][0]['album']['tracks']['items'][0]
+        # Insert items to DB
         items = SpotifyAlbum.add_resources(jsondata['items'])
         # Add reference
         Reference.add_resources(items)
         # Bind relationships
         for album in jsondata['items']:
             b = album.get('album',{})
-            # Bind tracks
-            spt_bind_tracks(b.get('uri'), b.get('tracks',{}).get('items',[]))
-            # Bind artists
-            spt_bind_artists(b.get('uri'), b.get('artists',[]))
+            uri = b.get('uri')
+            tracks = b.get('tracks',{}).get('items',[])
+            artists = b.get('artists',[])
+            # Do binding [tracks] & [artists]
+            spt_bind_tracks(uri, tracks)
+            spt_bind_artists(uri, artists)
 
 
 
