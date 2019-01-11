@@ -20,7 +20,7 @@ def _get(url, params={}):
     # return xmltodict.parse(r.content)
     return r.json()
 
-def _qs(query):
+def _qstr(query):
     """[ Get formated query string ]
         example: 'name:bigbang AND country:Norway'
     """
@@ -28,11 +28,14 @@ def _qs(query):
         ['{0}:{1}'.format(k,v) for k,v in query.items()]
     )
 
+def _confidence():
+    pass
+
 # [Tracks]
 def _search_tracks(**query):
     return _get(
         url = '{}/recording'.format(ROOT),
-        params = {'query':_qs(query)}
+        params = {'query':_qstr(query)}
     )
 def best_match_track(**query):
     results = _search_tracks(**query)
@@ -47,7 +50,7 @@ def best_match_track(**query):
 def _search_album(**query):
     return _get(
         url = '{}/release'.format(ROOT),
-        params={'query':_qs(query)}
+        params={'query':_qstr(query)}
     )
 def best_match_album(**query):
     results = _search_album(**query)
@@ -62,7 +65,7 @@ def best_match_album(**query):
 def _search_artist(**query):
     return _get(
         url = '{}/artist'.format(ROOT),
-        params={'query':_qs(query)}
+        params={'query':_qstr(query)}
     )
 def best_match_artist(**query):
     results = _search_artist(**query)
