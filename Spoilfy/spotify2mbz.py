@@ -28,31 +28,102 @@ else:
 
 
 
-
-class Tagger():
-    pass
-
-
-class MapTrack(Tagger):
+class MapTrack:
     """ [ Refer a Spotify track to Musicbrainz ]
 
         Steps:
         - Read a spotify track's info
-        - Check if exists local mbz info
+        - Check if local mbz info exists
         - Request Musicbrainz API for track info
         - Make reference
 
     """
 
-    def __init__(self, track):
+    def __init__(self, track_uri):
         """
             Params:
-            - track: [type] -> SpotifyTrack
-
-            SQL:
-            SELECT *,COUNT(*) AS c FROM ... WHERE type="track" GROUP BY real_uri HAVING c >1
+            - track_uri: [type] -> String
         """
-        pass
+        # Check track's references [Spotify] & [Musicbrainz]
+        mbz,spt = self.check_references(track_uri)
+
+        # Retrive tags from MBZ for this track if not exists
+        if not mbz:
+            # Get this track's info
+            track, album, artist = self.get_track_info(track_uri)
+            print( '\t', track.name, album.name, artist.name )
+            # Tagging
+            mbz = self.tagging(spt.real_uri, track, album, artist)
+
+        self.tag = tag = mbz
+        print( '[TAG]', tag.name, tag.uri )
+
+    def check_references(self, track_uri):
+        print('[NOW]__check_references__')
+        query = session.query(Reference).filter(
+            Reference.uri == track_uri
+        )
+        print( '\t[REFs]', query.all() )
+
+        # Spotify
+        refs = list(filter(lambda o: o.provider=='spotify', query.all()))
+        spt = refs[0] if refs else None
+        print( '\t[SPT]', spt )
+
+        # Musicbrainz
+        refs = list(filter(lambda o: o.provider=='musicbrainz', query.all()))
+        mbz = refs[0] if refs else None
+        print( '\t[MBZ]', mbz )
+
+        return mbz, spt
+
+    def get_track_info(self, track_uri):
+        print('[NOW]__get_track_info__')
+        # -> Middlewares for Many-to-Many tables
+        trackAlbum = aliased(Include)
+        trackArtists = aliased(Include)
+        # -> Compose SQL
+        query = session.query(
+                SpotifyTrack, SpotifyAlbum, SpotifyArtist
+                #Debug: SpotifyTrack.name, SpotifyAlbum.name, SpotifyArtist.name
+            ).join(
+                trackAlbum, SpotifyTrack.uri == trackAlbum.child_uri
+            ).join(
+                SpotifyAlbum, SpotifyAlbum.uri == trackAlbum.parent_uri
+            ).join(
+                trackArtists, SpotifyTrack.uri == trackArtists.child_uri
+            ).join(
+                SpotifyArtist, SpotifyArtist.uri == trackArtists.parent_uri
+            ).filter(
+                SpotifyTrack.uri == track_uri
+            )
+        # print( query.all().__len__(), query )
+        # ->
+        return query.first()
+
+    def tagging(self, real_uri, track, album, artist):
+        print('[NOW]__tagging__')
+        results = MbzAPI.search_tracks(
+            name=track.name, release=album.name, artist=artist.name,
+        )
+
+        # Filter out the best match
+        matches = sorted(results.get('recordings'),
+            key=lambda o: o.get('score',0), reverse=True
+        )
+        best = matches[0] if matches else None
+
+        # Add best match to database
+        mbz = session.merge( MusicbrainzTrack(best) )
+        print( '\t[BEST]', mbz )
+
+        # Bind reference
+        ref = Reference(mbz, real_uri, mbz.score/100)
+        print( '\t[BIND]', ref, ' at ', ref.real_uri )
+        session.merge( ref )
+        session.commit()
+
+        return mbz
 
     @classmethod
     def mapTracks(cls, tracks):
@@ -97,6 +168,12 @@ def main():
 
     # Get track info
     track_uri = 'spotify:track:1WvIkhx5AxsA4N9TgkYSQG'
+    tag = MapTrack(track_uri)
+
+
+
+    return
+
     track, album, artist = test_get_track_info(track_uri)
     print( '\t', track.name, album.name, artist.name )
 
