@@ -165,7 +165,6 @@ if __name__ == '__main__':
         Include.__table__.drop(engine)
     except Exception as e:
         print('Error on dropping Spotify table.')
-        print( e )
     finally:
         Base.metadata.create_all(bind=engine)
 

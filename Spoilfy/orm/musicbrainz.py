@@ -67,6 +67,17 @@ class MusicbrainzTrack(Resource):
         )
 
     @classmethod
+    def loads(cls, jsondata):
+        # Insert items to DB
+        items = MusicbrainzTrack.add_resources(jsondata['recordings'])
+        # Add NEW NEW NEW reference
+        Reference.add_resources(items)
+        # Bind each track's [albums] & [artists]
+        for track in jsondata['recordings']:
+            MusicbrainzTrack.include_albums( track )
+            MusicbrainzTrack.include_artists( track )
+
+    @classmethod
     def get_sub_ids(cls, trackdata):
         album_ids  = [ a.get('id')
                 for a in trackdata.get('releases', []) ]
@@ -144,6 +155,16 @@ class MusicbrainzAlbum(Resource):
         )
 
     @classmethod
+    def loads(cls, jsondata):
+        # Insert items to DB
+        items = MusicbrainzAlbum.add_resources(jsondata.get('releases',{}))
+        # Make NEW NEW NEW reference
+        Reference.add_resources(items)
+        # Bind each album's [artists] & [tracks]
+        for album in jsondata['releases']:
+            MusicbrainzAlbum.include_artists( album )
+
+    @classmethod
     def get_sub_ids(cls, albumdata):
         track_ids  = []
         artist_ids = [ a.get('artist', {}).get('id')
@@ -200,6 +221,12 @@ class MusicbrainzArtist(Resource):
             tags = str(d.get('tags')),
         )
 
+    @classmethod
+    def loads(cls, jsondata):
+        # Insert items to DB
+        items = MusicbrainzArtist.add_resources(jsondata.get('artists',{}))
+        # Make NEW reference
+        Reference.add_resources(items)
 
 
 
