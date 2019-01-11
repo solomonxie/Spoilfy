@@ -27,37 +27,18 @@ else:
     import Spoilfy.webapi.apiMusicbrainz as MbzAPI
 
 
-
-class MapTrack:
-    """ [ Refer a Spotify track to Musicbrainz ]
+class Mapper:
+    """ [ Map Spotify item to Musicbrainz ]
 
         Steps:
-        - Read a spotify track's info
-        - Check if local mbz info exists
-        - Request Musicbrainz API for track info
-        - Make reference
-
+        - Read a spotify item's info
+        - Check if related local mbz info exists
+        - Request Musicbrainz API for the info
+        - Save the best match to Database
     """
 
-    def __init__(self, track_uri):
-        """
-            Params:
-            - track_uri: [type] -> String
-        """
-        # Check track's references [Spotify] & [Musicbrainz]
-        mbz,spt = self.check_references(track_uri)
-
-        # Retrive tags from MBZ for this track if not exists
-        if not mbz:
-            # Get this track's info
-            track, album, artist = self.get_track_info(track_uri)
-            print( '\t', track.name, album.name, artist.name )
-            # Tagging
-            self.tag = mbz = self.tagging(spt.real_uri, track, album, artist)
-            print( '[TAG]', mbz.name, mbz.uri )
-
-    def check_references(self, track_uri):
-        print('[NOW]__check_references__')
+    def get_references(self, track_uri):
+        print('[NOW]__get_references__')
         query = session.query(Reference).filter(
             Reference.uri == track_uri
         )
@@ -75,7 +56,43 @@ class MapTrack:
 
         return mbz, spt
 
-    def get_track_info(self, track_uri):
+    def get_spotify_info(self, uri):
+        print( '[get_spotify_info()] TO BE IMPLEMENTED' )
+
+    def get_musicbrainz_info(self, real_uri, **query):
+        print( '[get_musicbrainz_info()] TO BE IMPLEMENTED' )
+
+    @classmethod
+    def mapItems(cls, uris):
+        for uri in uris:
+            tag = cls(uri)
+
+
+
+class MapTrack(Mapper):
+    """ [ Map a Spotify track to Musicbrainz ]
+    """
+
+    def __init__(self, uri):
+        """
+            Params:
+            - uri [type:String]: spotify track's uri
+        """
+        # Check track's references [Spotify] & [Musicbrainz]
+        mbz,spt = self.get_references( uri )
+
+        # Retrive tags from MBZ for this track if not exists
+        if not mbz:
+            # Get this track's info
+            track, album, artist = self.get_spotify_info( uri )
+            print( '\t', track.name, album.name, artist.name )
+            # Tagging
+            self.tag = mbz = self.get_musicbrainz_info(
+                spt.real_uri, track, album, artist
+            )
+            print( '[TAG]', mbz.name, mbz.uri )
+
+    def get_spotify_info(self, uri):
         print('[NOW]__get_track_info__')
         # -> Middlewares for Many-to-Many tables
         trackAlbum = aliased(Include)
@@ -93,23 +110,68 @@ class MapTrack:
             ).join(
                 SpotifyArtist, SpotifyArtist.uri == trackArtists.parent_uri
             ).filter(
-                SpotifyTrack.uri == track_uri
+                SpotifyTrack.uri == uri
             )
         # print( query.all().__len__(), query )
         # ->
         return query.first()
 
-    def tagging(self, real_uri, track, album, artist):
+    def get_musicbrainz_info(self, real_uri, track, album, artist):
         print('[NOW]__tagging__')
         jsondata = MbzAPI.best_match_track(
             name=track.name, release=album.name, artist=artist.name,
         )
         return MusicbrainzTrack.load( jsondata, real_uri )
 
-    @classmethod
-    def mapTracks(cls, uris):
-        for uri in uris:
-            tag = cls(uri)
+
+
+class MapAlbum(Mapper):
+    """ [ Map a Spotify album to Musicbrainz ]
+    """
+
+    def __init__(self, uri):
+        """
+            Params:
+            - uri [type:String]: spotify album's uri
+        """
+        # Check track's references [Spotify] & [Musicbrainz]
+        mbz,spt = self.get_references( uri )
+
+        # Retrive tags from MBZ for this album if not exists
+        if not mbz:
+            # Get this track's info
+            album, artist = self.get_spotify_info( uri )
+            print( '\t', album.name, artist.name )
+            # Tagging
+            self.tag = mbz = self.get_musicbrainz_info(spt.real_uri, album, artist)
+            print( '[  TAG  ]', mbz.name, mbz.uri )
+
+    def get_spotify_info(self, uri):
+        print('[NOW]__get_track_info__')
+        # -> Middlewares for Many-to-Many tables
+        albumArtists = aliased(Include)
+        # -> Compose SQL
+        query = session.query(
+                SpotifyAlbum, SpotifyArtist
+                #Debug: SpotifyAlbum.name, SpotifyArtist.name
+            ).join(
+                albumArtists, SpotifyAlbum.uri == albumArtists.child_uri
+            ).filter(
+                SpotifyArtist.uri == albumArtists.parent_uri,
+                SpotifyAlbum.uri == uri
+            )
+        # print( query.all().__len__(), query )
+        # ->
+        return query.first()
+
+    def get_musicbrainz_info(self, real_uri, album, artist):
+        print('[NOW]__tagging__')
+        jsondata = MbzAPI.best_match_album(
+            name=album.name, artist=artist.name,
+        )
+        mbz = MusicbrainzAlbum.load( jsondata, real_uri )
+        return mbz
+
 
 
 
@@ -119,36 +181,15 @@ class MapTrack:
 # ==============================================================
 
 
-def test_get_track_info(track_uri):
-    # Compose SQL
-    # -> Middlewares for Many-to-Many tables
-    trackAlbum = aliased(Include)
-    trackArtists = aliased(Include)
-    # -> Query
-    query = session.query(
-            SpotifyTrack, SpotifyAlbum, SpotifyArtist
-            #Debug: SpotifyTrack.name, SpotifyAlbum.name, SpotifyArtist.name
-        ).join(
-            trackAlbum, SpotifyTrack.uri == trackAlbum.child_uri
-        ).join(
-            SpotifyAlbum, SpotifyAlbum.uri == trackAlbum.parent_uri
-        ).join(
-            trackArtists, SpotifyTrack.uri == trackArtists.child_uri
-        ).join(
-            SpotifyArtist, SpotifyArtist.uri == trackArtists.parent_uri
-        ).filter(
-            SpotifyTrack.uri == track_uri
-        )
-    # print( query, query.all().__len__() )
-    # ->
-    return query.first()
-
-
 
 
 def main():
+    # Map a track
     track_uri = 'spotify:track:1WvIkhx5AxsA4N9TgkYSQG'
     tag = MapTrack(track_uri)
+    # Map an album
+    album_uri = 'spotify:album:1xn54DMo2qIqBuMqHtUsFd'
+    tag = MapAlbum(album_uri)
 
 
 
