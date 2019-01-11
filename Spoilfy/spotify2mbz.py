@@ -53,10 +53,8 @@ class MapTrack:
             track, album, artist = self.get_track_info(track_uri)
             print( '\t', track.name, album.name, artist.name )
             # Tagging
-            mbz = self.tagging(spt.real_uri, track, album, artist)
-
-        self.tag = tag = mbz
-        print( '[TAG]', tag.name, tag.uri )
+            self.tag = mbz = self.tagging(spt.real_uri, track, album, artist)
+            print( '[TAG]', mbz.name, mbz.uri )
 
     def check_references(self, track_uri):
         print('[NOW]__check_references__')
@@ -103,31 +101,15 @@ class MapTrack:
 
     def tagging(self, real_uri, track, album, artist):
         print('[NOW]__tagging__')
-        results = MbzAPI.search_tracks(
+        jsondata = MbzAPI.best_match_track(
             name=track.name, release=album.name, artist=artist.name,
         )
-
-        # Filter out the best match
-        matches = sorted(results.get('recordings'),
-            key=lambda o: o.get('score',0), reverse=True
-        )
-        best = matches[0] if matches else None
-
-        # Add best match to database
-        mbz = session.merge( MusicbrainzTrack(best) )
-        print( '\t[BEST]', mbz )
-
-        # Bind reference
-        ref = Reference(mbz, real_uri, mbz.score/100)
-        print( '\t[BIND]', ref, ' at ', ref.real_uri )
-        session.merge( ref )
-        session.commit()
-
-        return mbz
+        return MusicbrainzTrack.load( jsondata, real_uri )
 
     @classmethod
-    def mapTracks(cls, tracks):
-        pass
+    def mapTracks(cls, uris):
+        for uri in uris:
+            tag = cls(uri)
 
 
 
@@ -165,47 +147,10 @@ def test_get_track_info(track_uri):
 
 
 def main():
-
-    # Get track info
     track_uri = 'spotify:track:1WvIkhx5AxsA4N9TgkYSQG'
     tag = MapTrack(track_uri)
 
 
-
-    return
-
-    track, album, artist = test_get_track_info(track_uri)
-    print( '\t', track.name, album.name, artist.name )
-
-    # Check existence
-    query = session.query(Reference).filter(
-        Reference.uri == track_uri
-    )
-    print( '\t[REFs]', query.all() )
-    refs = list(filter(lambda o: o.provider=='spotify', query.all()))
-    spt = refs[0] if refs else None
-    print( '\t[SPT]', spt )
-    refs = list(filter(lambda o: o.provider=='musicbrainz', query.all()))
-    mbz = refs[0] if refs else None
-    print( '\t[MBZ]', mbz )
-
-    if not mbz:
-        results = MbzAPI.search_tracks(
-            name=track.name, release=album.name, artist=artist.name,
-        )
-        # Filter out best match
-        matches = sorted(results.get('recordings'),
-            key=lambda o: o.get('score',0), reverse=True
-        )
-        best = matches[0] if matches else None
-        # Add best match to database
-        mbz = session.merge( MusicbrainzTrack(best) )
-        print( '\t[BEST]', mbz )
-        # Bind reference
-        ref = Reference(mbz, spt.real_uri, mbz.score/100)
-        print( '\t[BIND]', ref, ' at ', ref.real_uri )
-        session.merge( ref )
-        session.commit()
 
 if __name__ == '__main__':
     main()

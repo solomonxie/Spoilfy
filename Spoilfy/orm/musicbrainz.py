@@ -67,6 +67,18 @@ class MusicbrainzTrack(Resource):
         )
 
     @classmethod
+    def load(cls, jsondata, real_uri):
+        # Add ONE item to database
+        mbz = session.merge( cls(jsondata) )
+        print( '\t[INSERT]', mbz )
+        # Bind reference
+        ref = Reference(mbz, real_uri, mbz.score/100)
+        print( '\t[BIND]', ref, ' at ', ref.real_uri )
+        session.merge( ref )
+        session.commit()
+        return mbz
+
+    @classmethod
     def loads(cls, jsondata):
         # Insert items to DB
         items = MusicbrainzTrack.add_resources(jsondata['recordings'])
