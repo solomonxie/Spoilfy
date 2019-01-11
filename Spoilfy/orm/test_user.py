@@ -7,7 +7,7 @@
 import unittest
 import json
 
-from common import engine, session, Resource, Reference
+from common import Base, engine, session, Resource, Reference
 from user import UserAccount, UserResource
 from spotify import SpotifyAccount
 
@@ -18,14 +18,6 @@ from spotify import SpotifyAccount
 # ==============================================================
 
 def test_UserAccount():
-    try:
-        pass
-        UserAccount.__table__.drop(engine)
-    except Exception as e:
-        print('Error on dropping User table.')
-    finally:
-        UserAccount.metadata.create_all(bind=engine)
-
     # Add a User Account
     with open('./users.json', 'r') as f:
         jsondata = json.loads( f.read() )
@@ -46,14 +38,6 @@ def test_UserAccount():
 
 
 def test_UserResource():
-    try:
-        pass
-        UserResource.__table__.drop(engine)
-    except Exception as e:
-        print('Error on dropping User table.')
-    finally:
-        UserResource.metadata.create_all(bind=engine)
-
     # Get a user
     user = UserAccount.query.first()
 
@@ -74,5 +58,14 @@ def test_UserResource():
 
 
 if __name__ == '__main__':
+    try:
+        UserAccount.__table__.drop(engine)
+        UserResource.__table__.drop(engine)
+    except Exception as e:
+        print('Error on dropping User table.')
+    finally:
+        Base.metadata.create_all(bind=engine)
+
+    # -> TEST
     test_UserAccount()
     test_UserResource()

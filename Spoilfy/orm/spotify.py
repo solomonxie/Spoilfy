@@ -72,6 +72,13 @@ class SpotifyAccount(Resource):
     def get_user_by_id(cls, id):
         return cls.query.filter(cls.id == id).first()
 
+    @classmethod
+    def loads(cls, jsondata):
+        # Insert items to DB
+        item = SpotifyAccount(jsondata)
+        # Add reference
+        session.merge( Reference(item) )
+        session.commit
 
 
 class SpotifyTrack(Resource):
@@ -115,6 +122,18 @@ class SpotifyTrack(Resource):
             href = d.get('href'),
             external_urls = d.get('external_urls',{}).get('spotify'),
         )
+
+
+    @classmethod
+    def loads(cls, jsondata):
+        # Insert items to DB
+        items = cls.add_resources( jsondata.get('items',[]) )
+        # Add reference
+        Reference.add_resources(items)
+        # Bind each track's [album] & [artists]
+        for track in jsondata['items']:
+            cls.include_album( track )
+            cls.include_artists( track )
 
     @classmethod
     def include_album(cls, trackdata):
@@ -194,6 +213,17 @@ class SpotifyAlbum(Resource):
         )
 
     @classmethod
+    def loads(cls, jsondata):
+        # Insert items to DB
+        items = SpotifyAlbum.add_resources( jsondata.get('items',[]) )
+        # Add reference
+        Reference.add_resources(items)
+        # Bind each album's [tracks] & [artists]
+        for album in jsondata['items']:
+            SpotifyAlbum.include_tracks( album )
+            SpotifyAlbum.include_artists( album )
+
+    @classmethod
     def include_tracks(cls, albumdata):
         album = albumdata.get('album', {})
         parent = album.get('uri')
@@ -258,6 +288,13 @@ class SpotifyArtist(Resource):
             external_urls = d.get('external_urls',{}).get('spotify'),
         )
 
+    @classmethod
+    def loads(cls, jsondata):
+        # Insert items to DB
+        items = SpotifyArtist.add_resources(jsondata['artists']['items'])
+        # Add reference
+        Reference.add_resources(items)
+
 
 
 class SpotifyPlaylist(Resource):
@@ -303,6 +340,13 @@ class SpotifyPlaylist(Resource):
         session.merge( self )   #Merge existing data
         #-> Temporary: For test only to solve repeated ID issue.
         session.commit()  #-> Better to commit after multiple inserts
+
+    @classmethod
+    def loads(cls, jsondata):
+        # Insert items to DB
+        items = SpotifyPlaylist.add_resources(jsondata['items'])
+        # Add reference
+        Reference.add_resources(items)
 
     def __add_tracks(self, jsondata):
         return str(jsondata)

@@ -10,7 +10,7 @@ import unittest
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import exists
 
-from common import engine, Base, session, Resource, Reference
+from common import engine, Base, session, Resource, Reference, Include
 from user import UserAccount, UserResource
 from spotify import SpotifyAccount, SpotifyTrack, SpotifyAlbum, SpotifyArtist, SpotifyPlaylist
 
@@ -26,11 +26,7 @@ def test_SpotifyAccount():
     # Add an account
     with open('../../scratch/sqlschemas/spotify/jsondumps-full/get_user_profile.json', 'r') as f:
         jsondata = json.loads( f.read() )
-        # Create items
-        item = SpotifyAccount(jsondata)
-        # Add reference
-        session.merge( Reference(item) )
-        session.commit
+        SpotifyAccount.loads( jsondata )
 
 
 
@@ -39,15 +35,7 @@ def test_SpotifyTrack():
     # Add a track
     with open('../../scratch/sqlschemas/spotify/jsondumps-full/get_user_tracks.json', 'r') as f:
         jsondata = json.loads( f.read() )
-        # Insert items to DB
-        items = SpotifyTrack.add_resources(jsondata['items'])
-        # Add reference
-        Reference.add_resources(items)
-        # Bind each track's [album] & [artists]
-        for track in jsondata['items']:
-            SpotifyTrack.include_album( track )
-            SpotifyTrack.include_artists( track )
-
+        SpotifyTrack.loads( jsondata )
 
 
 def test_SpotifyAlbum():
@@ -55,14 +43,7 @@ def test_SpotifyAlbum():
     # Add an album
     with open('../../scratch/sqlschemas/spotify/jsondumps-full/get_user_albums.json', 'r') as f:
         jsondata = json.loads( f.read() )
-        # Insert items to DB
-        items = SpotifyAlbum.add_resources(jsondata['items'])
-        # Add reference
-        Reference.add_resources(items)
-        # Bind each album's [tracks] & [artists]
-        for album in jsondata['items']:
-            SpotifyAlbum.include_tracks( album )
-            SpotifyAlbum.include_artists( album )
+        SpotifyAlbum.loads( jsondata )
 
 
 
@@ -71,10 +52,7 @@ def test_SpotifyArtist():
     # Add an artist
     with open('../../scratch/sqlschemas/spotify/jsondumps-full/get_user_artists.json', 'r') as f:
         jsondata = json.loads( f.read() )
-        # Insert items to DB
-        items = SpotifyArtist.add_resources(jsondata['artists']['items'])
-        # Add reference
-        Reference.add_resources(items)
+        SpotifyArtist.loads( jsondata )
 
 
 
@@ -83,9 +61,7 @@ def test_SpotifyPlaylist():
     # Add a playlist
     with open('../../scratch/sqlschemas/spotify/jsondumps-full/get_user_playlists.json', 'r') as f:
         jsondata = json.loads( f.read() )
-        items = SpotifyPlaylist.add_resources(jsondata['items'])
-        # Add reference
-        Reference.add_resources(items)
+        SpotifyPlaylist.loads( jsondata )
 
 
 
@@ -189,6 +165,7 @@ if __name__ == '__main__':
         Include.__table__.drop(engine)
     except Exception as e:
         print('Error on dropping Spotify table.')
+        print( e )
     finally:
         Base.metadata.create_all(bind=engine)
 
