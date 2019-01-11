@@ -35,11 +35,20 @@ Explain:
 class MusicbrainzResource(Resource):
     __abstract__ = True
 
-    href = Column('href', String)
-    external_urls = Column('external_urls', String)
+    @classmethod
+    def load(cls, jsondata, real_uri):
+        # Add ONE item to database
+        mbz = session.merge( cls(jsondata) )
+        print( '\t[INSERT]', mbz )
+        # Bind reference
+        ref = Reference(mbz, real_uri, mbz.score/100)
+        print( '\t[BIND]', ref, ' at ', ref.real_uri )
+        session.merge( ref )
+        session.commit()
+        return mbz
 
 
-class MusicbrainzTrack(Resource):
+class MusicbrainzTrack(MusicbrainzResource):
     """ [ Track resources in Musicbrainz ]
     """
     __tablename__ = 'mbz_Tracks'
@@ -65,18 +74,6 @@ class MusicbrainzTrack(Resource):
             length = d.get('length'),
             video = d.get('video'),
         )
-
-    @classmethod
-    def load(cls, jsondata, real_uri):
-        # Add ONE item to database
-        mbz = session.merge( cls(jsondata) )
-        print( '\t[INSERT]', mbz )
-        # Bind reference
-        ref = Reference(mbz, real_uri, mbz.score/100)
-        print( '\t[BIND]', ref, ' at ', ref.real_uri )
-        session.merge( ref )
-        session.commit()
-        return mbz
 
     @classmethod
     def loads(cls, jsondata):
@@ -120,7 +117,7 @@ class MusicbrainzTrack(Resource):
         session.commit()
 
 
-class MusicbrainzAlbum(Resource):
+class MusicbrainzAlbum(MusicbrainzResource):
     """ [ Album resources in Musicbrainz ]
     """
     __tablename__ = 'mbz_Albums'
@@ -195,7 +192,7 @@ class MusicbrainzAlbum(Resource):
         session.commit()
 
 
-class MusicbrainzArtist(Resource):
+class MusicbrainzArtist(MusicbrainzResource):
     """ [ Artist resources in Musicbrainz ]
     """
     __tablename__ = 'mbz_Artists'

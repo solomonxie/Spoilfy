@@ -65,7 +65,7 @@ if __name__ == '__main__':
         MusicbrainzTrack.__table__.drop(engine)
         MusicbrainzAlbum.__table__.drop(engine)
         MusicbrainzArtist.__table__.drop(engine)
-        Include.__table__.drop(engine)
+        # Include.__table__.drop(engine)
     except Exception as e:
         print('Error on dropping Musicbrainz table.')
     finally:
