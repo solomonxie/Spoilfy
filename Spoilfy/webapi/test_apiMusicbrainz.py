@@ -18,28 +18,26 @@ import apiMusicbrainz as mbz
 
 def test_jsonapi():
     # Search Tracks
-    results = mbz.search_tracks(name='Pristine', country='NO')
-    for obj in results.get('recordings'):
-        print( '\t[TRACK]:',
-            obj.get('title'), obj.get('length'),
-            obj.get('id'), obj.get('score')
-        )
+    track = mbz.best_match_track(name='Pristine')
+    print( '\t[TRACK]:',
+        track.get('title'), track.get('length'),
+        track.get('id'), track.get('score')
+    )
 
     # Search Albums
-    results = mbz.search_albums(name='edendale', country='NO')
-    for obj in results.get('releases'):
-        print( '\t[ALBUM]:',
-            obj.get('title'), obj.get('date'),
-            obj.get('id'), obj.get('score')
-        )
+    album = mbz.best_match_album(name='edendale', country='NO')
+    print( '\t[ALBUM]:',
+        album.get('title'), album.get('date'),
+        album.get('id'), album.get('score')
+    )
 
     # Search Artists
-    results = mbz.search_artists(name='bigbang', country='NO')
-    for obj in results.get('artists'):
-        print( '\t[ARTIST]:',
-            obj.get('country'), obj.get('name'),
-            obj.get('id'), obj.get('score')
-        )
+    artist = mbz.best_match_artist(name='bigbang', country='NO')
+    print( '\t[ARTIST]:',
+        artist.get('country'), artist.get('name'),
+        artist.get('id'), artist.get('score')
+    )
+
 
 def test_xmlapi():
 

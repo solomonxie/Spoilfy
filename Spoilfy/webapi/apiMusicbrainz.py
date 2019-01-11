@@ -16,7 +16,7 @@ oparams = {'fmt':'json','limit':3,'inc':''}
 def _get(url, params={}):
     params.update(oparams)
     r = requests.get(url, headers=APP, params=params)
-    print( '[FETCHING]', params, r.url )
+    print( '[SEARCHING]', params, r.url )
     # return xmltodict.parse(r.content)
     return r.json()
 
@@ -29,22 +29,49 @@ def _qs(query):
     )
 
 # [Tracks]
-def search_tracks(**query):
-    return _get(ROOT+'/recording',
-        params={'query':_qs(query)}
+def _search_tracks(**query):
+    return _get(
+        url = '{}/recording'.format(ROOT),
+        params = {'query':_qs(query)}
     )
+def best_match_track(**query):
+    results = _search_tracks(**query)
+    # Filter out the best match
+    matches = sorted(results.get('recordings'),
+        key=lambda o: o.get('score',0), reverse=True
+    )
+    best = matches[0] if matches else None
+    return best
 
 # [Albums]
-def search_albums(**query):
-    return _get(ROOT+'/release',
+def _search_album(**query):
+    return _get(
+        url = '{}/release'.format(ROOT),
         params={'query':_qs(query)}
     )
+def best_match_album(**query):
+    results = _search_album(**query)
+    # Filter out the best match
+    matches = sorted(results.get('releases'),
+        key=lambda o: o.get('score',0), reverse=True
+    )
+    best = matches[0] if matches else None
+    return best
 
 # [Artists]
-def search_artists(**query):
-    return _get(ROOT+'/artist',
+def _search_artist(**query):
+    return _get(
+        url = '{}/artist'.format(ROOT),
         params={'query':_qs(query)}
     )
+def best_match_artist(**query):
+    results = _search_artist(**query)
+    # Filter out the best match
+    matches = sorted(results.get('artists'),
+        key=lambda o: o.get('score',0), reverse=True
+    )
+    best = matches[0] if matches else None
+    return best
 
 
 
