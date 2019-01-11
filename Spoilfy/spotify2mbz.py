@@ -93,7 +93,7 @@ class MapTrack(Mapper):
             print( '[TAG]', mbz.name, mbz.uri )
 
     def get_spotify_info(self, uri):
-        print('[NOW]__get_track_info__')
+        print('[NOW]__get_spotify_track_info__')
         # -> Middlewares for Many-to-Many tables
         trackAlbum = aliased(Include)
         trackArtists = aliased(Include)
@@ -147,7 +147,7 @@ class MapAlbum(Mapper):
             print( '[  TAG  ]', mbz.name, mbz.uri )
 
     def get_spotify_info(self, uri):
-        print('[NOW]__get_track_info__')
+        print('[NOW]__get_spotify_album_info__')
         # -> Middlewares for Many-to-Many tables
         albumArtists = aliased(Include)
         # -> Compose SQL
@@ -174,6 +174,48 @@ class MapAlbum(Mapper):
 
 
 
+class MapArtist(Mapper):
+    """ [ Map a Spotify artist to Musicbrainz ]
+    """
+
+    def __init__(self, uri):
+        """
+            Params:
+            - uri [type:String]: spotify artist's uri
+        """
+        # Check track's references [Spotify] & [Musicbrainz]
+        mbz,spt = self.get_references( uri )
+
+        # Retrive tags from MBZ for this album if not exists
+        if not mbz:
+            # Get this track's info
+            artist = self.get_spotify_info( uri )
+            print( '\t', artist.name )
+            # Tagging
+            self.tag = mbz = self.get_musicbrainz_info(spt.real_uri, artist)
+            print( '[  TAG  ]', mbz.name, mbz.uri )
+
+    def get_spotify_info(self, uri):
+        print('[NOW]__get_spotify_artist_info__')
+        # -> Middlewares for Many-to-Many tables
+        albumArtists = aliased(Include)
+        # -> Compose SQL
+        query = session.query( SpotifyArtist ).filter(
+            SpotifyArtist.uri == uri
+        )
+        # print( query.all().__len__(), query )
+        # ->
+        return query.first()
+
+    def get_musicbrainz_info(self, real_uri, artist):
+        print('[NOW]__tagging__')
+        jsondata = MbzAPI.best_match_artist(
+            name=artist.name
+        )
+        print( jsondata )
+        mbz = MusicbrainzArtist.load( jsondata, real_uri )
+        return mbz
+
 
 
 # ==============================================================
@@ -187,9 +229,14 @@ def main():
     # Map a track
     track_uri = 'spotify:track:1WvIkhx5AxsA4N9TgkYSQG'
     tag = MapTrack(track_uri)
+
     # Map an album
     album_uri = 'spotify:album:1xn54DMo2qIqBuMqHtUsFd'
     tag = MapAlbum(album_uri)
+
+    # Map an artist
+    artist_uri = 'spotify:artist:04gDigrS5kc9YWfZHwBETP'
+    tag = MapArtist(artist_uri)
 
 
 
