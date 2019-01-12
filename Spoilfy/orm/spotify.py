@@ -73,12 +73,13 @@ class SpotifyAccount(Resource):
         return cls.query.filter(cls.id == id).first()
 
     @classmethod
-    def loads(cls, jsondata):
+    def load(cls, jsondata):
         # Insert items to DB
         item = SpotifyAccount(jsondata)
         # Add reference
         session.merge( Reference(item) )
         session.commit
+        return item
 
 
 class SpotifyTrack(Resource):
@@ -129,11 +130,12 @@ class SpotifyTrack(Resource):
         # Insert items to DB
         items = cls.add_resources( jsondata.get('items',[]) )
         # Add reference
-        Reference.add_resources(items)
+        refs = Reference.add_resources(items)
         # Bind each track's [album] & [artists]
         for track in jsondata['items']:
             cls.include_album( track )
             cls.include_artists( track )
+        return refs
 
     @classmethod
     def include_album(cls, trackdata):
@@ -217,11 +219,12 @@ class SpotifyAlbum(Resource):
         # Insert items to DB
         items = SpotifyAlbum.add_resources( jsondata.get('items',[]) )
         # Add reference
-        Reference.add_resources(items)
+        refs = Reference.add_resources(items)
         # Bind each album's [tracks] & [artists]
         for album in jsondata['items']:
             SpotifyAlbum.include_tracks( album )
             SpotifyAlbum.include_artists( album )
+        return refs
 
     @classmethod
     def include_tracks(cls, albumdata):
@@ -293,7 +296,8 @@ class SpotifyArtist(Resource):
         # Insert items to DB
         items = SpotifyArtist.add_resources(jsondata['artists']['items'])
         # Add reference
-        Reference.add_resources(items)
+        refs = Reference.add_resources(items)
+        return refs
 
 
 
@@ -346,7 +350,8 @@ class SpotifyPlaylist(Resource):
         # Insert items to DB
         items = SpotifyPlaylist.add_resources(jsondata['items'])
         # Add reference
-        Reference.add_resources(items)
+        refs = Reference.add_resources(items)
+        return refs
 
     def __add_tracks(self, jsondata):
         return str(jsondata)
