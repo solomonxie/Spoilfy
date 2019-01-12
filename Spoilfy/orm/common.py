@@ -73,6 +73,12 @@ class Resource(SpoilfyORM):
         super().__init__(*args, **kwargs)
         self.query = session.query(self.__class__)
 
+    def __hash__(self):
+        return hash( (self.uri) )
+    def __eq__(self, other):
+        if not isinstance(other, type(self)): return NotImplemented
+        return self.uri == other.uri
+
     @classmethod
     def add_resources(cls, items):
         """[ Add Resources ]
