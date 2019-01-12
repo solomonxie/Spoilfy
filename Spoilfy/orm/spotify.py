@@ -90,6 +90,8 @@ class SpotifyTrack(Resource):
     #-> When is_local=True, the URI is NONE
     is_local = Column('is_local', Boolean)
 
+    albumdata = Column('albumdata', String)
+    artistdata = Column('artistdata', String)
     added_at = Column('added_at', Integer)
     disc_number = Column('disc_number', Integer)
     length = Column('length', Integer)
@@ -112,6 +114,8 @@ class SpotifyTrack(Resource):
             type = d.get('type'),
             provider = 'spotify',
             # -> Spotify specific
+            albumdata = str( d.get('album') ),
+            artistdata = str( d.get('artists') ),
             is_local = d.get('is_local'),
             added_at = jsondata.get('added_at'),
             disc_number = d.get('disc_number'),
@@ -160,7 +164,8 @@ class SpotifyTrack(Resource):
         t = trackdata.get('track', {})
         child = t.get('uri')
         refs = []
-        for r in t.get('artists', []):
+        artists = t.get('artists', [])
+        for r in artists:
             parent = r.get('uri')
             # ->
             Include(parent, child)
@@ -174,7 +179,10 @@ class SpotifyTrack(Resource):
                 # print( '\t[APPENDIX ARTIST]', artist.name, artist.uri )
         # Submit changes
         session.commit()
-        print( '\t[  APPENDIX  ] {} [ARTISTS].'.format(len(refs)) )
+        if refs:
+            print( '\t[  APPENDIX  ] {}/{} [ARTISTS].'.format(
+                len(refs), len(artists)
+            ))
         return refs
 
 
@@ -184,6 +192,8 @@ class SpotifyAlbum(Resource):
     """
     __tablename__ = 'spotify_Albums'
 
+    trackdata = Column('trackdata', String)
+    artistdata = Column('artistdata', String)
     release_date = Column('release_date', String)
     release_date_precision = Column('release_date_precision', String)
     total_tracks = Column('total_tracks', Integer)
@@ -207,6 +217,8 @@ class SpotifyAlbum(Resource):
             type = 'album',
             provider = 'spotify',
             # -> Spotify specific
+            trackdata = str( d.get('tracks') ),
+            artistdata = str( d.get('artists') ),
             album_type = d.get('album_type',''),
             release_date = d.get('release_date',''),
             release_date_precision = d.get('release_date_precision',''),
@@ -237,7 +249,8 @@ class SpotifyAlbum(Resource):
         album = albumdata.get('album', {})
         parent = album.get('uri')
         refs = []
-        for t in album.get('tracks',{}).get('items',[]):
+        tracks = album.get('tracks',{}).get('items',[])
+        for t in tracks:
             # ->
             child = t.get('uri')
             Include(parent, child)
@@ -246,12 +259,16 @@ class SpotifyAlbum(Resource):
                 exists().where( SpotifyTrack.uri == child )
             ).first()
             if not has:
+                t['album'] = album
                 track = session.merge( SpotifyTrack({'track':t}) )
                 refs.append( session.merge(Reference(track)) )
                 # print( '\t[APPENDIX TRACK]', track.name, track.uri )
         # Submit changes
         session.commit()
-        print( '\t[  APPENDIX  ] {} [TRACKS].'.format(len(refs)) )
+        if refs:
+            print( '\t[  APPENDIX  ] {}/{} [TRACKS].'.format(
+                len( refs ), len( tracks )
+            ))
         return refs
 
     @classmethod
@@ -259,7 +276,8 @@ class SpotifyAlbum(Resource):
         album = albumdata.get('album', {})
         child = album.get('uri')
         refs = []
-        for r in album.get('artists',[]):
+        artists = album.get('artists',[])
+        for r in artists:
             parent = r.get('uri')
             # ->
             Include(parent, child)
@@ -273,7 +291,10 @@ class SpotifyAlbum(Resource):
                 # print( '\t[APPENDIX ARTIST]', artist.name, artist.uri )
         # Submit changes
         session.commit()
-        print( '\t[  APPENDIX  ] {} [ARTISTS].'.format(len(refs)) )
+        if refs:
+            print( '\t[  APPENDIX  ] {}/{} [ARTISTS].'.format(
+                len(refs), len(artists)
+            ))
         return refs
 
 

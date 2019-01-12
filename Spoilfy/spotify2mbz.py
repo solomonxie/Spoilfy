@@ -93,7 +93,7 @@ class MapTrack(Mapper):
             print( '[TAG]', mbz.name, mbz.uri )
 
     def get_spotify_info(self, uri):
-        print('[NOW]__get_spotify_track_info__')
+        print('[NOW]__get_spt_info__:{}'.format(uri))
         # -> Middlewares for Many-to-Many tables
         trackAlbum = aliased(Include)
         trackArtists = aliased(Include)
@@ -223,21 +223,37 @@ class MapArtist(Mapper):
 # ==============================================================
 
 
-
-
-def main():
+def test_MapTrack():
     # Map a track
-    track_uri = 'spotify:track:1WvIkhx5AxsA4N9TgkYSQG'
+    track_uri = 'spotify:track:00POFFxoH7fUF3uBufe4tR'
     tag = MapTrack(track_uri)
+    return
 
+    # Map all existing spotify tracks
+    uris = session.query( SpotifyTrack.uri ).all()
+    for u, in uris:
+        print( u )
+        tag = MapTrack(u)
+        break
+
+    # tags = [ MapTrack(u) for u, in uris]
+
+def test_MapAlbum():
     # Map an album
     album_uri = 'spotify:album:1xn54DMo2qIqBuMqHtUsFd'
     tag = MapAlbum(album_uri)
 
+def test_MapArtist():
     # Map an artist
     artist_uri = 'spotify:artist:04gDigrS5kc9YWfZHwBETP'
     tag = MapArtist(artist_uri)
 
+
+
+def main():
+    test_MapTrack()
+    # test_MapAlbum()
+    # test_MapArtist()
 
 
 if __name__ == '__main__':
