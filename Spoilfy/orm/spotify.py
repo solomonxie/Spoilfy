@@ -139,25 +139,28 @@ class SpotifyTrack(Resource):
 
     @classmethod
     def include_album(cls, trackdata):
-        track = trackdata.get('track',{})
-        child = track.get('uri')
-        album = track.get('album', {})
-        parent = album.get('uri')
+        t = trackdata.get('track',{})
+        child = t.get('uri')
+        a = t.get('album', {})
+        parent = a.get('uri')
         #->
         Include(parent, child)
         # Insert album data if not exists
         has, = session.query(exists().where(SpotifyAlbum.uri==parent)).first()
         if not has:
-            ab = session.merge( SpotifyAlbum({'album': album}) )
-            print( '\t[APPENDIX:ALBUM]', ab.name, ab.uri )
-        # Submit changes
-        session.commit()
+            album = session.merge( SpotifyAlbum({'album': a}) )
+            ref = session.merge( Reference(album) )
+            # print( '\t[APPENDIX:ALBUM]', album.name, album.uri )
+            # Submit changes
+            session.commit()
+            return ref
 
     @classmethod
     def include_artists(cls, trackdata):
-        track = trackdata.get('track', {})
-        child = track.get('uri')
-        for r in track.get('artists', []):
+        t = trackdata.get('track', {})
+        child = t.get('uri')
+        refs = []
+        for r in t.get('artists', []):
             parent = r.get('uri')
             # ->
             Include(parent, child)
@@ -167,9 +170,12 @@ class SpotifyTrack(Resource):
             ).first()
             if not has:
                 artist = session.merge( SpotifyArtist(r) )
-                print( '\t[APPENDIX ARTIST]', artist.name, artist.uri )
+                refs.append( session.merge(Reference(artist)) )
+                # print( '\t[APPENDIX ARTIST]', artist.name, artist.uri )
         # Submit changes
         session.commit()
+        print( '\t[  APPENDIX  ] {} [ARTISTS].'.format(len(refs)) )
+        return refs
 
 
 
@@ -230,6 +236,7 @@ class SpotifyAlbum(Resource):
     def include_tracks(cls, albumdata):
         album = albumdata.get('album', {})
         parent = album.get('uri')
+        refs = []
         for t in album.get('tracks',{}).get('items',[]):
             # ->
             child = t.get('uri')
@@ -240,14 +247,18 @@ class SpotifyAlbum(Resource):
             ).first()
             if not has:
                 track = session.merge( SpotifyTrack({'track':t}) )
-                print( '\t[APPENDIX TRACK]', track.name, track.uri )
+                refs.append( session.merge(Reference(track)) )
+                # print( '\t[APPENDIX TRACK]', track.name, track.uri )
         # Submit changes
         session.commit()
+        print( '\t[  APPENDIX  ] {} [TRACKS].'.format(len(refs)) )
+        return refs
 
     @classmethod
     def include_artists(cls, albumdata):
         album = albumdata.get('album', {})
         child = album.get('uri')
+        refs = []
         for r in album.get('artists',[]):
             parent = r.get('uri')
             # ->
@@ -258,9 +269,12 @@ class SpotifyAlbum(Resource):
             ).first()
             if not has:
                 artist = session.merge( SpotifyArtist(r) )
-                print( '\t[APPENDIX ARTIST]', artist.name, artist.uri )
+                refs.append( session.merge(Reference(artist)) )
+                # print( '\t[APPENDIX ARTIST]', artist.name, artist.uri )
         # Submit changes
         session.commit()
+        print( '\t[  APPENDIX  ] {} [ARTISTS].'.format(len(refs)) )
+        return refs
 
 
 class SpotifyArtist(Resource):
