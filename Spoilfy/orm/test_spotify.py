@@ -26,7 +26,7 @@ def test_SpotifyAccount():
     # Add an account
     with open('../../scratch/sqlschemas/spotify/jsondumps-full/get_user_profile.json', 'r') as f:
         jsondata = json.loads( f.read() )
-        SpotifyAccount.loads( jsondata )
+        SpotifyAccount.load( jsondata )
 
 
 
