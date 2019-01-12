@@ -51,13 +51,14 @@ class UserResource(Resource):
         )
 
     @classmethod
-    def add_resources(cls, owner_uri, items):
-        all = [ session.merge( cls(owner_uri, a) ) for a in items ]
-        session.commit()
+    def add_resources(cls, owner_uri, references):
+        all = []
+        for ref in references:
+            all.append( session.merge( cls(owner_uri, ref) ) )
+            session.commit()
         print('[  OK  ] Inserted {} items to [{}].'.format(
             len(all), cls.__tablename__
         ))
-
         return all
 
 
@@ -85,6 +86,27 @@ class UserAccount(Resource):
             email = data.get('email'),
             password = data.get('password'),
         )
+
+    @classmethod
+    def loads(cls, jsondata):
+        # Create accounts
+        accounts = cls.add_resources(jsondata['users'])
+
+        # Initial add reference
+        Reference.add_resources(accounts)
+
+        # Bind user account to provider accounts
+        # spotify_acc = SpotifyAccount.query.filter().first()
+        for acc in SpotifyAccount.query.filter().all():
+            user_acc = acc
+            #
+            #-> It's critical here we use app account's URI as real_uri
+            #   because we want the User Account to be the real existence.
+            session.merge( Reference(acc, user_acc.uri, 1) )
+        session.commit()
+
+    def bind_resources(self, references):
+        UserResource.add_resources( self.uri, references )
 
 
 

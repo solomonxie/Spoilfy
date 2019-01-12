@@ -9,7 +9,7 @@ import json
 
 from common import Base, engine, session, Resource, Reference
 from user import UserAccount, UserResource
-from spotify import SpotifyAccount
+from spotify import SpotifyAccount, SpotifyTrack, SpotifyAlbum, SpotifyArtist, SpotifyPlaylist
 
 
 
@@ -17,24 +17,12 @@ from spotify import SpotifyAccount
 # >>>>>>>>>>>>>>>>>>>>>>[    TEST     ] >>>>>>>>>>>>>>>>>>>>>>>>
 # ==============================================================
 
+
 def test_UserAccount():
     # Add a User Account
     with open('./users.json', 'r') as f:
         jsondata = json.loads( f.read() )
-        # Create accounts
-        accounts = UserAccount.add_resources(jsondata['users'])
-        # Initial add reference
-        Reference.add_resources(accounts)
-        # Bind user account to provider accounts
-        # spotify_acc = SpotifyAccount.query.filter().first()
-        for acc in SpotifyAccount.query.filter().all():
-            user_acc = acc
-            #
-            #-> It's critical here we use app account's URI as real_uri
-            #   because we want the User Account to be the real existence.
-            session.merge( Reference(acc,user_acc.uri,1) )
-        session.commit()
-
+        UserAccount.loads( jsondata )
 
 
 def test_UserResource():
@@ -55,6 +43,32 @@ def test_UserResource():
     UserResource.add_resources(user.uri, items)
 
 
+def test_UserResource2():
+    # Get a user
+    me = UserAccount.query.first()
+
+    t = '../../scratch/sqlschemas/spotify/jsondumps-full/get_user_tracks.json'
+    a = '../../scratch/sqlschemas/spotify/jsondumps-full/get_user_albums.json'
+    r = '../../scratch/sqlschemas/spotify/jsondumps-full/get_user_artists.json'
+    p = '../../scratch/sqlschemas/spotify/jsondumps-full/get_user_playlists.json'
+
+    with open(t, 'r') as f:
+        jsondata = json.loads( f.read() )
+        refs = SpotifyTrack.loads( jsondata )
+        me.bind_resources( refs )
+    with open(a, 'r') as f:
+        jsondata = json.loads( f.read() )
+        refs = SpotifyAlbum.loads( jsondata )
+        me.bind_resources( refs )
+    with open(r, 'r') as f:
+        jsondata = json.loads( f.read() )
+        refs = SpotifyArtist.loads( jsondata )
+        me.bind_resources( refs )
+    with open(p, 'r') as f:
+        jsondata = json.loads( f.read() )
+        refs = SpotifyPlaylist.loads( jsondata )
+        me.bind_resources( refs )
+
 
 
 if __name__ == '__main__':
@@ -68,4 +82,4 @@ if __name__ == '__main__':
 
     # -> TEST
     test_UserAccount()
-    test_UserResource()
+    test_UserResource2()
