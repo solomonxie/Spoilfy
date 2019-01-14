@@ -15,9 +15,9 @@ from sqlalchemy import exists
 # Package Import Hint: $ python -m Spoilfy.orm.spotify
 #-> TEST only
 if __name__ in ['__main__', 'spotify']:
-    from common import Base, engine, session, Resource, Reference, Include
+    from common import Base, engine, session, Resource
 else:
-    from orm.common import Base, engine, session, Resource, Reference
+    from orm.common import Base, engine, session, Resource
 
 
 # ==============================================================
@@ -28,14 +28,6 @@ Provider:
     Spotify is a [MediaProvider].
 Explain:
 """
-
-
-class SpotifyResource(Resource):
-    __abstract__ = True
-
-    href = Column('href', String)
-    external_urls = Column('external_urls', String)
-
 
 
 class SpotifyAccount(Resource):
