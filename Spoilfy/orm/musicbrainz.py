@@ -100,7 +100,7 @@ class MusicbrainzTrack(MusicbrainzResource):
         for album in trackdata.get('releases', []):
             parent = 'musicbrainz:album:{}'.format( album.get('id') )
             #->
-            Include(parent, child)
+            inc = session.merge( Include(parent, child) )
             print( '[INCLUDE:TRACK-ALBUM]', parent, child )
         # Submit changes
         session.commit()
@@ -111,7 +111,7 @@ class MusicbrainzTrack(MusicbrainzResource):
         for r in trackdata.get('artist-credit', []):
             parent = 'musicbrainz:artist:' + r.get('artist',{}).get('id')
             # ->
-            Include(parent, child)
+            inc = session.merge( Include(parent, child) )
             print( '[INCLUDE:TRACK-ARTIST]', parent, child )
         # Submit changes
         session.commit()
@@ -186,7 +186,7 @@ class MusicbrainzAlbum(MusicbrainzResource):
         for r in albumdata.get('artist-credit', []):
             parent = 'musicbrainz:artist:' + r.get('artist',{}).get('id')
             # ->
-            Include(parent, child)
+            inc = session.merge( Include(parent, child) )
             print( '[INCLUDE:ALBUM-ARTIST]', parent, child )
         # Submit changes
         session.commit()
