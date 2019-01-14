@@ -43,22 +43,28 @@ else:
 # >>>>>>>>>>>>>>>>>>>>>>[    TEST     ] >>>>>>>>>>>>>>>>>>>>>>>>
 # ==============================================================
 
+
 def test_SptOpsAccount():
     print( '\n[  TEST  ] SptOpsAccount' )
     # Add an account
-    with open('../scratch/sqlschemas/spotify/jsondumps-full/get_user_profile.json', 'r') as f:
-        jsondata = json.loads( f.read() )
-        SptOpsAccount.load( jsondata )
+    # with open('../scratch/sqlschemas/spotify/jsondumps-full/get_user_profile.json', 'r') as f:
+        # jsondata = json.loads( f.read() )
+    me = SptOpsAccount.get_my_profile()
+    print( '\t Me:', me.name )
 
 
 
 def test_SptOpsTrack():
     print( '\n[  TEST  ] SptOpsTrack' )
     # Add a track
-    with open('../scratch/sqlschemas/spotify/jsondumps-full/get_user_tracks.json', 'r') as f:
-        jsondata = json.loads( f.read() )
-        tracks = SptOpsTrack.loads( jsondata )
+    # with open('../scratch/sqlschemas/spotify/jsondumps-full/get_user_tracks.json', 'r') as f:
+        # jsondata = json.loads( f.read() )
+        # tracks = SptOpsTrack.loads( jsondata )
+        # print( '[  OK  ] Inserted {} User tracks.'.format(len(tracks)) )
+    for page in SptOpsTrack.API.get_my_tracks():
+        tracks = SptOpsTrack.loads( page )
         print( '[  OK  ] Inserted {} User tracks.'.format(len(tracks)) )
+        break
 
 
 def test_SptOpsAlbum():
@@ -91,95 +97,6 @@ def test_SptOpsPlaylist():
 
 
 
-def test_query_track():
-    print( '\n[  TEST  ] Query Track' )
-    # print( SptOpsTrack.query.all() )
-
-    # Get a user
-    me = UserAccount.query.first()
-    print( '[USER]', me.uri )
-
-    # Search all tracks of a user
-    query = session.query(
-        SptOpsTrack.name
-    ).filter(
-        UserResource.owner_uri == me.uri,
-        UserResource.type == 'track',
-        UserResource.real_uri == Reference.real_uri,
-        Reference.uri == SptOpsTrack.uri
-    )
-    print( '\t[SQL]', query )
-    results = query.all()
-    print( '[RESULTS]', len(results) )
-    for name in results:
-        print( '[NAME]', name )
-
-
-def test_query_album():
-    print( '\n[  TEST  ] Query Album' )
-    # Get a user
-    me = UserAccount.query.first()
-    print( '[USER]', me.uri )
-
-    # search all albums of a user
-    query = session.query(
-        SptOpsAlbum.name
-    ).filter(
-        UserResource.owner_uri == me.uri,
-        UserResource.type == 'album',
-        Reference.real_uri == UserResource.real_uri,
-        SptOpsAlbum.uri == Reference.uri
-    )
-    print( '\t[SQL]', query )
-    results = query.all()
-    print( '[RESULTS]', len(results) )
-    for name in results:
-        print( '[NAME]', name )
-
-
-def test_query_artist():
-    print( '\n[  TEST  ] Query Artist' )
-    # Get a user
-    me = UserAccount.query.first()
-    print( '[USER]', me.uri )
-
-    # search all albums of a user
-    query = session.query(
-        SptOpsArtist.name
-    ).filter(
-        UserResource.owner_uri == me.uri,
-        UserResource.type == 'artist',
-        Reference.real_uri == UserResource.real_uri,
-        SptOpsArtist.uri == Reference.uri
-    )
-    print( '\t[SQL]', query )
-    results = query.all()
-    print( '[RESULTS]', len(results) )
-    for name in results:
-        print( '[NAME]', name )
-
-
-def test_query_playlist():
-    print( '\n[  TEST  ] Query Playlist' )
-    # Get a user
-    me = UserAccount.query.first()
-    print( '[USER]', me.uri )
-
-    # search all albums of a user
-    query = session.query(
-        SptOpsPlaylist.name
-    ).filter(
-        UserResource.owner_uri == me.uri,
-        UserResource.type == 'playlist',
-        Reference.real_uri == UserResource.real_uri,
-        SptOpsPlaylist.uri == Reference.uri
-    )
-    print( '\t[SQL]', query )
-    results = query.all()
-    print( '[RESULTS]', len(results) )
-    for name in results:
-        print( '[NAME]', name )
-
 
 if __name__ == '__main__':
     try:
@@ -196,16 +113,10 @@ if __name__ == '__main__':
         Base.metadata.create_all(bind=engine)
 
     #=> Insert data
-    test_SptOpsAccount()
-    test_SptOpsTrack()
-    test_SptOpsAlbum()
-    test_SptOpsArtist()
+    # test_SptOpsAccount()
+    # test_SptOpsTrack()
+    # test_SptOpsAlbum()
+    # test_SptOpsArtist()
     test_SptOpsPlaylist()
-
-    #=> Query
-    # test_query_track()
-    # test_query_album()
-    # test_query_artist()
-    # test_query_playlist()
 
 

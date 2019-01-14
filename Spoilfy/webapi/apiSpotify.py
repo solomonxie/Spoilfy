@@ -36,6 +36,7 @@ class SpotifyAPI(WebAPI):
         return jsondata
 
     def _iterate(self, url, key=None):
+        print( url )
         r = requests.get(url, headers=self.headers)
         jsondata = r.json() if r else None
         yield jsondata

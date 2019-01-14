@@ -51,7 +51,6 @@ def main():
         tracks = [ o['track']['name'] for o in page['items'] ]
         print( '\t', len(tracks), 'tracks' )
 
-    return
 
     # Fetch my profile
     print('[FETCHING] Profile...')
