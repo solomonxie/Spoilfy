@@ -131,6 +131,7 @@ class SptOpsTrack(SptOps):
                 artist = session.merge( SpotifyArtist(artistdata) )
                 refs.append( session.merge(Reference(artist)) )
                 print( '\t[  APPENDIX  ] {} [ARTISTS].'.format(refs) )
+            # break
         session.commit()
 
         return refs
@@ -173,9 +174,10 @@ class SptOpsAlbum(SptOps):
                 trackdata = {'track': o}
                 refs.append( SptOpsTrack.load(trackdata) )
                 SptOpsTrack.include_artists(trackdata)
-
+            # break
         print( '\t[  APPENDIX  ] {} [TRACKS].'.format(len(refs)) )
         session.commit()
+
         return refs
 
     @classmethod
@@ -196,7 +198,9 @@ class SptOpsAlbum(SptOps):
                 artist = session.merge( SpotifyArtist(artistdata) )
                 refs.append( session.merge(Reference(artist)) )
                 print( '\t[  APPENDIX  ] {} [ARTISTS].'.format(refs) )
+            # break
         session.commit()
+
         return refs
 
 
@@ -212,6 +216,7 @@ class SptOpsArtist(SptOps):
         album = session.merge( cls.ORM(jsondata) )
         ref = session.merge( Reference(album) )
         session.commit()
+        return ref
 
     @classmethod
     def loads(cls, jsondata):
@@ -253,10 +258,10 @@ class SptOpsPlaylist(SptOps):
                 refs.append( SptOpsTrack.load(o) )
                 # SptOpsTrack.include_album(o)
                 # SptOpsTrack.include_artists(o)
-            break
-
+            # break
         print( '\t[  APPENDIX  ] {} [TRACKS].'.format(len(refs)) )
         session.commit()
+
         return refs
 
 

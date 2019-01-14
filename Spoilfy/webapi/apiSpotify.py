@@ -60,6 +60,8 @@ class SpotifyAPI(WebAPI):
             '{}/me/following?type=artist'.format(self.ROOT),
             key='artists'
         )
+    def get_my_playlists(self):
+        return self._iterate('{}/me/playlists'.format(self.ROOT))
 
     def get_a_track(self, id):
         return self._get('{}/tracks/{}'.format(self.ROOT,id))
