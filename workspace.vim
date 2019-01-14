@@ -8,7 +8,7 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
 endif
 set shortmess=aoO
 badd +241 ~/Workspace/repos/Spoilfy/Spoilfy/spotify2mbz.py
-badd +141 ~/Workspace/repos/Spoilfy/Spoilfy/orm/spotify.py
+badd +1 ~/Workspace/repos/Spoilfy/Spoilfy/orm/spotify.py
 badd +19 ~/Workspace/repos/Spoilfy/Spoilfy/orm/test_spotify.py
 badd +1 ~/Workspace/repos/Spoilfy/Spoilfy/orm/musicbrainz.py
 badd +1 ~/Workspace/repos/Spoilfy/Spoilfy/orm/test_musicbrainz.py
@@ -20,7 +20,9 @@ badd +1 ~/Workspace/repos/Spoilfy/Spoilfy/orm/user.py
 badd +1 ~/Workspace/repos/Spoilfy/Spoilfy/orm/test_user.py
 badd +1 /private/tmp/abc.py
 badd +1 ~/Workspace/repos/Spoilfy/Spoilfy/webapi/apiSpotify.py
-badd +0 ~/Workspace/repos/Spoilfy/Spoilfy/webapi/test_apiSpotify.py
+badd +1 ~/Workspace/repos/Spoilfy/Spoilfy/webapi/test_apiSpotify.py
+badd +1 ~/Workspace/repos/Spoilfy/Spoilfy/sptOps.py
+badd +0 ~/Workspace/repos/Spoilfy/Spoilfy/test_sptOps.py
 argglobal
 silent! argdel *
 $argadd spotify2mbz.py
@@ -44,11 +46,11 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=1
 setlocal fen
-let s:l = 118 - ((35 * winheight(0) + 19) / 39)
+let s:l = 1 - ((0 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-118
+1
 normal! 017|
 wincmd w
 argglobal
@@ -346,7 +348,53 @@ normal! 030|
 wincmd w
 exe 'vert 1resize ' . ((&columns * 85 + 85) / 170)
 exe 'vert 2resize ' . ((&columns * 84 + 85) / 170)
-tabnext 1
+tabedit ~/Workspace/repos/Spoilfy/Spoilfy/sptOps.py
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
+set nosplitbelow
+wincmd t
+set winminheight=1 winminwidth=1 winheight=1 winwidth=1
+exe 'vert 1resize ' . ((&columns * 85 + 85) / 170)
+exe 'vert 2resize ' . ((&columns * 84 + 85) / 170)
+argglobal
+setlocal fdm=syntax
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=1
+setlocal fen
+let s:l = 1 - ((0 * winheight(0) + 19) / 39)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+1
+normal! 0
+wincmd w
+argglobal
+if bufexists('~/Workspace/repos/Spoilfy/Spoilfy/test_sptOps.py') | buffer ~/Workspace/repos/Spoilfy/Spoilfy/test_sptOps.py | else | edit ~/Workspace/repos/Spoilfy/Spoilfy/test_sptOps.py | endif
+setlocal fdm=syntax
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=1
+setlocal fen
+let s:l = 9 - ((8 * winheight(0) + 19) / 39)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+9
+normal! 0
+wincmd w
+exe 'vert 1resize ' . ((&columns * 85 + 85) / 170)
+exe 'vert 2resize ' . ((&columns * 84 + 85) / 170)
+tabnext 8
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif

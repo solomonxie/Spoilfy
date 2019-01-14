@@ -5,6 +5,7 @@
 # DEPENDENCIES:
 
 import uuid
+import json
 
 #-------[  Import From Other Modules   ]---------
 #-> TEST only
@@ -30,8 +31,13 @@ else:
 # >>>>>>>>>>>>>>>[    Operator Classes     ] >>>>>>>>>>>>>>>>>
 # ==============================================================
 
+with open('./webapi/.spotify_app.json', 'r') as f:
+    data = json.loads( f.read() )
+
+_api = SpotifyAPI(data)
 
 class SptOps:
+    API = _api
     pass
 
 
@@ -50,13 +56,17 @@ class SptOpsAccount(SptOps):
         return cls.ORM.query.filter(cls.ORM.id == id).first()
 
     @classmethod
+    def get_my_profile(cls):
+        return SptOpsAccount.load( cls.API.get_my_profile() )
+
+    @classmethod
     def load(cls, jsondata):
         # Insert items to DB
-        item = cls.ORM(jsondata)
+        user = session.merge( cls.ORM(jsondata) )
         # Add reference
-        session.merge( Reference(item) )
+        session.merge( Reference(user) )
         session.commit
-        return item
+        return user
 
 
 
@@ -70,30 +80,36 @@ class SptOpsTrack(SptOps):
     def load(cls, jsondata):
         track = session.merge( cls.ORM(jsondata) )
         ref = session.merge( Reference(track) )
-        # cls.include_album( jsondata )
-        # cls.include_artists( jsondata )
         session.commit()
+        return ref
 
     @classmethod
     def loads(cls, jsondata):
-        return [ cls.load(o) for o in jsondata.get('items',[]) ]
+        all = []
+        for o in jsondata.get('items', []):
+            all.append( cls.load(o) )
+            cls.include_album(o)
+            cls.include_artists(o)
+        return all
 
     @classmethod
     def include_album(cls, trackdata):
         t = trackdata.get('track',{})
-        child = t.get('uri')
+        child = t.get('uri', '')
         a = t.get('album', {})
-        parent = a.get('uri')
-        # Insert album data if not exists
-        album = session.query( SpotifyAlbum ).filter(
+        parent = a.get('uri', '')
+
+        inc = session.merge( Include(parent, child) )
+        album = session.query(SpotifyAlbum).filter(
             SpotifyAlbum.uri == parent
         ).first()
-
+        # Retrive from API if not exists
         if not album:
-            SpotifyAlbum.load( {'album': a} )
-            session.commit()
-        else:
-            print( '\t[  JUMPED  ] Already has {}'.format(parent) )
+            albumdata = { 'album': cls.API.get_a_album(a.get('id')) }
+            album = session.merge( SpotifyAlbum(albumdata) )
+            ref = session.merge( Reference(album) )
+            print( '\t[  APPENDIX  ] {} [ALBUM].'.format(ref) )
+        session.commit()
 
         return album
 
@@ -101,26 +117,22 @@ class SptOpsTrack(SptOps):
     def include_artists(cls, trackdata):
         t = trackdata.get('track', {})
         child = t.get('uri')
+
         refs = []
         for r in t.get('artists', []):
             parent = r.get('uri')
-            # Insert album data if not exists
-            artist = session.query( SpotifyAlbum ).filter(
+            inc = session.merge( Include(parent, child) )
+            artist = session.query(SpotifyArtist).filter(
                 SpotifyArtist.uri == parent
             ).first()
+            # Retrive from API if not exists
             if not artist:
-                inc = session.merge( Include(parent, child) )
-                artist = session.merge( SpotifyArtist(r) )
+                artistdata = cls.API.get_a_artist( r.get('id') )
+                artist = session.merge( SpotifyArtist(artistdata) )
                 refs.append( session.merge(Reference(artist)) )
-                # print( '\t[APPENDIX ARTIST]', artist.name, artist.uri )
-            else:
-                print( '\t[  JUMPED  ] Already has {}'.format(parent) )
-        # Submit changes
+                print( '\t[  APPENDIX  ] {} [ARTISTS].'.format(refs) )
         session.commit()
-        if refs:
-            print( '\t[  APPENDIX  ] {}/{} [ARTISTS].'.format(
-                len(refs), len( t.get('artists', []) )
-            ))
+
         return refs
 
 
@@ -136,42 +148,34 @@ class SptOpsAlbum(SptOps):
     def load(cls, jsondata):
         album = session.merge( cls.ORM(jsondata) )
         ref = session.merge( Reference(album) )
-        # cls.include_tracks( jsondata )
-        # cls.include_artists( jsondata )
         session.commit()
+        return ref
 
     @classmethod
     def loads(cls, jsondata):
-        return [ cls.load(o) for o in jsondata.get('items',[]) ]
+        all = []
+        for o in jsondata.get('items', []):
+            all.append( cls.load(o) )
+            cls.include_tracks(o)
+            cls.include_artists(o)
+        return all
 
     @classmethod
     def include_tracks(cls, albumdata):
-        refs = []
         album = albumdata.get('album', {})
-        artists = album.get('artists',[])
         parent = album.get('uri')
-        for t in album.get('tracks',{}).get('items',[]):
-            child = t.get('uri')
-            track = session.query( SpotifyTrack ).filter(
-                SpotifyTrack.uri == child
-            ).first()
-            # Insert track data if not exists
-            if not track:
-                d = {'track':t, 'album':album, 'artists':artists}
+        refs = []
+        for page in cls.API.get_album_tracks(album.get('id')):
+            for o in page.get('items', []):
+                child = o.get('uri')
+                if not child: continue
                 inc = session.merge( Include(parent, child) )
-                track = session.merge( SpotifyTrack(d) )
-                refs.append( session.merge(Reference(track)) )
-                SpotifyTrack.include_album( d )
-                SpotifyTrack.include_artists( d )
-                # print( '\t[APPENDIX TRACK]', track.name, track.uri )
-            else:
-                print( '\t[  JUMPED  ] Already has {}'.format(child) )
-        # Submit changes
+                trackdata = {'track': o}
+                refs.append( SptOpsTrack.load(trackdata) )
+                SptOpsTrack.include_artists(trackdata)
+
+        print( '\t[  APPENDIX  ] {} [TRACKS].'.format(len(refs)) )
         session.commit()
-        if refs:
-            print( '\t[  APPENDIX  ] {}/{} [TRACKS].'.format(
-                len( refs ), len( album.get('tracks',{}).get('items',[]) )
-            ))
         return refs
 
     @classmethod
@@ -182,23 +186,17 @@ class SptOpsAlbum(SptOps):
         artists = album.get('artists',[])
         for r in artists:
             parent = r.get('uri')
+            inc = session.merge( Include(parent, child) )
             artist = session.query( SpotifyArtist ).filter(
-                SpotifyArtist.uri == r.get('uri')
+                SpotifyArtist.uri == parent
             ).first()
             # Insert artist data if not exists
             if not artist:
-                inc = session.merge( Include(parent, child) )
-                artist = session.merge( SpotifyArtist(r) )
+                artistdata = cls.API.get_a_artist( r.get('id') )
+                artist = session.merge( SpotifyArtist(artistdata) )
                 refs.append( session.merge(Reference(artist)) )
-                # print( '\t[APPENDIX ARTIST]', artist.name, artist.uri )
-            else:
-                print( '\t[  JUMPED  ] Already has {}'.format(parent) )
-        # Submit changes
+                print( '\t[  APPENDIX  ] {} [ARTISTS].'.format(refs) )
         session.commit()
-        if refs:
-            print( '\t[  APPENDIX  ] {}/{} [ARTISTS].'.format(
-                len(refs), len(artists)
-            ))
         return refs
 
 
@@ -230,21 +228,36 @@ class SptOpsPlaylist(SptOps):
 
     @classmethod
     def load(cls, jsondata):
-        playlist = session.merge( cls.ORM(cls.include_tracks(jsondata)) )
+        playlist = session.merge( cls.ORM(jsondata) )
         ref = session.merge( Reference(playlist) )
         session.commit()
+        return ref
 
     @classmethod
     def loads(cls, jsondata):
-        return [cls.load(o) for o in jsondata.get('items',[])]
+        all = []
+        for o in jsondata.get('items', []):
+            all.append( cls.load(o) )
+            cls.include_tracks(o)
+        return all
 
     @classmethod
-    def include_tracks(cls, jsondata):
-        """ [ Get sub item's data through Web API  ]
-            This should retrive WebAPI accordingly
-            This is to impelemented by children class.
-        """
-        return jsondata
+    def include_tracks(cls, playlistdata):
+        parent = playlistdata.get('uri')
+        refs = []
+        for page in cls.API.get_playlist_tracks(playlistdata.get('id')):
+            for o in page.get('items', []):
+                child = o.get('track',{}).get('uri')
+                if not child: continue
+                inc = session.merge( Include(parent, child) )
+                refs.append( SptOpsTrack.load(o) )
+                # SptOpsTrack.include_album(o)
+                # SptOpsTrack.include_artists(o)
+            break
+
+        print( '\t[  APPENDIX  ] {} [TRACKS].'.format(len(refs)) )
+        session.commit()
+        return refs
 
 
 
