@@ -27,7 +27,8 @@ class SpotifyAPI(WebAPI):
     def __init__(self, appdata):
         auth = SpotifyOAuth2(appdata)
         self.token = auth.auto_fetch_token()
-        self.headers = auth.add_token_to_headers({})
+        headers = {}
+        self.headers = auth.add_token_to_headers( headers )
 
     def _get(self, url):
         r = requests.get(url, headers=self.headers)
@@ -49,18 +50,29 @@ class SpotifyAPI(WebAPI):
 
     def get_my_profile(self):
         return self._get('{}/me'.format(self.ROOT))
-
     def get_my_tracks(self):
         return self._iterate('{}/me/tracks'.format(self.ROOT))
-
     def get_my_albums(self):
         return self._iterate('{}/me/albums'.format(self.ROOT))
-
     def get_my_artists(self):
         return self._iterate(
             '{}/me/following?type=artist'.format(self.ROOT),
             key='artists'
         )
+
+    def get_a_track(self, id):
+        return self._get('{}/tracks/{}'.format(self.ROOT,id))
+    def get_a_album(self, id):
+        return self._get('{}/albums/{}'.format(self.ROOT,id))
+    def get_a_artist(self, id):
+        return self._get('{}/artists/{}'.format(self.ROOT,id))
+    def get_a_playlist(self, id):
+        return self._get('{}/playlists/{}'.format(self.ROOT,id))
+
+    def get_album_tracks(self, id):
+        return self._iterate('{}/albums/{}/tracks'.format(self.ROOT,id))
+    def get_playlist_tracks(self, id):
+        return self._iterate('{}/playlists/{}/tracks'.format(self.ROOT,id))
 
 
 class SpotifyOAuth2:
@@ -92,7 +104,7 @@ class SpotifyOAuth2:
         self.auth_uri, self.state = self.get_auth_uri()
         self.callback = self.get_callback()
         self.tokens = self.fetch_tokens()
-        print('[ OK ] Authenticated.')
+        print('[  OK  ] Authenticated.')
         # print( '[TOKEN]:{}'.format(self.tokens['access_token']) )
 
         return self.tokens['access_token']
@@ -131,7 +143,7 @@ class SpotifyOAuth2:
             self.access_token_url,
             authorization_response = self.callback
         )
-        print('[ OK ] Token retrived.')
+        print('[  OK  ] Token retrived.')
         return tokens
 
     def refresh_tokens(self, refresh_token):
@@ -144,7 +156,7 @@ class SpotifyOAuth2:
         tokens = self.session.refresh_token(
             self.access_token_url, refresh_token=self.tokens['refresh_token']
         )
-        print('[ OK ] Token refreshed.')
+        print('[  OK  ] Token refreshed.')
 
         return tokens
 
