@@ -57,6 +57,9 @@ class Resource(SpoilfyORM):
     uri = Column('uri', String, primary_key=True)
     name = Column('name', String)
 
+    # ->
+    full = Column('full', Boolean, default=True)
+
     #-> These 3 fields are included in URI
     id = Column('id', String)
     type = Column('type', String)
@@ -165,8 +168,6 @@ class Include(SpoilfyORM):
             parent_type = p_uri.split(':')[1],
             child_type = c_uri.split(':')[1],
         )
-        session.merge( self )
-        # session.commit()
 
 
 

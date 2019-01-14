@@ -177,8 +177,8 @@ if __name__ == '__main__':
     test_SpotifyAccount()
 
     #=> Query
-    test_query_track()
-    test_query_album()
-    test_query_artist()
-    test_query_playlist()
+    # test_query_track()
+    # test_query_album()
+    # test_query_artist()
+    # test_query_playlist()
 
