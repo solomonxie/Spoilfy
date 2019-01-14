@@ -8,7 +8,7 @@ import uuid
 
 #-------[  Import From Other Modules   ]---------
 #-> TEST only
-if __name__ in ['__main__', 'spotify2mbz']:
+if __name__ in ['__main__', 'sptOps']:
     from orm.spotify import SpotifyTrack, SpotifyAlbum, SpotifyArtist, SpotifyPlaylist, SpotifyAccount
     from orm.musicbrainz import MusicbrainzTrack, MusicbrainzAlbum, MusicbrainzAlbum, MusicbrainzArtist
     from orm.common import Base, engine, session
@@ -39,19 +39,20 @@ class SptOpsAccount(SptOps):
     """ [ Spotify Account Operations ]
 
     """
+    ORM = SpotifyAccount
 
     @classmethod
     def get_user_by_name(cls, name):
-        return cls.query.filter(cls.name == name).first()
+        return cls.ORM.query.filter(cls.ORM.name == name).first()
 
     @classmethod
     def get_user_by_id(cls, id):
-        return cls.query.filter(cls.id == id).first()
+        return cls.ORM.query.filter(cls.ORM.id == id).first()
 
     @classmethod
     def load(cls, jsondata):
         # Insert items to DB
-        item = cls(jsondata)
+        item = cls.ORM(jsondata)
         # Add reference
         session.merge( Reference(item) )
         session.commit
@@ -63,13 +64,14 @@ class SptOpsTrack(SptOps):
     """ [ Spotify Track Operations ]
 
     """
+    ORM = SpotifyTrack
 
     @classmethod
     def load(cls, jsondata):
-        track = session.merge( SpotifyTrack(jsondata) )
+        track = session.merge( cls.ORM(jsondata) )
         ref = session.merge( Reference(track) )
-        cls.include_album( jsondata )
-        cls.include_artists( jsondata )
+        # cls.include_album( jsondata )
+        # cls.include_artists( jsondata )
         session.commit()
 
     @classmethod
@@ -128,13 +130,14 @@ class SptOpsAlbum(SptOps):
     """ [ Spotify Album Operations ]
 
     """
+    ORM = SpotifyAlbum
 
     @classmethod
     def load(cls, jsondata):
-        album = session.merge( cls(jsondata) )
+        album = session.merge( cls.ORM(jsondata) )
         ref = session.merge( Reference(album) )
-        cls.include_tracks( jsondata )
-        cls.include_artists( jsondata )
+        # cls.include_tracks( jsondata )
+        # cls.include_artists( jsondata )
         session.commit()
 
     @classmethod
@@ -204,14 +207,17 @@ class SptOpsArtist(SptOps):
     """ [ Spotify Artist Operations ]
 
     """
+    ORM = SpotifyArtist
+
+    @classmethod
+    def load(cls, jsondata):
+        album = session.merge( cls.ORM(jsondata) )
+        ref = session.merge( Reference(album) )
+        session.commit()
 
     @classmethod
     def loads(cls, jsondata):
-        # Insert items to DB
-        items = SpotifyArtist.add_resources(jsondata['artists']['items'])
-        # Add reference
-        refs = Reference.add_resources(items)
-        return refs
+        return [cls.load(o) for o in jsondata.get('artists',{}).get('items',[])]
 
 
 
@@ -220,45 +226,25 @@ class SptOpsPlaylist(SptOps):
     """ [ Spotify Playlist Operations ]
 
     """
+    ORM = SpotifyPlaylist
+
+    @classmethod
+    def load(cls, jsondata):
+        playlist = session.merge( cls.ORM(cls.include_tracks(jsondata)) )
+        ref = session.merge( Reference(playlist) )
+        session.commit()
 
     @classmethod
     def loads(cls, jsondata):
-        # Insert items to DB
-        items = SpotifyPlaylist.add_resources(jsondata['items'])
-        # Add reference
-        refs = Reference.add_resources(items)
-        return refs
-
-    def __add_tracks(self, jsondata):
-        return str(jsondata)
+        return [cls.load(o) for o in jsondata.get('items',[])]
 
     @classmethod
-    def add_resources(cls, items):
-        """[ Add Resources ]
-        :param session: sqlalchemy SESSION binded to DB.
-        :param LIST items: must be iteratable.
-        :return: inserted resource objects.
-        """
-        all = []
-        for item in items:
-            playlist = cls( cls.get_playlist_tracks(item) )
-            session.merge( playlist )
-            all.append( playlist )
-
-        session.commit()
-        print('[  OK  ] Inserted {} items to [{}].'.format(
-            len(all), cls.__tablename__
-        ))
-
-        return all
-
-    @classmethod
-    def get_playlist_tracks(cls, item):
+    def include_tracks(cls, jsondata):
         """ [ Get sub item's data through Web API  ]
             This should retrive WebAPI accordingly
             This is to impelemented by children class.
         """
-        return item
+        return jsondata
 
 
 

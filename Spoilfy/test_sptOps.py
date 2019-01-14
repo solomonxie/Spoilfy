@@ -10,9 +10,31 @@ import unittest
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import exists
 
-from common import engine, Base, session, Resource, Reference, Include
-from user import UserAccount, UserResource
-from sptOps import SptOpsAccount, SptOpsTrack, SptOpsAlbum, SptOpsArtist, SptOpsPlaylist
+
+#-------[  Import From Other Modules   ]---------
+#-> TEST only
+if __name__ in ['__main__']:
+    #THIS
+    from sptOps import SptOpsAccount, SptOpsTrack, SptOpsAlbum, SptOpsArtist, SptOpsPlaylist
+    #ORM
+    from orm.common import Base, engine, session
+    from orm.common import Resource, Reference, Include
+    from orm.spotify import SpotifyTrack, SpotifyAlbum, SpotifyArtist, SpotifyPlaylist, SpotifyAccount
+    from orm.musicbrainz import MusicbrainzTrack, MusicbrainzAlbum, MusicbrainzAlbum, MusicbrainzArtist
+    #API
+    from webapi.apiSpotify import SpotifyAPI
+    import webapi.apiMusicbrainz as MbzAPI
+else:
+    # Package Import Hint: $ python -m Spoilfy.orm.spotify
+    from Spoilfy.sptOps import SptOpsAccount, SptOpsTrack, SptOpsAlbum, SptOpsArtist, SptOpsPlaylist
+    #ORM
+    from Spoilfy.orm.spotify import SpotifyTrack, SpotifyAlbum, SpotifyArtist, SpotifyPlaylist, SpotifyAccount
+    from Spoilfy.orm.musicbrainz import MusicbrainzTrack, MusicbrainzAlbum, MusicbrainzAlbum, MusicbrainzArtist
+    from Spoilfy.orm.common import Base, engine, session
+    from Spoilfy.orm.common import Resource, Reference, Include
+    #API
+    from Spoilfy.webapi.apiSpotify import SpotifyAPI
+    import Spoilfy.webapi.apiMusicbrainz as MbzAPI
 
 
 
@@ -35,7 +57,8 @@ def test_SptOpsTrack():
     # Add a track
     with open('../scratch/sqlschemas/spotify/jsondumps-full/get_user_tracks.json', 'r') as f:
         jsondata = json.loads( f.read() )
-        SptOpsTrack.loads( jsondata )
+        tracks = SptOpsTrack.loads( jsondata )
+        print( '[  OK  ] Inserted {} User tracks.'.format(len(tracks)) )
 
 
 def test_SptOpsAlbum():
@@ -43,7 +66,8 @@ def test_SptOpsAlbum():
     # Add an album
     with open('../scratch/sqlschemas/spotify/jsondumps-full/get_user_albums.json', 'r') as f:
         jsondata = json.loads( f.read() )
-        SptOpsAlbum.loads( jsondata )
+        albums = SptOpsAlbum.loads( jsondata )
+        print( '[  OK  ] Inserted {} User albums.'.format(len(albums)) )
 
 
 
@@ -52,7 +76,8 @@ def test_SptOpsArtist():
     # Add an artist
     with open('../scratch/sqlschemas/spotify/jsondumps-full/get_user_artists.json', 'r') as f:
         jsondata = json.loads( f.read() )
-        SptOpsArtist.loads( jsondata )
+        artists = SptOpsArtist.loads( jsondata )
+        print( '[  OK  ] Inserted {} User artists.'.format(len(artists)) )
 
 
 
@@ -61,7 +86,8 @@ def test_SptOpsPlaylist():
     # Add a playlist
     with open('../scratch/sqlschemas/spotify/jsondumps-full/get_user_playlists.json', 'r') as f:
         jsondata = json.loads( f.read() )
-        SptOpsPlaylist.loads( jsondata )
+        playlists = SptOpsPlaylist.loads( jsondata )
+        print( '[  OK  ] Inserted {} User playlists.'.format(len(playlists)) )
 
 
 
@@ -157,11 +183,11 @@ def test_query_playlist():
 
 if __name__ == '__main__':
     try:
-        SptOpsAccount.__table__.drop(engine)
-        SptOpsTrack.__table__.drop(engine)
-        SptOpsAlbum.__table__.drop(engine)
-        SptOpsArtist.__table__.drop(engine)
-        SptOpsPlaylist.__table__.drop(engine)
+        SpotifyAccount.__table__.drop(engine)
+        SpotifyTrack.__table__.drop(engine)
+        SpotifyAlbum.__table__.drop(engine)
+        SpotifyArtist.__table__.drop(engine)
+        SpotifyPlaylist.__table__.drop(engine)
         Include.__table__.drop(engine)
         pass
     except Exception as e:
@@ -170,11 +196,11 @@ if __name__ == '__main__':
         Base.metadata.create_all(bind=engine)
 
     #=> Insert data
+    test_SptOpsAccount()
     test_SptOpsTrack()
     test_SptOpsAlbum()
     test_SptOpsArtist()
     test_SptOpsPlaylist()
-    test_SptOpsAccount()
 
     #=> Query
     # test_query_track()
