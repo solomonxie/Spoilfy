@@ -73,7 +73,7 @@ def main():
     for t in api.get_my_artists():
         # Artist list DOESN'T support [limit], [offset]
         print('Total {}, Next URL: {}'.format(
-            t.get('total'), t.get('next')
+            t.get('artists').get('total'), t.get('artists').get('next')
         ))
 
 if __name__ == '__main__':
