@@ -37,8 +37,94 @@ with open('./webapi/.spotify_app.json', 'r') as f:
 
 
 class SptOps:
+
+    ORM = None
     API = SpotifyAPI(_data)
-    pass
+
+
+
+class SptOpsMissing(SptOps):
+
+    @classmethod
+    def _find_missing(cls, sql):
+        with engine.connect() as con:
+            records = con.execute(sql)
+            uris = [ u for u, in records ]
+        return uris
+
+    @classmethod
+    def find_missing_tracks(cls):
+        return cls._find_missing(
+            """
+            SELECT child_uri FROM includes
+                WHERE child_type='track' AND provider='spotify'
+                AND (parent_type='album' OR parent_type='playlist')
+                AND child_uri NOT IN (SELECT uri FROM spotify_Tracks)
+            """
+        )
+
+    @classmethod
+    def find_missing_albums(cls):
+        return cls._find_missing(
+            """
+            SELECT parent_uri FROM includes
+                WHERE parent_type='album' AND provider='spotify'
+                AND parent_uri NOT IN (SELECT uri FROM spotify_Albums)
+            """
+        )
+
+    @classmethod
+    def find_missing_artists(cls):
+        return cls._find_missing(
+            """
+            SELECT parent_uri FROM includes
+                WHERE parent_type='artist' AND provider='spotify'
+                AND parent_uri NOT IN (SELECT uri FROM spotify_Artists)
+            """
+        )
+
+    @classmethod
+    def complete_missing_tracks(cls):
+        refs = []
+        missings = cls.find_missing_tracks()
+        for uri in missings:
+            trackdata = {'track': cls.API.get_a_track( uri )}
+            track = session.merge(SpotifyTrack( trackdata ))
+            refs.append( session.merge(Reference( track )) )
+
+        session.commit()
+        print('\t[ FIX ] {}/{} Missing track.'.format(len(refs),len(missings)))
+
+        return refs
+
+    @classmethod
+    def complete_missing_albums(cls):
+        refs = []
+        missings = cls.find_missing_albums()
+        for uri in missings:
+            albumdata = {'album': cls.API.get_a_album( uri )}
+            album = session.merge(SpotifyAlbum( albumdata ))
+            refs.append( session.merge(Reference( album )) )
+
+        session.commit()
+        print('\t[ FIX ] {}/{} Missing Album.'.format(len(refs),len(missings)))
+
+        return refs
+
+    @classmethod
+    def complete_missing_artists(cls):
+        refs = []
+        missings = cls.find_missing_artists()
+        for uri in missings:
+            artistdata = cls.API.get_a_artist( uri )
+            artist = session.merge(SpotifyArtist( artistdata ))
+            refs.append( session.merge(Reference( artist )) )
+            print( '\t[  APPENDIX  ] {} [ARTISTS].'.format(refs) )
+
+        session.commit()
+        print('\t[ FIX ]{}/{} Missing Artist.'.format(len(refs),len(missings)))
+
+        return refs
 
 
 class SptOpsAccount(SptOps):
@@ -94,81 +180,24 @@ class SptOpsTrack(SptOps):
 
     @classmethod
     def include_album(cls, trackdata):
-        t = trackdata.get('track',{})
-        child = t.get('uri', '')
-        a = t.get('album', {})
-        parent = a.get('uri', '')
-
+        track = trackdata.get('track',{})
+        child = track.get('uri', '')
+        parent = track.get('album', {}).get('uri', '')
         inc = session.merge( Include(parent, child) )
-        album = session.query(SpotifyAlbum).filter(
-            SpotifyAlbum.uri == parent
-        ).first()
-        # Retrive from API if not exists
-        if not album:
-            albumdata = { 'album': cls.API.get_a_album(a.get('id')) }
-            album = session.merge( SpotifyAlbum(albumdata) )
-            ref = session.merge( Reference(album) )
-            print( '\t[  APPENDIX  ] {} [ALBUM].'.format(ref) )
         session.commit()
-
-        return album
+        return inc
 
     @classmethod
     def include_artists(cls, trackdata):
-        t = trackdata.get('track', {})
-        child = t.get('uri')
+        track = trackdata.get('track', {})
+        child = track.get('uri')
 
-        refs = []
-        for r in t.get('artists', []):
+        for r in track.get('artists', []):
             parent = r.get('uri')
             inc = session.merge( Include(parent, child) )
-            artist = session.query(SpotifyArtist).filter(
-                SpotifyArtist.uri == parent
-            ).first()
-            # Retrive from API if not exists
-            if not artist:
-                artistdata = cls.API.get_a_artist( r.get('id') )
-                artist = session.merge( SpotifyArtist(artistdata) )
-                refs.append( session.merge(Reference(artist)) )
-                print( '\t[  APPENDIX  ] {} [ARTISTS].'.format(refs) )
-            # break
         session.commit()
 
-        return refs
 
-    @classmethod
-    def find_imcomplete_includes(cls):
-        print('[NOW]__find_incomplete_track_includes__')
-
-        # -> Middlewares for Many-to-Many tables
-        trackAlbum = aliased(Include)
-        trackArtists = aliased(Include)
-
-        incompletes = []
-        tracks = session.query(SpotifyTrack.uri).all()
-        for uri, in tracks:
-            print( '[VALIDATING]:', uri )
-            # Query this track and its album from DB
-            result = session.query(
-                SpotifyTrack, SpotifyAlbum, SpotifyArtist
-            ).join(
-                trackAlbum, SpotifyTrack.uri == trackAlbum.child_uri
-            ).join(
-                SpotifyAlbum, SpotifyAlbum.uri == trackAlbum.parent_uri
-            ).join(
-                trackArtists, SpotifyTrack.uri == trackArtists.child_uri
-            ).join(
-                SpotifyArtist, SpotifyArtist.uri == trackArtists.parent_uri
-            ).filter(
-                SpotifyTrack.uri == uri
-            ).first()
-
-            if not result:
-                print( '\t[INCOMPLETE] track:', uri )
-                incompletes.append( uri )
-
-        print( '{}/{} incomplete tracks'.format(len(incompletes), len(tracks)) )
-        return incompletes
 
 
 

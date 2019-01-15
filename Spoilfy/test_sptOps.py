@@ -15,7 +15,7 @@ from sqlalchemy import exists
 #-> TEST only
 if __name__ in ['__main__']:
     #THIS
-    from sptOps import SptOpsAccount, SptOpsTrack, SptOpsAlbum, SptOpsArtist, SptOpsPlaylist
+    from sptOps import *
     #ORM
     from orm.common import Base, engine, session
     from orm.common import Resource, Reference, Include
@@ -27,7 +27,7 @@ if __name__ in ['__main__']:
 else:
     # Package Import Hint: $ python -m Spoilfy.orm.spotify
     #THIS
-    from Spoilfy.sptOps import SptOpsAccount, SptOpsTrack, SptOpsAlbum, SptOpsArtist, SptOpsPlaylist
+    from Spoilfy.sptOps import *
     #ORM
     from Spoilfy.orm.spotify import SpotifyTrack, SpotifyAlbum, SpotifyArtist, SpotifyPlaylist, SpotifyAccount
     from Spoilfy.orm.musicbrainz import MusicbrainzTrack, MusicbrainzAlbum, MusicbrainzAlbum, MusicbrainzArtist
@@ -65,7 +65,7 @@ def test_SptOpsTrack():
     for page in SptOpsTrack.API.get_my_tracks():
         tracks = SptOpsTrack.loads( page )
         print( '[  OK  ] Inserted {} User tracks.'.format(len(tracks)) )
-        break
+        # break
 
 
 def test_SptOpsAlbum():
@@ -76,7 +76,7 @@ def test_SptOpsAlbum():
     for page in SptOpsAlbum.API.get_my_albums():
         albums = SptOpsAlbum.loads( page )
         print( '[  OK  ] Inserted {} User albums.'.format(len(albums)) )
-        break
+        # break
 
 
 
@@ -88,7 +88,7 @@ def test_SptOpsArtist():
     for page in SptOpsArtist.API.get_my_artists():
         artists = SptOpsArtist.loads( page )
         print( '[  OK  ] Inserted {} User artists.'.format(len(artists)) )
-        break
+        # break
 
 
 
@@ -101,9 +101,6 @@ def test_SptOpsPlaylist():
         playlists = SptOpsPlaylist.loads( page )
         print( '[  OK  ] Inserted {} User playlists.'.format(len(playlists)) )
         break
-
-def test_incomplete_tracks():
-    todo = SptOpsTrack.find_imcomplete_includes()
 
 
 if __name__ == '__main__':
@@ -127,6 +124,12 @@ if __name__ == '__main__':
     # test_SptOpsArtist()
     # test_SptOpsPlaylist()
 
-    test_incomplete_tracks()
+    # Find missings
+    uris = SptOpsMissing.find_missing_tracks()
+    print( len(uris) )
+    uris = SptOpsMissing.find_missing_albums()
+    print( len(uris) )
+    uris = SptOpsMissing.find_missing_artists()
+    print( len(uris) )
 
 
