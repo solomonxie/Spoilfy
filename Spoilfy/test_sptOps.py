@@ -102,7 +102,8 @@ def test_SptOpsPlaylist():
         print( '[  OK  ] Inserted {} User playlists.'.format(len(playlists)) )
         break
 
-
+def test_incomplete_tracks():
+    todo = SptOpsTrack.find_imcomplete_includes()
 
 
 if __name__ == '__main__':
@@ -120,10 +121,12 @@ if __name__ == '__main__':
         Base.metadata.create_all(bind=engine)
 
     #=> Insert data
-    test_SptOpsAccount()
-    test_SptOpsTrack()
-    test_SptOpsAlbum()
-    test_SptOpsArtist()
-    test_SptOpsPlaylist()
+    # test_SptOpsAccount()
+    # test_SptOpsTrack()
+    # test_SptOpsAlbum()
+    # test_SptOpsArtist()
+    # test_SptOpsPlaylist()
+
+    test_incomplete_tracks()
 
 
