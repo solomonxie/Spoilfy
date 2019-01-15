@@ -36,41 +36,45 @@ class SpotifyAPI(WebAPI):
         jsondata = r.json() if r else None
         return jsondata
 
-    def _iterate(self, url, params={}, key=None):
-        # Set paging info [offset/limit]
-        limit = params.get('limit', 50)
-        offset = params.get('offset', 0)
-        params['limit'], params['offset'] = limit, offset
-
-        print( url, params )
-
+    def _iterate(self, url, params=None, key=None):
         # Send HTTP Request & get Response & return JSON data
         r = requests.get(url, headers=self.headers, params=params)
+        print( r.url )
         jsondata = r.json() if r else None
         yield jsondata
 
         # Get paging info
         paging = jsondata[key] if key else jsondata
-        next = paging['next'] #->Not working directlly if set limit & offset
+        next = paging['next']
         # Recursively retrive next page & yield result
         if next:
-            params['offset'] += limit
-            yield from self._iterate(url, params, key)
+            # params['offset'] += limit
+            yield from self._iterate(next, params, key)
 
 
     def get_my_profile(self):
         return self._get('{}/me'.format(_ROOT))
     def get_my_tracks(self):
-        return self._iterate('{}/me/tracks'.format(_ROOT))
+        return self._iterate(
+            '{}/me/tracks'.format(_ROOT),
+            params={'limit':50}
+        )
     def get_my_albums(self):
-        return self._iterate('{}/me/albums'.format(_ROOT))
+        return self._iterate(
+            '{}/me/albums'.format(_ROOT),
+            params={'limit':50}
+        )
     def get_my_artists(self):
         return self._iterate(
-            '{}/me/following'.format(_ROOT),
-            params={'type':'artist'}, key='artists'
+            '{}/me/following?type=artist'.format(_ROOT),
+            params={'limit':50},
+            key='artists'
         )
     def get_my_playlists(self):
-        return self._iterate('{}/me/playlists'.format(_ROOT))
+        return self._iterate(
+            '{}/me/playlists'.format(_ROOT),
+            params={'limit':50}
+        )
 
     def get_a_track(self, id):
         return self._get('{}/tracks/{}'.format(_ROOT,id))
