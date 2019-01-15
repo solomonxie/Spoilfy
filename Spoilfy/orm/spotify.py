@@ -5,7 +5,6 @@
 # DEPENDENCIES:
 #   - ./common.py
 
-import uuid
 
 #-------[  Import SQLAlchemy ]---------
 from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean, Sequence
@@ -80,10 +79,9 @@ class SpotifyTrack(Resource):
     def __init__(self, jsondata):
         # -> Instanize
         d = jsondata.get('track')
-        uri = d.get('uri', str(uuid.uuid1()))
         super().__init__(
             # -> Common identifiers
-            uri = uri,
+            uri = d.get('uri'),
             name = d.get('name'),
             id = d.get('id'),
             type = d.get('type'),
@@ -168,7 +166,7 @@ class SpotifyArtist(Resource):
         d = jsondata
         super().__init__(
             # Common identifiers ->
-            uri = d.get('uri', str(uuid.uuid1())),
+            uri = d.get('uri'),
             name = d.get('name'),
             id = d.get('id'),
             type = d.get('type'),
