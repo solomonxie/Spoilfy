@@ -7,7 +7,7 @@
 import json
 import unittest
 
-import apiMusicbrainz as mbz
+from apiMusicbrainz import MusicbrainzAPI as mbz
 
 
 
@@ -16,27 +16,33 @@ import apiMusicbrainz as mbz
 # ==============================================================
 
 
-def test_jsonapi():
+def test_searching():
     # Search Tracks
     track = mbz.best_match_track(name='Pristine')
-    print( '\t[TRACK]:',
-        track.get('title'), track.get('length'),
-        track.get('id'), track.get('score')
-    )
+    print( '\t[TRACK]:', track.get('title'), track.get('score') )
 
     # Search Albums
     album = mbz.best_match_album(name='edendale', country='NO')
-    print( '\t[ALBUM]:',
-        album.get('title'), album.get('date'),
-        album.get('id'), album.get('score')
-    )
+    print( '\t[ALBUM]:', album.get('title'), album.get('score') )
 
     # Search Artists
     artist = mbz.best_match_artist(name='bigbang', country='NO')
-    print( '\t[ARTIST]:',
-        artist.get('country'), artist.get('name'),
-        artist.get('id'), artist.get('score')
-    )
+    print( '\t[ARTIST]:', artist.get('name'), artist.get('country') )
+
+
+def test_get_specific():
+    # Get a Track
+    track = mbz.get_a_track('4ae5ea82-31ef-4099-a315-3c2487d9dd32')
+    print( '\t[TRACK]:', track.get('title'), track.get('length') )
+
+    # Get an album
+    album = mbz.get_an_album('d8507216-2261-4b18-a033-0a8628ecff9e')
+    print( '\t[ALBUM]:', album.get('title'), album.get('date') )
+
+    # Get an artist
+    artist = mbz.get_an_artist('5b11f4ce-a62d-471e-81fc-a69a8278c7da')
+    print( '\t[ARTIST]:', artist.get('name'), artist.get('country') )
+
 
 
 def test_xmlapi():
@@ -61,6 +67,8 @@ def test_xmlapi():
 
 
 
+
 if __name__ == '__main__':
     # test_xmlapi()
-    test_jsonapi()
+    test_searching()
+    test_get_specific()
