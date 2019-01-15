@@ -6,6 +6,8 @@
 
 import json
 
+from sqlalchemy.orm import aliased
+
 #-------[  Import From Other Modules   ]---------
 #-> TEST only
 if __name__ in ['__main__', 'sptOps']:
@@ -133,6 +135,40 @@ class SptOpsTrack(SptOps):
         session.commit()
 
         return refs
+
+    @classmethod
+    def find_imcomplete_includes(cls):
+        print('[NOW]__find_incomplete_track_includes__')
+
+        # -> Middlewares for Many-to-Many tables
+        trackAlbum = aliased(Include)
+        trackArtists = aliased(Include)
+
+        incompletes = []
+        tracks = session.query(SpotifyTrack.uri).all()
+        for uri, in tracks:
+            print( '[VALIDATING]:', uri )
+            # Query this track and its album from DB
+            result = session.query(
+                SpotifyTrack, SpotifyAlbum, SpotifyArtist
+            ).join(
+                trackAlbum, SpotifyTrack.uri == trackAlbum.child_uri
+            ).join(
+                SpotifyAlbum, SpotifyAlbum.uri == trackAlbum.parent_uri
+            ).join(
+                trackArtists, SpotifyTrack.uri == trackArtists.child_uri
+            ).join(
+                SpotifyArtist, SpotifyArtist.uri == trackArtists.parent_uri
+            ).filter(
+                SpotifyTrack.uri == uri
+            ).first()
+
+            if not result:
+                print( '\t[INCOMPLETE] track:', uri )
+                incompletes.append( uri )
+
+        print( '{}/{} incomplete tracks'.format(len(incompletes), len(tracks)) )
+        return incompletes
 
 
 
