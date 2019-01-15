@@ -26,6 +26,7 @@ if __name__ in ['__main__']:
     import webapi.apiMusicbrainz as MbzAPI
 else:
     # Package Import Hint: $ python -m Spoilfy.orm.spotify
+    #THIS
     from Spoilfy.sptOps import SptOpsAccount, SptOpsTrack, SptOpsAlbum, SptOpsArtist, SptOpsPlaylist
     #ORM
     from Spoilfy.orm.spotify import SpotifyTrack, SpotifyAlbum, SpotifyArtist, SpotifyPlaylist, SpotifyAccount
@@ -106,12 +107,12 @@ def test_SptOpsPlaylist():
 
 if __name__ == '__main__':
     try:
-        SpotifyAccount.__table__.drop(engine)
-        SpotifyTrack.__table__.drop(engine)
-        SpotifyAlbum.__table__.drop(engine)
-        SpotifyArtist.__table__.drop(engine)
-        SpotifyPlaylist.__table__.drop(engine)
-        Include.__table__.drop(engine)
+        # SpotifyAccount.__table__.drop(engine)
+        # SpotifyTrack.__table__.drop(engine)
+        # SpotifyAlbum.__table__.drop(engine)
+        # SpotifyArtist.__table__.drop(engine)
+        # SpotifyPlaylist.__table__.drop(engine)
+        # Include.__table__.drop(engine)
         pass
     except Exception as e:
         print('Error on dropping SptOps table.')

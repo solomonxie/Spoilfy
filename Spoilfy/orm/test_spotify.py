@@ -13,6 +13,7 @@ from sqlalchemy import exists
 from common import engine, Base, session, Resource, Reference, Include
 from user import UserAccount, UserResource
 from spotify import SpotifyAccount, SpotifyTrack, SpotifyAlbum, SpotifyArtist, SpotifyPlaylist
+from sptOps import SpotifyAccount, SpotifyTrack, SpotifyAlbum, SpotifyArtist, SpotifyPlaylist
 
 
 
@@ -157,12 +158,12 @@ def test_query_playlist():
 
 if __name__ == '__main__':
     try:
-        SpotifyAccount.__table__.drop(engine)
-        SpotifyTrack.__table__.drop(engine)
-        SpotifyAlbum.__table__.drop(engine)
-        SpotifyArtist.__table__.drop(engine)
-        SpotifyPlaylist.__table__.drop(engine)
-        Include.__table__.drop(engine)
+        # SpotifyAccount.__table__.drop(engine)
+        # SpotifyTrack.__table__.drop(engine)
+        # SpotifyAlbum.__table__.drop(engine)
+        # SpotifyArtist.__table__.drop(engine)
+        # SpotifyPlaylist.__table__.drop(engine)
+        # Include.__table__.drop(engine)
         pass
     except Exception as e:
         print('Error on dropping Spotify table.')
@@ -170,15 +171,15 @@ if __name__ == '__main__':
         Base.metadata.create_all(bind=engine)
 
     #=> Insert data
-    test_SpotifyTrack()
-    test_SpotifyAlbum()
-    test_SpotifyArtist()
-    test_SpotifyPlaylist()
-    test_SpotifyAccount()
+    # test_SpotifyTrack()
+    # test_SpotifyAlbum()
+    # test_SpotifyArtist()
+    # test_SpotifyPlaylist()
+    # test_SpotifyAccount()
 
     #=> Query
-    # test_query_track()
-    # test_query_album()
-    # test_query_artist()
-    # test_query_playlist()
+    test_query_track()
+    test_query_album()
+    test_query_artist()
+    test_query_playlist()
 

@@ -13,8 +13,13 @@ from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean
 
 #-------[  Import From Other Modules   ]---------
 # Package Import Hint: $ python -m Spoilfy.orm.spotify
-from common import Base, engine, session, Resource, Reference
-from spotify import SpotifyAccount
+#-> TEST only
+if __name__ in ['__main__', 'user']:
+    from common import Base, engine, session, Resource, Reference
+    from spotify import SpotifyAccount
+else:
+    from orm.common import Base, engine, session, Resource, Reference
+    from orm.spotify import SpotifyAccount
 
 
 

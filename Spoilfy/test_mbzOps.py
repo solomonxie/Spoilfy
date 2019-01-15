@@ -7,9 +7,10 @@
 import json
 import unittest
 
-from common import Base, engine, session, Resource, Reference, Include
-from user import UserAccount, UserResource
-from musicbrainz import MusicbrainzTrack, MusicbrainzAlbum, MusicbrainzArtist
+from mbzOps import MbzOpsTrack
+from orm.common import Base, engine, session, Resource, Reference, Include
+from orm.user import UserAccount, UserResource
+from orm.musicbrainz import MusicbrainzTrack, MusicbrainzAlbum, MusicbrainzArtist
 
 
 
@@ -18,45 +19,28 @@ from musicbrainz import MusicbrainzTrack, MusicbrainzAlbum, MusicbrainzArtist
 # >>>>>>>>>>>>>>>>>>>>>>[    TEST     ] >>>>>>>>>>>>>>>>>>>>>>>>
 # ==============================================================
 
-def test_MusicbrainzTrack():
+def test_MbzOpsTrack():
     # Add a track
     path = '../../scratch/sqlschemas/musicbrainz/jsondumps/search_recording.json'
     with open(path, 'r') as f:
         jsondata = json.loads( f.read() )
-        # ->
-        print( 'Manual test to be implemented' )
+        MusicbrainzTrack.loads( jsondata )
 
 
-def test_MusicbrainzAlbum():
+def test_MbzOpsAlbum():
     # Add a track
     path = '../../scratch/sqlschemas/musicbrainz/jsondumps/search_release.json'
     with open(path, 'r') as f:
         jsondata = json.loads( f.read() )
-        # ->
-        print( 'Manual test to be implemented' )
+        MusicbrainzAlbum.loads( jsondata )
 
 
-def test_MusicbrainzArtist():
+def test_MbzOpsArtist():
     # Add a track
     path = '../../scratch/sqlschemas/musicbrainz/jsondumps/search_artists.json'
     with open(path, 'r') as f:
         jsondata = json.loads( f.read() )
-        # ->
-        print( 'Manual test to be implemented' )
-
-
-
-
-def test_query_track():
-    pass
-
-
-def test_query_album():
-    pass
-
-
-def test_query_artist():
-    pass
+        MusicbrainzArtist.loads( jsondata )
 
 
 
@@ -75,12 +59,6 @@ if __name__ == '__main__':
 
 
     #=> Insert data
-    test_MusicbrainzTrack()
-    test_MusicbrainzAlbum()
-    test_MusicbrainzArtist()
-
-    #=> Query
-    test_query_track()
-    test_query_album()
-    test_query_artist()
-
+    # test_MbzOpsTrack()
+    # test_MbzOpsAlbum()
+    # test_MbzOpsArtist()

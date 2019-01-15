@@ -32,12 +32,11 @@ else:
 # ==============================================================
 
 with open('./webapi/.spotify_app.json', 'r') as f:
-    data = json.loads( f.read() )
+    _data = json.loads( f.read() )
 
-_api = SpotifyAPI(data)
 
 class SptOps:
-    API = _api
+    API = SpotifyAPI(_data)
     pass
 
 
