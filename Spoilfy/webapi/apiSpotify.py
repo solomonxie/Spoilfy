@@ -18,11 +18,12 @@ class WebAPI:
     pass
 
 
+_ROOT = 'https://api.spotify.com/v1'
+
 class SpotifyAPI(WebAPI):
     """ [  ]
 
     """
-    ROOT = 'https://api.spotify.com/v1'
 
     def __init__(self, appdata):
         auth = SpotifyOAuth2(appdata)
@@ -30,52 +31,60 @@ class SpotifyAPI(WebAPI):
         headers = {}
         self.headers = auth.add_token_to_headers( headers )
 
-    def _get(self, url):
-        r = requests.get(url, headers=self.headers)
+    def _get(self, url, params={}):
+        r = requests.get(url, headers=self.headers, params=params)
         jsondata = r.json() if r else None
         return jsondata
 
-    def _iterate(self, url, key=None):
-        print( url )
-        r = requests.get(url, headers=self.headers)
+    def _iterate(self, url, params={}, key=None):
+        # Set paging info [offset/limit]
+        limit = params.get('limit', 50)
+        offset = params.get('offset', 0)
+        params['limit'], params['offset'] = limit, offset
+
+        print( url, params )
+
+        # Send HTTP Request & get Response & return JSON data
+        r = requests.get(url, headers=self.headers, params=params)
         jsondata = r.json() if r else None
         yield jsondata
 
         # Get paging info
         paging = jsondata[key] if key else jsondata
-        next = paging['next']
+        next = paging['next'] #->Not working directlly if set limit & offset
         # Recursively retrive next page & yield result
         if next:
-            yield from self._iterate(next, key)
+            params['offset'] += limit
+            yield from self._iterate(url, params, key)
 
 
     def get_my_profile(self):
-        return self._get('{}/me'.format(self.ROOT))
+        return self._get('{}/me'.format(_ROOT))
     def get_my_tracks(self):
-        return self._iterate('{}/me/tracks'.format(self.ROOT))
+        return self._iterate('{}/me/tracks'.format(_ROOT))
     def get_my_albums(self):
-        return self._iterate('{}/me/albums'.format(self.ROOT))
+        return self._iterate('{}/me/albums'.format(_ROOT))
     def get_my_artists(self):
         return self._iterate(
-            '{}/me/following?type=artist'.format(self.ROOT),
-            key='artists'
+            '{}/me/following'.format(_ROOT),
+            params={'type':'artist'}, key='artists'
         )
     def get_my_playlists(self):
-        return self._iterate('{}/me/playlists'.format(self.ROOT))
+        return self._iterate('{}/me/playlists'.format(_ROOT))
 
     def get_a_track(self, id):
-        return self._get('{}/tracks/{}'.format(self.ROOT,id))
+        return self._get('{}/tracks/{}'.format(_ROOT,id))
     def get_a_album(self, id):
-        return self._get('{}/albums/{}'.format(self.ROOT,id))
+        return self._get('{}/albums/{}'.format(_ROOT,id))
     def get_a_artist(self, id):
-        return self._get('{}/artists/{}'.format(self.ROOT,id))
+        return self._get('{}/artists/{}'.format(_ROOT,id))
     def get_a_playlist(self, id):
-        return self._get('{}/playlists/{}'.format(self.ROOT,id))
+        return self._get('{}/playlists/{}'.format(_ROOT,id))
 
     def get_album_tracks(self, id):
-        return self._iterate('{}/albums/{}/tracks'.format(self.ROOT,id))
+        return self._iterate('{}/albums/{}/tracks'.format(_ROOT,id))
     def get_playlist_tracks(self, id):
-        return self._iterate('{}/playlists/{}/tracks'.format(self.ROOT,id))
+        return self._iterate('{}/playlists/{}/tracks'.format(_ROOT,id))
 
 
 class SpotifyOAuth2:
