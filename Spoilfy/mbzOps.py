@@ -42,7 +42,7 @@ class MbzOps:
         print( '\t[BIND]', ref, ' at ', ref.real_uri )
         session.merge( ref )
         session.commit()
-        return mbz
+        return ref
 
 
 class MbzOpsTrack(MbzOps):

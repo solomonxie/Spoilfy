@@ -42,11 +42,9 @@ def test_MapTrack():
     uris = session.query( SpotifyTrack.uri ).all()
     print( len(uris) )
     for u, in uris:
-        tag = MapTrack.toMbz(u)
-        print( tag )
-        if tag:
-            print( 'local?:',tag.is_local )
-        sleep(2)
+        mbz = MapTrack.toMbz(u)
+        if mbz:
+            print( '\t[TAG]', mbz )
 
     # tags = [ MapTrack(u) for u, in uris]
 

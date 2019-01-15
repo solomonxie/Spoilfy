@@ -69,7 +69,7 @@ class MusicbrainzAPI:
     def best_match_track(cls, **query):
         results = cls._search_tracks(**query)
         # Filter out the best match
-        matches = sorted(results.get('recordings'),
+        matches = sorted(results.get('recordings',[]),
             key=lambda o: o.get('score',0), reverse=True
         )
         best = matches[0] if matches else None
@@ -78,7 +78,7 @@ class MusicbrainzAPI:
     def best_match_album(cls, **query):
         results = cls._search_album(**query)
         # Filter out the best match
-        matches = sorted(results.get('releases'),
+        matches = sorted(results.get('releases',[]),
             key=lambda o: o.get('score',0), reverse=True
         )
         best = matches[0] if matches else None
@@ -87,7 +87,7 @@ class MusicbrainzAPI:
     def best_match_artist(cls, **query):
         results = cls._search_artist(**query)
         # Filter out the best match
-        matches = sorted(results.get('artists'),
+        matches = sorted(results.get('artists',[]),
             key=lambda o: o.get('score',0), reverse=True
         )
         best = matches[0] if matches else None
