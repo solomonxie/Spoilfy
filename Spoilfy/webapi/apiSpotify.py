@@ -31,8 +31,9 @@ class SpotifyAPI(WebAPI):
         headers = {}
         self.headers = auth.add_token_to_headers( headers )
 
-    def _get(self, url, params={}):
+    def _get(self, url, params=None):
         r = requests.get(url, headers=self.headers, params=params)
+        print( r.url )
         jsondata = r.json() if r else None
         return jsondata
 
@@ -48,34 +49,30 @@ class SpotifyAPI(WebAPI):
         next = paging['next']
         # Recursively retrive next page & yield result
         if next:
-            # params['offset'] += limit
             yield from self._iterate(next, params, key)
 
-
+    # Get my items
     def get_my_profile(self):
         return self._get('{}/me'.format(_ROOT))
     def get_my_tracks(self):
-        return self._iterate(
-            '{}/me/tracks'.format(_ROOT),
-            params={'limit':50}
-        )
+        return self._iterate( '{}/me/tracks?limit=50'.format(_ROOT) )
     def get_my_albums(self):
-        return self._iterate(
-            '{}/me/albums'.format(_ROOT),
-            params={'limit':50}
-        )
+        return self._iterate( '{}/me/albums?limit=50'.format(_ROOT) )
     def get_my_artists(self):
         return self._iterate(
-            '{}/me/following?type=artist'.format(_ROOT),
-            params={'limit':50},
+            '{}/me/following?type=artist&limit=50'.format(_ROOT),
             key='artists'
         )
     def get_my_playlists(self):
-        return self._iterate(
-            '{}/me/playlists'.format(_ROOT),
-            params={'limit':50}
-        )
+        return self._iterate( '{}/me/playlists?limit=50'.format(_ROOT) )
 
+    # Get Sub tracks
+    def get_album_tracks(self, id):
+        return self._iterate( '{}/albums/{}/tracks?limit=50'.format(_ROOT,id) )
+    def get_playlist_tracks(self, id):
+        return self._iterate('{}/playlists/{}/tracks?limit=50'.format(_ROOT,id))
+
+    # Get item with ID
     def get_a_track(self, id):
         return self._get('{}/tracks/{}'.format(_ROOT,id))
     def get_a_album(self, id):
@@ -84,11 +81,6 @@ class SpotifyAPI(WebAPI):
         return self._get('{}/artists/{}'.format(_ROOT,id))
     def get_a_playlist(self, id):
         return self._get('{}/playlists/{}'.format(_ROOT,id))
-
-    def get_album_tracks(self, id):
-        return self._iterate('{}/albums/{}/tracks'.format(_ROOT,id))
-    def get_playlist_tracks(self, id):
-        return self._iterate('{}/playlists/{}/tracks'.format(_ROOT,id))
 
 
 class SpotifyOAuth2:

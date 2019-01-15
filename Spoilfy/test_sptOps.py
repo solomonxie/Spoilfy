@@ -19,8 +19,8 @@ if __name__ in ['__main__']:
     #ORM
     from orm.common import Base, engine, session
     from orm.common import Resource, Reference, Include
-    from orm.spotify import SpotifyTrack, SpotifyAlbum, SpotifyArtist, SpotifyPlaylist, SpotifyAccount
-    from orm.musicbrainz import MusicbrainzTrack, MusicbrainzAlbum, MusicbrainzAlbum, MusicbrainzArtist
+    from orm.spotify import *
+    from orm.musicbrainz import *
     #API
     from webapi.apiSpotify import SpotifyAPI
     import webapi.apiMusicbrainz as MbzAPI
@@ -29,8 +29,8 @@ else:
     #THIS
     from Spoilfy.sptOps import *
     #ORM
-    from Spoilfy.orm.spotify import SpotifyTrack, SpotifyAlbum, SpotifyArtist, SpotifyPlaylist, SpotifyAccount
-    from Spoilfy.orm.musicbrainz import MusicbrainzTrack, MusicbrainzAlbum, MusicbrainzAlbum, MusicbrainzArtist
+    from Spoilfy.orm.spotify import *
+    from Spoilfy.orm.musicbrainz import *
     from Spoilfy.orm.common import Base, engine, session
     from Spoilfy.orm.common import Resource, Reference, Include
     #API
@@ -124,12 +124,9 @@ if __name__ == '__main__':
     # test_SptOpsArtist()
     # test_SptOpsPlaylist()
 
-    # Find missings
-    uris = SptOpsMissing.find_missing_tracks()
-    print( len(uris) )
-    uris = SptOpsMissing.find_missing_albums()
-    print( len(uris) )
-    uris = SptOpsMissing.find_missing_artists()
-    print( len(uris) )
+    # Complete missings
+    refs = SptOpsMissing.fix_missing_tracks()
+    refs = SptOpsMissing.fix_missing_albums()
+    refs = SptOpsMissing.fix_missing_artists()
 
 
