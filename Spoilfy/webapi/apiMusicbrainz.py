@@ -9,19 +9,21 @@ import xmltodict
 import requests
 
 
-ROOT = 'http://musicbrainz.org/ws/2'
-APP = {'User-Agent':'Spoilfy/0.0.1 (solomonxiewise@gmail)'}
-oparams = {'fmt':'json','limit':3,'inc':''}
+_ROOT = 'http://musicbrainz.org/ws/2'
+_APP = {'User-Agent':'Spoilfy/0.0.1 (solomonxiewise@gmail)'}
+_params = {'fmt':'json','limit':3}
 
 def _get(url, params={}):
-    params.update(oparams)
-    r = requests.get(url, headers=APP, params=params)
+    """ [ Send HTTP Request & Get Response ]
+    """
+    params.update( _params )
+    r = requests.get(url, headers=_APP, params=params)
     print( '[SEARCHING]', params, r.url )
     # return xmltodict.parse(r.content)
     return r.json()
 
 def _qstr(query):
-    """[ Get formated query string ]
+    """[ Get formated Query-String ]
         example: 'name:bigbang AND country:Norway'
     """
     return ' AND '.join(
@@ -31,12 +33,31 @@ def _qstr(query):
 def _confidence():
     pass
 
-# [Tracks]
+
+
+# [ SEARCHING ]
 def _search_tracks(**query):
-    return _get(
-        url = '{}/recording'.format(ROOT),
-        params = {'query':_qstr(query)}
-    )
+    url = '{}/recording'.format(_ROOT)
+    params = {
+        'query':_qstr(query),
+        'inc':'artist-credits+isrcs+releases'
+    }
+    return _get(url, params)
+def _search_album(**query):
+    url = '{}/release'.format(_ROOT)
+    params = {
+        'query':_qstr(query),
+        'inc': 'artist-credits+labels+discids+recordings'
+    }
+    return _get(url, params)
+def _search_artist(**query):
+    url = '{}/artist'.format(_ROOT)
+    params = { 'query':_qstr(query), 'inc': 'aliases' }
+    return _get(url, params)
+
+
+
+# [ BEST MATCH: 1 RESULT ]
 def best_match_track(**query):
     results = _search_tracks(**query)
     # Filter out the best match
@@ -45,13 +66,6 @@ def best_match_track(**query):
     )
     best = matches[0] if matches else None
     return best
-
-# [Albums]
-def _search_album(**query):
-    return _get(
-        url = '{}/release'.format(ROOT),
-        params={'query':_qstr(query)}
-    )
 def best_match_album(**query):
     results = _search_album(**query)
     # Filter out the best match
@@ -60,13 +74,6 @@ def best_match_album(**query):
     )
     best = matches[0] if matches else None
     return best
-
-# [Artists]
-def _search_artist(**query):
-    return _get(
-        url = '{}/artist'.format(ROOT),
-        params={'query':_qstr(query)}
-    )
 def best_match_artist(**query):
     results = _search_artist(**query)
     # Filter out the best match
@@ -76,6 +83,20 @@ def best_match_artist(**query):
     best = matches[0] if matches else None
     return best
 
+
+# [ GET INFO WITH SPECIFIC ID ]
+def get_a_track(id):
+    url = '{}/recording/{}'.format(_ROOT, id)
+    params = { 'inc':'artist-credits+isrcs+releases' }
+    return _get(url, params)
+def get_an_album(id):
+    url = '{}/release'.format(_ROOT)
+    params = { 'inc': 'artist-credits+labels+discids+recordings' }
+    return _get(url, params)
+def get_an_artist(id):
+    url = '{}/artist'.format(_ROOT)
+    params = { 'inc': 'aliases' }
+    return _get(url, params)
 
 
 
