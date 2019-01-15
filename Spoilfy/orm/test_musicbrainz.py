@@ -7,8 +7,6 @@
 import json
 import unittest
 
-from sqlalchemy.orm import sessionmaker
-
 from common import Base, engine, session, Resource, Reference, Include
 from user import UserAccount, UserResource
 from musicbrainz import MusicbrainzTrack, MusicbrainzAlbum, MusicbrainzArtist
@@ -25,7 +23,8 @@ def test_MusicbrainzTrack():
     path = '../../scratch/sqlschemas/musicbrainz/jsondumps/search_recording.json'
     with open(path, 'r') as f:
         jsondata = json.loads( f.read() )
-        MusicbrainzTrack.loads( jsondata )
+        # ->
+        print( 'Manual test to be implemented' )
 
 
 def test_MusicbrainzAlbum():
@@ -33,7 +32,8 @@ def test_MusicbrainzAlbum():
     path = '../../scratch/sqlschemas/musicbrainz/jsondumps/search_release.json'
     with open(path, 'r') as f:
         jsondata = json.loads( f.read() )
-        MusicbrainzAlbum.loads( jsondata )
+        # ->
+        print( 'Manual test to be implemented' )
 
 
 def test_MusicbrainzArtist():
@@ -41,7 +41,8 @@ def test_MusicbrainzArtist():
     path = '../../scratch/sqlschemas/musicbrainz/jsondumps/search_artists.json'
     with open(path, 'r') as f:
         jsondata = json.loads( f.read() )
-        MusicbrainzArtist.loads( jsondata )
+        # ->
+        print( 'Manual test to be implemented' )
 
 
 
@@ -62,10 +63,11 @@ def test_query_artist():
 
 if __name__ == '__main__':
     try:
-        MusicbrainzTrack.__table__.drop(engine)
-        MusicbrainzAlbum.__table__.drop(engine)
-        MusicbrainzArtist.__table__.drop(engine)
+        # MusicbrainzTrack.__table__.drop(engine)
+        # MusicbrainzAlbum.__table__.drop(engine)
+        # MusicbrainzArtist.__table__.drop(engine)
         # Include.__table__.drop(engine)
+        pass
     except Exception as e:
         print('Error on dropping Musicbrainz table.')
     finally:
@@ -78,7 +80,7 @@ if __name__ == '__main__':
     test_MusicbrainzArtist()
 
     #=> Query
-    # test_query_track()
-    # test_query_album()
-    # test_query_artist()
+    test_query_track()
+    test_query_album()
+    test_query_artist()
 
