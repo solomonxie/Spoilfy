@@ -7,7 +7,7 @@
 import json
 import unittest
 
-from mbzOps import MbzOpsTrack
+from mbzOps import MbzOpsTrack, MbzOpsAlbum, MbzOpsArtist
 from orm.common import Base, engine, session, Resource, Reference, Include
 from orm.user import UserAccount, UserResource
 from orm.musicbrainz import MusicbrainzTrack, MusicbrainzAlbum, MusicbrainzArtist
@@ -21,26 +21,26 @@ from orm.musicbrainz import MusicbrainzTrack, MusicbrainzAlbum, MusicbrainzArtis
 
 def test_MbzOpsTrack():
     # Add a track
-    path = '../../scratch/sqlschemas/musicbrainz/jsondumps/search_recording.json'
+    path = '../scratch/sqlschemas/musicbrainz/jsondumps/search_recording.json'
     with open(path, 'r') as f:
         jsondata = json.loads( f.read() )
-        MusicbrainzTrack.loads( jsondata )
+        MbzOpsTrack.loads( jsondata )
 
 
 def test_MbzOpsAlbum():
     # Add a track
-    path = '../../scratch/sqlschemas/musicbrainz/jsondumps/search_release.json'
+    path = '../scratch/sqlschemas/musicbrainz/jsondumps/search_release.json'
     with open(path, 'r') as f:
         jsondata = json.loads( f.read() )
-        MusicbrainzAlbum.loads( jsondata )
+        MbzOpsAlbum.loads( jsondata )
 
 
 def test_MbzOpsArtist():
     # Add a track
-    path = '../../scratch/sqlschemas/musicbrainz/jsondumps/search_artists.json'
+    path = '../scratch/sqlschemas/musicbrainz/jsondumps/search_artists.json'
     with open(path, 'r') as f:
         jsondata = json.loads( f.read() )
-        MusicbrainzArtist.loads( jsondata )
+        MbzOpsArtist.loads( jsondata )
 
 
 
@@ -59,6 +59,6 @@ if __name__ == '__main__':
 
 
     #=> Insert data
-    # test_MbzOpsTrack()
-    # test_MbzOpsAlbum()
-    # test_MbzOpsArtist()
+    test_MbzOpsTrack()
+    test_MbzOpsAlbum()
+    test_MbzOpsArtist()

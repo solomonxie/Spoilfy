@@ -33,9 +33,9 @@ class MbzOps:
     """
 
     @classmethod
-    def load(cls, jsondata, real_uri):
+    def load(cls, jsondata, real_uri=None):
         # Add ONE item to database
-        mbz = session.merge( cls(jsondata) )
+        mbz = session.merge( cls.ORM(jsondata) )
         print( '\t[INSERT]', mbz )
         # Bind reference
         ref = Reference(mbz, real_uri, mbz.score/100)
@@ -53,22 +53,14 @@ class MbzOpsTrack(MbzOps):
 
     @classmethod
     def loads(cls, jsondata):
-        # Insert items to DB
-        items = MusicbrainzTrack.add_resources(jsondata['recordings'])
-        # Add NEW NEW NEW reference
-        Reference.add_resources(items)
-        # Bind each track's [albums] & [artists]
-        for track in jsondata['recordings']:
-            MusicbrainzTrack.include_albums( track )
-            MusicbrainzTrack.include_artists( track )
-
-    @classmethod
-    def get_sub_ids(cls, trackdata):
-        album_ids  = [ a.get('id')
-                for a in trackdata.get('releases', []) ]
-        artist_ids = [ a.get('artist', {}).get('id')
-                for a in trackdata.get('artist-credit', []) ]
-        return album_ids, artist_ids
+        """ [ Import data as NEW without bindings to Spotify ]
+        """
+        all = []
+        for o in jsondata.get('recordings', []):
+            all.append( cls.load(o) )
+            cls.include_albums(o)
+            cls.include_artists(o)
+        return all
 
     @classmethod
     def include_albums(cls, trackdata):
@@ -92,6 +84,14 @@ class MbzOpsTrack(MbzOps):
         # Submit changes
         session.commit()
 
+    @classmethod
+    def get_sub_ids(cls, trackdata):
+        album_ids  = [ a.get('id')
+                for a in trackdata.get('releases', []) ]
+        artist_ids = [ a.get('artist', {}).get('id')
+                for a in trackdata.get('artist-credit', []) ]
+        return album_ids, artist_ids
+
 
 
 class MbzOpsAlbum(MbzOps):
@@ -102,20 +102,13 @@ class MbzOpsAlbum(MbzOps):
 
     @classmethod
     def loads(cls, jsondata):
-        # Insert items to DB
-        items = MusicbrainzAlbum.add_resources(jsondata.get('releases',{}))
-        # Make NEW NEW NEW reference
-        Reference.add_resources(items)
-        # Bind each album's [artists] & [tracks]
-        for album in jsondata['releases']:
-            MusicbrainzAlbum.include_artists( album )
-
-    @classmethod
-    def get_sub_ids(cls, albumdata):
-        track_ids  = []
-        artist_ids = [ a.get('artist', {}).get('id')
-                for a in albumdata.get('artist-credit', []) ]
-        return track_ids, artist_ids
+        """ [ Import data as NEW without bindings to Spotify ]
+        """
+        all = []
+        for o in jsondata.get('releases', []):
+            all.append( cls.load(o) )
+            cls.include_artists(o)
+        return all
 
     @classmethod
     def include_artists(cls, albumdata):
@@ -128,6 +121,13 @@ class MbzOpsAlbum(MbzOps):
         # Submit changes
         session.commit()
 
+    @classmethod
+    def get_sub_ids(cls, albumdata):
+        track_ids  = []
+        artist_ids = [ a.get('artist', {}).get('id')
+                for a in albumdata.get('artist-credit', []) ]
+        return track_ids, artist_ids
+
 
 
 class MbzOpsArtist(MbzOps):
@@ -138,10 +138,12 @@ class MbzOpsArtist(MbzOps):
 
     @classmethod
     def loads(cls, jsondata):
-        # Insert items to DB
-        items = MusicbrainzArtist.add_resources(jsondata.get('artists',{}))
-        # Make NEW reference
-        Reference.add_resources(items)
+        """ [ Import data as NEW without bindings to Spotify ]
+        """
+        all = []
+        for o in jsondata.get('artists', []):
+            all.append( cls.load(o) )
+        return all
 
 
 
