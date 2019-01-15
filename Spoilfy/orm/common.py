@@ -82,21 +82,6 @@ class Resource(SpoilfyORM):
         if not isinstance(other, type(self)): return NotImplemented
         return self.uri == other.uri
 
-    @classmethod
-    def add_resources(cls, items):
-        """[ Add Resources ]
-        :param session: sqlalchemy SESSION binded to DB.
-        :param LIST items: must be iteratable.
-        :return: inserted resource objects.
-        """
-        all = [ cls(o) for o in items ]
-        updates = [ session.merge( a ) for a in all ]
-        session.commit()
-        print('[  OK  ] Inserted {} items to [{}].'.format(
-            len(all), cls.__tablename__
-        ))
-        return all
-
 
 # ==============================================================
 # >>>>>>>>>>>>>>>>[    COMMON ORMs     ] >>>>>>>>>>>>>>>>>>>>>>>
@@ -160,6 +145,7 @@ class Include(SpoilfyORM):
 
     parent_type = Column('parent_type', String)
     child_type = Column('child_type', String)
+    provider = Column('provider', String)
 
     def __init__(self, p_uri, c_uri):
         super().__init__(
@@ -167,6 +153,7 @@ class Include(SpoilfyORM):
             child_uri = c_uri,
             parent_type = p_uri.split(':')[1],
             child_type = c_uri.split(':')[1],
+            provider = c_uri.split(':')[0],
         )
 
 

@@ -30,6 +30,7 @@ if __name__ == '__main__':
     try:
         Reference.__table__.drop(engine)
         Include.__table__.drop(engine)
+        pass
     except Exception as e:
         print('Error on dropping User table.')
     finally:

@@ -10,16 +10,16 @@ from time import sleep
 
 
 if __name__ in ['__main__', 'spotify2mbz']:
-    from orm.spotify import SpotifyTrack, SpotifyAlbum, SpotifyArtist, SpotifyPlaylist, SpotifyAccount
-    from orm.musicbrainz import MusicbrainzTrack, MusicbrainzAlbum, MusicbrainzAlbum, MusicbrainzArtist
+    from orm.spotify import *
+    from orm.musicbrainz import *
     from orm.common import Base, engine, session
     from orm.common import Resource, Reference, Include
     from webapi.apiSpotify import SpotifyAPI
     import webapi.apiMusicbrainz as MbzAPI
     from spotify2mbz import MapTrack, MapAlbum, MapArtist
 else:
-    from Spoilfy.orm.spotify import SpotifyTrack, SpotifyAlbum, SpotifyArtist, SpotifyPlaylist, SpotifyAccount
-    from Spoilfy.orm.musicbrainz import MusicbrainzTrack, MusicbrainzAlbum, MusicbrainzAlbum, MusicbrainzArtist
+    from Spoilfy.orm.spotify import *
+    from Spoilfy.orm.musicbrainz import *
     from Spoilfy.orm.common import Base, engine, session
     from Spoilfy.orm.common import Resource, Reference, Include
     from Spoilfy.webapi.apiSpotify import SpotifyAPI
