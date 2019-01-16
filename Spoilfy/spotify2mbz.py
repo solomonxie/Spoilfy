@@ -130,9 +130,20 @@ class Mapper:
             tag = cls(uri)
 
 
+
 class MapTrack(Mapper):
     """ [ Map a Spotify track to Musicbrainz ]
     """
+
+    @classmethod
+    def map_all(cls):
+        uris = UnMapped.find_unmapped_tracks()
+        print( '[UNMAPPED] {} TRACKS.'.format(len(uris)) )
+        for i,uri in enumerate(uris):
+            print( i+1 )
+            cls.toMbz( uri )
+
+    #--------------------------------------------------#
 
     @classmethod
     def toMbz(cls, uri):
@@ -146,16 +157,15 @@ class MapTrack(Mapper):
         spt,mbz = cls.get_pair_refs( uri )
 
         if spt and mbz:
-            print( '[SKIP] TAGs FOUND.' )
+            print( '[SKIP] TAG EXISTS.', mbz )
         elif not spt:
             print( '[SKIP] SPT DOES NOT EXIST.' )
             sleep(3)
         elif spt and not mbz:
             # Retrive essential Query fields
             info = cls.get_spotify_info( uri )
-
             if not info:
-                print( '[SKIP] SPT TAGs INCOMPLETE.' )
+                print( '[SKIP] SPT TAGs INCOMPLETE.', info )
             else:
                 track, album, artist = info
                 print( '\t', track.name, album.name, artist.name )
@@ -167,7 +177,7 @@ class MapTrack(Mapper):
                 )
                 # Insert data to DB
                 if not jsondata:
-                    print( '[SKIP] NO TAG FOUND.' )
+                    print( '[SKIP] NO TAG FOUND.', jsondata )
                 else:
                     mbz =  MbzOpsTrack.load( jsondata, spt.real_uri )
 
