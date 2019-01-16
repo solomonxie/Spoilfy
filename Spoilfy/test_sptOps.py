@@ -122,7 +122,7 @@ if __name__ == '__main__':
     # test_SptOpsTrack()
     # test_SptOpsAlbum()
     # test_SptOpsArtist()
-    # test_SptOpsPlaylist()
+    test_SptOpsPlaylist()
 
     # Complete missings
     refs = SptOpsMissing.fix_missing_tracks()

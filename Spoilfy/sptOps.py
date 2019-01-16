@@ -216,7 +216,8 @@ class SptOpsPlaylist(SptOps):
 
     @classmethod
     def include_tracks(cls, playlistdata):
-        parent = playlistdata.get('uri')
+        parent = 'spotify:playlist:{}'.format( playlistdata.get('id') )
+        # original playlist uri: "spotify:user:xxxxxxxx:playlist:xxxxxxx"
 
         for page in cls.API.get_playlist_tracks(playlistdata.get('id')):
             for o in page.get('items', []):

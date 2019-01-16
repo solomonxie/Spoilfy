@@ -187,6 +187,7 @@ class SpotifyPlaylist(Resource):
     __tablename__ = 'spotify_Playlists'
 
     owner_uri = Column('owner_uri', String)
+    raw_uri = Column('raw_uri', String)
     snapshot_id = Column('snapshot_id', String)
 
     total_tracks = Column('total_tracks', Integer)
@@ -200,15 +201,15 @@ class SpotifyPlaylist(Resource):
 
     def __init__(self, jsondata):
         d = jsondata
-        u = d.get('uri','').split(':')
         super().__init__(
             # Common identifiers ->
-            uri = '{}:{}:{}'.format(u[0],u[3],u[4]),
+            uri = 'spotify:playlist:{}'.format(d.get('id')),
             name = d.get('name'),
             id = d.get('id'),
             type = d.get('type'),
             provider = 'spotify',
             owner_uri = d.get('owner',{}).get('uri'),
+            raw_uri = d.get('uri'),
             # Spotify specific ->
             snapshot_id = d.get('snapshot_id'),
             total_tracks = d.get('tracks',{}).get('total'),
