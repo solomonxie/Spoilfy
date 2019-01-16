@@ -68,6 +68,10 @@ class Resource(SpoilfyORM):
     # ^ but you can't get it within the program
     # ^ so you have to explicitly give value to it
 
+    @classmethod
+    def get(cls, uri):
+        return session.query(cls).filter(cls.uri==uri).first()
+
     def __new__(cls, *args, **kwargs):
         # print( '[  OK  ]__new__ {}'.format(cls) )
         return super().__new__(cls)
@@ -106,6 +110,10 @@ class Reference(SpoilfyORM):
     type = Column('type', String)
     provider = Column('provider', String)
     #^ default value only take effect after inserted to DB
+
+    @classmethod
+    def get(cls, uri):
+        return session.query(cls).filter(cls.uri==uri).first()
 
     def __init__(self, item, real_uri=None, confidence=1):
         super().__init__(
@@ -146,6 +154,10 @@ class Include(SpoilfyORM):
     parent_type = Column('parent_type', String)
     child_type = Column('child_type', String)
     provider = Column('provider', String)
+
+    @classmethod
+    def get(cls, uri):
+        return session.query(cls).filter(cls.uri==uri).first()
 
     def __init__(self, p_uri, c_uri):
         super().__init__(

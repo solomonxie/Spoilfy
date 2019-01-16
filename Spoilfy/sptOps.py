@@ -68,7 +68,7 @@ class SptOpsAccount(SptOps):
         user = session.merge( cls.ORM(jsondata) )
         # Add reference
         session.merge( Reference(user) )
-        session.commit
+        session.commit()
         return user
 
 

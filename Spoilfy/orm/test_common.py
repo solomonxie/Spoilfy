@@ -36,7 +36,7 @@ if __name__ == '__main__':
     finally:
         Base.metadata.create_all(bind=engine)
 
-    # -> 
+    # ->
     test_Resource()
     test_Reference()
     test_Include()

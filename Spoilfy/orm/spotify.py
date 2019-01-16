@@ -221,9 +221,6 @@ class SpotifyPlaylist(Resource):
             followers = d.get('followers',{}).get('total'),
             description = d.get('description'),
         )
-        session.merge( self )   #Merge existing data
-        #-> Temporary: For test only to solve repeated ID issue.
-        session.commit()  #-> Better to commit after multiple inserts
 
 
 
