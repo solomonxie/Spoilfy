@@ -80,6 +80,10 @@ class Resource(SpoilfyORM):
         super().__init__(*args, **kwargs)
         self.query = session.query(self.__class__)
 
+    def __repr__(self):
+        # return '<{} "{}">'.format( self.__class__.__name__, self.uri )
+        return '<ORM "{}">'.format( self.uri )
+
     def __hash__(self):
         return hash( (self.uri) )
     def __eq__(self, other):
@@ -126,13 +130,8 @@ class Reference(SpoilfyORM):
             confidence=confidence,
         )
 
-
-    @classmethod
-    def add_resources(cls, items):
-        all = [ session.merge( cls(o) ) for o in items ]
-        session.commit()
-        print('[  OK  ] Inserted {} new references.'.format( len(all) ))
-        return all
+    def __repr__(self):
+        return '<REF "{}">'.format( self.real_uri )
 
 
 
@@ -158,6 +157,9 @@ class Include(SpoilfyORM):
     @classmethod
     def get(cls, uri):
         return session.query(cls).filter(cls.uri==uri).first()
+
+    def __repr__(self):
+        return '<{} INCLUDE "{}">'.format( self.parent_uri, self.child_uri )
 
     def __init__(self, p_uri, c_uri):
         super().__init__(
