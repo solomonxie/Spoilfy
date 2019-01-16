@@ -16,7 +16,7 @@ if __name__ in ['__main__', 'spotify2mbz']:
     from orm.common import Resource, Reference, Include
     from webapi.apiSpotify import SpotifyAPI
     import webapi.apiMusicbrainz as MbzAPI
-    from spotify2mbz import MapTrack, MapAlbum, MapArtist
+    from spotify2mbz import *
 else:
     from Spoilfy.orm.spotify import *
     from Spoilfy.orm.musicbrainz import *
@@ -24,7 +24,8 @@ else:
     from Spoilfy.orm.common import Resource, Reference, Include
     from Spoilfy.webapi.apiSpotify import SpotifyAPI
     import Spoilfy.webapi.apiMusicbrainz as MbzAPI
-    from Spoilfy.spotify2mbz import MapTrack, MapAlbum, MapArtist
+    from Spoilfy.spotify2mbz import *
+
 
 
 
@@ -36,17 +37,10 @@ else:
 def test_MapTrack():
     # Map a track
     # track_uri = 'spotify:track:0ycrQBLTLJOFLU7SZlNpli'
-    # tag = MapTrack(track_uri)
+    # tag = MapTrack.toMbz(track_uri)
+    pass
 
-    # Map all existing spotify tracks
-    uris = session.query( SpotifyTrack.uri ).all()
-    print( len(uris) )
-    for u, in uris:
-        mbz = MapTrack.toMbz(u)
-        if mbz:
-            print( '\t[TAG]', mbz )
 
-    # tags = [ MapTrack(u) for u, in uris]
 
 def test_MapAlbum():
     # Map an album
@@ -61,9 +55,23 @@ def test_MapArtist():
 
 
 def main():
-    test_MapTrack()
+    # test_MapTrack()
     # test_MapAlbum()
     # test_MapArtist()
+
+
+    # Find Unmapped
+    # uris = UnMapped.find_unmapped_tracks()
+    # print( '[UNMAPPED] {} TRACKS.'.format(len(uris)) )
+    # uris = UnMapped.find_unmapped_albums()
+    # print( '[UNMAPPED] {} ALBUMS.'.format(len(uris)) )
+    # uris = UnMapped.find_unmapped_artists()
+    # print( '[UNMAPPED] {} ARTISTS.'.format(len(uris)) )
+
+    # Get track query info
+    info = MapTrack.get_spotify_info('spotify:track:09oVgv7wiVeRuRnDCrcNhX')
+    print( '[QUERY]', info )
+    MapTrack.toMbz('spotify:track:09oVgv7wiVeRuRnDCrcNhX')
 
 
 if __name__ == '__main__':
