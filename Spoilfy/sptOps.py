@@ -154,9 +154,9 @@ class SptOpsAlbum(SptOps):
                 if child:
                     inc = session.merge( Include(parent, child) )
                     SptOpsTrack.include_artists(albumdata)
+            session.commit()
             # break
 
-        session.commit()
 
     @classmethod
     def include_artists(cls, albumdata):
@@ -223,10 +223,9 @@ class SptOpsPlaylist(SptOps):
                 child = o.get('track',{}).get('uri')
                 if child:
                     inc = session.merge( Include(parent, child) )
+                    session.commit()
             # break
 
-        session.commit()
-        return refs
 
 
 
