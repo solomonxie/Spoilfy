@@ -69,9 +69,14 @@ def main():
     # print( '[UNMAPPED] {} ARTISTS.'.format(len(uris)) )
 
     # Get track query info
-    info = MapTrack.get_spotify_info('spotify:track:09oVgv7wiVeRuRnDCrcNhX')
-    print( '[QUERY]', info )
-    MapTrack.toMbz('spotify:track:09oVgv7wiVeRuRnDCrcNhX')
+    # info = MapTrack.get_spotify_info('spotify:track:035szXq0XeLeFng7v02xaf')
+    # print( '[QUERY]', info )
+
+    # Tagging
+    # MapTrack.toMbz('spotify:track:035szXq0XeLeFng7v02xaf')
+
+    # Multiple Tagging
+    MapTrack.map_all()
 
 
 if __name__ == '__main__':
