@@ -282,7 +282,8 @@ class SptOpsMissing(SptOps):
         missings = cls.find_missing_tracks()
         print( '[ FIX ] {} missing TRACKS...'.format(len(missings)) )
 
-        for uri in missings:
+        for i,uri in enumerate(missings):
+            print( i+1 )
             t = cls.API.get_a_track( uri.split(':')[2] )
             if t:
                 track = session.merge(SpotifyTrack( {'track':t} ))
@@ -299,7 +300,8 @@ class SptOpsMissing(SptOps):
         missings = cls.find_missing_albums()
         print( '[ FIX ] {} missing ALBUMS...'.format(len(missings)) )
 
-        for uri in missings:
+        for i,uri in enumerate(missings):
+            print( i+1 )
             albumdata = {'album': cls.API.get_a_album( uri.split(':')[2] )}
             album = session.merge(SpotifyAlbum( albumdata ))
             refs.append( session.merge(Reference( album )) )
@@ -315,7 +317,8 @@ class SptOpsMissing(SptOps):
         missings = cls.find_missing_artists()
         print( '[ FIX ] {} missing ARTISTS...'.format(len(missings)) )
 
-        for uri in missings:
+        for i,uri in enumerate(missings):
+            print( i+1 )
             artistdata = cls.API.get_a_artist( uri.split(':')[2] )
             artist = session.merge(SpotifyArtist( artistdata ))
             refs.append( session.merge(Reference( artist )) )
