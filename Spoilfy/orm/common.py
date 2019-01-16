@@ -165,8 +165,8 @@ class Include(SpoilfyORM):
         super().__init__(
             parent_uri = p_uri,
             child_uri = c_uri,
-            parent_type = p_uri.split(':')[1],
-            child_type = c_uri.split(':')[1],
+            parent_type = p_uri.split(':')[-2],
+            child_type = c_uri.split(':')[-2],
             provider = c_uri.split(':')[0],
         )
 
