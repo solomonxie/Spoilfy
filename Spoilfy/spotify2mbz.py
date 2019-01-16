@@ -102,7 +102,7 @@ class Mapper:
 
     @classmethod
     def get_pair_refs(cls, uri):
-        print('[NOW]__get_references__')
+        # print('[NOW]__get_references__', uri)
 
         spt = Reference.get(uri)
         mbz = session.query(Reference).filter(
@@ -168,10 +168,9 @@ class MapTrack(Mapper):
                 print( '[SKIP] SPT TAGs INCOMPLETE.', info )
             else:
                 track, album, artist = info
-                print( '\t', track.name, album.name, artist.name )
                 # Tagging
-                print('[NOW]__tagging__')
-                sleep(1)
+                print('[NOW]__tagging__', track.name, album.name, artist.name )
+                # sleep(1)
                 jsondata = MbzAPI.best_match_track(
                     name=track.name, release=album.name, artist=artist.name,
                 )
@@ -180,6 +179,7 @@ class MapTrack(Mapper):
                     print( '[SKIP] NO TAG FOUND.', jsondata )
                 else:
                     mbz =  MbzOpsTrack.load( jsondata, spt.real_uri )
+                    print( '[HIT]', mbz )
 
         return mbz
 
