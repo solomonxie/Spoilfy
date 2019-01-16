@@ -120,9 +120,9 @@ if __name__ == '__main__':
     #=> Insert data
     # test_SptOpsAccount()
     # test_SptOpsTrack()
-    test_SptOpsAlbum()
-    test_SptOpsArtist()
-    test_SptOpsPlaylist()
+    # test_SptOpsAlbum()
+    # test_SptOpsArtist()
+    # test_SptOpsPlaylist()
 
     # Complete missings
     refs = SptOpsMissing.fix_missing_tracks()
