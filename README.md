@@ -1,2 +1,2 @@
 # Spoilfy
-Spotify personal data management dashboard.
+Mapping all music to MusicBrainz, etc., Spotify, iTunes.
