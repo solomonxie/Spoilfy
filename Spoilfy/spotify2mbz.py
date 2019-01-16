@@ -9,6 +9,7 @@ from time import sleep
 
 from sqlalchemy import exists
 from sqlalchemy.orm import aliased
+from sqlalchemy import text
 
 
 #-> TEST only
@@ -29,6 +30,66 @@ else:
     from Spoilfy.webapi.apiMusicbrainz import MusicbrainzAPI as MbzAPI
 
 
+
+TB_SPT_TK = SpotifyTrack.__tablename__
+TB_SPT_AB = SpotifyAlbum.__tablename__
+TB_SPT_AT = SpotifyArtist.__tablename__
+TB_SPT_PL = SpotifyPlaylist.__tablename__
+
+class UnMapped:
+
+    @classmethod
+    def _find_unmapped(cls, sql):
+        with engine.connect() as con:
+            records = con.execute(sql)
+            uris = [ u for u, in records ]
+        return uris
+
+    @classmethod
+    def find_unmapped_tracks(cls):
+        return cls._find_unmapped(
+            """
+            SELECT uri FROM 'references'
+                WHERE provider='spotify' AND type='track'
+                AND real_uri NOT IN
+                (
+                    SELECT real_uri FROM 'references'
+                        WHERE type='track' AND provider='musicbrainz'
+                )
+            """
+        )
+
+    @classmethod
+    def find_unmapped_albums(cls):
+        return cls._find_unmapped(
+            """
+            SELECT uri FROM 'references'
+                WHERE provider='spotify' AND type='album'
+                AND real_uri NOT IN
+                (
+                    SELECT real_uri FROM 'references'
+                        WHERE type='album' AND provider='musicbrainz'
+                )
+            """
+        )
+
+    @classmethod
+    def find_unmapped_artists(cls):
+        return cls._find_unmapped(
+            """
+            SELECT uri FROM 'references'
+                WHERE provider='spotify' AND type='artist'
+                AND real_uri NOT IN
+                (
+                    SELECT real_uri FROM 'references'
+                        WHERE type='artist' AND provider='musicbrainz'
+                )
+            """
+        )
+
+
+
+
 class Mapper:
     """ [ Map Spotify item to Musicbrainz ]
 
@@ -40,27 +101,16 @@ class Mapper:
     """
 
     @classmethod
-    def get_references(cls, uri):
-        refs = {}
-
+    def get_pair_refs(cls, uri):
         print('[NOW]__get_references__')
-        real_uri = session.query(Reference).filter(
-            Reference.uri == uri
-        ).first().real_uri
-        results = session.query(Reference).filter(
-            Reference.real_uri == real_uri
-        ).all()
-        print( '[QUERY]', results )
 
-        # Spotify
-        r = list(filter(lambda o: o.provider=='spotify', results))
-        refs['spotify'] = r[0] if r else None
-        # Musicbrainz
-        r = list(filter(lambda o: o.provider=='musicbrainz', results))
-        refs['musicbrainz'] = r[0] if r else None
-        print( '\t[REFs]', refs )
+        spt = Reference.get(uri)
+        mbz = session.query(Reference).filter(
+            Reference.real_uri == spt.real_uri,
+            Reference.provider == 'musicbrainz'
+        ).first()
 
-        return refs
+        return (spt, mbz)
 
     @classmethod
     def toMbz(cls, uri):
@@ -80,7 +130,6 @@ class Mapper:
             tag = cls(uri)
 
 
-
 class MapTrack(Mapper):
     """ [ Map a Spotify track to Musicbrainz ]
     """
@@ -90,75 +139,69 @@ class MapTrack(Mapper):
         """
             Params:
             - uri [type:String]: spotify track's uri
+
+            Return: <Reference> of MBZ track
         """
         # Check track's references [Spotify] & [Musicbrainz]
-        refs = cls.get_references( uri )
-        spt = refs.get('spotify')
-        mbz = refs.get('musicbrainz')
+        spt,mbz = cls.get_pair_refs( uri )
+
         if spt and mbz:
             print( '[SKIP] TAGs FOUND.' )
-            return mbz
-
-        # Retrive tags from MBZ for this track if not exists
-        info = cls.get_spotify_info( uri ) if not mbz else None
-        if info:
-            track, album, artist = info
-            print( '\t', track.name, album.name, artist.name )
-
-            # Tagging
-            print('[NOW]__tagging__')
-            jsondata = MbzAPI.best_match_track(
-                name=track.name, release=album.name, artist=artist.name,
-            )
-            sleep(1)
-            if jsondata:
-                mbz =  MbzOpsTrack.load( jsondata, spt.real_uri )
-                return mbz
-            else:
-                print( '[SKIP] NO TAG FOUND.' )
-        else:
-            print( '[SKIP] SPT INFO INCOMPLETE.' )
+        elif not spt:
+            print( '[SKIP] SPT DOES NOT EXIST.' )
             sleep(3)
+        elif spt and not mbz:
+            # Retrive essential Query fields
+            info = cls.get_spotify_info( uri )
 
+            if not info:
+                print( '[SKIP] SPT TAGs INCOMPLETE.' )
+            else:
+                track, album, artist = info
+                print( '\t', track.name, album.name, artist.name )
+                # Tagging
+                print('[NOW]__tagging__')
+                sleep(1)
+                jsondata = MbzAPI.best_match_track(
+                    name=track.name, release=album.name, artist=artist.name,
+                )
+                # Insert data to DB
+                if not jsondata:
+                    print( '[SKIP] NO TAG FOUND.' )
+                else:
+                    mbz =  MbzOpsTrack.load( jsondata, spt.real_uri )
 
-    @classmethod
-    def get_spotify_info(cls, uri):
-        print('[NOW]__get_spt_info__:{}'.format(uri))
-
-        # -> Middlewares for Many-to-Many tables
-        trackAlbum = aliased(Include)
-        trackArtists = aliased(Include)
-
-        # Query this track and its album from DB
-        info = session.query(
-            SpotifyTrack, SpotifyAlbum
-        ).filter(
-            SpotifyTrack.uri == uri,
-            SpotifyTrack.uri == trackAlbum.child_uri,
-            SpotifyAlbum.uri == trackAlbum.parent_uri
-        ).first()
-        track, album = info if info else (None, None)
-
-        # Query track's artist from DB
-        info = session.query(
-            SpotifyArtist
-        ).filter(
-            SpotifyTrack.uri == uri,
-            SpotifyTrack.uri == trackArtists.child_uri,
-            SpotifyArtist.uri == trackArtists.parent_uri
-        ).first()
-        artist = info if info else None
-
-        print('(track, album, artist):', track, album, artist)
-        return (track, album, artist) if track and album and artist else None
+        return mbz
 
     @classmethod
-    def get_musicbrainz_info(cls, real_uri, track, album, artist):
-        print('[NOW]__tagging__')
-        jsondata = MbzAPI.best_match_track(
-            name=track.name, release=album.name, artist=artist.name,
+    def get_spotify_info(cls, track_uri):
+        """ [ Base on track_uri, return names of track/album/artist ]
+        """
+        print('[NOW]__get_spt_info__:{}'.format(track_uri))
+
+        tsql = text(
+            """
+            SELECT t.uri, a.uri, r.uri FROM
+                "spotify_Tracks" AS t,
+                "spotify_Albums" AS a,
+                "spotify_Artists" AS r
+            INNER JOIN includes AS ta
+                ON t.uri=ta.child_uri AND a.uri=ta.parent_uri
+            INNER JOIN includes AS tr
+                ON t.uri=tr.child_uri AND r.uri=tr.parent_uri
+            WHERE t.uri = :t_uri
+            """
         )
-        return MusicbrainzTrack.load( jsondata, real_uri )
+
+        with engine.connect() as con:
+            info = con.execute(tsql, t_uri=track_uri).fetchone()
+            t,a,r = info if info else (None,None,None)
+            track = SpotifyTrack.get( t )
+            album = SpotifyAlbum.get( a )
+            artist = SpotifyArtist.get( r )
+
+        return (track,album,artist) if track and album and artist else None
+
 
 
 
