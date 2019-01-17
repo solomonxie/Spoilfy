@@ -107,6 +107,19 @@ class Mapper:
     """
 
     @classmethod
+    def map_all(cls):
+        uris = cls.find_unmapped()
+        print( '[UNMAPPED] {} TRACKS.'.format(len(uris)) )
+        for i,uri in enumerate(uris):
+            print( i+1 )
+            cls.toMbz( uri )
+
+    @classmethod
+    def find_unmapped(cls):
+        print( '[find_unmapped()] TO BE IMPLEMENTED' )
+        return []
+
+    @classmethod
     def get_pair_refs(cls, uri):
         # print('[FUNC]__get_references__', uri)
 
@@ -121,44 +134,11 @@ class Mapper:
 
     @classmethod
     def toMbz(cls, uri):
-        print( '[toMbz()] TO BE IMPLEMENTED' )
-
-    @classmethod
-    def get_spotify_info(cls, uri):
-        print( '[get_spotify_info()] TO BE IMPLEMENTED' )
-
-    @classmethod
-    def get_musicbrainz_info(cls, real_uri, **query):
-        print( '[get_musicbrainz_info()] TO BE IMPLEMENTED' )
-
-    @classmethod
-    def mapItems(cls, uris):
-        for uri in uris:
-            tag = cls(uri)
-
-
-
-class MapTrack(Mapper):
-    """ [ Map a Spotify track to Musicbrainz ]
-    """
-
-    @classmethod
-    def map_all(cls):
-        uris = UnMapped.find_unmapped_tracks()
-        print( '[UNMAPPED] {} TRACKS.'.format(len(uris)) )
-        for i,uri in enumerate(uris):
-            print( i+1 )
-            cls.toMbz( uri )
-
-    #--------------------------------------------------#
-
-    @classmethod
-    def toMbz(cls, uri):
         """
             Params:
-            - uri [type:String]: spotify track's uri
+            - uri [type:String]: spotify item's uri
 
-            Return: <Reference> of MBZ track
+            Return: <Reference> of MBZ item
         """
         # Check track's references [Spotify] & [Musicbrainz]
         spt,mbz = cls.get_pair_refs( uri )
@@ -177,21 +157,30 @@ class MapTrack(Mapper):
                 session.merge( Incomplete(spt.real_uri) )
                 session.commit()
             else:
-                print('[FUNC]__tagging__', info)
-                track, album, artist = info
-                jsondata = MbzAPI.best_match_track(
-                    name=track.name, release=album.name, artist=artist.name,
-                )
-                # Insert data to DB
-                if not jsondata:
-                    print('[SKIP] NO TAG FOUND. MARKED AS UNTAGGED.', jsondata)
-                    session.merge( UnTagged(spt.real_uri) )
-                    session.commit()
-                else:
-                    print( '\t[HIT]', jsondata.get('title') )
-                    mbz =  MbzOpsTrack.load( jsondata, spt.real_uri )
+                mbz = cls.get_musicbrainz_info(info)
 
         return mbz
+
+
+    @classmethod
+    def get_spotify_info(cls, uri):
+        print( '[get_spotify_info()] TO BE IMPLEMENTED' )
+        return None
+
+    @classmethod
+    def tagging(cls, real_uri, **query):
+        print( '[tagging()] TO BE IMPLEMENTED' )
+        return None
+
+
+
+class MapTrack(Mapper):
+    """ [ Map a Spotify track to Musicbrainz ]
+    """
+
+    @classmethod
+    def find_unmapped(cls):
+        return UnMapped.find_unmapped_tracks()
 
     @classmethod
     def get_spotify_info(cls, track_uri):
@@ -219,6 +208,23 @@ class MapTrack(Mapper):
             artist = SpotifyArtist.get( r )
 
         return (track,album,artist) if track and album and artist else None
+
+    @classmethod
+    def tagging(cls, info):
+        print('[FUNC]__tagging__', info)
+        track, album, artist = info
+        jsondata = MbzAPI.best_match_track(
+            name=track.name, release=album.name, artist=artist.name,
+        )
+        if not jsondata:
+            print('[SKIP] NO TAG FOUND. MARKED AS UNTAGGED.', jsondata)
+            session.merge( UnTagged(spt.real_uri) )
+            session.commit()
+        else:
+            print( '\t[HIT]', jsondata.get('title') )
+            mbz =  MbzOpsTrack.load( jsondata, spt.real_uri )
+
+        return mbz
 
 
 
