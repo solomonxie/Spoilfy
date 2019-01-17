@@ -32,59 +32,101 @@ else:
 # ==============================================================
 
 
-def test_MapTrack():
-    # Map a track
-    # track_uri = 'spotify:track:0ycrQBLTLJOFLU7SZlNpli'
-    # tag = MapTrack.toMbz(track_uri)
-    pass
+class TestUnMapped(unittest.TestCase):
+
+    def setUp(self):
+        pass
+    
+    def test_find_unmapped_tracks(self):
+        # Find Unmapped
+        # uris = UnMapped.find_unmapped_tracks()
+        pass
+
+    def find_unmapped_albums(self):
+        # print( '[UNMAPPED] {} TRACKS.'.format(len(uris)) )
+        # uris = UnMapped.find_unmapped_albums()
+        pass
+
+    def find_unmapped_artists(self):
+        # print( '[UNMAPPED] {} ALBUMS.'.format(len(uris)) )
+        # print( uris )
+        pass
+
+    def find_unmapped_artists(self):
+        # uris = UnMapped.find_unmapped_artists()
+        # print( '[UNMAPPED] {} ARTISTS.'.format(len(uris)) )
+        pass
 
 
 
-def test_MapAlbum():
-    # Map an album
-    album_uri = 'spotify:album:1xn54DMo2qIqBuMqHtUsFd'
-    tag = MapAlbum(album_uri)
 
-def test_MapArtist():
-    # Map an artist
-    artist_uri = 'spotify:artist:04gDigrS5kc9YWfZHwBETP'
-    tag = MapArtist(artist_uri)
+class TestMapTrack(unittest.TestCase):
+
+    def setUp(self):
+        pass
+
+    def test_get_spotify_info(self):
+        # uri = 'spotify:track:035szXq0XeLeFng7v02xaf'
+        # info = MapTrack.get_spotify_info(uri)
+        pass
+
+    def test_tagging(self):
+        pass
+
+    def test_map_all(self):
+        # MapTrack.map_all()
+        pass
+
+    def test_toMbz(self):
+        # Map a track
+        # track_uri = 'spotify:track:0ycrQBLTLJOFLU7SZlNpli'
+        # tag = MapTrack.toMbz(track_uri)
+        # mbz = MapTrack.toMbz('spotify:track:035szXq0XeLeFng7v02xaf')
+        pass
+
+
+class TestMapAlbum(unittest.TestCase):
+
+    def setUp(self):
+        pass
+
+    def test_get_spotify_info(self):
+        pass
+
+    def test_tagging(self):
+        pass
+
+    def test_map_all(self):
+        # MapAlbum.map_all()
+        pass
+
+    def test_toMbz(self):
+        # Map an album
+        # album_uri = 'spotify:album:1xn54DMo2qIqBuMqHtUsFd'
+        # tag = MapAlbum(album_uri)
+        # mbz = MapAlbum.toMbz('spotify:album:08xX1j4J9RAjjFLwv9S0OD')
+        pass
 
 
 
-def main():
-    # test_MapTrack()
-    # test_MapAlbum()
-    # test_MapArtist()
+class TestMapArtist(unittest.TestCase):
+
+    def setUp(self):
+        pass
+
+    def test_get_spotify_info(self):
+        pass
+
+    def test_tagging(self):
+        pass
 
 
-    # Find Unmapped
-    # uris = UnMapped.find_unmapped_tracks()
-    # print( '[UNMAPPED] {} TRACKS.'.format(len(uris)) )
-    # uris = UnMapped.find_unmapped_albums()
-    # print( '[UNMAPPED] {} ALBUMS.'.format(len(uris)) )
-    # print( uris )
-    # uris = UnMapped.find_unmapped_artists()
-    # print( '[UNMAPPED] {} ARTISTS.'.format(len(uris)) )
-
-    # Get track query info
-    # info = MapTrack.get_spotify_info('spotify:track:035szXq0XeLeFng7v02xaf')
-    # print( '[QUERY]', info )
-
-    # Tagging
-    # MapTrack.toMbz('spotify:track:035szXq0XeLeFng7v02xaf')
-    info = MapAlbum.get_spotify_info('spotify:album:08xX1j4J9RAjjFLwv9S0OD')
-    print( info )
-
-    # Multiple Tagging
-    # MapTrack.map_all()
-    # MapAlbum.map_all()
 
 
 
 
 if __name__ == '__main__':
-    main()
+    unittest.main()
 
 
 
