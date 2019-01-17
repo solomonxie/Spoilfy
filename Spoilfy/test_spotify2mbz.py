@@ -63,6 +63,7 @@ def main():
     # print( '[UNMAPPED] {} TRACKS.'.format(len(uris)) )
     # uris = UnMapped.find_unmapped_albums()
     # print( '[UNMAPPED] {} ALBUMS.'.format(len(uris)) )
+    # print( uris )
     # uris = UnMapped.find_unmapped_artists()
     # print( '[UNMAPPED] {} ARTISTS.'.format(len(uris)) )
 
@@ -72,9 +73,12 @@ def main():
 
     # Tagging
     # MapTrack.toMbz('spotify:track:035szXq0XeLeFng7v02xaf')
+    info = MapAlbum.get_spotify_info('spotify:album:08xX1j4J9RAjjFLwv9S0OD')
+    print( info )
 
     # Multiple Tagging
-    MapTrack.map_all()
+    # MapTrack.map_all()
+    # MapAlbum.map_all()
 
 
 

@@ -183,10 +183,10 @@ class MapTrack(Mapper):
         return UnMapped.find_unmapped_tracks()
 
     @classmethod
-    def get_spotify_info(cls, track_uri):
+    def get_spotify_info(cls, uri):
         """ [ Base on track_uri, return names of track/album/artist ]
         """
-        print('[FUNC]__get_spt_info__:{}'.format(track_uri))
+        print('[FUNC]__get_spt_info__:{}'.format(uri))
         tsql = text(
             """
             SELECT t.uri, a.uri, r.uri FROM
@@ -197,11 +197,11 @@ class MapTrack(Mapper):
                 ON t.uri=ta.child_uri AND a.uri=ta.parent_uri
             INNER JOIN includes AS tr
                 ON t.uri=tr.child_uri AND r.uri=tr.parent_uri
-            WHERE t.uri = :t_uri
+            WHERE t.uri = :uri
             """
         )
         with engine.connect() as con:
-            info = con.execute(tsql, t_uri=track_uri).fetchone()
+            info = con.execute(tsql, uri=uri).fetchone()
             t,a,r = info if info else (None,None,None)
             track = SpotifyTrack.get( t )
             album = SpotifyAlbum.get( a )
@@ -234,49 +234,47 @@ class MapAlbum(Mapper):
     """
 
     @classmethod
-    def toMbz(cls, uri):
-        """
-            Params:
-            - uri [type:String]: spotify album's uri
-        """
-        # Check track's references [Spotify] & [Musicbrainz]
-        mbz,spt = cls.get_references( uri )
-
-        # Retrive tags from MBZ for this album if not exists
-        if not mbz:
-            # Get this track's info
-            album, artist = cls.get_spotify_info( uri )
-            print( '\t', album.name, artist.name )
-            # Tagging
-            mbz = cls.get_musicbrainz_info(spt.real_uri, album, artist)
-            print( '[  TAG  ]', mbz.name, mbz.uri )
+    def find_unmapped(cls):
+        return UnMapped.find_unmapped_albums()
 
     @classmethod
     def get_spotify_info(cls, uri):
-        print('[FUNC]__get_spotify_album_info__')
-        # -> Middlewares for Many-to-Many tables
-        albumArtists = aliased(Include)
-        # -> Compose SQL
-        query = session.query(
-                SpotifyAlbum, SpotifyArtist
-                #Debug: SpotifyAlbum.name, SpotifyArtist.name
-            ).join(
-                albumArtists, SpotifyAlbum.uri == albumArtists.child_uri
-            ).filter(
-                SpotifyArtist.uri == albumArtists.parent_uri,
-                SpotifyAlbum.uri == uri
-            )
-        # print( query.all().__len__(), query )
-        # ->
-        return query.first()
+        """ [ Base on album_uri, return names of album/artist ]
+        """
+        print('[FUNC]__get_spt_info__:{}'.format(uri))
+        tsql = text(
+            """
+            SELECT a.uri, r.uri FROM
+                "spotify_Albums" AS a,
+                "spotify_Artists" AS r
+            INNER JOIN includes AS ar
+                ON a.uri=ar.child_uri AND r.uri=ar.parent_uri
+            WHERE a.uri = :uri
+            """
+        )
+        with engine.connect() as con:
+            info = con.execute(tsql, uri=uri).fetchone()
+            a,r = info if info else (None,None)
+            album = SpotifyAlbum.get( a )
+            artist = SpotifyArtist.get( r )
+
+        return (album,artist) if album and artist else None
 
     @classmethod
-    def get_musicbrainz_info(cls, real_uri, album, artist):
-        print('[FUNC]__tagging__')
-        jsondata = MbzAPI.best_match_album(
-            name=album.name, artist=artist.name,
+    def tagging(cls, info):
+        print('[FUNC]__tagging__', info)
+        album, artist = info
+        jsondata = MbzAPI.best_match_track(
+            release=album.name, artist=artist.name,
         )
-        mbz = MusicbrainzAlbum.load( jsondata, real_uri )
+        if not jsondata:
+            print('[SKIP] NO TAG FOUND. MARKED AS UNTAGGED.', jsondata)
+            session.merge( UnTagged(spt.real_uri) )
+            session.commit()
+        else:
+            print( '\t[HIT]', jsondata.get('title') )
+            mbz =  MbzOpsTrack.load( jsondata, spt.real_uri )
+
         return mbz
 
 
