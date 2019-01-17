@@ -15,34 +15,24 @@ from common import Include, UnTagged, Incomplete
 # >>>>>>>>>>>>>>>>>>>>>>[    TEST     ] >>>>>>>>>>>>>>>>>>>>>>>>
 # ==============================================================
 
-def test_Resource():
-    pass
 
-def test_Reference():
-    pass
+class TestReference(unittest.TestCase):
 
-def test_Include():
-    pass
+    def test_Reference(self):
+        pass
 
+class TestInclude(unittest.TestCase):
+
+    def test_Include(self):
+        pass
+
+
+class TestIncomplete(unittest.TestCase):
+
+    def test_Incomplete(self):
+        pass
 
 
 
 if __name__ == '__main__':
-    try:
-        # Reference.__table__.drop(engine)
-        # Include.__table__.drop(engine)
-        # UnTagged.__table__.drop(engine)
-        # Incomplete.__table__.drop(engine)
-        pass
-    except Exception as e:
-        print('Error on dropping User table.')
-    finally:
-        Base.metadata.create_all(bind=engine)
-
-    # ->
-    test_Resource()
-    test_Reference()
-    test_Include()
-
-
-
+    unittest.main()

@@ -199,4 +199,28 @@ class Incomplete(SpoilfyORM):
         )
 
 
+
+
+# ==============================================================
+# >>>>>>>>>>>>>>>>>>[    TEST RUN     ] >>>>>>>>>>>>>>>>>>>>>>>>
+# ==============================================================
+
+
+
+if __name__ == '__main__':
+    try:
+        # Reference.__table__.drop(engine)
+        # Include.__table__.drop(engine)
+        # UnTagged.__table__.drop(engine)
+        # Incomplete.__table__.drop(engine)
+        pass
+    except Exception as e:
+        print('Error on dropping User table.')
+    finally:
+        Base.metadata.create_all(bind=engine)
+
+
+
+
+
 print('[  OK  ] __IMPORTED__: {}'.format(__name__))

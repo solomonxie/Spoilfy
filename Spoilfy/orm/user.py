@@ -115,4 +115,23 @@ class UserAccount(Resource):
 
 
 
+
+# ==============================================================
+# >>>>>>>>>>>>>>>>>>[    TEST RUN     ] >>>>>>>>>>>>>>>>>>>>>>>>
+# ==============================================================
+
+
+
+if __name__ == '__main__':
+    try:
+        # UserAccount.__table__.drop(engine)
+        # UserResource.__table__.drop(engine)
+        pass
+    except Exception as e:
+        print('Error on dropping User table.')
+    finally:
+        Base.metadata.create_all(bind=engine)
+
+
+
 print('[  OK  ] __IMPORTED__: {}'.format(__name__))
