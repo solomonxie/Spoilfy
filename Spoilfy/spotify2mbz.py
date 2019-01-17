@@ -16,16 +16,16 @@ from sqlalchemy import text
 if __name__ in ['__main__', 'spotify2mbz']:
     from orm.spotify import *
     from orm.musicbrainz import *
-    from orm.common import Base, engine, session
-    from orm.common import Resource, Reference, Include
+    from orm.common import Base, engine, session, Resource
+    from orm.common import Reference, Include, UnTagged, Incomplete
     from webapi.apiSpotify import SpotifyAPI
     from webapi.apiMusicbrainz import MusicbrainzAPI as MbzAPI
     from mbzOps import MbzOpsTrack, MbzOpsAlbum, MbzOpsArtist
 else:
     from Spoilfy.orm.spotify import *
     from Spoilfy.orm.musicbrainz import *
-    from Spoilfy.orm.common import Base, engine, session
-    from Spoilfy.orm.common import Resource, Reference, Include
+    from Spoilfy.orm.common import Base, engine, session, Resource
+    from Spoilfy.orm.common import Reference, Include, UnTagged, Incomplete
     from Spoilfy.webapi.apiSpotify import SpotifyAPI
     from Spoilfy.webapi.apiMusicbrainz import MusicbrainzAPI as MbzAPI
 
@@ -56,6 +56,8 @@ class UnMapped:
                     SELECT real_uri FROM 'references'
                         WHERE type='track' AND provider='musicbrainz'
                 )
+                AND real_uri NOT IN (SELECT real_uri from '_untagged')
+                AND real_uri NOT IN (SELECT real_uri from '_incompletes')
             """
         )
 
@@ -70,6 +72,8 @@ class UnMapped:
                     SELECT real_uri FROM 'references'
                         WHERE type='album' AND provider='musicbrainz'
                 )
+                AND real_uri NOT IN (SELECT real_uri from '_untagged')
+                AND real_uri NOT IN (SELECT real_uri from '_incompletes')
             """
         )
 
@@ -84,6 +88,8 @@ class UnMapped:
                     SELECT real_uri FROM 'references'
                         WHERE type='artist' AND provider='musicbrainz'
                 )
+                AND real_uri NOT IN (SELECT real_uri from '_untagged')
+                AND real_uri NOT IN (SELECT real_uri from '_incompletes')
             """
         )
 
@@ -102,13 +108,14 @@ class Mapper:
 
     @classmethod
     def get_pair_refs(cls, uri):
-        # print('[NOW]__get_references__', uri)
+        # print('[FUNC]__get_references__', uri)
 
         spt = Reference.get(uri)
         mbz = session.query(Reference).filter(
             Reference.real_uri == spt.real_uri,
             Reference.provider == 'musicbrainz'
         ).first()
+        print( '[FUNC]__get_pair_refs__:', spt, mbz )
 
         return (spt, mbz)
 
@@ -156,30 +163,33 @@ class MapTrack(Mapper):
         # Check track's references [Spotify] & [Musicbrainz]
         spt,mbz = cls.get_pair_refs( uri )
 
-        if spt and mbz:
-            print( '[SKIP] TAG EXISTS.', mbz )
-        elif not spt:
-            print( '[SKIP] SPT DOES NOT EXIST.' )
+        if not spt:
+            print( '[SKIP] SPT DOES NOT EXIST.', spt )
             sleep(3)
+        elif spt and mbz:
+            print( '[SKIP] TAG EXISTS.', mbz )
         elif spt and not mbz:
             # Retrive essential Query fields
             info = cls.get_spotify_info( uri )
+            print( info, spt )
             if not info:
-                print( '[SKIP] SPT TAGs INCOMPLETE.', info )
+                print( '[SKIP] SPT MARKED AS INCOMPLETE.', info )
+                session.merge( Incomplete(spt.real_uri) )
+                session.commit()
             else:
+                print('[FUNC]__tagging__', info)
                 track, album, artist = info
-                # Tagging
-                print('[NOW]__tagging__', track.name, album.name, artist.name )
-                # sleep(1)
                 jsondata = MbzAPI.best_match_track(
                     name=track.name, release=album.name, artist=artist.name,
                 )
                 # Insert data to DB
                 if not jsondata:
-                    print( '[SKIP] NO TAG FOUND.', jsondata )
+                    print('[SKIP] NO TAG FOUND. MARKED AS UNTAGGED.', jsondata)
+                    session.merge( UnTagged(spt.real_uri) )
+                    session.commit()
                 else:
+                    print( '\t[HIT]', jsondata.get('title') )
                     mbz =  MbzOpsTrack.load( jsondata, spt.real_uri )
-                    print( '[HIT]', mbz )
 
         return mbz
 
@@ -187,8 +197,7 @@ class MapTrack(Mapper):
     def get_spotify_info(cls, track_uri):
         """ [ Base on track_uri, return names of track/album/artist ]
         """
-        print('[NOW]__get_spt_info__:{}'.format(track_uri))
-
+        print('[FUNC]__get_spt_info__:{}'.format(track_uri))
         tsql = text(
             """
             SELECT t.uri, a.uri, r.uri FROM
@@ -202,7 +211,6 @@ class MapTrack(Mapper):
             WHERE t.uri = :t_uri
             """
         )
-
         with engine.connect() as con:
             info = con.execute(tsql, t_uri=track_uri).fetchone()
             t,a,r = info if info else (None,None,None)
@@ -239,7 +247,7 @@ class MapAlbum(Mapper):
 
     @classmethod
     def get_spotify_info(cls, uri):
-        print('[NOW]__get_spotify_album_info__')
+        print('[FUNC]__get_spotify_album_info__')
         # -> Middlewares for Many-to-Many tables
         albumArtists = aliased(Include)
         # -> Compose SQL
@@ -258,7 +266,7 @@ class MapAlbum(Mapper):
 
     @classmethod
     def get_musicbrainz_info(cls, real_uri, album, artist):
-        print('[NOW]__tagging__')
+        print('[FUNC]__tagging__')
         jsondata = MbzAPI.best_match_album(
             name=album.name, artist=artist.name,
         )
@@ -291,7 +299,7 @@ class MapArtist(Mapper):
 
     @classmethod
     def get_spotify_info(cls, uri):
-        print('[NOW]__get_spotify_artist_info__')
+        print('[FUNC]__get_spotify_artist_info__')
         # -> Middlewares for Many-to-Many tables
         albumArtists = aliased(Include)
         # -> Compose SQL
@@ -304,7 +312,7 @@ class MapArtist(Mapper):
 
     @classmethod
     def get_musicbrainz_info(cls, real_uri, artist):
-        print('[NOW]__tagging__')
+        print('[FUNC]__tagging__')
         jsondata = MbzAPI.best_match_artist(
             name=artist.name
         )

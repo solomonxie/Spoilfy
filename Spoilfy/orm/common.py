@@ -82,7 +82,7 @@ class Resource(SpoilfyORM):
 
     def __repr__(self):
         # return '<{} "{}">'.format( self.__class__.__name__, self.uri )
-        return '<ORM "{}">'.format( self.uri )
+        return '<ORM [{}] at {}>'.format( self.name, self.uri )
 
     def __hash__(self):
         return hash( (self.uri) )
@@ -170,6 +170,33 @@ class Include(SpoilfyORM):
             provider = c_uri.split(':')[0],
         )
 
+
+
+class UnTagged(SpoilfyORM):
+    """ [ Store items miss tagged or can't be tagged ]
+    """
+    __tablename__ = '_untagged'
+
+    real_uri = Column('real_uri', String, primary_key=True)
+
+    def __init__(self, real_uri):
+        super().__init__(
+            real_uri = real_uri
+        )
+
+
+
+class Incomplete(SpoilfyORM):
+    """ [ Store 'incomplete' items ]
+    """
+    __tablename__ = '_incompletes'
+
+    real_uri = Column('real_uri', String, primary_key=True)
+
+    def __init__(self, real_uri):
+        super().__init__(
+            real_uri = real_uri
+        )
 
 
 print('[  OK  ] __IMPORTED__: {}'.format(__name__))

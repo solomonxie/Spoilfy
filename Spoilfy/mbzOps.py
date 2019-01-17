@@ -36,12 +36,12 @@ class MbzOps:
     def load(cls, jsondata, real_uri=None):
         # Add ONE item to database
         mbz = session.merge( cls.ORM(jsondata) )
-        print( '\t[INSERT]', mbz )
         # Bind reference
-        ref = Reference(mbz, real_uri, mbz.score/100)
-        print( '\t[BIND]', ref, ' at ', ref.real_uri )
-        session.merge( ref )
+        ref = session.merge( Reference(mbz, real_uri, mbz.score/100) )
+
+        print( '\t[NEW]', mbz, ' at ', ref )
         session.commit()
+
         return ref
 
 

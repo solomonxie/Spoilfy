@@ -6,7 +6,8 @@
 
 import unittest
 
-from common import engine, Base, Resource, Reference, Include
+from common import engine, Base, Resource, Reference
+from common import Include, UnTagged, Incomplete
 
 
 
@@ -28,8 +29,10 @@ def test_Include():
 
 if __name__ == '__main__':
     try:
-        Reference.__table__.drop(engine)
-        Include.__table__.drop(engine)
+        # Reference.__table__.drop(engine)
+        # Include.__table__.drop(engine)
+        # UnTagged.__table__.drop(engine)
+        # Incomplete.__table__.drop(engine)
         pass
     except Exception as e:
         print('Error on dropping User table.')

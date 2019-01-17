@@ -151,13 +151,4 @@ class MusicbrainzArtist(MusicbrainzResource):
 
 
 
-
-class UnTagged:
-    """ [ Store items miss tagged or can't be tagged ]
-    """
-    pass
-
-
-
-
 print('[  OK  ] __IMPORTED__: {}'.format(__name__))

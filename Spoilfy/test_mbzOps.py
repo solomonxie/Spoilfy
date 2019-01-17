@@ -7,10 +7,10 @@
 import json
 import unittest
 
-from mbzOps import MbzOpsTrack, MbzOpsAlbum, MbzOpsArtist
+from mbzOps import *
 from orm.common import Base, engine, session, Resource, Reference, Include
 from orm.user import UserAccount, UserResource
-from orm.musicbrainz import MusicbrainzTrack, MusicbrainzAlbum, MusicbrainzArtist
+from orm.musicbrainz import *
 
 
 
@@ -50,6 +50,7 @@ if __name__ == '__main__':
         # MusicbrainzTrack.__table__.drop(engine)
         # MusicbrainzAlbum.__table__.drop(engine)
         # MusicbrainzArtist.__table__.drop(engine)
+        # UnTagged.__table__.drop(engine)
         # Include.__table__.drop(engine)
         pass
     except Exception as e:
