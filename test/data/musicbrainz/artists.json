@@ -1,0 +1,343 @@
+{
+  "artists": [
+    {
+      "aliases": [
+        {
+          "begin-date": null,
+          "end-date": null,
+          "locale": null,
+          "name": "Big Bang",
+          "primary": null,
+          "sort-name": "Big Bang",
+          "type": null
+        }
+      ],
+      "area": {
+        "id": "6743d351-6f37-3049-9724-5041161fff4d",
+        "life-span": {
+          "ended": null
+        },
+        "name": "Norway",
+        "sort-name": "Norway",
+        "type": "Country",
+        "type-id": "06dd0ae4-8c74-30bb-b43d-95dcedf961de"
+      },
+      "begin-area": {
+        "id": "f80d529e-f242-46ef-a090-d193ed23075f",
+        "life-span": {
+          "ended": null
+        },
+        "name": "Oslo",
+        "sort-name": "Oslo",
+        "type": "City",
+        "type-id": "6fd8f29a-3d0a-32fc-980d-ea697b69da78"
+      },
+      "country": "NO",
+      "disambiguation": "Norwegian rock band",
+      "id": "4ef5ed49-7ea3-405c-a381-04cf84e17d8c",
+      "life-span": {
+        "begin": "1992",
+        "ended": null
+      },
+      "name": "BigBang",
+      "score": 100,
+      "sort-name": "BigBang",
+      "tags": [
+        {
+          "count": 2,
+          "name": "rock"
+        },
+        {
+          "count": 1,
+          "name": "indie rock"
+        },
+        {
+          "count": 1,
+          "name": "blues rock"
+        },
+        {
+          "count": 1,
+          "name": "rock and roll"
+        }
+      ],
+      "type": "Group",
+      "type-id": "e431f5f6-b5d2-343d-8b36-72607fffb74b"
+    },
+    {
+      "area": {
+        "id": "6743d351-6f37-3049-9724-5041161fff4d",
+        "life-span": {
+          "ended": null
+        },
+        "name": "Norway",
+        "sort-name": "Norway",
+        "type": "Country",
+        "type-id": "06dd0ae4-8c74-30bb-b43d-95dcedf961de"
+      },
+      "country": "NO",
+      "disambiguation": "real name Espen Olafsen",
+      "gender": "male",
+      "id": "86c12959-1a5c-4fc8-bc17-dc0c55898702",
+      "life-span": {
+        "ended": null
+      },
+      "name": "Will-i-røret",
+      "score": 36,
+      "sort-name": "Will-i-røret",
+      "type": "Person",
+      "type-id": "b6e035f4-3ce9-331c-97df-83397230b0df"
+    },
+    {
+      "area": {
+        "id": "6743d351-6f37-3049-9724-5041161fff4d",
+        "life-span": {
+          "ended": null
+        },
+        "name": "Norway",
+        "sort-name": "Norway",
+        "type": "Country",
+        "type-id": "06dd0ae4-8c74-30bb-b43d-95dcedf961de"
+      },
+      "begin-area": {
+        "id": "f8128bc7-b51f-49c1-bea2-15cd079c5b57",
+        "life-span": {
+          "ended": null
+        },
+        "name": "Hamar",
+        "sort-name": "Hamar",
+        "type": "City",
+        "type-id": "6fd8f29a-3d0a-32fc-980d-ea697b69da78"
+      },
+      "country": "NO",
+      "disambiguation": "Real name Gerd Thoreid",
+      "gender": "female",
+      "id": "80cb03eb-e6d9-4a08-aa70-6e1968995707",
+      "life-span": {
+        "begin": "1924-09-17",
+        "ended": null
+      },
+      "name": "GT-Sara",
+      "score": 36,
+      "sort-name": "GT-Sara",
+      "type": "Person",
+      "type-id": "b6e035f4-3ce9-331c-97df-83397230b0df"
+    },
+    {
+      "area": {
+        "id": "6743d351-6f37-3049-9724-5041161fff4d",
+        "life-span": {
+          "ended": null
+        },
+        "name": "Norway",
+        "sort-name": "Norway",
+        "type": "Country",
+        "type-id": "06dd0ae4-8c74-30bb-b43d-95dcedf961de"
+      },
+      "country": "NO",
+      "disambiguation": "Former name of Roundtrip",
+      "id": "8d04a9f8-5425-4f6e-a86b-dd8303bc061e",
+      "life-span": {
+        "ended": null
+      },
+      "name": "Megatsunami",
+      "score": 36,
+      "sort-name": "Megatsunami",
+      "type": "Group",
+      "type-id": "e431f5f6-b5d2-343d-8b36-72607fffb74b"
+    },
+    {
+      "area": {
+        "id": "6743d351-6f37-3049-9724-5041161fff4d",
+        "life-span": {
+          "ended": null
+        },
+        "name": "Norway",
+        "sort-name": "Norway",
+        "type": "Country",
+        "type-id": "06dd0ae4-8c74-30bb-b43d-95dcedf961de"
+      },
+      "country": "NO",
+      "disambiguation": "performance name for Ivar Peersen",
+      "gender": "male",
+      "id": "c8a18e76-be01-47c1-b2a7-a7d5e2c41565",
+      "life-span": {
+        "begin": "1977",
+        "ended": null
+      },
+      "name": "Daimonion",
+      "score": 35,
+      "sort-name": "Daimonion",
+      "type": "Person",
+      "type-id": "b6e035f4-3ce9-331c-97df-83397230b0df"
+    },
+    {
+      "area": {
+        "id": "6743d351-6f37-3049-9724-5041161fff4d",
+        "life-span": {
+          "ended": null
+        },
+        "name": "Norway",
+        "sort-name": "Norway",
+        "type": "Country",
+        "type-id": "06dd0ae4-8c74-30bb-b43d-95dcedf961de"
+      },
+      "country": "NO",
+      "disambiguation": "Norwegian black metal band, changed name to Hades Almighty",
+      "id": "27f6a8d0-3bc0-4207-a0ae-76535aab9f78",
+      "life-span": {
+        "begin": "1992",
+        "end": "1999",
+        "ended": true
+      },
+      "name": "Hades",
+      "score": 34,
+      "sort-name": "Hades",
+      "type": "Group",
+      "type-id": "e431f5f6-b5d2-343d-8b36-72607fffb74b"
+    },
+    {
+      "aliases": [
+        {
+          "begin-date": null,
+          "end-date": null,
+          "locale": null,
+          "name": "Greifi Grishnackh",
+          "primary": null,
+          "sort-name": "Greifi Grishnackh",
+          "type": "Search hint",
+          "type-id": "1937e404-b981-3cb7-8151-4c86ebfc8d8e"
+        }
+      ],
+      "area": {
+        "id": "6743d351-6f37-3049-9724-5041161fff4d",
+        "life-span": {
+          "ended": null
+        },
+        "name": "Norway",
+        "sort-name": "Norway",
+        "type": "Country",
+        "type-id": "06dd0ae4-8c74-30bb-b43d-95dcedf961de"
+      },
+      "begin-area": {
+        "id": "34268a86-54ec-487d-afa3-1afe3266a382",
+        "life-span": {
+          "ended": null
+        },
+        "name": "Bergen",
+        "sort-name": "Bergen",
+        "type": "City",
+        "type-id": "6fd8f29a-3d0a-32fc-980d-ea697b69da78"
+      },
+      "country": "NO",
+      "disambiguation": "early performing name of Varg Vikernes",
+      "gender": "male",
+      "id": "710d3347-8bbf-4f48-bcda-19a9e33601a8",
+      "life-span": {
+        "begin": "1973-02-11",
+        "ended": null
+      },
+      "name": "Count Grishnackh",
+      "score": 34,
+      "sort-name": "Count Grishnackh",
+      "type": "Person",
+      "type-id": "b6e035f4-3ce9-331c-97df-83397230b0df"
+    },
+    {
+      "area": {
+        "id": "6743d351-6f37-3049-9724-5041161fff4d",
+        "life-span": {
+          "ended": null
+        },
+        "name": "Norway",
+        "sort-name": "Norway",
+        "type": "Country",
+        "type-id": "06dd0ae4-8c74-30bb-b43d-95dcedf961de"
+      },
+      "country": "NO",
+      "disambiguation": "Early performing name of Darkthrone's Fenriz",
+      "gender": "male",
+      "id": "7eacd6f1-7bc8-47b3-adc9-8544a7b540fe",
+      "life-span": {
+        "begin": "1971-11-28",
+        "ended": null
+      },
+      "name": "Hank Amarillo",
+      "score": 34,
+      "sort-name": "Amarillo, Hank",
+      "type": "Person",
+      "type-id": "b6e035f4-3ce9-331c-97df-83397230b0df"
+    },
+    {
+      "area": {
+        "id": "6743d351-6f37-3049-9724-5041161fff4d",
+        "life-span": {
+          "ended": null
+        },
+        "name": "Norway",
+        "sort-name": "Norway",
+        "type": "Country",
+        "type-id": "06dd0ae4-8c74-30bb-b43d-95dcedf961de"
+      },
+      "country": "NO",
+      "disambiguation": "Norwegian 90s band, later to change name to Pilate",
+      "id": "deb28713-a208-4ad7-9c48-990bb5b28770",
+      "life-span": {
+        "ended": null
+      },
+      "name": "Pilot",
+      "score": 32,
+      "sort-name": "Pilot",
+      "type": "Group",
+      "type-id": "e431f5f6-b5d2-343d-8b36-72607fffb74b"
+    },
+    {
+      "area": {
+        "id": "6743d351-6f37-3049-9724-5041161fff4d",
+        "life-span": {
+          "ended": null
+        },
+        "name": "Norway",
+        "sort-name": "Norway",
+        "type": "Country",
+        "type-id": "06dd0ae4-8c74-30bb-b43d-95dcedf961de"
+      },
+      "begin-area": {
+        "id": "f80d529e-f242-46ef-a090-d193ed23075f",
+        "life-span": {
+          "ended": null
+        },
+        "name": "Oslo",
+        "sort-name": "Oslo",
+        "type": "City",
+        "type-id": "6fd8f29a-3d0a-32fc-980d-ea697b69da78"
+      },
+      "country": "NO",
+      "disambiguation": "Norwegian actor and director, full name Einar Rasmus Krag Schnitler Sissener",
+      "end-area": {
+        "id": "f80d529e-f242-46ef-a090-d193ed23075f",
+        "life-span": {
+          "ended": null
+        },
+        "name": "Oslo",
+        "sort-name": "Oslo",
+        "type": "City",
+        "type-id": "6fd8f29a-3d0a-32fc-980d-ea697b69da78"
+      },
+      "gender": "male",
+      "id": "c451a6f9-b6a1-4d2f-af83-be0b7c50b10e",
+      "life-span": {
+        "begin": "1897-09-21",
+        "end": "1968-03-04",
+        "ended": true
+      },
+      "name": "Einar Sissener",
+      "score": 31,
+      "sort-name": "Sissener, Einar",
+      "type": "Person",
+      "type-id": "b6e035f4-3ce9-331c-97df-83397230b0df"
+    }
+  ],
+  "count": 10,
+  "created": "2018-12-30T06:52:24.609Z",
+  "offset": 0
+}

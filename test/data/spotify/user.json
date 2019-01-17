@@ -1,0 +1,12 @@
+{
+  "display_name" : "Solomon Xie",
+  "external_urls" : {
+    "spotify" : "https://open.spotify.com/user/22ctjaxuyoesd3ici65zqcbxa"
+  },
+  "followers" : {"href" : null, "total" : 3 },
+  "href" : "https://api.spotify.com/v1/users/22ctjaxuyoesd3ici65zqcbxa",
+  "id" : "22ctjaxuyoesd3ici65zqcbxa",
+  "images" : [ {"height" : null, "url" : "https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=1604701476513856&height=200&width=200&ext=1544273448&hash=AeQFE6eDdhS8nRQY", "width" : null } ],
+  "type" : "user",
+  "uri" : "spotify:user:22ctjaxuyoesd3ici65zqcbxa"
+}

@@ -1,0 +1,754 @@
+{
+  "count": 1676,
+  "created": "2018-12-30T15:07:19.284Z",
+  "offset": 0,
+  "recordings": [
+    {
+      "artist-credit": [
+        {
+          "artist": {
+            "aliases": [
+              {
+                "begin-date": null,
+                "end-date": null,
+                "locale": null,
+                "name": "Big Bang",
+                "primary": null,
+                "sort-name": "Big Bang",
+                "type": null
+              }
+            ],
+            "disambiguation": "Norwegian rock band",
+            "id": "4ef5ed49-7ea3-405c-a381-04cf84e17d8c",
+            "name": "BigBang",
+            "sort-name": "BigBang"
+          }
+        }
+      ],
+      "id": "4ae5ea82-31ef-4099-a315-3c2487d9dd32",
+      "length": 344493,
+      "releases": [
+        {
+          "artist-credit": [
+            {
+              "artist": {
+                "disambiguation": "Norwegian rock band",
+                "id": "4ef5ed49-7ea3-405c-a381-04cf84e17d8c",
+                "name": "BigBang",
+                "sort-name": "BigBang"
+              }
+            }
+          ],
+          "count": 1,
+          "country": "NO",
+          "date": "2009-03-09",
+          "id": "d8507216-2261-4b18-a033-0a8628ecff9e",
+          "media": [
+            {
+              "format": "CD",
+              "position": 1,
+              "track": [
+                {
+                  "id": "c67872f2-fa15-3eaa-8e97-5e1be81673bf",
+                  "length": 344493,
+                  "number": "9",
+                  "title": "Now Is Not a Good Time"
+                }
+              ],
+              "track-count": 10,
+              "track-offset": 8
+            }
+          ],
+          "release-events": [
+            {
+              "area": {
+                "id": "6743d351-6f37-3049-9724-5041161fff4d",
+                "iso-3166-1-codes": [
+                  "NO"
+                ],
+                "name": "Norway",
+                "sort-name": "Norway"
+              },
+              "date": "2009-03-09"
+            }
+          ],
+          "release-group": {
+            "id": "83a6a8c7-2383-347f-9b11-6de66aa37004",
+            "primary-type": "Album",
+            "title": "Edendale",
+            "type-id": "f529b476-6e62-324f-b0aa-1f3e33d313fc"
+          },
+          "status": "Official",
+          "title": "Edendale",
+          "track-count": 10
+        },
+        {
+          "artist-credit": [
+            {
+              "artist": {
+                "disambiguation": "Norwegian rock band",
+                "id": "4ef5ed49-7ea3-405c-a381-04cf84e17d8c",
+                "name": "BigBang",
+                "sort-name": "BigBang"
+              }
+            }
+          ],
+          "count": 1,
+          "country": "US",
+          "date": "2010-01-19",
+          "id": "7f7dd1ba-ca54-4337-89bd-a39a90b0302a",
+          "media": [
+            {
+              "format": "CD",
+              "position": 1,
+              "track": [
+                {
+                  "id": "29a262c1-b4d0-4f45-9b80-22a3695ef62c",
+                  "length": 344493,
+                  "number": "9",
+                  "title": "Now Is Not a Good Time"
+                }
+              ],
+              "track-count": 13,
+              "track-offset": 8
+            }
+          ],
+          "release-events": [
+            {
+              "area": {
+                "id": "489ce91b-6658-3307-9877-795b68554c98",
+                "iso-3166-1-codes": [
+                  "US"
+                ],
+                "name": "United States",
+                "sort-name": "United States"
+              },
+              "date": "2010-01-19"
+            }
+          ],
+          "release-group": {
+            "id": "83a6a8c7-2383-347f-9b11-6de66aa37004",
+            "primary-type": "Album",
+            "title": "Edendale",
+            "type-id": "f529b476-6e62-324f-b0aa-1f3e33d313fc"
+          },
+          "status": "Official",
+          "title": "Edendale",
+          "track-count": 13
+        }
+      ],
+      "score": 100,
+      "title": "Now Is Not a Good Time",
+      "video": null
+    },
+    {
+      "artist-credit": [
+        {
+          "artist": {
+            "disambiguation": "Norwegian composer and singer.",
+            "id": "4d281120-06e7-4e5c-b916-3c23105f3f54",
+            "name": "Arvid Pettersen",
+            "sort-name": "Pettersen, Arvid"
+          }
+        }
+      ],
+      "id": "c7c79c7a-ee98-4e1b-be7c-d2330745c77c",
+      "length": 247253,
+      "releases": [
+        {
+          "count": 1,
+          "country": "NO",
+          "date": "",
+          "id": "fe4a3ba1-453e-4ef1-8cce-7a277ff1fa97",
+          "media": [
+            {
+              "format": "CD",
+              "position": 1,
+              "track": [
+                {
+                  "id": "6c2fe1bd-0fbd-3e81-99c0-13b08ed3efd0",
+                  "length": 247253,
+                  "number": "10",
+                  "title": "Now Is The Time"
+                }
+              ],
+              "track-count": 12,
+              "track-offset": 9
+            }
+          ],
+          "release-events": [
+            {
+              "area": {
+                "id": "6743d351-6f37-3049-9724-5041161fff4d",
+                "iso-3166-1-codes": [
+                  "NO"
+                ],
+                "name": "Norway",
+                "sort-name": "Norway"
+              },
+              "date": ""
+            }
+          ],
+          "release-group": {
+            "id": "677c632e-e178-4859-86d7-4434b4cfbb70",
+            "primary-type": "Album",
+            "title": "Follow",
+            "type-id": "f529b476-6e62-324f-b0aa-1f3e33d313fc"
+          },
+          "status": "Official",
+          "title": "Follow",
+          "track-count": 12
+        }
+      ],
+      "score": 65,
+      "title": "Now Is The Time",
+      "video": null
+    },
+    {
+      "artist-credit": [
+        {
+          "artist": {
+            "aliases": [
+              {
+                "begin-date": null,
+                "end-date": null,
+                "locale": null,
+                "name": "Bobby Womark",
+                "primary": null,
+                "sort-name": "Bobby Womark",
+                "type": null
+              },
+              {
+                "begin-date": null,
+                "end-date": null,
+                "locale": null,
+                "name": "Bobbie Womack",
+                "primary": null,
+                "sort-name": "Bobbie Womack",
+                "type": null
+              },
+              {
+                "begin-date": null,
+                "end-date": null,
+                "locale": null,
+                "name": "Bobby Wormack",
+                "primary": null,
+                "sort-name": "Bobby Wormack",
+                "type": null
+              }
+            ],
+            "id": "48e78462-2f0b-4a1a-9fa4-0585e2991e80",
+            "name": "Bobby Womack",
+            "sort-name": "Womack, Bobby"
+          }
+        }
+      ],
+      "id": "55cc404c-85e1-4efe-aa9e-a0af2a08fb88",
+      "length": 200360,
+      "releases": [
+        {
+          "artist-credit": [
+            {
+              "artist": {
+                "disambiguation": "add compilations to this artist",
+                "id": "89ad4ac3-39f7-470e-963a-56509c546377",
+                "name": "Various Artists",
+                "sort-name": "Various Artists"
+              }
+            }
+          ],
+          "count": 1,
+          "country": "NO",
+          "date": "1997",
+          "id": "6e148c33-a4dd-405e-aef2-0e861d2e45bd",
+          "media": [
+            {
+              "format": "CD",
+              "position": 1,
+              "track": [
+                {
+                  "id": "2cf829cf-2c4f-4260-893a-9ca9bc4e1ae1",
+                  "length": 200360,
+                  "number": "3",
+                  "title": "Love, The Time Is Now"
+                }
+              ],
+              "track-count": 16,
+              "track-offset": 2
+            }
+          ],
+          "release-events": [
+            {
+              "area": {
+                "id": "6743d351-6f37-3049-9724-5041161fff4d",
+                "iso-3166-1-codes": [
+                  "NO"
+                ],
+                "name": "Norway",
+                "sort-name": "Norway"
+              },
+              "date": "1997"
+            }
+          ],
+          "release-group": {
+            "id": "e0f507d8-9153-4040-a2eb-48b71f3abb5d",
+            "title": "Soul, Music Box Collection"
+          },
+          "status": "Official",
+          "title": "Soul, Music Box Collection",
+          "track-count": 16
+        }
+      ],
+      "score": 60,
+      "title": "Love, The Time Is Now",
+      "video": null
+    },
+    {
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "1eefcdba-4423-4930-b672-e951c6314bea",
+            "name": "Superfamily",
+            "sort-name": "Superfamily"
+          }
+        }
+      ],
+      "id": "67f04fac-ac84-42e8-b6e1-bc030586ab4b",
+      "length": 225506,
+      "releases": [
+        {
+          "count": 1,
+          "country": "NO",
+          "date": "2009-08-31",
+          "id": "07a3cac4-975c-4ae7-91e9-489ab3ede3a1",
+          "media": [
+            {
+              "format": "CD",
+              "position": 1,
+              "track": [
+                {
+                  "id": "b70bcab2-a76a-3674-8a70-705352b7dc9e",
+                  "length": 225506,
+                  "number": "9",
+                  "title": "This Is Not the Time"
+                }
+              ],
+              "track-count": 9,
+              "track-offset": 8
+            }
+          ],
+          "release-events": [
+            {
+              "area": {
+                "id": "6743d351-6f37-3049-9724-5041161fff4d",
+                "iso-3166-1-codes": [
+                  "NO"
+                ],
+                "name": "Norway",
+                "sort-name": "Norway"
+              },
+              "date": "2009-08-31"
+            }
+          ],
+          "release-group": {
+            "id": "b6e70c86-5ef4-4b1f-b420-684b36073d76",
+            "primary-type": "Album",
+            "title": "Guns Tonight",
+            "type-id": "f529b476-6e62-324f-b0aa-1f3e33d313fc"
+          },
+          "status": "Official",
+          "title": "Guns Tonight",
+          "track-count": 9
+        }
+      ],
+      "score": 59,
+      "title": "This Is Not the Time",
+      "video": null
+    },
+    {
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "2f82612d-6d4b-4837-aa22-35da580d83fd",
+            "name": "Winta",
+            "sort-name": "Winta"
+          }
+        }
+      ],
+      "id": "439936da-21ac-4ceb-a757-7d3056e3490c",
+      "length": 260000,
+      "releases": [
+        {
+          "count": 1,
+          "country": "NO",
+          "date": "2004",
+          "id": "52da5058-1ffa-454c-98f6-12f447d1bf1c",
+          "media": [
+            {
+              "format": "CD",
+              "position": 1,
+              "track": [
+                {
+                  "id": "a9f22432-32a3-3d7a-973c-03919bdcccbd",
+                  "length": 260000,
+                  "number": "9",
+                  "title": "Good Time"
+                }
+              ],
+              "track-count": 12,
+              "track-offset": 8
+            }
+          ],
+          "release-events": [
+            {
+              "area": {
+                "id": "6743d351-6f37-3049-9724-5041161fff4d",
+                "iso-3166-1-codes": [
+                  "NO"
+                ],
+                "name": "Norway",
+                "sort-name": "Norway"
+              },
+              "date": "2004"
+            }
+          ],
+          "release-group": {
+            "id": "c1fe2a2a-5eeb-4edd-b761-20d1aa03db4a",
+            "primary-type": "Album",
+            "title": "First",
+            "type-id": "f529b476-6e62-324f-b0aa-1f3e33d313fc"
+          },
+          "status": "Official",
+          "title": "First",
+          "track-count": 12
+        }
+      ],
+      "score": 58,
+      "title": "Good Time",
+      "video": null
+    },
+    {
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "a24c499b-4398-498e-9ebf-c97ea7a66b96",
+            "name": "Trine Rein",
+            "sort-name": "Rein, Trine"
+          }
+        }
+      ],
+      "id": "a5c5f272-6fc7-4be4-a837-a7812f267f81",
+      "length": 202000,
+      "releases": [
+        {
+          "artist-credit": [
+            {
+              "artist": {
+                "disambiguation": "add compilations to this artist",
+                "id": "89ad4ac3-39f7-470e-963a-56509c546377",
+                "name": "Various Artists",
+                "sort-name": "Various Artists"
+              }
+            }
+          ],
+          "count": 1,
+          "country": "NO",
+          "date": "1996",
+          "id": "36f59166-b742-4903-86d1-02af44e633ea",
+          "media": [
+            {
+              "format": "CD",
+              "position": 1,
+              "track": [
+                {
+                  "id": "800de412-c807-3d10-8034-8dbdfadd5acb",
+                  "length": 202000,
+                  "number": "8",
+                  "title": "Good Time"
+                }
+              ],
+              "track-count": 27,
+              "track-offset": 7
+            }
+          ],
+          "release-events": [
+            {
+              "area": {
+                "id": "6743d351-6f37-3049-9724-5041161fff4d",
+                "iso-3166-1-codes": [
+                  "NO"
+                ],
+                "name": "Norway",
+                "sort-name": "Norway"
+              },
+              "date": "1996"
+            }
+          ],
+          "release-group": {
+            "id": "434d074e-dec4-468f-92b9-fefba1d6abe9",
+            "primary-type": "Album",
+            "secondary-types": [
+              "Compilation"
+            ],
+            "title": "Postens landeplager: Brennmanetsommer 2",
+            "type-id": "dd2a21e1-0c00-3729-a7a0-de60b84eb5d1"
+          },
+          "status": "Official",
+          "title": "Postens landeplager: Brennmanetsommer 2",
+          "track-count": 27
+        }
+      ],
+      "score": 58,
+      "title": "Good Time",
+      "video": null
+    },
+    {
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "bdfe892f-0eec-4b47-a945-a328b963427c",
+            "name": "The Time Lodgers",
+            "sort-name": "Time Lodgers, The"
+          }
+        }
+      ],
+      "id": "ddc9eb10-ec68-4a4e-bb09-c297f4d63262",
+      "releases": [
+        {
+          "count": 1,
+          "country": "NO",
+          "date": "1994",
+          "id": "3d8956ca-f65f-493d-803f-dfd243e3a954",
+          "media": [
+            {
+              "format": "CD",
+              "position": 1,
+              "track": [
+                {
+                  "id": "606aef29-62ce-370e-91ab-77d8f96d6d9b",
+                  "number": "5",
+                  "title": "Good Evening"
+                }
+              ],
+              "track-count": 16,
+              "track-offset": 4
+            }
+          ],
+          "release-events": [
+            {
+              "area": {
+                "id": "6743d351-6f37-3049-9724-5041161fff4d",
+                "iso-3166-1-codes": [
+                  "NO"
+                ],
+                "name": "Norway",
+                "sort-name": "Norway"
+              },
+              "date": "1994"
+            }
+          ],
+          "release-group": {
+            "id": "56ffeac8-0839-3412-bd51-df12f02c35ba",
+            "primary-type": "Album",
+            "title": "Sometimes Never",
+            "type-id": "f529b476-6e62-324f-b0aa-1f3e33d313fc"
+          },
+          "status": "Official",
+          "title": "Sometimes Never",
+          "track-count": 16
+        }
+      ],
+      "score": 57,
+      "title": "Good Evening",
+      "video": null
+    },
+    {
+      "artist-credit": [
+        {
+          "artist": {
+            "disambiguation": "Norwegian indie poprock band",
+            "id": "5aa5601a-c674-4845-a51e-888966910a80",
+            "name": "The Royalties",
+            "sort-name": "Royalties, The"
+          }
+        }
+      ],
+      "id": "c61cede2-674c-4ea5-8178-f929a2ceb717",
+      "length": 128000,
+      "releases": [
+        {
+          "count": 1,
+          "country": "NO",
+          "date": "2007-02-05",
+          "id": "623fb885-65cb-46df-a289-3d72430c64fc",
+          "media": [
+            {
+              "format": "CD",
+              "position": 1,
+              "track": [
+                {
+                  "id": "38f70cc3-431b-48df-aeec-648ebc4e5881",
+                  "length": 128000,
+                  "number": "9",
+                  "title": "Time Is a Stranger"
+                }
+              ],
+              "track-count": 10,
+              "track-offset": 8
+            }
+          ],
+          "release-events": [
+            {
+              "area": {
+                "id": "6743d351-6f37-3049-9724-5041161fff4d",
+                "iso-3166-1-codes": [
+                  "NO"
+                ],
+                "name": "Norway",
+                "sort-name": "Norway"
+              },
+              "date": "2007-02-05"
+            }
+          ],
+          "release-group": {
+            "id": "057c6056-8651-4e07-9139-4cffdc79a58e",
+            "primary-type": "Album",
+            "title": "The Royalties",
+            "type-id": "f529b476-6e62-324f-b0aa-1f3e33d313fc"
+          },
+          "status": "Official",
+          "title": "The Royalties",
+          "track-count": 10
+        }
+      ],
+      "score": 56,
+      "title": "Time Is a Stranger",
+      "video": null
+    },
+    {
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "46ebb6ec-5714-46ed-9b95-b3248671d087",
+            "name": "Philco Fiction",
+            "sort-name": "Philco Fiction"
+          }
+        }
+      ],
+      "id": "49710741-141f-431a-b1c6-8693afeb80f4",
+      "length": 279000,
+      "releases": [
+        {
+          "count": 1,
+          "country": "NO",
+          "date": "2012",
+          "id": "829ea0c5-2973-47e2-8a1e-5a975c65a57c",
+          "media": [
+            {
+              "format": "CD",
+              "position": 1,
+              "track": [
+                {
+                  "id": "10c8b7e8-365e-391a-8d1f-5c8e08d76fa0",
+                  "length": 279000,
+                  "number": "10",
+                  "title": "Time Is a Fly"
+                }
+              ],
+              "track-count": 10,
+              "track-offset": 9
+            }
+          ],
+          "release-events": [
+            {
+              "area": {
+                "id": "6743d351-6f37-3049-9724-5041161fff4d",
+                "iso-3166-1-codes": [
+                  "NO"
+                ],
+                "name": "Norway",
+                "sort-name": "Norway"
+              },
+              "date": "2012"
+            }
+          ],
+          "release-group": {
+            "id": "ed1a59d4-5465-435a-a7f9-20dbc694c7d0",
+            "primary-type": "Album",
+            "title": "Take It Personal",
+            "type-id": "f529b476-6e62-324f-b0aa-1f3e33d313fc"
+          },
+          "status": "Official",
+          "title": "Take It Personal",
+          "track-count": 10
+        }
+      ],
+      "score": 56,
+      "title": "Time Is a Fly",
+      "video": null
+    },
+    {
+      "artist-credit": [
+        {
+          "artist": {
+            "disambiguation": "Norwegian power pop band",
+            "id": "f24d994a-2e51-4790-bcf5-958fda15b5bc",
+            "name": "The Yum Yums",
+            "sort-name": "Yum Yums, The"
+          }
+        }
+      ],
+      "id": "e3690f36-c861-48c1-b820-f80106f0d574",
+      "length": 155133,
+      "releases": [
+        {
+          "count": 1,
+          "country": "NO",
+          "date": "2013-03",
+          "id": "fd6f2081-5d27-4982-9e43-6bf38763d916",
+          "media": [
+            {
+              "format": "CD",
+              "position": 1,
+              "track": [
+                {
+                  "id": "c0a0d600-6f01-3d87-9703-97925a486293",
+                  "length": 155133,
+                  "number": "1",
+                  "title": "Gonna Have a Good Time"
+                }
+              ],
+              "track-count": 13,
+              "track-offset": 0
+            }
+          ],
+          "release-events": [
+            {
+              "area": {
+                "id": "6743d351-6f37-3049-9724-5041161fff4d",
+                "iso-3166-1-codes": [
+                  "NO"
+                ],
+                "name": "Norway",
+                "sort-name": "Norway"
+              },
+              "date": "2013-03"
+            }
+          ],
+          "release-group": {
+            "id": "2276ca3f-2c4c-4f90-8375-9931d3fad498",
+            "primary-type": "Album",
+            "title": "...Play Good Music",
+            "type-id": "f529b476-6e62-324f-b0aa-1f3e33d313fc"
+          },
+          "status": "Official",
+          "title": "...Play Good Music",
+          "track-count": 13
+        }
+      ],
+      "score": 55,
+      "title": "Gonna Have a Good Time",
+      "video": null
+    }
+  ]
+}

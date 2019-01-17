@@ -1,0 +1,36 @@
+{
+    "id": "fcbcdc39-8851-4efc-a02a-ab0e13be224f",
+    "title": "LAST ANGEL",
+    "disambiguation": "video",
+    "artist-credit": [
+        {
+            "name": "倖田來未",
+            "joinphrase": " feat. ",
+            "artist": {
+                "id": "455641ea-fff4-49f6-8fb4-49f961d8f1ac",
+                "name": "倖田來未",
+                "sort-name": "Koda, Kumi",
+                "disambiguation": null
+            }
+        },
+        {
+            "name": "東方神起",
+            "artist": {
+                "id": "05cbaf37-6dc2-4f71-a0ce-d633447d90c3",
+                "name": "東方神起",
+                "sort-name": "TVXQ",
+                "disambiguation": null
+            },
+            "joinphrase": ""
+        }
+    ],
+    "isrcs": [ "JPB600760301" ],
+    "length": 228106,
+    "releases": [
+        {
+            "id": "abcd76db-7d5f-3eb7-b386-051c97bfe2e4",
+            "title": "Kingdom",
+            /* some properties omitted to keep this example shorter. */
+        }
+    ]
+}

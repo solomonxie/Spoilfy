@@ -1,0 +1,63 @@
+{
+  "id": "6097fcbc-2eca-328c-82a1-09dd1824eb52",
+  "tags": [],
+  "type": null,
+  "iswcs": [],
+  "title": "The Doomsday Machine: Strange Boom / Decker Takes Over",
+  "rating": {
+    "value": null,
+    "votes-count": 0
+  },
+  "aliases": [],
+  "type-id": null,
+  "language": null,
+  "languages": [],
+  "relations": [
+    {
+      "end": null,
+      "type": "composer",
+      "begin": null,
+      "ended": false,
+      "artist": {
+        "id": "773608a6-dd1d-40a5-bb82-0fa202c9fd2d",
+        "name": "Sol Kaplan",
+        "aliases": [],
+        "sort-name": "Kaplan, Sol",
+        "annotation": null,
+        "disambiguation": ""
+      },
+      "type-id": "d59d99ea-23d4-4a80-b066-edca32ee158f",
+      "direction": "backward",
+      "attributes": [],
+      "target-type": "artist",
+      "source-credit": "",
+      "target-credit": "",
+      "attribute-values": {}
+    },
+    {
+      "end": null,
+      "type": "performance",
+      "begin": null,
+      "ended": false,
+      "type-id": "a3005666-a872-32c3-ad06-98af558e99b0",
+      "direction": "backward",
+      "recording": {
+        "id": "9c732c45-684c-4aa3-ab24-33b7f1b5d1d1",
+        "title": "The Doomsday Machine: Strange Boom / Decker Takes Over",
+        "video": false,
+        "length": 177000,
+        "aliases": [],
+        "annotation": null,
+        "disambiguation": ""
+      },
+      "attributes": [],
+      "target-type": "recording",
+      "source-credit": "",
+      "target-credit": "",
+      "attribute-values": {}
+    }
+  ],
+  "annotation": null,
+  "attributes": [],
+  "disambiguation": ""
+}

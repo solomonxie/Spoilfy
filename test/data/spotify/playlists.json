@@ -1,0 +1,40 @@
+{
+    "href": "https://api.spotify.com/v1/users/22ctjaxuyoesd3ici65zqcbxa/playlists?offset=0&limit=20",
+    "items": [
+        {
+            "collaborative": false,
+            "external_urls": {"spotify": "https://open.spotify.com/playlist/6FaSdKCximiMF0wupKF9hW"},
+            "href": "https://api.spotify.com/v1/playlists/6FaSdKCximiMF0wupKF9hW",
+            "id": "6FaSdKCximiMF0wupKF9hW",
+            "images": [{"height": 640, "url": "https://mosaic.scdn.co/640/142bede12a55bdff82b7fc8c825653fafe2a9ec880d171a42fea10e738ecbeaf3299f475dc5c349daac358bde54d1bc08ffc0aac930d5307bfe35ee4be7d06a4b14b3d1f33bbe37fe06c813987395f12", "width": 640 }, {"height": 300, "url": "https://mosaic.scdn.co/300/142bede12a55bdff82b7fc8c825653fafe2a9ec880d171a42fea10e738ecbeaf3299f475dc5c349daac358bde54d1bc08ffc0aac930d5307bfe35ee4be7d06a4b14b3d1f33bbe37fe06c813987395f12", "width": 300 }, {"height": 60, "url": "https://mosaic.scdn.co/60/142bede12a55bdff82b7fc8c825653fafe2a9ec880d171a42fea10e738ecbeaf3299f475dc5c349daac358bde54d1bc08ffc0aac930d5307bfe35ee4be7d06a4b14b3d1f33bbe37fe06c813987395f12", "width": 60 } ],
+            "name": "Discover Artists To Do List",
+            "owner": {"display_name": "Solomon Xie", "external_urls": {"spotify": "https://open.spotify.com/user/22ctjaxuyoesd3ici65zqcbxa"}, "href": "https://api.spotify.com/v1/users/22ctjaxuyoesd3ici65zqcbxa", "id": "22ctjaxuyoesd3ici65zqcbxa", "type": "user", "uri": "spotify:user:22ctjaxuyoesd3ici65zqcbxa"},
+            "primary_color": null,
+            "public": true,
+            "snapshot_id": "MzcsM2Y2MDAyYjBiNjY0YTZhYTI2YjVlMmE3N2QzZWZjZmMzMTVlMGYzZA==",
+            "tracks": {"href": "https://api.spotify.com/v1/playlists/6FaSdKCximiMF0wupKF9hW/tracks", "total": 35 },
+            "type": "playlist",
+            "uri": "spotify:user:22ctjaxuyoesd3ici65zqcbxa:playlist:6FaSdKCximiMF0wupKF9hW"
+        },
+        {
+            "collaborative": false,
+            "external_urls": {"spotify": "https://open.spotify.com/playlist/1bBu4pZv4G7N6aj2vrcwah"},
+            "href": "https://api.spotify.com/v1/playlists/1bBu4pZv4G7N6aj2vrcwah",
+            "id": "1bBu4pZv4G7N6aj2vrcwah",
+            "images": [{"height": 640, "url": "https://mosaic.scdn.co/640/20e53de4829756f046773e7082f5a9f049a4ece53cc3654d220d0871936a448483107bdd70e847d94873d4f226cf09b15db660671aeba1a6f7e7ec955b64ee28b78445dd58288862c7d3b4304e7ac561", "width": 640 }, {"height": 300, "url": "https://mosaic.scdn.co/300/20e53de4829756f046773e7082f5a9f049a4ece53cc3654d220d0871936a448483107bdd70e847d94873d4f226cf09b15db660671aeba1a6f7e7ec955b64ee28b78445dd58288862c7d3b4304e7ac561", "width": 300 }, {"height": 60, "url": "https://mosaic.scdn.co/60/20e53de4829756f046773e7082f5a9f049a4ece53cc3654d220d0871936a448483107bdd70e847d94873d4f226cf09b15db660671aeba1a6f7e7ec955b64ee28b78445dd58288862c7d3b4304e7ac561", "width": 60 } ],
+            "name": "NEW COLLECTS",
+            "owner": {"display_name": "Solomon Xie", "external_urls": {"spotify": "https://open.spotify.com/user/22ctjaxuyoesd3ici65zqcbxa"}, "href": "https://api.spotify.com/v1/users/22ctjaxuyoesd3ici65zqcbxa", "id": "22ctjaxuyoesd3ici65zqcbxa", "type": "user", "uri": "spotify:user:22ctjaxuyoesd3ici65zqcbxa"},
+            "primary_color": null,
+            "public": true,
+            "snapshot_id": "Mzk4LGRhMmE3NTg2MjFjYmRlOWM0NjdmZTdlMjg5YTY4Nzk1OTAxYzgwNTQ=",
+            "tracks": {"href": "https://api.spotify.com/v1/playlists/1bBu4pZv4G7N6aj2vrcwah/tracks", "total": 29 },
+            "type": "playlist",
+            "uri": "spotify:user:22ctjaxuyoesd3ici65zqcbxa:playlist:1bBu4pZv4G7N6aj2vrcwah"
+        }
+    ],
+    "limit": 20,
+    "next": "https://api.spotify.com/v1/users/22ctjaxuyoesd3ici65zqcbxa/playlists?offset=20&limit=20",
+    "offset": 0,
+    "previous": null,
+    "total": 31
+}

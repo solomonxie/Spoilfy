@@ -14,28 +14,22 @@ from sqlalchemy import exists
 #-------[  Import From Other Modules   ]---------
 #-> TEST only
 if __name__ in ['__main__']:
-    #THIS
     from sptOps import *
-    #ORM
-    from orm.common import Base, engine, session
-    from orm.common import Resource, Reference, Include
+    from orm.common import *
+    from orm.user import *
     from orm.spotify import *
     from orm.musicbrainz import *
-    #API
-    from webapi.apiSpotify import SpotifyAPI
-    import webapi.apiMusicbrainz as MbzAPI
+    from webapi.apiSpotify import *
+    from webapi.apiMusicbrainz import *
 else:
-    # Package Import Hint: $ python -m Spoilfy.orm.spotify
-    #THIS
+    # Package Import Hint: $ python -m Spoilfy.sptOps
     from Spoilfy.sptOps import *
-    #ORM
+    from Spoilfy.orm.common import *
+    from Spoilfy.orm.user import *
     from Spoilfy.orm.spotify import *
     from Spoilfy.orm.musicbrainz import *
-    from Spoilfy.orm.common import Base, engine, session
-    from Spoilfy.orm.common import Resource, Reference, Include
-    #API
-    from Spoilfy.webapi.apiSpotify import SpotifyAPI
-    import Spoilfy.webapi.apiMusicbrainz as MbzAPI
+    from Spoilfy.webapi.apiSpotify import *
+    from Spoilfy.webapi.apiMusicbrainz import *
 
 
 
@@ -44,94 +38,97 @@ else:
 # >>>>>>>>>>>>>>>>>>>>>>[    TEST     ] >>>>>>>>>>>>>>>>>>>>>>>>
 # ==============================================================
 
+class test_SptOpsAccount(unittest.TestCase):
 
-def test_SptOpsAccount():
-    print( '\n[  TEST  ] SptOpsAccount' )
-    # Add an account
-    # with open('../draft/sqlschemas/spotify/jsondumps-full/get_user_profile.json', 'r') as f:
-        # jsondata = json.loads( f.read() )
-    me = SptOpsAccount.get_my_profile()
-    print( '\t Me:', me.name )
+    def setUp(self):
+        self.cls = SptOpsAccount
 
+    def test_load(self):
+        with open('../test/data/spotify/user.json', 'r') as f:
+            jsondata = json.loads( f.read() )
 
-
-def test_SptOpsTrack():
-    print( '\n[  TEST  ] SptOpsTrack' )
-    # Add a track
-    # with open('../draft/sqlschemas/spotify/jsondumps-full/get_user_tracks.json', 'r') as f:
-        # jsondata = json.loads( f.read() )
-        # tracks = SptOpsTrack.loads( jsondata )
-        # print( '[  OK  ] Inserted {} User tracks.'.format(len(tracks)) )
-    for page in SptOpsTrack.API.get_my_tracks():
-        tracks = SptOpsTrack.loads( page )
-        print( '[  OK  ] Inserted {} User tracks.'.format(len(tracks)) )
-        # break
-
-
-def test_SptOpsAlbum():
-    print( '\n[  TEST  ] SptOpsAlbum' )
-    # Add an album
-    # with open('../draft/sqlschemas/spotify/jsondumps-full/get_user_albums.json', 'r') as f:
-        # jsondata = json.loads( f.read() )
-        # albums = SptOpsAlbum.loads( jsondata )
-        # print( '[  OK  ] Inserted {} User albums.'.format(len(albums)) )
-        # return
-
-    for page in SptOpsAlbum.API.get_my_albums():
-        albums = SptOpsAlbum.loads( page )
-        print( '[  OK  ] Inserted {} User albums.'.format(len(albums)) )
+        user = self.cls.load(jsondata)
+        self.assertEqual(user.name, 'Solomon Xie')
 
 
 
 
-def test_SptOpsArtist():
-    print( '\n[  TEST  ] SptOpsArtist' )
-    # Add an artist
-    # with open('../draft/sqlschemas/spotify/jsondumps-full/get_user_artists.json', 'r') as f:
-        # jsondata = json.loads( f.read() )
-    for page in SptOpsArtist.API.get_my_artists():
-        artists = SptOpsArtist.loads( page )
-        print( '[  OK  ] Inserted {} User artists.'.format(len(artists)) )
-        # break
+class test_SptOpsTrack(unittest.TestCase):
+
+    def setUp(self):
+        self.cls = SptOpsTrack
+
+    def test_load(self):
+        with open('../test/data/spotify/tracks.json', 'r') as f:
+            jsondata = json.loads( f.read() )
+
+        ref = self.cls.load(jsondata['items'][0])
+        self.assertEqual(ref.uri, 'spotify:track:1WvIkhx5AxsA4N9TgkYSQG')
+
+    def test_include_album(self):
+        pass
+
+    def test_include_artists(self):
+        pass
 
 
 
-def test_SptOpsPlaylist():
-    print( '\n[  TEST  ] SptOpsPlaylist' )
-    # Add a playlist
-    # with open('../draft/sqlschemas/spotify/jsondumps-full/get_user_playlists.json', 'r') as f:
-        # jsondata = json.loads( f.read() )
-    for page in SptOpsPlaylist.API.get_my_playlists():
-        playlists = SptOpsPlaylist.loads( page )
-        print( '[  OK  ] Inserted {} User playlists.'.format(len(playlists)) )
-        break
+
+class test_SptOpsAlbum(unittest.TestCase):
+
+    def setUp(self):
+        self.cls = SptOpsAlbum
+
+    def test_load(self):
+        with open('../test/data/spotify/albums.json', 'r') as f:
+            jsondata = json.loads( f.read() )
+
+        ref = self.cls.load(jsondata['items'][0])
+        self.assertEqual(ref.uri, 'spotify:album:7GJspOwIWdFfzJfxN8oVTF')
+
+
+    def xtest_SptOpsAlbum():
+        for page in SptOpsAlbum.API.get_my_albums():
+            albums = SptOpsAlbum.loads( page )
+
+
+
+class test_SptOpsArtist(unittest.TestCase):
+
+    def setUp(self):
+        self.cls = SptOpsArtist
+
+    def test_load(self):
+        with open('../test/data/spotify/artists.json', 'r') as f:
+            jsondata = json.loads( f.read() )
+
+        ref = self.cls.load(jsondata['artists']['items'][0])
+        self.assertEqual(ref.uri, 'spotify:artist:04gDigrS5kc9YWfZHwBETP')
+
+    def xtest_SptOpsArtist():
+        for page in SptOpsArtist.API.get_my_artists():
+            artists = SptOpsArtist.loads( page )
+
+
+
+class test_SptOpsPlaylist(unittest.TestCase):
+
+    def setUp(self):
+        self.cls = SptOpsPlaylist
+
+    def test_load(self):
+        with open('../test/data/spotify/playlists.json', 'r') as f:
+            jsondata = json.loads( f.read() )
+
+        ref = self.cls.load(jsondata['items'][0])
+        self.assertEqual(ref.uri, 'spotify:playlist:6FaSdKCximiMF0wupKF9hW')
+
+    def xtest_SptOpsPlaylist():
+        for page in SptOpsPlaylist.API.get_my_playlists():
+            playlists = SptOpsPlaylist.loads( page )
+
+
 
 
 if __name__ == '__main__':
-    try:
-        # SpotifyAccount.__table__.drop(engine)
-        # SpotifyTrack.__table__.drop(engine)
-        # SpotifyAlbum.__table__.drop(engine)
-        # SpotifyArtist.__table__.drop(engine)
-        # SpotifyPlaylist.__table__.drop(engine)
-        # Include.__table__.drop(engine)
-        pass
-    except Exception as e:
-        print('Error on dropping SptOps table.')
-    finally:
-        Base.metadata.create_all(bind=engine)
-
-    #=> Insert data
-    # test_SptOpsAccount()
-    # test_SptOpsTrack()
-    test_SptOpsAlbum()
-    # test_SptOpsArtist()
-    # test_SptOpsPlaylist()
-
-
-    # Complete missings
-    # refs = SptOpsMissing.fix_missing_tracks()
-    # refs = SptOpsMissing.fix_missing_albums()
-    # refs = SptOpsMissing.fix_missing_artists()
-
-
+    unittest.main()
