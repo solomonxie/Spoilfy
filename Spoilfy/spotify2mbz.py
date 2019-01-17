@@ -109,7 +109,7 @@ class Mapper:
     @classmethod
     def map_all(cls):
         uris = cls.find_unmapped()
-        print( '[UNMAPPED] {} TRACKS.'.format(len(uris)) )
+        print( '[UNMAPPED] {} items.'.format(len(uris)) )
         for i,uri in enumerate(uris):
             print( i+1 )
             cls.toMbz( uri )
@@ -154,10 +154,10 @@ class Mapper:
             print( info, spt )
             if not info:
                 print( '[SKIP] SPT MARKED AS INCOMPLETE.', info )
-                session.merge( Incomplete(spt.real_uri) )
+                # session.merge( Incomplete(spt.real_uri) )
                 session.commit()
             else:
-                mbz = cls.get_musicbrainz_info(info)
+                mbz = cls.tagging(spt.real_uri, info)
 
         return mbz
 
@@ -210,7 +210,7 @@ class MapTrack(Mapper):
         return (track,album,artist) if track and album and artist else None
 
     @classmethod
-    def tagging(cls, info):
+    def tagging(cls, real_uri, info):
         print('[FUNC]__tagging__', info)
         track, album, artist = info
         jsondata = MbzAPI.best_match_track(
@@ -218,11 +218,12 @@ class MapTrack(Mapper):
         )
         if not jsondata:
             print('[SKIP] NO TAG FOUND. MARKED AS UNTAGGED.', jsondata)
-            session.merge( UnTagged(spt.real_uri) )
+            session.merge( UnTagged(real_uri) )
             session.commit()
+            mbz = None
         else:
             print( '\t[HIT]', jsondata.get('title') )
-            mbz =  MbzOpsTrack.load( jsondata, spt.real_uri )
+            mbz =  MbzOpsTrack.load( jsondata, real_uri )
 
         return mbz
 
@@ -261,19 +262,20 @@ class MapAlbum(Mapper):
         return (album,artist) if album and artist else None
 
     @classmethod
-    def tagging(cls, info):
+    def tagging(cls, real_uri, info):
         print('[FUNC]__tagging__', info)
         album, artist = info
-        jsondata = MbzAPI.best_match_track(
+        jsondata = MbzAPI.best_match_album(
             release=album.name, artist=artist.name,
         )
         if not jsondata:
             print('[SKIP] NO TAG FOUND. MARKED AS UNTAGGED.', jsondata)
-            session.merge( UnTagged(spt.real_uri) )
+            session.merge( UnTagged(real_uri) )
             session.commit()
+            mbz = None
         else:
             print( '\t[HIT]', jsondata.get('title') )
-            mbz =  MbzOpsTrack.load( jsondata, spt.real_uri )
+            mbz =  MbzOpsTrack.load( jsondata, real_uri )
 
         return mbz
 
@@ -298,7 +300,7 @@ class MapArtist(Mapper):
             artist = cls.get_spotify_info( uri )
             print( '\t', artist.name )
             # Tagging
-            mbz = cls.get_musicbrainz_info(spt.real_uri, artist)
+            mbz = cls.tagging(spt.real_uri, artist)
             print( '[  TAG  ]', mbz.name, mbz.uri )
 
     @classmethod
@@ -315,7 +317,7 @@ class MapArtist(Mapper):
         return query.first()
 
     @classmethod
-    def get_musicbrainz_info(cls, real_uri, artist):
+    def tagging(cls, real_uri, artist):
         print('[FUNC]__tagging__')
         jsondata = MbzAPI.best_match_artist(
             name=artist.name

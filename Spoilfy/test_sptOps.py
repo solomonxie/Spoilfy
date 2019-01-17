@@ -38,7 +38,7 @@ else:
 # >>>>>>>>>>>>>>>>>>>>>>[    TEST     ] >>>>>>>>>>>>>>>>>>>>>>>>
 # ==============================================================
 
-class test_SptOpsAccount(unittest.TestCase):
+class TestSptOpsAccount(unittest.TestCase):
 
     def setUp(self):
         self.cls = SptOpsAccount
@@ -58,7 +58,7 @@ class test_SptOpsAccount(unittest.TestCase):
 
 
 
-class test_SptOpsTrack(unittest.TestCase):
+class TestSptOpsTrack(unittest.TestCase):
 
     def setUp(self):
         self.cls = SptOpsTrack
@@ -109,7 +109,7 @@ class test_SptOpsTrack(unittest.TestCase):
 
 
 
-class test_SptOpsAlbum(unittest.TestCase):
+class TestSptOpsAlbum(unittest.TestCase):
 
     def setUp(self):
         self.cls = SptOpsAlbum
@@ -166,7 +166,7 @@ class test_SptOpsAlbum(unittest.TestCase):
 
 
 
-class test_SptOpsArtist(unittest.TestCase):
+class TestSptOpsArtist(unittest.TestCase):
 
     def setUp(self):
         self.cls = SptOpsArtist
@@ -189,7 +189,7 @@ class test_SptOpsArtist(unittest.TestCase):
 
 
 
-class test_SptOpsPlaylist(unittest.TestCase):
+class TestSptOpsPlaylist(unittest.TestCase):
 
     def setUp(self):
         self.cls = SptOpsPlaylist
@@ -206,6 +206,10 @@ class test_SptOpsPlaylist(unittest.TestCase):
         self.assertIsInstance( items, list )
         self.assertIsNotNone( items[0].get('uri') )
         self.assertIsNotNone( items[0].get('owner') )
+        tracks = self.tracks['items']
+        self.assertIsInstance( tracks, list )
+        self.assertIsNotNone( tracks[0].get('track') )
+        self.assertIsNotNone( tracks[0].get('track',{}).get('uri') )
 
     def test_load(self):
         ref = self.cls.load( self.playlist1 )
@@ -230,8 +234,13 @@ class test_SptOpsPlaylist(unittest.TestCase):
 
 
 
-class test_SptOpsMissing(unittest.TestCase):
-    pass
+class TestSptOpsMissing(unittest.TestCase):
+
+    def setUp(self):
+        # Connect Database
+        path = 'sqlite:////tmp/db_spoilfy_uri.sqlite'
+        self.engine = create_engine(path, echo=True)
+        self.session = sessionmaker(bind=engine, autoflush=False)()
 
 
 
