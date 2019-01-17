@@ -48,7 +48,7 @@ else:
 def test_SptOpsAccount():
     print( '\n[  TEST  ] SptOpsAccount' )
     # Add an account
-    # with open('../scratch/sqlschemas/spotify/jsondumps-full/get_user_profile.json', 'r') as f:
+    # with open('../draft/sqlschemas/spotify/jsondumps-full/get_user_profile.json', 'r') as f:
         # jsondata = json.loads( f.read() )
     me = SptOpsAccount.get_my_profile()
     print( '\t Me:', me.name )
@@ -58,7 +58,7 @@ def test_SptOpsAccount():
 def test_SptOpsTrack():
     print( '\n[  TEST  ] SptOpsTrack' )
     # Add a track
-    # with open('../scratch/sqlschemas/spotify/jsondumps-full/get_user_tracks.json', 'r') as f:
+    # with open('../draft/sqlschemas/spotify/jsondumps-full/get_user_tracks.json', 'r') as f:
         # jsondata = json.loads( f.read() )
         # tracks = SptOpsTrack.loads( jsondata )
         # print( '[  OK  ] Inserted {} User tracks.'.format(len(tracks)) )
@@ -71,19 +71,23 @@ def test_SptOpsTrack():
 def test_SptOpsAlbum():
     print( '\n[  TEST  ] SptOpsAlbum' )
     # Add an album
-    # with open('../scratch/sqlschemas/spotify/jsondumps-full/get_user_albums.json', 'r') as f:
+    # with open('../draft/sqlschemas/spotify/jsondumps-full/get_user_albums.json', 'r') as f:
         # jsondata = json.loads( f.read() )
+        # albums = SptOpsAlbum.loads( jsondata )
+        # print( '[  OK  ] Inserted {} User albums.'.format(len(albums)) )
+        # return
+
     for page in SptOpsAlbum.API.get_my_albums():
         albums = SptOpsAlbum.loads( page )
         print( '[  OK  ] Inserted {} User albums.'.format(len(albums)) )
-        # break
+
 
 
 
 def test_SptOpsArtist():
     print( '\n[  TEST  ] SptOpsArtist' )
     # Add an artist
-    # with open('../scratch/sqlschemas/spotify/jsondumps-full/get_user_artists.json', 'r') as f:
+    # with open('../draft/sqlschemas/spotify/jsondumps-full/get_user_artists.json', 'r') as f:
         # jsondata = json.loads( f.read() )
     for page in SptOpsArtist.API.get_my_artists():
         artists = SptOpsArtist.loads( page )
@@ -95,7 +99,7 @@ def test_SptOpsArtist():
 def test_SptOpsPlaylist():
     print( '\n[  TEST  ] SptOpsPlaylist' )
     # Add a playlist
-    # with open('../scratch/sqlschemas/spotify/jsondumps-full/get_user_playlists.json', 'r') as f:
+    # with open('../draft/sqlschemas/spotify/jsondumps-full/get_user_playlists.json', 'r') as f:
         # jsondata = json.loads( f.read() )
     for page in SptOpsPlaylist.API.get_my_playlists():
         playlists = SptOpsPlaylist.loads( page )
@@ -120,13 +124,14 @@ if __name__ == '__main__':
     #=> Insert data
     # test_SptOpsAccount()
     # test_SptOpsTrack()
-    # test_SptOpsAlbum()
+    test_SptOpsAlbum()
     # test_SptOpsArtist()
-    test_SptOpsPlaylist()
+    # test_SptOpsPlaylist()
+
 
     # Complete missings
-    refs = SptOpsMissing.fix_missing_tracks()
-    refs = SptOpsMissing.fix_missing_albums()
-    refs = SptOpsMissing.fix_missing_artists()
+    # refs = SptOpsMissing.fix_missing_tracks()
+    # refs = SptOpsMissing.fix_missing_albums()
+    # refs = SptOpsMissing.fix_missing_artists()
 
 

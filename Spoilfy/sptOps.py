@@ -91,27 +91,25 @@ class SptOpsTrack(SptOps):
         all = []
         for o in jsondata.get('items', []):
             all.append( cls.load(o) )
-            cls.include_album(o)
-            cls.include_artists(o)
+            cls.include_album( o.get('track',{}) )
+            cls.include_artists( o.get('track',{}) )
         return all
 
     #-----------------------------------------#
 
     @classmethod
     def include_album(cls, trackdata):
-        track = trackdata.get('track',{})
-        child = track.get('uri', '')
-        parent = track.get('album', {}).get('uri', '')
+        child = trackdata.get('uri', '')
+        parent = trackdata.get('album', {}).get('uri', '')
         inc = session.merge( Include(parent, child) )
         session.commit()
         return inc
 
     @classmethod
     def include_artists(cls, trackdata):
-        track = trackdata.get('track', {})
-        child = track.get('uri')
+        child = trackdata.get('uri')
 
-        for r in track.get('artists', []):
+        for r in trackdata.get('artists', []):
             parent = r.get('uri')
             inc = session.merge( Include(parent, child) )
         session.commit()
@@ -136,36 +134,41 @@ class SptOpsAlbum(SptOps):
     def loads(cls, jsondata):
         all = []
         for o in jsondata.get('items', []):
-            all.append( cls.load(o) )
-            cls.include_tracks(o)
-            cls.include_artists(o)
+            ref = cls.load(o)
+            print( '[NEW]', ref )
+            cls.include_tracks( o.get('album',{}) )
+            cls.include_artists( o.get('album',{}) )
+            all.append( ref )
+            # break
         return all
 
     #------------------------------------------#
 
     @classmethod
     def include_tracks(cls, albumdata):
-        album = albumdata.get('album', {})
-        parent = album.get('uri')
+        albumid = albumdata.get('id')
+        parent = albumdata.get('uri')
 
-        for page in cls.API.get_album_tracks(album.get('id')):
+        for page in cls.API.get_album_tracks( albumid ):
             for o in page.get('items', []):
                 child = o.get('uri')
                 if child:
+                    # Bind tracks -> album
                     inc = session.merge( Include(parent, child) )
-                    SptOpsTrack.include_artists(albumdata)
+                    print( '\t[BIND]', inc )
+                    # Also bind artists -> each track
+                    SptOpsTrack.include_artists(o)
             session.commit()
-            # break
 
 
     @classmethod
     def include_artists(cls, albumdata):
-        album = albumdata.get('album', {})
-        child = album.get('uri')
+        child = albumdata.get('uri')
 
-        for r in album.get('artists', []):
+        for r in albumdata.get('artists', []):
             parent = r.get('uri')
             inc = session.merge( Include(parent, child) )
+            print( '\t[BIND]', inc )
 
         session.commit()
 
