@@ -1,0 +1,99 @@
+{
+    "collaborative": false,
+    "description": "",
+    "external_urls": {"spotify": "https://open.spotify.com/playlist/1bBu4pZv4G7N6aj2vrcwah"},
+    "followers": {"href": null, "total": 0 },
+    "href": "https://api.spotify.com/v1/playlists/1bBu4pZv4G7N6aj2vrcwah",
+    "id": "1bBu4pZv4G7N6aj2vrcwah",
+    "images": [{"height": 640, "url": "https://mosaic.scdn.co/640/20e53de4829756f046773e7082f5a9f049a4ece53cc3654d220d0871936a448483107bdd70e847d94873d4f226cf09b15db660671aeba1a6f7e7ec955b64ee28b78445dd58288862c7d3b4304e7ac561", "width": 640 }, {"height": 300, "url": "https://mosaic.scdn.co/300/20e53de4829756f046773e7082f5a9f049a4ece53cc3654d220d0871936a448483107bdd70e847d94873d4f226cf09b15db660671aeba1a6f7e7ec955b64ee28b78445dd58288862c7d3b4304e7ac561", "width": 300 }, {"height": 60, "url": "https://mosaic.scdn.co/60/20e53de4829756f046773e7082f5a9f049a4ece53cc3654d220d0871936a448483107bdd70e847d94873d4f226cf09b15db660671aeba1a6f7e7ec955b64ee28b78445dd58288862c7d3b4304e7ac561", "width": 60 } ],
+    "name": "NEW COLLECTS",
+    "owner": {"display_name": "Solomon Xie", "external_urls": {"spotify": "https://open.spotify.com/user/22ctjaxuyoesd3ici65zqcbxa"}, "href": "https://api.spotify.com/v1/users/22ctjaxuyoesd3ici65zqcbxa", "id": "22ctjaxuyoesd3ici65zqcbxa", "type": "user", "uri": "spotify:user:22ctjaxuyoesd3ici65zqcbxa"},
+    "primary_color": null,
+    "public": true,
+    "snapshot_id": "Mzk4LGRhMmE3NTg2MjFjYmRlOWM0NjdmZTdlMjg5YTY4Nzk1OTAxYzgwNTQ=",
+    "tracks": {
+        "href": "https://api.spotify.com/v1/playlists/1bBu4pZv4G7N6aj2vrcwah/tracks?offset=0&limit=100",
+        "items": [
+            {
+                "added_at": "2018-06-29T06:48:04Z",
+                "added_by": {"external_urls": {"spotify": "https://open.spotify.com/user/22ctjaxuyoesd3ici65zqcbxa"}, "href": "https://api.spotify.com/v1/users/22ctjaxuyoesd3ici65zqcbxa", "id": "22ctjaxuyoesd3ici65zqcbxa", "type": "user", "uri": "spotify:user:22ctjaxuyoesd3ici65zqcbxa"},
+                "is_local": true,
+                "primary_color": null,
+                "track": {
+                    "album": {"album_type": null, "artists": [], "available_markets": [], "external_urls": {}, "href": null, "id": null, "images": [], "name": "「人類資金」オリジナル・サウンドトラック", "release_date": null, "release_date_precision": null, "type": "album", "uri": null },
+                    "artists": [{"external_urls": {}, "href": null, "id": null, "name": "安川午朗", "type": "artist", "uri": null } ],
+                    "available_markets": [],
+                    "disc_number": 0,
+                    "duration_ms": 277000,
+                    "explicit": false,
+                    "external_ids": {},
+                    "external_urls": {},
+                    "href": null,
+                    "id": null,
+                    "is_local": true,
+                    "name": "「人類資金」エンドタイトル",
+                    "popularity": 0,
+                    "preview_url": null,
+                    "track_number": 0,
+                    "type": "track",
+                    "uri": "spotify:local:%E5%AE%89%E5%B7%9D%E5%8D%88%E6%9C%97:%E3%80%8C%E4%BA%BA%E9%A1%9E%E8%B3%87%E9%87%91%E3%80%8D%E3%82%AA%E3%83%AA%E3%82%B8%E3%83%8A%E3%83%AB%E3%83%BB%E3%82%B5%E3%82%A6%E3%83%B3%E3%83%89%E3%83%88%E3%83%A9%E3%83%83%E3%82%AF:%E3%80%8C%E4%BA%BA%E9%A1%9E%E8%B3%87%E9%87%91%E3%80%8D%E3%82%A8%E3%83%B3%E3%83%89%E3%82%BF%E3%82%A4%E3%83%88%E3%83%AB:277"
+                },
+                "video_thumbnail": {"url": null }
+            },
+            {
+                "added_at": "2018-09-16T07:12:11Z",
+                "added_by": {"external_urls": {"spotify": "https://open.spotify.com/user/22ctjaxuyoesd3ici65zqcbxa"}, "href": "https://api.spotify.com/v1/users/22ctjaxuyoesd3ici65zqcbxa", "id": "22ctjaxuyoesd3ici65zqcbxa", "type": "user", "uri": "spotify:user:22ctjaxuyoesd3ici65zqcbxa"},
+                "is_local": false,
+                "primary_color": null,
+                "track": {
+                    "album": {
+                        "album_type": "single",
+                        "artists": [
+                            {"external_urls": {"spotify": "https://open.spotify.com/artist/0Q2r9lJUuJk6SWpmdHLwpc"}, "href": "https://api.spotify.com/v1/artists/0Q2r9lJUuJk6SWpmdHLwpc", "id": "0Q2r9lJUuJk6SWpmdHLwpc", "name": "Sapphire", "type": "artist", "uri": "spotify:artist:0Q2r9lJUuJk6SWpmdHLwpc"}
+                        ],
+                        "available_markets": ["AD", "AE", "AR", "AT", "AU", "BE", "BG", "BH", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "DZ", "EC", "EE", "EG", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IL", "IS", "IT", "JO", "JP", "KW", "LB", "LI", "LT", "LU", "LV", "MA", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "OM", "PA", "PE", "PH", "PL", "PS", "PT", "PY", "QA", "RO", "SA", "SE", "SG", "SK", "SV", "TH", "TN", "TR", "TW", "US", "UY", "VN", "ZA"],
+                        "external_urls": {"spotify": "https://open.spotify.com/album/5OK7MiftbPVta1J8EytvGa"},
+                        "href": "https://api.spotify.com/v1/albums/5OK7MiftbPVta1J8EytvGa",
+                        "id": "5OK7MiftbPVta1J8EytvGa",
+                        "images": [{"height": 640, "url": "https://i.scdn.co/image/20e53de4829756f046773e7082f5a9f049a4ece5", "width": 640 }, {"height": 300, "url": "https://i.scdn.co/image/9a4b3e3de4af92a63da6df64329d4f7af8db1430", "width": 300 }, {"height": 64, "url": "https://i.scdn.co/image/4af0bb8732c04e9eaa6650c1af5bd7efad5e7de6", "width": 64 } ],
+                        "name": "Equilibrium",
+                        "release_date": "2018-08-09",
+                        "release_date_precision": "day",
+                        "total_tracks": 1,
+                        "type": "album",
+                        "uri": "spotify:album:5OK7MiftbPVta1J8EytvGa"
+                    },
+                    "artists": [
+                        {"external_urls": {"spotify": "https://open.spotify.com/artist/0Q2r9lJUuJk6SWpmdHLwpc"}, "href": "https://api.spotify.com/v1/artists/0Q2r9lJUuJk6SWpmdHLwpc", "id": "0Q2r9lJUuJk6SWpmdHLwpc", "name": "Sapphire", "type": "artist", "uri": "spotify:artist:0Q2r9lJUuJk6SWpmdHLwpc"},
+                        {"external_urls": {"spotify": "https://open.spotify.com/artist/7pTTIgq3BHTT5N1fMayX0U"}, "href": "https://api.spotify.com/v1/artists/7pTTIgq3BHTT5N1fMayX0U", "id": "7pTTIgq3BHTT5N1fMayX0U", "name": "The Consouls", "type": "artist", "uri": "spotify:artist:7pTTIgq3BHTT5N1fMayX0U"}
+                    ],
+                    "available_markets": ["AD", "AE", "AR", "AT", "AU", "BE", "BG", "BH", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "DZ", "EC", "EE", "EG", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IL", "IS", "IT", "JO", "JP", "KW", "LB", "LI", "LT", "LU", "LV", "MA", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "OM", "PA", "PE", "PH", "PL", "PS", "PT", "PY", "QA", "RO", "SA", "SE", "SG", "SK", "SV", "TH", "TN", "TR", "TW", "US", "UY", "VN", "ZA"],
+                    "disc_number": 1,
+                    "duration_ms": 201475,
+                    "episode": false,
+                    "explicit": false,
+                    "external_ids": {"isrc": "QZDA71858900"},
+                    "external_urls": {"spotify": "https://open.spotify.com/track/0kUWYEoJFCOZbuNcfDbPVA"},
+                    "href": "https://api.spotify.com/v1/tracks/0kUWYEoJFCOZbuNcfDbPVA",
+                    "id": "0kUWYEoJFCOZbuNcfDbPVA",
+                    "is_local": false,
+                    "name": "Equilibrium",
+                    "popularity": 31,
+                    "preview_url": "https://p.scdn.co/mp3-preview/c2b0a50eebeada71ca8aab4b0c80b25eca2b0321?cid=5696713ef1d24a008463cda4b287e933",
+                    "track": true,
+                    "track_number": 1,
+                    "type": "track",
+                    "uri": "spotify:track:0kUWYEoJFCOZbuNcfDbPVA"
+                },
+                "video_thumbnail": {"url": null }
+            },
+        ],
+        "limit": 100,
+        "next": null,
+        "offset": 0,
+        "previous": null,
+        "total": 29
+    },
+    "type": "playlist",
+    "uri": "spotify:user:22ctjaxuyoesd3ici65zqcbxa:playlist:1bBu4pZv4G7N6aj2vrcwah"
+}

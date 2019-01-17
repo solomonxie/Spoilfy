@@ -1,0 +1,46 @@
+{
+    "href": "https://api.spotify.com/v1/albums/1Li4rADxSxjT2g4xqUcMYh/tracks?offset=0&limit=20",
+    "items": [
+        {
+            "artists": [
+                {"external_urls": {"spotify": "https://open.spotify.com/artist/04gDigrS5kc9YWfZHwBETP"}, "href": "https://api.spotify.com/v1/artists/04gDigrS5kc9YWfZHwBETP", "id": "04gDigrS5kc9YWfZHwBETP", "name": "Maroon 5", "type": "artist", "uri": "spotify:artist:04gDigrS5kc9YWfZHwBETP"}
+            ],
+            "available_markets": ["AD", "AE", "AR", "AT", "AU", "BE", "BG", "BH", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "DZ", "EC", "EE", "EG", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IL", "IS", "IT", "JO", "JP", "KW", "LB", "LI", "LT", "LU", "LV", "MA", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "OM", "PA", "PE", "PH", "PL", "PS", "PT", "PY", "QA", "RO", "SA", "SE", "SG", "SK", "SV", "TH", "TN", "TR", "TW", "US", "UY", "VN", "ZA"],
+            "disc_number": 1,
+            "duration_ms": 239751,
+            "explicit": false,
+            "external_urls": {"spotify": "https://open.spotify.com/track/3I1JTx525DKElzlTYOBfZN"},
+            "href": "https://api.spotify.com/v1/tracks/3I1JTx525DKElzlTYOBfZN",
+            "id": "3I1JTx525DKElzlTYOBfZN",
+            "is_local": false,
+            "name": "Best 4 U",
+            "preview_url": null,
+            "track_number": 1,
+            "type": "track",
+            "uri": "spotify:track:3I1JTx525DKElzlTYOBfZN"
+        },
+        {
+            "artists": [
+                {"external_urls": {"spotify": "https://open.spotify.com/artist/04gDigrS5kc9YWfZHwBETP"}, "href": "https://api.spotify.com/v1/artists/04gDigrS5kc9YWfZHwBETP", "id": "04gDigrS5kc9YWfZHwBETP", "name": "Maroon 5", "type": "artist", "uri": "spotify:artist:04gDigrS5kc9YWfZHwBETP"}, {"external_urls": {"spotify": "https://open.spotify.com/artist/7tYKF4w9nC0nq9CsPZTHyP"}, "href": "https://api.spotify.com/v1/artists/7tYKF4w9nC0nq9CsPZTHyP", "id": "7tYKF4w9nC0nq9CsPZTHyP", "name": "SZA", "type": "artist", "uri": "spotify:artist:7tYKF4w9nC0nq9CsPZTHyP"} 
+            ],
+            "available_markets": ["AD", "AE", "AR", "AT", "AU", "BE", "BG", "BH", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "DZ", "EC", "EE", "EG", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IL", "IS", "IT", "JO", "JP", "KW", "LB", "LI", "LT", "LU", "LV", "MA", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "OM", "PA", "PE", "PH", "PL", "PS", "PT", "PY", "QA", "RO", "SA", "SE", "SG", "SK", "SV", "TH", "TN", "TR", "TW", "US", "UY", "VN", "ZA"],
+            "disc_number": 1,
+            "duration_ms": 199849,
+            "explicit": false,
+            "external_urls": {"spotify": "https://open.spotify.com/track/0GxQ1A5L9xnMOytbP6eKBG"},
+            "href": "https://api.spotify.com/v1/tracks/0GxQ1A5L9xnMOytbP6eKBG",
+            "id": "0GxQ1A5L9xnMOytbP6eKBG",
+            "is_local": false,
+            "name": "What Lovers Do (feat. SZA)",
+            "preview_url": null,
+            "track_number": 2,
+            "type": "track",
+            "uri": "spotify:track:0GxQ1A5L9xnMOytbP6eKBG"
+        },
+    ],
+    "limit": 20,
+    "next": "https://api.spotify.com/v1/albums/1Li4rADxSxjT2g4xqUcMYh/tracks?offset=20&limit=20",
+    "offset": 0,
+    "previous": null,
+    "total": 22
+}

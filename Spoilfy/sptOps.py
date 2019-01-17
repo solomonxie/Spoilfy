@@ -11,20 +11,22 @@ from sqlalchemy.orm import aliased
 #-------[  Import From Other Modules   ]---------
 #-> TEST only
 if __name__ in ['__main__', 'sptOps']:
+    from sptOps import *
+    from orm.common import *
+    from orm.user import *
     from orm.spotify import *
     from orm.musicbrainz import *
-    from orm.common import Base, engine, session
-    from orm.common import Resource, Reference, Include
-    from webapi.apiSpotify import SpotifyAPI
-    import webapi.apiMusicbrainz as MbzAPI
+    from webapi.apiSpotify import *
+    from webapi.apiMusicbrainz import *
 else:
-    # Package Import Hint: $ python -m Spoilfy.orm.spotify
+    # Package Import Hint: $ python -m Spoilfy.sptOps
+    from Spoilfy.sptOps import *
+    from Spoilfy.orm.common import *
+    from Spoilfy.orm.user import *
     from Spoilfy.orm.spotify import *
     from Spoilfy.orm.musicbrainz import *
-    from Spoilfy.orm.common import Base, engine, session
-    from Spoilfy.orm.common import Resource, Reference, Include
-    from Spoilfy.webapi.apiSpotify import SpotifyAPI
-    import Spoilfy.webapi.apiMusicbrainz as MbzAPI
+    from Spoilfy.webapi.apiSpotify import *
+    from Spoilfy.webapi.apiMusicbrainz import *
 
 
 
@@ -39,7 +41,7 @@ with open('./webapi/.spotify_app.json', 'r') as f:
 class SptOps:
 
     ORM = None
-    API = SpotifyAPI(_data)
+    # API = SpotifyAPI(_data)
 
 
 
@@ -91,6 +93,7 @@ class SptOpsTrack(SptOps):
         all = []
         for o in jsondata.get('items', []):
             all.append( cls.load(o) )
+            print( '[NEW]', ref )
             cls.include_album( o.get('track',{}) )
             cls.include_artists( o.get('track',{}) )
         return all
@@ -102,6 +105,7 @@ class SptOpsTrack(SptOps):
         child = trackdata.get('uri', '')
         parent = trackdata.get('album', {}).get('uri', '')
         inc = session.merge( Include(parent, child) )
+        print( '\t[BIND]', inc )
         session.commit()
         return inc
 
@@ -112,6 +116,7 @@ class SptOpsTrack(SptOps):
         for r in trackdata.get('artists', []):
             parent = r.get('uri')
             inc = session.merge( Include(parent, child) )
+            print( '\t[BIND]', inc )
         session.commit()
 
 
@@ -332,3 +337,39 @@ class SptOpsMissing(SptOps):
 
         return refs
 
+
+
+
+
+# ==============================================================
+# >>>>>>>>>>>>>>>>>>[    TEST RUN     ] >>>>>>>>>>>>>>>>>>>>>>>>
+# ==============================================================
+
+
+
+if __name__ == '__main__':
+    try:
+        # SpotifyAccount.__table__.drop(engine)
+        # SpotifyTrack.__table__.drop(engine)
+        # SpotifyAlbum.__table__.drop(engine)
+        # SpotifyArtist.__table__.drop(engine)
+        # SpotifyPlaylist.__table__.drop(engine)
+        # Include.__table__.drop(engine)
+        pass
+    except Exception as e:
+        print('Error on dropping SptOps table.')
+    finally:
+        Base.metadata.create_all(bind=engine)
+
+    #=> Insert data
+    # test_SptOpsAccount()
+    # test_SptOpsTrack()
+    # test_SptOpsAlbum()
+    # test_SptOpsArtist()
+    # test_SptOpsPlaylist()
+
+
+    # Complete missings
+    # refs = SptOpsMissing.fix_missing_tracks()
+    # refs = SptOpsMissing.fix_missing_albums()
+    # refs = SptOpsMissing.fix_missing_artists()

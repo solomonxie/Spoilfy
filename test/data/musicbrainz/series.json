@@ -1,0 +1,188 @@
+{
+  "id": "7b52a62d-30dd-4685-a112-c68dcd4f861a",
+  "name": "Juan Gabriel: 25 aniversario: 1971-1975",
+  "tags": [],
+  "type": "Release group",
+  "aliases": [],
+  "type-id": "4c1c4949-7b6c-3a2d-9d54-a50a27e4fa77",
+  "relations": [
+    {
+      "end": null,
+      "type": "part of",
+      "begin": null,
+      "ended": false,
+      "type-id": "01018437-91d8-36b9-bf89-3f885d53b5bd",
+      "direction": "backward",
+      "attributes": [
+        "number"
+      ],
+      "target-type": "release_group",
+      "ordering-key": 1,
+      "release_group": {
+        "id": "be524a58-886e-4a1e-8d9b-722c18a69482",
+        "title": "25 aniversario: 1971-1975",
+        "aliases": [],
+        "annotation": null,
+        "primary-type": null,
+        "disambiguation": "25 aniversario: 1971-1996, volumen 1",
+        "primary-type-id": null,
+        "secondary-types": [],
+        "first-release-date": "1996",
+        "secondary-type-ids": []
+      },
+      "source-credit": "",
+      "target-credit": "",
+      "attribute-values": {
+        "number": "1"
+      }
+    },
+    {
+      "end": null,
+      "type": "part of",
+      "begin": null,
+      "ended": false,
+      "type-id": "01018437-91d8-36b9-bf89-3f885d53b5bd",
+      "direction": "backward",
+      "attributes": [
+        "number"
+      ],
+      "target-type": "release_group",
+      "ordering-key": 2,
+      "release_group": {
+        "id": "17eb3682-7eb8-4c38-b240-fa66f8e38ecb",
+        "title": "25 aniversario: 1971-1996, volumen 2",
+        "aliases": [],
+        "annotation": null,
+        "primary-type": null,
+        "disambiguation": "",
+        "primary-type-id": null,
+        "secondary-types": [],
+        "first-release-date": "1996-07-30",
+        "secondary-type-ids": []
+      },
+      "source-credit": "",
+      "target-credit": "",
+      "attribute-values": {
+        "number": "2"
+      }
+    },
+    {
+      "end": null,
+      "type": "part of",
+      "begin": null,
+      "ended": false,
+      "type-id": "01018437-91d8-36b9-bf89-3f885d53b5bd",
+      "direction": "backward",
+      "attributes": [
+        "number"
+      ],
+      "target-type": "release_group",
+      "ordering-key": 3,
+      "release_group": {
+        "id": "ec061e29-ad2b-4a99-b6f8-507c7fc34460",
+        "title": "25 aniversario: 1971-1996, volumen 3",
+        "aliases": [],
+        "annotation": null,
+        "primary-type": null,
+        "disambiguation": "",
+        "primary-type-id": null,
+        "secondary-types": [],
+        "first-release-date": "1996-07-30",
+        "secondary-type-ids": []
+      },
+      "source-credit": "",
+      "target-credit": "",
+      "attribute-values": {
+        "number": "3"
+      }
+    },
+    {
+      "end": null,
+      "type": "part of",
+      "begin": null,
+      "ended": false,
+      "type-id": "01018437-91d8-36b9-bf89-3f885d53b5bd",
+      "direction": "backward",
+      "attributes": [
+        "number"
+      ],
+      "target-type": "release_group",
+      "ordering-key": 4,
+      "release_group": {
+        "id": "01024800-a443-4642-b714-f27920263356",
+        "title": "25 aniversario: 1971-1996, volumen 4",
+        "aliases": [],
+        "annotation": null,
+        "primary-type": null,
+        "disambiguation": "",
+        "primary-type-id": null,
+        "secondary-types": [],
+        "first-release-date": "1996-07-30",
+        "secondary-type-ids": []
+      },
+      "source-credit": "",
+      "target-credit": "",
+      "attribute-values": {
+        "number": "4"
+      }
+    },
+    {
+      "end": null,
+      "type": "part of",
+      "begin": null,
+      "ended": false,
+      "type-id": "01018437-91d8-36b9-bf89-3f885d53b5bd",
+      "direction": "backward",
+      "attributes": [
+        "number"
+      ],
+      "target-type": "release_group",
+      "ordering-key": 5,
+      "release_group": {
+        "id": "cc19f9b8-664a-45c8-a7cd-876b5916ea28",
+        "title": "25 aniversario: 1971-1996, volumen 5",
+        "aliases": [],
+        "annotation": null,
+        "primary-type": null,
+        "disambiguation": "",
+        "primary-type-id": null,
+        "secondary-types": [],
+        "first-release-date": "1996-07-30",
+        "secondary-type-ids": []
+      },
+      "source-credit": "",
+      "target-credit": "",
+      "attribute-values": {
+        "number": "5"
+      }
+    },
+    {
+      "end": null,
+      "type": "part of",
+      "begin": null,
+      "ended": false,
+      "type-id": "01018437-91d8-36b9-bf89-3f885d53b5bd",
+      "direction": "backward",
+      "attributes": [],
+      "target-type": "release_group",
+      "ordering-key": 6,
+      "release_group": {
+        "id": "e01f83a2-a584-4988-b35b-c7b701e3e85a",
+        "title": "25 aniversario: Solos, duetos y versiones especiales",
+        "aliases": [],
+        "annotation": null,
+        "primary-type": null,
+        "disambiguation": "",
+        "primary-type-id": null,
+        "secondary-types": [],
+        "first-release-date": "1996-08-03",
+        "secondary-type-ids": []
+      },
+      "source-credit": "",
+      "target-credit": "",
+      "attribute-values": {}
+    }
+  ],
+  "annotation": null,
+  "disambiguation": ""
+}
