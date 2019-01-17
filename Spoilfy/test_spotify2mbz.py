@@ -12,16 +12,14 @@ from time import sleep
 if __name__ in ['__main__', 'spotify2mbz']:
     from orm.spotify import *
     from orm.musicbrainz import *
-    from orm.common import Base, engine, session
-    from orm.common import Resource, Reference, Include
+    from orm.common import *
     from webapi.apiSpotify import SpotifyAPI
     import webapi.apiMusicbrainz as MbzAPI
     from spotify2mbz import *
 else:
     from Spoilfy.orm.spotify import *
     from Spoilfy.orm.musicbrainz import *
-    from Spoilfy.orm.common import Base, engine, session
-    from Spoilfy.orm.common import Resource, Reference, Include
+    from Spoilfy.orm.common import*
     from Spoilfy.webapi.apiSpotify import SpotifyAPI
     import Spoilfy.webapi.apiMusicbrainz as MbzAPI
     from Spoilfy.spotify2mbz import *
@@ -77,6 +75,8 @@ def main():
 
     # Multiple Tagging
     MapTrack.map_all()
+
+
 
 
 if __name__ == '__main__':
