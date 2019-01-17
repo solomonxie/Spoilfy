@@ -36,7 +36,7 @@
             "track_number": 2,
             "type": "track",
             "uri": "spotify:track:0GxQ1A5L9xnMOytbP6eKBG"
-        },
+        }
     ],
     "limit": 20,
     "next": "https://api.spotify.com/v1/albums/1Li4rADxSxjT2g4xqUcMYh/tracks?offset=20&limit=20",
