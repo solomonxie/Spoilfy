@@ -41,7 +41,7 @@ with open('./webapi/.spotify_app.json', 'r') as f:
 class SptOps:
 
     ORM = None
-    API = SpotifyAPI(_data)
+    # API = SpotifyAPI(_data)
 
 
 
@@ -147,9 +147,10 @@ class SptOpsAlbum(SptOps):
         cls.include_artists( albumdata )
 
         # Bind tracks to an album [Loop pages]
-        albumid = albumdata.get('id')
-        for page in cls.API.get_album_tracks( albumid ):
-            cls.include_artists( albumid, page )
+        id = albumdata.get('id')
+        parent = albumdata.get('uri')
+        for page in cls.API.get_album_tracks( id ):
+            cls.include_tracks( parent, page )
         # break
 
     #------------------------------------------#
@@ -221,6 +222,25 @@ class SptOpsPlaylist(SptOps):
     ORM = SpotifyPlaylist
 
     @classmethod
+    def loads(cls, jsondata):
+        for o in jsondata.get('items', []):
+            ref = cls.load( o )
+            # -> Bind tracks to a playlist
+            cls.includes( o )
+
+    @classmethod
+    def includes(cls, playlistdata):
+        # Bind tracks to an album [Loop pages]
+        id = playlistdata.get('id')
+        parent = 'spotify:playlist:{}'.format(id)
+        # original playlist uri: "spotify:user:xxxxxxxx:playlist:xxxxxxx"
+        for page in cls.API.get_playlist_tracks( id ):
+            cls.include_tracks( parent, page )
+        # break
+
+    #-----------------------------------------------#
+
+    @classmethod
     def load(cls, jsondata):
         playlist = session.merge( cls.ORM(jsondata) )
         ref = session.merge( Reference(playlist) )
@@ -228,27 +248,12 @@ class SptOpsPlaylist(SptOps):
         return ref
 
     @classmethod
-    def loads(cls, jsondata):
-        all = []
-        for o in jsondata.get('items', []):
-            all.append( cls.load(o) )
-            cls.include_tracks(o)
-        return all
-
-    #-----------------------------------------------#
-
-    @classmethod
-    def include_tracks(cls, playlistdata):
-        parent = 'spotify:playlist:{}'.format( playlistdata.get('id') )
-        # original playlist uri: "spotify:user:xxxxxxxx:playlist:xxxxxxx"
-
-        for page in cls.API.get_playlist_tracks(playlistdata.get('id')):
-            for o in page.get('items', []):
-                child = o.get('track',{}).get('uri')
-                if child:
-                    inc = session.merge( Include(parent, child) )
-                    session.commit()
-            # break
+    def include_tracks(cls, parent, tracksdata):
+        for o in tracksdata.get('items',[]):
+            child = o.get('track',{}).get('uri')
+            if child:
+                inc = session.merge( Include(parent, child) )
+                session.commit()
 
 
 

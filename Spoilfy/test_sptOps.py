@@ -198,6 +198,9 @@ class test_SptOpsPlaylist(unittest.TestCase):
             self.playlist1 = self.jsondata['items'][0]
             self.playlist2 = self.jsondata['items'][1]
 
+        with open('../test/data/spotify/playlist_tracks.json', 'r') as f:
+            self.tracks = json.loads( f.read() )
+
     def test_data(self):
         items = self.jsondata['items']
         self.assertIsInstance( items, list )
@@ -209,6 +212,26 @@ class test_SptOpsPlaylist(unittest.TestCase):
         self.assertEqual(ref.uri, 'spotify:playlist:6FaSdKCximiMF0wupKF9hW')
         ref = self.cls.load( self.playlist2 )
         self.assertEqual(ref.uri, 'spotify:playlist:1bBu4pZv4G7N6aj2vrcwah')
+
+    def test_include_tracks(self):
+        parent = 'spotify:album:1Li4rADxSxjT2g4xqUcMYh'
+        child = 'spotify:track:3I1JTx525DKElzlTYOBfZN'
+        incs = self.cls.include_tracks( parent, self.tracks )
+        return
+        self.assertEqual(incs[0].parent_uri, parent)
+        self.assertEqual(incs[0].child_uri, child)
+        # Also search from DB
+        inc = session.query(Include).filter(
+            Include.parent_uri == parent,
+            Include.child_uri == child
+        ).first()
+        self.assertIsNotNone(inc)
+
+
+
+
+class test_SptOpsMissing(unittest.TestCase):
+    pass
 
 
 
