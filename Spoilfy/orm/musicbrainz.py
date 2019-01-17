@@ -151,4 +151,25 @@ class MusicbrainzArtist(MusicbrainzResource):
 
 
 
+
+# ==============================================================
+# >>>>>>>>>>>>>>>>>>[    TEST RUN     ] >>>>>>>>>>>>>>>>>>>>>>>>
+# ==============================================================
+
+
+if __name__ == '__main__':
+    try:
+        # MusicbrainzTrack.__table__.drop(engine)
+        # MusicbrainzAlbum.__table__.drop(engine)
+        # MusicbrainzArtist.__table__.drop(engine)
+        # UnTagged.__table__.drop(engine)
+        # Include.__table__.drop(engine)
+        pass
+    except Exception as e:
+        print('Error on dropping Musicbrainz table.')
+    finally:
+        Base.metadata.create_all(bind=engine)
+
+
+
 print('[  OK  ] __IMPORTED__: {}'.format(__name__))

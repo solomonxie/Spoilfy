@@ -225,4 +225,26 @@ class SpotifyPlaylist(Resource):
 
 
 
+# ==============================================================
+# >>>>>>>>>>>>>>>>>>[    TEST RUN     ] >>>>>>>>>>>>>>>>>>>>>>>>
+# ==============================================================
+
+
+
+if __name__ == '__main__':
+    try:
+        # SpotifyAccount.__table__.drop(engine)
+        # SpotifyTrack.__table__.drop(engine)
+        # SpotifyAlbum.__table__.drop(engine)
+        # SpotifyArtist.__table__.drop(engine)
+        # SpotifyPlaylist.__table__.drop(engine)
+        # Include.__table__.drop(engine)
+        pass
+    except Exception as e:
+        print('Error on dropping Spotify table.')
+    finally:
+        Base.metadata.create_all(bind=engine)
+
+
+
 print('[  OK  ] __IMPORTED__: {}'.format(__name__))
