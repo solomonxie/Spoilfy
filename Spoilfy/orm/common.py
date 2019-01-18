@@ -29,17 +29,18 @@ session = sessionmaker(bind=engine, autoflush=False)()
 # >>>>>>>>>>>>>>>>>>[    Abstract ORMs     ] >>>>>>>>>>>>>>>>>>>
 # ==============================================================
 
+# For the use of decorator: @classproperty
+class classproperty(object):
+    def __init__(self, getter):
+        self.getter= getter
+    def __get__(self, instance, owner):
+        return self.getter(owner)
+
+
 class SpoilfyORM(Base):
     """ [ Abstract ORM class ]
     """
     __abstract__ = True
-
-    # Decorator: @classproperty
-    class classproperty(object):
-        def __init__(self, getter):
-            self.getter= getter
-        def __get__(self, instance, owner):
-            return self.getter(owner)
 
     @classproperty
     def query(cls):
