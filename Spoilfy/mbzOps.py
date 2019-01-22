@@ -31,16 +31,18 @@ class MbzOps:
     """ [ Musicbrainz Operations Base Class ]
 
     """
+    ENGINE = engine
+    SESSION = session
 
     @classmethod
     def load(cls, jsondata, real_uri=None):
         # Add ONE item to database
-        mbz = session.merge( cls.ORM(jsondata) )
+        mbz = cls.SESSION.merge( cls.ORM(jsondata) )
         # Bind reference
-        ref = session.merge( Reference(mbz, real_uri, mbz.score/100) )
+        ref = cls.SESSION.merge( Reference(mbz, real_uri, mbz.score/100) )
 
         print( '\t[NEW]', mbz, ' at ', ref )
-        session.commit()
+        cls.SESSION.commit()
 
         return ref
 
@@ -68,10 +70,10 @@ class MbzOpsTrack(MbzOps):
         for album in trackdata.get('releases', []):
             parent = 'musicbrainz:album:{}'.format( album.get('id') )
             #->
-            inc = session.merge( Include(parent, child) )
+            inc = cls.SESSION.merge( Include(parent, child) )
             print( '[INCLUDE:TRACK-ALBUM]', parent, child )
         # Submit changes
-        session.commit()
+        cls.SESSION.commit()
 
     @classmethod
     def include_artists(cls, trackdata):
@@ -79,10 +81,10 @@ class MbzOpsTrack(MbzOps):
         for r in trackdata.get('artist-credit', []):
             parent = 'musicbrainz:artist:' + r.get('artist',{}).get('id')
             # ->
-            inc = session.merge( Include(parent, child) )
+            inc = cls.SESSION.merge( Include(parent, child) )
             print( '[INCLUDE:TRACK-ARTIST]', parent, child )
         # Submit changes
-        session.commit()
+        cls.SESSION.commit()
 
     @classmethod
     def get_sub_ids(cls, trackdata):
@@ -116,10 +118,10 @@ class MbzOpsAlbum(MbzOps):
         for r in albumdata.get('artist-credit', []):
             parent = 'musicbrainz:artist:' + r.get('artist',{}).get('id')
             # ->
-            inc = session.merge( Include(parent, child) )
+            inc = cls.SESSION.merge( Include(parent, child) )
             print( '[INCLUDE:ALBUM-ARTIST]', parent, child )
         # Submit changes
-        session.commit()
+        cls.SESSION.commit()
 
     @classmethod
     def get_sub_ids(cls, albumdata):
