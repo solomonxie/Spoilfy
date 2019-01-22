@@ -43,7 +43,7 @@ class SptOps:
     ORM = None
     SESSION = session
     ENGINE = engine
-    # API = SpotifyAPI(_data)
+    API = SpotifyAPI(_data)
 
 
 
@@ -84,47 +84,26 @@ class SptOpsTrack(SptOps):
     ORM = SpotifyTrack
 
     @classmethod
-    def load(cls, jsondata):
-        track = cls.SESSION.merge( cls.ORM(jsondata) )
-        ref = cls.SESSION.merge( Reference(track) )
-        cls.SESSION.commit()
-        return ref
+    def load_my_tracks(cls):
+        """
+            TODO:
+            - Async retrive multiple pages from API
+        """
+        for page in SptOpsTrack.API.get_my_tracks():
+            SptOpsTrack.loads( page )
 
     @classmethod
     def loads(cls, jsondata):
         all = []
         for o in jsondata.get('items', []):
             all.append( cls.load(o) )
-            print( '[NEW]', ref )
-            cls.include_album( o.get('track',{}) )
-            cls.include_artists( o.get('track',{}) )
-        return all
-
-    #-----------------------------------------#
 
     @classmethod
-    def include_album(cls, trackdata):
-        child = trackdata.get('uri', '')
-        parent = trackdata.get('album', {}).get('uri', '')
-        inc = cls.SESSION.merge( Include(parent, child) )
-        print( '\t[BIND]', inc )
+    def load(cls, jsondata):
+        track = cls.SESSION.merge( cls.ORM(jsondata) )
+        ref = cls.SESSION.merge( Reference(track) )
         cls.SESSION.commit()
-
-        return inc
-
-    @classmethod
-    def include_artists(cls, trackdata):
-        child = trackdata.get('uri')
-
-        incs = []
-        for r in trackdata.get('artists', []):
-            parent = r.get('uri')
-            inc = cls.SESSION.merge(Include(parent, child))
-            incs.append( inc )
-            print( '\t[BIND]', inc )
-        cls.SESSION.commit()
-
-        return incs
+        return ref
 
 
 
@@ -136,26 +115,20 @@ class SptOpsAlbum(SptOps):
     ORM = SpotifyAlbum
 
     @classmethod
+    def load_my_albums(cls):
+        """
+            TODO:
+            - Async retrive multiple pages from API
+        """
+        for page in SptOpsAlbum.API.get_my_albums():
+            albums = SptOpsAlbum.loads( page )
+            # print( '[  OK  ] Inserted {} User albums.'.format(len(albums)) )
+
+    @classmethod
     def loads(cls, jsondata):
         for o in jsondata.get('items', []):
             ref = cls.load(o)
             print( '[NEW]', ref )
-            # -> Bind related resources [tracks]/[artists]
-            cls.includes( o.get('album', {}) )
-
-    @classmethod
-    def includes(cls, albumdata):
-        # Bind artists to an album
-        cls.include_artists( albumdata )
-
-        # Bind tracks to an album [Loop pages]
-        id = albumdata.get('id')
-        parent = albumdata.get('uri')
-        for page in cls.API.get_album_tracks( id ):
-            cls.include_tracks( parent, page )
-        # break
-
-    #------------------------------------------#
 
     @classmethod
     def load(cls, jsondata):
@@ -165,36 +138,6 @@ class SptOpsAlbum(SptOps):
         return ref
 
 
-    @classmethod
-    def include_tracks(cls, parent, tracksdata):
-        incs = []
-        for t in tracksdata.get('items', []):
-            child = t.get('uri')
-            if child:
-                # Bind tracks to album
-                inc = cls.SESSION.merge( Include(parent, child) )
-                incs.append( inc )
-                print( '\t[BIND]', inc )
-                # -> Also bind artists to each track
-                SptOpsTrack.include_artists( t )
-        cls.SESSION.commit()
-
-        return incs
-
-    @classmethod
-    def include_artists(cls, albumdata):
-        child = albumdata.get('uri')
-
-        incs = []
-        for r in albumdata.get('artists', []):
-            parent = r.get('uri')
-            inc = cls.SESSION.merge( Include(parent, child) )
-            incs.append( inc )
-            print( '\t[BIND]', inc )
-        cls.SESSION.commit()
-
-        return incs
-
 
 
 class SptOpsArtist(SptOps):
@@ -202,6 +145,16 @@ class SptOpsArtist(SptOps):
 
     """
     ORM = SpotifyArtist
+
+    @classmethod
+    def load_my_artists(cls):
+        """
+            TODO:
+            - Async retrive multiple pages from API
+        """
+        for page in SptOpsArtist.API.get_my_artists():
+            artists = SptOpsArtist.loads( page )
+            # print( '[  OK  ] Inserted {} User artists.'.format(len(artists)) )
 
     @classmethod
     def load(cls, jsondata):
@@ -224,23 +177,20 @@ class SptOpsPlaylist(SptOps):
     ORM = SpotifyPlaylist
 
     @classmethod
+    def load_my_playlists(cls):
+        """
+            TODO:
+            - Async retrive multiple pages from API
+        """
+        for page in SptOpsPlaylist.API.get_my_playlists():
+            playlists = SptOpsPlaylist.loads( page )
+            # print('[  OK  ] Inserted {} User playlists.'.format(len(playlists)))
+
+
+    @classmethod
     def loads(cls, jsondata):
         for o in jsondata.get('items', []):
             ref = cls.load( o )
-            # -> Bind tracks to a playlist
-            cls.includes( o )
-
-    @classmethod
-    def includes(cls, playlistdata):
-        # Bind tracks to an album [Loop pages]
-        id = playlistdata.get('id')
-        parent = 'spotify:playlist:{}'.format(id)
-        # original playlist uri: "spotify:user:xxxxxxxx:playlist:xxxxxxx"
-        for page in cls.API.get_playlist_tracks( id ):
-            cls.include_tracks( parent, page )
-        # break
-
-    #-----------------------------------------------#
 
     @classmethod
     def load(cls, jsondata):
@@ -249,13 +199,6 @@ class SptOpsPlaylist(SptOps):
         cls.SESSION.commit()
         return ref
 
-    @classmethod
-    def include_tracks(cls, parent, tracksdata):
-        for o in tracksdata.get('items',[]):
-            child = o.get('track',{}).get('uri')
-            if child:
-                inc = cls.SESSION.merge( Include(parent, child) )
-                cls.SESSION.commit()
 
 
 
@@ -356,7 +299,98 @@ class SptOpsMissing(SptOps):
         return refs
 
 
+    #---------------------------------------------------------#
 
+    @classmethod
+    def track_includes(cls, trackdata):
+        # Bind artists to an album
+        cls.include_album( trackdata )
+        cls.include_artists( trackdata )
+
+    @classmethod
+    def playlist_includes(cls, playlistdata):
+        # Bind tracks to an album [Loop pages]
+        id = playlistdata.get('id')
+        parent = 'spotify:playlist:{}'.format(id)
+        # original playlist uri: "spotify:user:xxxxxxxx:playlist:xxxxxxx"
+        for page in cls.API.get_playlist_tracks( id ):
+            cls.include_tracks( parent, page )
+
+    @classmethod
+    def album_includes(cls, albumdata):
+        # Bind artists to an album
+        cls.include_artists( albumdata )
+
+        # Bind tracks to an album [Loop pages]
+        id = albumdata.get('id')
+        parent = albumdata.get('uri')
+        for page in cls.API.get_album_tracks( id ):
+            cls.include_tracks( parent, page )
+
+
+    #---------------------------------------------------------#
+
+    @classmethod
+    def fix_track_album(cls, trackdata):
+        child = trackdata.get('uri', '')
+        parent = trackdata.get('album', {}).get('uri', '')
+        inc = cls.SESSION.merge( Include(parent, child) )
+        print( '\t[BIND]', inc )
+        cls.SESSION.commit()
+
+        return inc
+
+    @classmethod
+    def fix_track_artists(cls, trackdata):
+        child = trackdata.get('uri')
+
+        incs = []
+        for r in trackdata.get('artists', []):
+            parent = r.get('uri')
+            inc = cls.SESSION.merge(Include(parent, child))
+            incs.append( inc )
+            print( '\t[BIND]', inc )
+        cls.SESSION.commit()
+
+        return incs
+
+    @classmethod
+    def fix_album_tracks(cls, parent, tracksdata):
+        incs = []
+        for t in tracksdata.get('items', []):
+            child = t.get('uri')
+            if child:
+                # Bind tracks to album
+                inc = cls.SESSION.merge( Include(parent, child) )
+                incs.append( inc )
+                print( '\t[BIND]', inc )
+                # -> Also bind artists to each track
+                SptOpsTrack.include_artists( t )
+        cls.SESSION.commit()
+
+        return incs
+
+    @classmethod
+    def fix_album_artists(cls, albumdata):
+        child = albumdata.get('uri')
+
+        incs = []
+        for r in albumdata.get('artists', []):
+            parent = r.get('uri')
+            inc = cls.SESSION.merge( Include(parent, child) )
+            incs.append( inc )
+            print( '\t[BIND]', inc )
+        cls.SESSION.commit()
+
+        return incs
+
+    @classmethod
+    def fix_playlist_tracks(cls, parent, tracksdata):
+        for o in tracksdata.get('items',[]):
+            child = o.get('track',{}).get('uri')
+            if child:
+                inc = cls.SESSION.merge( Include(parent, child) )
+                cls.SESSION.commit()
 
 
 # ==============================================================
@@ -380,11 +414,27 @@ if __name__ == '__main__':
         Base.metadata.create_all(bind=engine)
 
     #=> Insert data
-    # test_SptOpsAccount()
-    # test_SptOpsTrack()
-    # test_SptOpsAlbum()
-    # test_SptOpsArtist()
-    # test_SptOpsPlaylist()
+
+    # =ACCOUNT=
+    # print( '\n[  TEST  ] SptOpsAccount' )
+    # me = SptOpsAccount.get_my_profile()
+    # print( '\t Me:', me.name )
+
+    # =TRACK=
+    print( '\n[  OPS  ] SptOpsTrack' )
+    SptOpsTrack.load_my_tracks()
+
+    # =ALBUM=
+    print( '\n[  OPS  ] SptOpsAlbum' )
+    SptOpsAlbum.load_my_albums()
+
+    # =ARTIST=
+    print( '\n[  OPS  ] SptOpsArtist' )
+    SptOpsArtist.load_my_artists()
+
+    # =PLAYLIST=
+    print( '\n[  OPS  ] SptOpsPlaylist' )
+    SptOpsPlaylist.load_my_playlists()
 
 
     # Complete missings

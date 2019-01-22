@@ -5,6 +5,7 @@
 # DEPENDENCIES:
 #   - ./common.py
 
+import json
 
 #-------[  Import SQLAlchemy ]---------
 from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean, Sequence
