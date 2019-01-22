@@ -262,46 +262,44 @@ class SptOpsMissing(SptOps):
     """ [ Search/Fetch for missing data ]
     """
 
+    ENGINE = engine
+
+    SQL_MISSING_TRACKS = """
+        SELECT child_uri FROM includes
+            WHERE child_type='track' AND provider='spotify'
+            AND (parent_type='album' OR parent_type='playlist')
+            AND child_uri NOT IN (SELECT uri FROM spotify_Tracks)
+            GROUP BY child_uri
+    """
+    SQL_MISSING_ALBUMS = """
+        SELECT parent_uri FROM includes
+            WHERE parent_type='album' AND provider='spotify'
+            AND parent_uri NOT IN (SELECT uri FROM spotify_Albums)
+            GROUP BY parent_uri
+    """
+    SQL_MISSING_ARTISTS = """
+        SELECT parent_uri FROM includes
+            WHERE parent_type='artist' AND provider='spotify'
+            AND parent_uri NOT IN (SELECT uri FROM spotify_Artists)
+            GROUP BY parent_uri
+    """
+
     @classmethod
     def _find_missing(cls, sql):
-        with engine.connect() as con:
+        with cls.ENGINE.connect() as con:
             records = con.execute(sql)
             uris = [ u for u, in records ]
         return uris
 
     @classmethod
     def find_missing_tracks(cls):
-        return cls._find_missing(
-            """
-            SELECT child_uri FROM includes
-                WHERE child_type='track' AND provider='spotify'
-                AND (parent_type='album' OR parent_type='playlist')
-                AND child_uri NOT IN (SELECT uri FROM spotify_Tracks)
-                GROUP BY child_uri
-            """
-        )
-
+        return cls._find_missing( cls.SQL_MISSING_TRACKS )
     @classmethod
     def find_missing_albums(cls):
-        return cls._find_missing(
-            """
-            SELECT parent_uri FROM includes
-                WHERE parent_type='album' AND provider='spotify'
-                AND parent_uri NOT IN (SELECT uri FROM spotify_Albums)
-                GROUP BY parent_uri
-            """
-        )
-
+        return cls._find_missing( cls.SQL_MISSING_ALBUMS )
     @classmethod
     def find_missing_artists(cls):
-        return cls._find_missing(
-            """
-            SELECT parent_uri FROM includes
-                WHERE parent_type='artist' AND provider='spotify'
-                AND parent_uri NOT IN (SELECT uri FROM spotify_Artists)
-                GROUP BY parent_uri
-            """
-        )
+        return cls._find_missing( cls.SQL_MISSING_ARTISTS )
 
     #---------------------------------------------------------#
 
