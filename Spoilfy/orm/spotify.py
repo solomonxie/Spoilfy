@@ -87,8 +87,8 @@ class SpotifyTrack(Resource):
             type = d.get('type'),
             provider = 'spotify',
             # -> Spotify specific
-            albumdata = str( d.get('album') ),
-            artistdata = str( d.get('artists') ),
+            albumdata = json.dumps( d.get('album') ),
+            artistdata = json.dumps( d.get('artists') ),
             is_local = d.get('is_local'),
             added_at = jsondata.get('added_at'),
             disc_number = d.get('disc_number'),
@@ -133,8 +133,8 @@ class SpotifyAlbum(Resource):
             type = 'album',
             provider = 'spotify',
             # -> Spotify specific
-            trackdata = str( d.get('tracks') ),
-            artistdata = str( d.get('artists') ),
+            trackdata = json.dumps( d.get('tracks') ),
+            artistdata = json.dumps( d.get('artists') ),
             album_type = d.get('album_type',''),
             release_date = d.get('release_date',''),
             release_date_precision = d.get('release_date_precision',''),
@@ -142,10 +142,10 @@ class SpotifyAlbum(Resource):
             lable = d.get('label',''),
             markets = ','.join( d.get('available_markets',[]) ),
             popularity = d.get('popularity'),
-            copyrights = str(d.get('copyrights','')),
+            copyrights = json.dumps( d.get('copyrights') ),
             href = d.get('href'),
             external_urls = d.get('external_urls',{}).get('spotify',''),
-            external_ids = str(d.get('external_ids',{}))
+            external_ids = json.dumps( d.get('external_ids') )
         )
 
 
@@ -172,7 +172,7 @@ class SpotifyArtist(Resource):
             type = d.get('type'),
             provider = 'spotify',
             # Spotify specific ->
-            genres = str(d.get('genres')),
+            genres = json.dumps( d.get('genres') ),
             followers = d.get('followers',{}).get('total'),
             popularity = d.get('popularity'),
             href = d.get('href'),
@@ -215,7 +215,7 @@ class SpotifyPlaylist(Resource):
             total_tracks = d.get('tracks',{}).get('total'),
             public = d.get('public'),
             collaborative = d.get('collaborative'),
-            images = str(d.get('images')),
+            images = json.dumps( d.get('images') ),
             href = d.get('href'),
             external_urls = d.get('external_urls',{}).get('spotify'),
             #-> [Keys below are to be retrieved dynamically]:
