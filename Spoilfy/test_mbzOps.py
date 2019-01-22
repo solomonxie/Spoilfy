@@ -7,10 +7,11 @@
 import json
 import unittest
 
-from mbzOps import *
-from orm.common import Base, engine, session, Resource, Reference, Include
-from orm.user import UserAccount, UserResource
+from orm.common import *
+from orm.user import *
 from orm.musicbrainz import *
+
+from mbzOps import *
 
 
 
@@ -61,4 +62,4 @@ class TestMbzOpsArtist(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(verbosity=2)
