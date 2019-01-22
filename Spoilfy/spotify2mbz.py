@@ -40,7 +40,7 @@ class UnMapped:
 
     @classmethod
     def _find_unmapped(cls, sql):
-        with engine.connect() as con:
+        with cls.ENGINE.connect() as con:
             records = con.execute(sql)
             uris = [ u for u, in records ]
         return uris
@@ -106,6 +106,9 @@ class Mapper:
         - Save the best match to Database
     """
 
+    ENGINE = engine
+    SESSION = session
+
     @classmethod
     def map_all(cls):
         uris = cls.find_unmapped()
@@ -124,7 +127,7 @@ class Mapper:
         # print('[FUNC]__get_references__', uri)
 
         spt = Reference.get(uri)
-        mbz = session.query(Reference).filter(
+        mbz = cls.SESSION.query(Reference).filter(
             Reference.real_uri == spt.real_uri,
             Reference.provider == 'musicbrainz'
         ).first()
@@ -154,8 +157,8 @@ class Mapper:
             print( info, spt )
             if not info:
                 print( '[SKIP] SPT MARKED AS INCOMPLETE.', info )
-                # session.merge( Incomplete(spt.real_uri) )
-                session.commit()
+                # cls.SESSION.merge( Incomplete(spt.real_uri) )
+                cls.SESSION.commit()
             else:
                 mbz = cls.tagging(spt.real_uri, info)
 
@@ -200,7 +203,7 @@ class MapTrack(Mapper):
             WHERE t.uri = :uri
             """
         )
-        with engine.connect() as con:
+        with cls.ENGINE.connect() as con:
             info = con.execute(tsql, uri=uri).fetchone()
             t,a,r = info if info else (None,None,None)
             track = SpotifyTrack.get( t )
@@ -218,8 +221,8 @@ class MapTrack(Mapper):
         )
         if not jsondata:
             print('[SKIP] NO TAG FOUND. MARKED AS UNTAGGED.', jsondata)
-            session.merge( UnTagged(real_uri) )
-            session.commit()
+            cls.SESSION.merge( UnTagged(real_uri) )
+            cls.SESSION.commit()
             mbz = None
         else:
             print( '\t[HIT]', jsondata.get('title') )
@@ -253,7 +256,7 @@ class MapAlbum(Mapper):
             WHERE a.uri = :uri
             """
         )
-        with engine.connect() as con:
+        with cls.ENGINE.connect() as con:
             info = con.execute(tsql, uri=uri).fetchone()
             a,r = info if info else (None,None)
             album = SpotifyAlbum.get( a )
@@ -270,8 +273,8 @@ class MapAlbum(Mapper):
         )
         if not jsondata:
             print('[SKIP] NO TAG FOUND. MARKED AS UNTAGGED.', jsondata)
-            session.merge( UnTagged(real_uri) )
-            session.commit()
+            cls.SESSION.merge( UnTagged(real_uri) )
+            cls.SESSION.commit()
             mbz = None
         else:
             print( '\t[HIT]', jsondata.get('title') )
@@ -309,7 +312,7 @@ class MapArtist(Mapper):
         # -> Middlewares for Many-to-Many tables
         albumArtists = aliased(Include)
         # -> Compose SQL
-        query = session.query( SpotifyArtist ).filter(
+        query = cls.SESSION.query( SpotifyArtist ).filter(
             SpotifyArtist.uri == uri
         )
         # print( query.all().__len__(), query )
