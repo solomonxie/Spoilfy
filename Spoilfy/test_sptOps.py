@@ -5,6 +5,8 @@
 # DEPENDENCIES:
 
 import json
+import os
+import uuid
 import unittest
 
 from sqlalchemy.orm import sessionmaker
@@ -80,7 +82,7 @@ class TestSptOpsTrack(unittest.TestCase):
         ref = self.cls.load( self.track2 )
         self.assertEqual(ref.uri, 'spotify:track:70bq0ZJVXu93cvGlluYrXu')
 
-    def test_include_album(self):
+    def include_album(self):
         inc = self.cls.include_album( self.track1['track'] )
         parent = 'spotify:album:4VsIC2EXBQWIs3jfc2va1f'
         child = 'spotify:track:1WvIkhx5AxsA4N9TgkYSQG'
@@ -93,7 +95,7 @@ class TestSptOpsTrack(unittest.TestCase):
         ).first()
         self.assertIsNotNone(inc)
 
-    def test_include_artists(self):
+    def include_artists(self):
         incs = self.cls.include_artists( self.track1['track'] )
         parent = 'spotify:artist:05MlomiA9La0OiNIAGqECk'
         child = 'spotify:track:1WvIkhx5AxsA4N9TgkYSQG'
@@ -138,7 +140,7 @@ class TestSptOpsAlbum(unittest.TestCase):
         ref = self.cls.load( self.album2 )
         self.assertEqual(ref.uri, 'spotify:album:75rqM0qScdcFoP4sprrHJN')
 
-    def test_include_tracks(self):
+    def include_tracks(self):
         parent = 'spotify:album:1Li4rADxSxjT2g4xqUcMYh'
         child = 'spotify:track:3I1JTx525DKElzlTYOBfZN'
         incs = self.cls.include_tracks( parent, self.albumtracks )
@@ -151,7 +153,7 @@ class TestSptOpsAlbum(unittest.TestCase):
         ).first()
         self.assertIsNotNone(inc)
 
-    def test_incldue_artists(self):
+    def incldue_artists(self):
         incs = self.cls.include_artists( self.album1['album'] )
         parent = 'spotify:artist:3B9O5mYYw89fFXkwKh7jCS'
         child = 'spotify:album:7GJspOwIWdFfzJfxN8oVTF'
@@ -217,7 +219,7 @@ class TestSptOpsPlaylist(unittest.TestCase):
         ref = self.cls.load( self.playlist2 )
         self.assertEqual(ref.uri, 'spotify:playlist:1bBu4pZv4G7N6aj2vrcwah')
 
-    def test_include_tracks(self):
+    def include_tracks(self):
         parent = 'spotify:album:1Li4rADxSxjT2g4xqUcMYh'
         child = 'spotify:track:3I1JTx525DKElzlTYOBfZN'
         incs = self.cls.include_tracks( parent, self.tracks )
@@ -238,12 +240,27 @@ class TestSptOpsMissing(unittest.TestCase):
 
     def setUp(self):
         # Connect Database
-        path = 'sqlite:////tmp/db_spoilfy_uri.sqlite'
-        self.engine = create_engine(path, echo=True)
-        self.session = sessionmaker(bind=engine, autoflush=False)()
+        self.dbpath = '/tmp/{}.sqlite'.format(uuid.uuid1().hex)
+        self.engine = create_engine('sqlite:///'.format(self.dbpath), echo=True)
+        self.session = sessionmaker(bind=self.engine, autoflush=False)()
 
+    def tearDown(self):
+        if os.path.exists(self.dbpath):
+            os.remove(self.dbpath)
+            prrint('Temp db deleted.')
+
+    def _find_missing(cls, sql):
+        with self.engine.connect() as con:
+            records = con.execute(sql)
+            uris = [ u for u, in records ]
+        return uris
+
+    def test_find_missing_tracks(self):
+        # SptOpsMissing.ENGINE = self.engine
+        items = SptOpsMissing.find_missing_tracks()
+        print( '[MISSING] ', len(items) )
 
 
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(verbosity=2)

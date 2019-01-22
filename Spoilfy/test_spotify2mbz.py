@@ -36,7 +36,7 @@ class TestUnMapped(unittest.TestCase):
 
     def setUp(self):
         pass
-    
+
     def test_find_unmapped_tracks(self):
         # Find Unmapped
         # uris = UnMapped.find_unmapped_tracks()
@@ -126,7 +126,7 @@ class TestMapArtist(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(verbosity=2)
 
 
 
