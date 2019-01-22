@@ -41,6 +41,8 @@ with open('./webapi/.spotify_app.json', 'r') as f:
 class SptOps:
 
     ORM = None
+    SESSION = session
+    ENGINE = engine
     # API = SpotifyAPI(_data)
 
 
@@ -67,10 +69,10 @@ class SptOpsAccount(SptOps):
     @classmethod
     def load(cls, jsondata):
         # Insert items to DB
-        user = session.merge( cls.ORM(jsondata) )
+        user = cls.SESSION.merge( cls.ORM(jsondata) )
         # Add reference
-        session.merge( Reference(user) )
-        session.commit()
+        cls.SESSION.merge( Reference(user) )
+        cls.SESSION.commit()
         return user
 
 
@@ -83,9 +85,9 @@ class SptOpsTrack(SptOps):
 
     @classmethod
     def load(cls, jsondata):
-        track = session.merge( cls.ORM(jsondata) )
-        ref = session.merge( Reference(track) )
-        session.commit()
+        track = cls.SESSION.merge( cls.ORM(jsondata) )
+        ref = cls.SESSION.merge( Reference(track) )
+        cls.SESSION.commit()
         return ref
 
     @classmethod
@@ -104,9 +106,9 @@ class SptOpsTrack(SptOps):
     def include_album(cls, trackdata):
         child = trackdata.get('uri', '')
         parent = trackdata.get('album', {}).get('uri', '')
-        inc = session.merge( Include(parent, child) )
+        inc = cls.SESSION.merge( Include(parent, child) )
         print( '\t[BIND]', inc )
-        session.commit()
+        cls.SESSION.commit()
 
         return inc
 
@@ -117,10 +119,10 @@ class SptOpsTrack(SptOps):
         incs = []
         for r in trackdata.get('artists', []):
             parent = r.get('uri')
-            inc = session.merge(Include(parent, child))
+            inc = cls.SESSION.merge(Include(parent, child))
             incs.append( inc )
             print( '\t[BIND]', inc )
-        session.commit()
+        cls.SESSION.commit()
 
         return incs
 
@@ -157,9 +159,9 @@ class SptOpsAlbum(SptOps):
 
     @classmethod
     def load(cls, jsondata):
-        album = session.merge( cls.ORM(jsondata) )
-        ref = session.merge( Reference(album) )
-        session.commit()
+        album = cls.SESSION.merge( cls.ORM(jsondata) )
+        ref = cls.SESSION.merge( Reference(album) )
+        cls.SESSION.commit()
         return ref
 
 
@@ -170,12 +172,12 @@ class SptOpsAlbum(SptOps):
             child = t.get('uri')
             if child:
                 # Bind tracks to album
-                inc = session.merge( Include(parent, child) )
+                inc = cls.SESSION.merge( Include(parent, child) )
                 incs.append( inc )
                 print( '\t[BIND]', inc )
                 # -> Also bind artists to each track
                 SptOpsTrack.include_artists( t )
-        session.commit()
+        cls.SESSION.commit()
 
         return incs
 
@@ -186,10 +188,10 @@ class SptOpsAlbum(SptOps):
         incs = []
         for r in albumdata.get('artists', []):
             parent = r.get('uri')
-            inc = session.merge( Include(parent, child) )
+            inc = cls.SESSION.merge( Include(parent, child) )
             incs.append( inc )
             print( '\t[BIND]', inc )
-        session.commit()
+        cls.SESSION.commit()
 
         return incs
 
@@ -203,9 +205,9 @@ class SptOpsArtist(SptOps):
 
     @classmethod
     def load(cls, jsondata):
-        album = session.merge( cls.ORM(jsondata) )
-        ref = session.merge( Reference(album) )
-        session.commit()
+        album = cls.SESSION.merge( cls.ORM(jsondata) )
+        ref = cls.SESSION.merge( Reference(album) )
+        cls.SESSION.commit()
         return ref
 
     @classmethod
@@ -242,9 +244,9 @@ class SptOpsPlaylist(SptOps):
 
     @classmethod
     def load(cls, jsondata):
-        playlist = session.merge( cls.ORM(jsondata) )
-        ref = session.merge( Reference(playlist) )
-        session.commit()
+        playlist = cls.SESSION.merge( cls.ORM(jsondata) )
+        ref = cls.SESSION.merge( Reference(playlist) )
+        cls.SESSION.commit()
         return ref
 
     @classmethod
@@ -252,8 +254,8 @@ class SptOpsPlaylist(SptOps):
         for o in tracksdata.get('items',[]):
             child = o.get('track',{}).get('uri')
             if child:
-                inc = session.merge( Include(parent, child) )
-                session.commit()
+                inc = cls.SESSION.merge( Include(parent, child) )
+                cls.SESSION.commit()
 
 
 
@@ -261,8 +263,6 @@ class SptOpsPlaylist(SptOps):
 class SptOpsMissing(SptOps):
     """ [ Search/Fetch for missing data ]
     """
-
-    ENGINE = engine
 
     SQL_MISSING_TRACKS = """
         SELECT child_uri FROM includes
@@ -313,9 +313,9 @@ class SptOpsMissing(SptOps):
             print( i+1 )
             t = cls.API.get_a_track( uri.split(':')[2] )
             if t:
-                track = session.merge(SpotifyTrack( {'track':t} ))
-                refs.append( session.merge(Reference( track )) )
-                session.commit()
+                track = cls.SESSION.merge(SpotifyTrack( {'track':t} ))
+                refs.append( cls.SESSION.merge(Reference( track )) )
+                cls.SESSION.commit()
 
         print('\t[ GET ] {}/{} Missing track.'.format(len(refs),len(missings)))
 
@@ -330,9 +330,9 @@ class SptOpsMissing(SptOps):
         for i,uri in enumerate(missings):
             print( i+1 )
             albumdata = {'album': cls.API.get_a_album( uri.split(':')[2] )}
-            album = session.merge(SpotifyAlbum( albumdata ))
-            refs.append( session.merge(Reference( album )) )
-            session.commit()
+            album = cls.SESSION.merge(SpotifyAlbum( albumdata ))
+            refs.append( cls.SESSION.merge(Reference( album )) )
+            cls.SESSION.commit()
 
         print('\t[ GET ] {}/{} albums.'.format(len(refs),len(missings)))
 
@@ -347,9 +347,9 @@ class SptOpsMissing(SptOps):
         for i,uri in enumerate(missings):
             print( i+1 )
             artistdata = cls.API.get_a_artist( uri.split(':')[2] )
-            artist = session.merge(SpotifyArtist( artistdata ))
-            refs.append( session.merge(Reference( artist )) )
-            session.commit()
+            artist = cls.SESSION.merge(SpotifyArtist( artistdata ))
+            refs.append( cls.SESSION.merge(Reference( artist )) )
+            cls.SESSION.commit()
 
         print('\t[ GET ]{}/{} artists.'.format(len(refs),len(missings)))
 
