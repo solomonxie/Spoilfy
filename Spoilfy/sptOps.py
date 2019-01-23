@@ -11,7 +11,6 @@ from sqlalchemy.orm import aliased
 #-------[  Import From Other Modules   ]---------
 #-> TEST only
 if __name__ in ['__main__', 'sptOps']:
-    from sptOps import *
     from orm.common import *
     from orm.user import *
     from orm.spotify import *
@@ -20,7 +19,6 @@ if __name__ in ['__main__', 'sptOps']:
     from webapi.apiMusicbrainz import *
 else:
     # Package Import Hint: $ python -m Spoilfy.sptOps
-    from Spoilfy.sptOps import *
     from Spoilfy.orm.common import *
     from Spoilfy.orm.user import *
     from Spoilfy.orm.spotify import *
@@ -54,25 +52,21 @@ class SptOpsAccount(SptOps):
     """
     ORM = SpotifyAccount
 
-    @classmethod
-    def get_user_by_name(cls, name):
-        return cls.ORM.query.filter(cls.ORM.name == name).first()
+    def get_user_by_name(self, name):
+        return self.ORM.query.filter(self.ORM.name == name).first()
 
-    @classmethod
-    def get_user_by_id(cls, id):
-        return cls.ORM.query.filter(cls.ORM.id == id).first()
+    def get_user_by_id(self, id):
+        return self.ORM.query.filter(self.ORM.id == id).first()
 
-    @classmethod
-    def get_my_profile(cls):
-        return SptOpsAccount.load( cls.API.get_my_profile() )
+    def get_my_profile(self):
+        return SptOpsAccount.load( self.API.get_my_profile() )
 
-    @classmethod
-    def load(cls, jsondata):
+    def load(self, jsondata):
         # Insert items to DB
-        user = cls.SESSION.merge( cls.ORM(jsondata) )
+        user = self.SESSION.merge( self.ORM(jsondata) )
         # Add reference
-        cls.SESSION.merge( Reference(user) )
-        cls.SESSION.commit()
+        self.SESSION.merge( Reference(user) )
+        self.SESSION.commit()
         return user
 
 
@@ -83,26 +77,24 @@ class SptOpsTrack(SptOps):
     """
     ORM = SpotifyTrack
 
-    @classmethod
-    def load_my_tracks(cls):
+    def retrive_my_tracks(self):
         """
             TODO:
             - Async retrive multiple pages from API
         """
+        print( '\n[  OPS  ] SptOpsTrack' )
         for page in SptOpsTrack.API.get_my_tracks():
             SptOpsTrack.loads( page )
 
-    @classmethod
-    def loads(cls, jsondata):
+    def loads(self, jsondata):
         all = []
         for o in jsondata.get('items', []):
-            all.append( cls.load(o) )
+            all.append( self.load(o) )
 
-    @classmethod
-    def load(cls, jsondata):
-        track = cls.SESSION.merge( cls.ORM(jsondata) )
-        ref = cls.SESSION.merge( Reference(track) )
-        cls.SESSION.commit()
+    def load(self, jsondata):
+        track = self.SESSION.merge( self.ORM(jsondata) )
+        ref = self.SESSION.merge( Reference(track) )
+        self.SESSION.commit()
         return ref
 
 
@@ -114,27 +106,25 @@ class SptOpsAlbum(SptOps):
     """
     ORM = SpotifyAlbum
 
-    @classmethod
-    def load_my_albums(cls):
+    def retrive_my_albums(self):
         """
             TODO:
             - Async retrive multiple pages from API
         """
+        print( '\n[  OPS  ] SptOpsAlbum' )
         for page in SptOpsAlbum.API.get_my_albums():
             albums = SptOpsAlbum.loads( page )
             # print( '[  OK  ] Inserted {} User albums.'.format(len(albums)) )
 
-    @classmethod
-    def loads(cls, jsondata):
+    def loads(self, jsondata):
         for o in jsondata.get('items', []):
-            ref = cls.load(o)
+            ref = self.load(o)
             print( '[NEW]', ref )
 
-    @classmethod
-    def load(cls, jsondata):
-        album = cls.SESSION.merge( cls.ORM(jsondata) )
-        ref = cls.SESSION.merge( Reference(album) )
-        cls.SESSION.commit()
+    def load(self, jsondata):
+        album = self.SESSION.merge( self.ORM(jsondata) )
+        ref = self.SESSION.merge( Reference(album) )
+        self.SESSION.commit()
         return ref
 
 
@@ -146,26 +136,20 @@ class SptOpsArtist(SptOps):
     """
     ORM = SpotifyArtist
 
-    @classmethod
-    def load_my_artists(cls):
-        """
-            TODO:
-            - Async retrive multiple pages from API
-        """
+    def retrive_my_artists(self):
+        print( '\n[  OPS  ] SptOpsArtist' )
         for page in SptOpsArtist.API.get_my_artists():
             artists = SptOpsArtist.loads( page )
             # print( '[  OK  ] Inserted {} User artists.'.format(len(artists)) )
 
-    @classmethod
-    def load(cls, jsondata):
-        album = cls.SESSION.merge( cls.ORM(jsondata) )
-        ref = cls.SESSION.merge( Reference(album) )
-        cls.SESSION.commit()
+    def load(self, jsondata):
+        album = self.SESSION.merge( self.ORM(jsondata) )
+        ref = self.SESSION.merge( Reference(album) )
+        self.SESSION.commit()
         return ref
 
-    @classmethod
-    def loads(cls, jsondata):
-        return [cls.load(o) for o in jsondata.get('artists',{}).get('items',[])]
+    def loads(self, jsondata):
+        return [self.load(o) for o in jsondata.get('artists',{}).get('items',[])]
 
 
 
@@ -176,27 +160,24 @@ class SptOpsPlaylist(SptOps):
     """
     ORM = SpotifyPlaylist
 
-    @classmethod
-    def load_my_playlists(cls):
+    def retrive_my_playlists(self):
         """
             TODO:
             - Async retrive multiple pages from API
         """
+        print( '\n[  OPS  ] SptOpsPlaylist' )
         for page in SptOpsPlaylist.API.get_my_playlists():
             playlists = SptOpsPlaylist.loads( page )
-            # print('[  OK  ] Inserted {} User playlists.'.format(len(playlists)))
+            # print('[  OK  ] Inserted {} User playlists'.format(len(playlists)))
 
-
-    @classmethod
-    def loads(cls, jsondata):
+    def loads(self, jsondata):
         for o in jsondata.get('items', []):
-            ref = cls.load( o )
+            ref = self.load( o )
 
-    @classmethod
-    def load(cls, jsondata):
-        playlist = cls.SESSION.merge( cls.ORM(jsondata) )
-        ref = cls.SESSION.merge( Reference(playlist) )
-        cls.SESSION.commit()
+    def load(self, jsondata):
+        playlist = self.SESSION.merge( self.ORM(jsondata) )
+        ref = self.SESSION.merge( Reference(playlist) )
+        self.SESSION.commit()
         return ref
 
 
@@ -227,170 +208,209 @@ class SptOpsMissing(SptOps):
             GROUP BY parent_uri
     """
 
-    @classmethod
-    def _find_missing(cls, sql):
-        with cls.ENGINE.connect() as con:
+    def _find_missing(self, sql):
+        with self.ENGINE.connect() as con:
             records = con.execute(sql)
             uris = [ u for u, in records ]
         return uris
 
-    @classmethod
-    def find_missing_tracks(cls):
-        return cls._find_missing( cls.SQL_MISSING_TRACKS )
-    @classmethod
-    def find_missing_albums(cls):
-        return cls._find_missing( cls.SQL_MISSING_ALBUMS )
-    @classmethod
-    def find_missing_artists(cls):
-        return cls._find_missing( cls.SQL_MISSING_ARTISTS )
+    def find_missing_tracks(self):
+        return self._find_missing( self.SQL_MISSING_TRACKS )
+    def find_missing_albums(self):
+        return self._find_missing( self.SQL_MISSING_ALBUMS )
+    def find_missing_artists(self):
+        return self._find_missing( self.SQL_MISSING_ARTISTS )
 
     #---------------------------------------------------------#
 
-    @classmethod
-    def fix_missing_tracks(cls):
+    def fix_missing_tracks(self):
         refs = []
-        missings = cls.find_missing_tracks()
+        missings = self.find_missing_tracks()
         print( '[ FIX ] {} missing TRACKS...'.format(len(missings)) )
 
         for i,uri in enumerate(missings):
             print( i+1 )
-            t = cls.API.get_a_track( uri.split(':')[2] )
+            t = self.API.get_a_track( uri.split(':')[2] )
             if t:
-                track = cls.SESSION.merge(SpotifyTrack( {'track':t} ))
-                refs.append( cls.SESSION.merge(Reference( track )) )
-                cls.SESSION.commit()
+                track = self.SESSION.merge(SpotifyTrack( {'track':t} ))
+                refs.append( self.SESSION.merge(Reference( track )) )
+                self.SESSION.commit()
 
         print('\t[ GET ] {}/{} Missing track.'.format(len(refs),len(missings)))
 
         return refs
 
-    @classmethod
-    def fix_missing_albums(cls):
+    def fix_missing_albums(self):
         refs = []
-        missings = cls.find_missing_albums()
+        missings = self.find_missing_albums()
         print( '[ FIX ] {} missing ALBUMS...'.format(len(missings)) )
 
         for i,uri in enumerate(missings):
             print( i+1 )
-            albumdata = {'album': cls.API.get_a_album( uri.split(':')[2] )}
-            album = cls.SESSION.merge(SpotifyAlbum( albumdata ))
-            refs.append( cls.SESSION.merge(Reference( album )) )
-            cls.SESSION.commit()
+            albumdata = {'album': self.API.get_a_album( uri.split(':')[2] )}
+            album = self.SESSION.merge(SpotifyAlbum( albumdata ))
+            refs.append( self.SESSION.merge(Reference( album )) )
+            self.SESSION.commit()
 
         print('\t[ GET ] {}/{} albums.'.format(len(refs),len(missings)))
 
         return refs
 
-    @classmethod
-    def fix_missing_artists(cls):
+    def fix_missing_artists(self):
         refs = []
-        missings = cls.find_missing_artists()
+        missings = self.find_missing_artists()
         print( '[ FIX ] {} missing ARTISTS...'.format(len(missings)) )
 
         for i,uri in enumerate(missings):
             print( i+1 )
-            artistdata = cls.API.get_a_artist( uri.split(':')[2] )
-            artist = cls.SESSION.merge(SpotifyArtist( artistdata ))
-            refs.append( cls.SESSION.merge(Reference( artist )) )
-            cls.SESSION.commit()
+            artistdata = self.API.get_a_artist( uri.split(':')[2] )
+            artist = self.SESSION.merge(SpotifyArtist( artistdata ))
+            refs.append( self.SESSION.merge(Reference( artist )) )
+            self.SESSION.commit()
 
         print('\t[ GET ]{}/{} artists.'.format(len(refs),len(missings)))
 
         return refs
 
 
+
+class SptOpsInclude(SptOps):
+    """ [ Bind related sub-items ]
+    """
+
+    SQL_TRACK_ALBUMS = """
+        SELECT uri from spotify_Tracks
+            WHERE uri NOT IN ( SELECT child_uri FROM includes
+                WHERE parent_type = 'album')
+    """
+
+    SQL_TRACK_ARTISTS = """
+        SELECT uri from spotify_Tracks
+            WHERE uri NOT IN ( SELECT child_uri FROM includes
+                WHERE parent_type = 'artist')
+    """
+
+    SQL_ALBUM_TRACKS = """
+        SELECT uri from spotify_Albums
+            WHERE uri NOT IN ( SELECT parent_uri FROM includes
+                WHERE child_type = 'track')
+    """
+
+    SQL_ALBUM_ARTISTS = """
+        SELECT uri from spotify_Albums
+            WHERE uri NOT IN ( SELECT child_uri FROM includes
+                WHERE parent_type = 'artist')
+    """
+
+    SQL_PLAYLIST_TRACKS = """
+        SELECT uri from spotify_Playlists
+            WHERE uri NOT IN ( SELECT parent_uri FROM includes
+                WHERE child_type = 'track')
+    """
+
+    def find_unbinded(self, sql):
+        with self.ENGINE.connect() as con:
+            records = con.execute(sql)
+            uris = [ u for u, in records ]
+        return uris
+
+    def track_bindings(self):
+        # Unbinded Tracks' albums
+        unbinded = self.find_unbinded(self.SQL_TRACK_ALBUMS)
+        print('[UNBINDED]', len(unbinded))
+        for uri in unbinded:
+            data = json.loads( SpotifyTrack.get(uri).albumdata )
+            self.load_album_of_track(uri, data)
+        # Unbinded Tracks' artists
+        unbinded = self.find_unbinded(self.SQL_TRACK_ARTISTS)
+        print('[UNBINDED]', len(unbinded))
+        for uri in unbinded:
+            data = json.loads( SpotifyTrack.get(uri).artistdata )
+            self.load_artists_of_track(uri, data)
+
+    def album_bindings(self):
+        self.load_tracks_of_album()
+        self.load_artists_of_album()
+
+    def playlist_bindings(self):
+        self.load_tracks_of_playlist()
+
+
     #---------------------------------------------------------#
 
-    @classmethod
-    def track_includes(cls, trackdata):
-        # Bind artists to an album
-        cls.include_album( trackdata )
-        cls.include_artists( trackdata )
-
-    @classmethod
-    def playlist_includes(cls, playlistdata):
-        # Bind tracks to an album [Loop pages]
-        id = playlistdata.get('id')
-        parent = 'spotify:playlist:{}'.format(id)
-        # original playlist uri: "spotify:user:xxxxxxxx:playlist:xxxxxxx"
-        for page in cls.API.get_playlist_tracks( id ):
-            cls.include_tracks( parent, page )
-
-    @classmethod
-    def album_includes(cls, albumdata):
-        # Bind artists to an album
-        cls.include_artists( albumdata )
-
-        # Bind tracks to an album [Loop pages]
-        id = albumdata.get('id')
+    def load_album_of_track(self, child, albumdata):
         parent = albumdata.get('uri')
-        for page in cls.API.get_album_tracks( id ):
-            cls.include_tracks( parent, page )
-
-
-    #---------------------------------------------------------#
-
-    @classmethod
-    def fix_track_album(cls, trackdata):
-        child = trackdata.get('uri', '')
-        parent = trackdata.get('album', {}).get('uri', '')
-        inc = cls.SESSION.merge( Include(parent, child) )
+        inc = self.SESSION.merge( Include(parent, child) )
         print( '\t[BIND]', inc )
-        cls.SESSION.commit()
+        self.SESSION.commit()
 
         return inc
 
-    @classmethod
-    def fix_track_artists(cls, trackdata):
-        child = trackdata.get('uri')
-
+    def load_artists_of_track(self, child, artistdata):
         incs = []
-        for r in trackdata.get('artists', []):
+        for r in artistdata:
             parent = r.get('uri')
-            inc = cls.SESSION.merge(Include(parent, child))
+            inc = self.SESSION.merge(Include(parent, child))
             incs.append( inc )
             print( '\t[BIND]', inc )
-        cls.SESSION.commit()
+        self.SESSION.commit()
 
         return incs
 
-    @classmethod
-    def fix_album_tracks(cls, parent, tracksdata):
+    def load_tracks_of_album(self, parent, tracksdata):
         incs = []
         for t in tracksdata.get('items', []):
             child = t.get('uri')
             if child:
                 # Bind tracks to album
-                inc = cls.SESSION.merge( Include(parent, child) )
+                inc = self.SESSION.merge( Include(parent, child) )
                 incs.append( inc )
                 print( '\t[BIND]', inc )
                 # -> Also bind artists to each track
                 SptOpsTrack.include_artists( t )
-        cls.SESSION.commit()
+        self.SESSION.commit()
 
         return incs
 
-    @classmethod
-    def fix_album_artists(cls, albumdata):
+    def load_artists_of_album(self, albumdata):
         child = albumdata.get('uri')
 
         incs = []
         for r in albumdata.get('artists', []):
             parent = r.get('uri')
-            inc = cls.SESSION.merge( Include(parent, child) )
+            inc = self.SESSION.merge( Include(parent, child) )
             incs.append( inc )
             print( '\t[BIND]', inc )
-        cls.SESSION.commit()
+        self.SESSION.commit()
 
         return incs
 
-    @classmethod
-    def fix_playlist_tracks(cls, parent, tracksdata):
+    def load_tracks_of_playlist(self, parent, tracksdata):
         for o in tracksdata.get('items',[]):
             child = o.get('track',{}).get('uri')
             if child:
-                inc = cls.SESSION.merge( Include(parent, child) )
-                cls.SESSION.commit()
+                inc = self.SESSION.merge( Include(parent, child) )
+                self.SESSION.commit()
+
+    #-------------------------------------------------------#
+
+    def playlist_includes(self, playlistdata):
+        # Bind tracks to an album [Loop pages]
+        id = playlistdata.get('id')
+        parent = 'spotify:playlist:{}'.format(id)
+        # original playlist uri: "spotify:user:xxxxxxxx:playlist:xxxxxxx"
+        for page in self.API.get_playlist_tracks( id ):
+            self.include_tracks( parent, page )
+
+    def album_includes(self, albumdata):
+        # Bind artists to an album
+        self.include_artists( albumdata )
+
+        # Bind tracks to an album [Loop pages]
+        id = albumdata.get('id')
+        parent = albumdata.get('uri')
+        for page in self.API.get_album_tracks( id ):
+            self.include_tracks( parent, page )
 
 
 # ==============================================================
@@ -413,29 +433,29 @@ if __name__ == '__main__':
     finally:
         Base.metadata.create_all(bind=engine)
 
-    #=> Insert data
+    #====> Insert data
 
     # =ACCOUNT=
-    # print( '\n[  TEST  ] SptOpsAccount' )
+    # print( '\n[  OPS  ] SptOpsAccount' )
     # me = SptOpsAccount.get_my_profile()
     # print( '\t Me:', me.name )
 
-    # =TRACK=
-    print( '\n[  OPS  ] SptOpsTrack' )
-    SptOpsTrack.load_my_tracks()
+    # SptOpsTrack.retrive_my_tracks()
+    # SptOpsAlbum.retrive_my_albums()
+    # SptOpsArtist.retrive_my_artists()
+    # SptOpsPlaylist.retrive_my_playlists()
 
-    # =ALBUM=
-    print( '\n[  OPS  ] SptOpsAlbum' )
-    SptOpsAlbum.load_my_albums()
+    #====> Bind includes
+    # SptOpsInclude.track_bindings()
 
-    # =ARTIST=
-    print( '\n[  OPS  ] SptOpsArtist' )
-    SptOpsArtist.load_my_artists()
 
-    # =PLAYLIST=
-    print( '\n[  OPS  ] SptOpsPlaylist' )
-    SptOpsPlaylist.load_my_playlists()
-
+    #====> Find missings
+    # tracks = SptOpsMissing.find_missing_tracks()
+    # print( '[MISSING]', len(tracks) )
+    # albums = SptOpsMissing.find_missing_albums()
+    # print( '[MISSING]', len(albums) )
+    # artists = SptOpsMissing.find_missing_artists()
+    # print( '[MISSING]', len(artists) )
 
     # Complete missings
     # refs = SptOpsMissing.fix_missing_tracks()

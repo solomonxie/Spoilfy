@@ -43,7 +43,7 @@ else:
 class TestSptOpsAccount(unittest.TestCase):
 
     def setUp(self):
-        self.cls = SptOpsAccount
+        self.Ops = SptOpsAccount()
         with open('../test/data/spotify/user.json', 'r') as f:
             self.jsondata = json.loads( f.read() )
 
@@ -54,7 +54,7 @@ class TestSptOpsAccount(unittest.TestCase):
         self.assertEqual(self.jsondata['display_name'], name)
 
     def test_load(self):
-        user = self.cls.load( self.jsondata )
+        user = self.Ops.load( self.jsondata )
         self.assertEqual(user.name, 'Solomon Xie')
 
 
@@ -63,7 +63,7 @@ class TestSptOpsAccount(unittest.TestCase):
 class TestSptOpsTrack(unittest.TestCase):
 
     def setUp(self):
-        self.cls = SptOpsTrack
+        self.Ops = SptOpsTrack()
         with open('../test/data/spotify/tracks.json', 'r') as f:
             self.jsondata = json.loads( f.read() )
             self.track1 = self.jsondata['items'][0]
@@ -77,44 +77,17 @@ class TestSptOpsTrack(unittest.TestCase):
         self.assertIsNotNone( items[0].get('track').get('artists') )
 
     def test_load(self):
-        ref = self.cls.load( self.track1 )
+        ref = self.Ops.load( self.track1 )
         self.assertEqual(ref.uri, 'spotify:track:1WvIkhx5AxsA4N9TgkYSQG')
-        ref = self.cls.load( self.track2 )
+        ref = self.Ops.load( self.track2 )
         self.assertEqual(ref.uri, 'spotify:track:70bq0ZJVXu93cvGlluYrXu')
-
-    def include_album(self):
-        inc = self.cls.include_album( self.track1['track'] )
-        parent = 'spotify:album:4VsIC2EXBQWIs3jfc2va1f'
-        child = 'spotify:track:1WvIkhx5AxsA4N9TgkYSQG'
-        self.assertEqual(inc.parent_uri, parent)
-        self.assertEqual(inc.child_uri, child)
-        # Also search from DB
-        inc = session.query(Include).filter(
-            Include.parent_uri == parent,
-            Include.child_uri == child
-        ).first()
-        self.assertIsNotNone(inc)
-
-    def include_artists(self):
-        incs = self.cls.include_artists( self.track1['track'] )
-        parent = 'spotify:artist:05MlomiA9La0OiNIAGqECk'
-        child = 'spotify:track:1WvIkhx5AxsA4N9TgkYSQG'
-        self.assertEqual(incs[0].parent_uri, parent)
-        self.assertEqual(incs[0].child_uri, child)
-        # Also search from DB
-        inc = session.query(Include).filter(
-            Include.parent_uri == parent,
-            Include.child_uri == child
-        ).first()
-        self.assertIsNotNone(inc)
-
 
 
 
 class TestSptOpsAlbum(unittest.TestCase):
 
     def setUp(self):
-        self.cls = SptOpsAlbum
+        self.Ops = SptOpsAlbum()
 
         with open('../test/data/spotify/albums.json', 'r') as f:
             self.jsondata = json.loads( f.read() )
@@ -135,43 +108,17 @@ class TestSptOpsAlbum(unittest.TestCase):
         self.assertIsNotNone( tracks[0].get('name') )
 
     def test_load(self):
-        ref = self.cls.load( self.album1 )
+        ref = self.Ops.load( self.album1 )
         self.assertEqual(ref.uri, 'spotify:album:7GJspOwIWdFfzJfxN8oVTF')
-        ref = self.cls.load( self.album2 )
+        ref = self.Ops.load( self.album2 )
         self.assertEqual(ref.uri, 'spotify:album:75rqM0qScdcFoP4sprrHJN')
-
-    def include_tracks(self):
-        parent = 'spotify:album:1Li4rADxSxjT2g4xqUcMYh'
-        child = 'spotify:track:3I1JTx525DKElzlTYOBfZN'
-        incs = self.cls.include_tracks( parent, self.albumtracks )
-        self.assertEqual(incs[0].parent_uri, parent)
-        self.assertEqual(incs[0].child_uri, child)
-        # Also search from DB
-        inc = session.query(Include).filter(
-            Include.parent_uri == parent,
-            Include.child_uri == child
-        ).first()
-        self.assertIsNotNone(inc)
-
-    def incldue_artists(self):
-        incs = self.cls.include_artists( self.album1['album'] )
-        parent = 'spotify:artist:3B9O5mYYw89fFXkwKh7jCS'
-        child = 'spotify:album:7GJspOwIWdFfzJfxN8oVTF'
-        self.assertEqual(incs[0].parent_uri, parent)
-        self.assertEqual(incs[0].child_uri, child)
-        # Also search from DB
-        inc = session.query(Include).filter(
-            Include.parent_uri == parent,
-            Include.child_uri == child
-        ).first()
-        self.assertIsNotNone(inc)
 
 
 
 class TestSptOpsArtist(unittest.TestCase):
 
     def setUp(self):
-        self.cls = SptOpsArtist
+        self.Ops = SptOpsArtist()
         with open('../test/data/spotify/artists.json', 'r') as f:
             self.jsondata = json.loads( f.read() )
             self.artist1 = self.jsondata['artists']['items'][0]
@@ -184,9 +131,9 @@ class TestSptOpsArtist(unittest.TestCase):
         self.assertIsNotNone( items[0].get('popularity') )
 
     def test_load(self):
-        ref = self.cls.load( self.artist1 )
+        ref = self.Ops.load( self.artist1 )
         self.assertEqual(ref.uri, 'spotify:artist:04gDigrS5kc9YWfZHwBETP')
-        ref = self.cls.load( self.artist2 )
+        ref = self.Ops.load( self.artist2 )
         self.assertEqual(ref.uri, 'spotify:artist:08WRjJPbPqSEOkFuc99ymW')
 
 
@@ -194,7 +141,7 @@ class TestSptOpsArtist(unittest.TestCase):
 class TestSptOpsPlaylist(unittest.TestCase):
 
     def setUp(self):
-        self.cls = SptOpsPlaylist
+        self.Ops = SptOpsPlaylist()
         with open('../test/data/spotify/playlists.json', 'r') as f:
             self.jsondata = json.loads( f.read() )
             self.playlist1 = self.jsondata['items'][0]
@@ -214,24 +161,11 @@ class TestSptOpsPlaylist(unittest.TestCase):
         self.assertIsNotNone( tracks[0].get('track',{}).get('uri') )
 
     def test_load(self):
-        ref = self.cls.load( self.playlist1 )
+        ref = self.Ops.load( self.playlist1 )
         self.assertEqual(ref.uri, 'spotify:playlist:6FaSdKCximiMF0wupKF9hW')
-        ref = self.cls.load( self.playlist2 )
+        ref = self.Ops.load( self.playlist2 )
         self.assertEqual(ref.uri, 'spotify:playlist:1bBu4pZv4G7N6aj2vrcwah')
 
-    def include_tracks(self):
-        parent = 'spotify:album:1Li4rADxSxjT2g4xqUcMYh'
-        child = 'spotify:track:3I1JTx525DKElzlTYOBfZN'
-        incs = self.cls.include_tracks( parent, self.tracks )
-        return
-        self.assertEqual(incs[0].parent_uri, parent)
-        self.assertEqual(incs[0].child_uri, child)
-        # Also search from DB
-        inc = session.query(Include).filter(
-            Include.parent_uri == parent,
-            Include.child_uri == child
-        ).first()
-        self.assertIsNotNone(inc)
 
 
 
@@ -249,17 +183,38 @@ class TestSptOpsMissing(unittest.TestCase):
             os.remove(self.dbpath)
             prrint('Temp db deleted.')
 
-    def _find_missing(cls, sql):
-        with self.engine.connect() as con:
-            records = con.execute(sql)
-            uris = [ u for u, in records ]
-        return uris
-
     def test_find_missing_tracks(self):
         # SptOpsMissing.ENGINE = self.engine
-        items = SptOpsMissing.find_missing_tracks()
+        # items = SptOpsMissing.find_missing_tracks()
         print( '[MISSING] ', len(items) )
 
+
+
+class TestSptOpsInclude(unittest.TestCase):
+
+    def setUp(self):
+        # Connect Database
+        self.dbpath = '/tmp/{}.sqlite'.format(uuid.uuid1().hex)
+        self.engine = create_engine('sqlite:///'.format(self.dbpath), echo=True)
+        self.session = sessionmaker(bind=self.engine, autoflush=False)()
+        # Load sample resources
+        with open('../test/data/spotify/tracks.json', 'r') as f:
+            SptOpsTrack().loads( json.loads(f.read()) )
+        with open('../test/data/spotify/albums.json', 'r') as f:
+            SptOpsAlbum().loads( json.loads(f.read()) )
+        with open('../test/data/spotify/artists.json', 'r') as f:
+            SptOpsArtist().loads( json.loads(f.read()) )
+        with open('../test/data/spotify/playlists.json', 'r') as f:
+            SptOpsPlaylist().loads( json.loads(f.read()) )
+
+    def tearDown(self):
+        if os.path.exists(self.dbpath):
+            os.remove(self.dbpath)
+            prrint('Temp db deleted.')
+
+
+    def test_find_unbinded(self):
+        pass
 
 
 if __name__ == '__main__':
