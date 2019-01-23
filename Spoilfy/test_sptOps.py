@@ -186,7 +186,8 @@ class TestSptOpsMissing(unittest.TestCase):
     def test_find_missing_tracks(self):
         # SptOpsMissing.ENGINE = self.engine
         # items = SptOpsMissing.find_missing_tracks()
-        print( '[MISSING] ', len(items) )
+        # print( '[MISSING] ', len(items) )
+        pass
 
 
 
@@ -197,15 +198,24 @@ class TestSptOpsInclude(unittest.TestCase):
         self.dbpath = '/tmp/{}.sqlite'.format(uuid.uuid1().hex)
         self.engine = create_engine('sqlite:///'.format(self.dbpath), echo=True)
         self.session = sessionmaker(bind=self.engine, autoflush=False)()
+        Base.metadata.create_all(bind=self.engine)
+
+        # Make temporary session for Operators
+        self.T = SptOpsTrack(session=self.session)
+        self.A = SptOpsAlbum(session=self.session)
+        self.R = SptOpsArtist(session=self.session)
+        self.P = SptOpsPlaylist(session=self.session)
+        self.I = SptOpsInclude(session=self.session)
+
         # Load sample resources
         with open('../test/data/spotify/tracks.json', 'r') as f:
-            SptOpsTrack().loads( json.loads(f.read()) )
+            self.T.loads( json.loads(f.read()) )
         with open('../test/data/spotify/albums.json', 'r') as f:
-            SptOpsAlbum().loads( json.loads(f.read()) )
+            self.A.loads( json.loads(f.read()) )
         with open('../test/data/spotify/artists.json', 'r') as f:
-            SptOpsArtist().loads( json.loads(f.read()) )
+            self.R.loads( json.loads(f.read()) )
         with open('../test/data/spotify/playlists.json', 'r') as f:
-            SptOpsPlaylist().loads( json.loads(f.read()) )
+            self.P.loads( json.loads(f.read()) )
 
     def tearDown(self):
         if os.path.exists(self.dbpath):

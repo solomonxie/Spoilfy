@@ -32,16 +32,19 @@ else:
 # >>>>>>>>>>>>>>>[    Operator Classes     ] >>>>>>>>>>>>>>>>>
 # ==============================================================
 
-with open('./webapi/.spotify_app.json', 'r') as f:
-    _data = json.loads( f.read() )
-
 
 class SptOps:
 
+    API = None
     ORM = None
-    SESSION = session
-    ENGINE = engine
-    API = SpotifyAPI(_data)
+    SESSION = None
+    ENGINE = None
+
+    def __init__(self, session=None, api=None):
+        with open('./webapi/.spotify_app.json', 'r') as f:
+            self.API = SpotifyAPI( json.loads(f.read()) ) if not api else api
+        if session:
+            self.SESSION = session
 
 
 
