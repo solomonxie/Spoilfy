@@ -53,8 +53,8 @@ class TestSptOpsAccount(unittest.TestCase):
         self.assertEqual(self.jsondata['uri'], uri)
         self.assertEqual(self.jsondata['display_name'], name)
 
-    def test_load(self):
-        user = self.Ops.load( self.jsondata )
+    def test_insert(self):
+        user = self.Ops.insert( self.jsondata )
         self.assertEqual(user.name, 'Solomon Xie')
 
 
@@ -76,11 +76,10 @@ class TestSptOpsTrack(unittest.TestCase):
         self.assertIsNotNone( items[0].get('track').get('album') )
         self.assertIsNotNone( items[0].get('track').get('artists') )
 
-    def test_load(self):
-        ref = self.Ops.load( self.track1 )
-        self.assertEqual(ref.uri, 'spotify:track:1WvIkhx5AxsA4N9TgkYSQG')
-        ref = self.Ops.load( self.track2 )
-        self.assertEqual(ref.uri, 'spotify:track:70bq0ZJVXu93cvGlluYrXu')
+    def test_loads(self):
+        ref1, ref2 = self.Ops.loads( self.jsondata )
+        self.assertEqual(ref1.uri, 'spotify:track:1WvIkhx5AxsA4N9TgkYSQG')
+        self.assertEqual(ref2.uri, 'spotify:track:70bq0ZJVXu93cvGlluYrXu')
 
 
 
@@ -107,11 +106,10 @@ class TestSptOpsAlbum(unittest.TestCase):
         self.assertIsInstance(tracks[0]['artists'], list)
         self.assertIsNotNone( tracks[0].get('name') )
 
-    def test_load(self):
-        ref = self.Ops.load( self.album1 )
-        self.assertEqual(ref.uri, 'spotify:album:7GJspOwIWdFfzJfxN8oVTF')
-        ref = self.Ops.load( self.album2 )
-        self.assertEqual(ref.uri, 'spotify:album:75rqM0qScdcFoP4sprrHJN')
+    def test_loads(self):
+        ref1, ref2 = self.Ops.loads( self.jsondata )
+        self.assertEqual(ref1.uri, 'spotify:album:7GJspOwIWdFfzJfxN8oVTF')
+        self.assertEqual(ref2.uri, 'spotify:album:75rqM0qScdcFoP4sprrHJN')
 
 
 
@@ -130,11 +128,10 @@ class TestSptOpsArtist(unittest.TestCase):
         self.assertIsNotNone( items[0].get('followers') )
         self.assertIsNotNone( items[0].get('popularity') )
 
-    def test_load(self):
-        ref = self.Ops.load( self.artist1 )
-        self.assertEqual(ref.uri, 'spotify:artist:04gDigrS5kc9YWfZHwBETP')
-        ref = self.Ops.load( self.artist2 )
-        self.assertEqual(ref.uri, 'spotify:artist:08WRjJPbPqSEOkFuc99ymW')
+    def test_loads(self):
+        ref1, ref2 = self.Ops.loads( self.jsondata )
+        self.assertEqual(ref1.uri, 'spotify:artist:04gDigrS5kc9YWfZHwBETP')
+        self.assertEqual(ref2.uri, 'spotify:artist:08WRjJPbPqSEOkFuc99ymW')
 
 
 
@@ -160,11 +157,10 @@ class TestSptOpsPlaylist(unittest.TestCase):
         self.assertIsNotNone( tracks[0].get('track') )
         self.assertIsNotNone( tracks[0].get('track',{}).get('uri') )
 
-    def test_load(self):
-        ref = self.Ops.load( self.playlist1 )
-        self.assertEqual(ref.uri, 'spotify:playlist:6FaSdKCximiMF0wupKF9hW')
-        ref = self.Ops.load( self.playlist2 )
-        self.assertEqual(ref.uri, 'spotify:playlist:1bBu4pZv4G7N6aj2vrcwah')
+    def test_loads(self):
+        ref1, ref2 = self.Ops.loads( self.jsondata )
+        self.assertEqual(ref1.uri, 'spotify:playlist:6FaSdKCximiMF0wupKF9hW')
+        self.assertEqual(ref2.uri, 'spotify:playlist:1bBu4pZv4G7N6aj2vrcwah')
 
 
 
@@ -184,9 +180,6 @@ class TestSptOpsMissing(unittest.TestCase):
             prrint('Temp db deleted.')
 
     def test_find_missing_tracks(self):
-        # SptOpsMissing.ENGINE = self.engine
-        # items = SptOpsMissing.find_missing_tracks()
-        # print( '[MISSING] ', len(items) )
         pass
 
 
@@ -194,9 +187,12 @@ class TestSptOpsMissing(unittest.TestCase):
 class TestSptOpsInclude(unittest.TestCase):
 
     def setUp(self):
+        self.Ops = SptOpsInclude()
         # Connect Database
-        self.dbpath = '/tmp/{}.sqlite'.format(uuid.uuid1().hex)
-        self.engine = create_engine('sqlite:///'.format(self.dbpath), echo=True)
+        # self.dbpath = 'sqlite:////tmp/{}.sqlite'.format(uuid.uuid1().hex)
+        # self.dbpath = 'sqlite:///:memory:'
+        self.dbpath = 'sqlite:////tmp/tmpdb.sqlite'
+        self.engine = create_engine( self.dbpath )
         self.session = sessionmaker(bind=self.engine, autoflush=False)()
         Base.metadata.create_all(bind=self.engine)
 
@@ -217,15 +213,21 @@ class TestSptOpsInclude(unittest.TestCase):
         with open('../test/data/spotify/playlists.json', 'r') as f:
             self.P.loads( json.loads(f.read()) )
 
+
     def tearDown(self):
-        if os.path.exists(self.dbpath):
-            os.remove(self.dbpath)
-            prrint('Temp db deleted.')
-
-
-    def test_find_unbinded(self):
+        # if os.path.exists(self.dbpath):
+            # os.remove(self.dbpath)
+            # print('Temp db deleted.')
+        # Base.metadata.drop_all( self.engine )
         pass
 
 
+    def test_find_unbinded(self):
+        unbinded = self.Ops.find_unbinded(self.Ops.SQL_TRACK_ALBUMS)
+        print('[UNBINDED]', len(unbinded))
+        self.assertEqual(1,1)
+
+
 if __name__ == '__main__':
+    # unittest.main(TestSptOpsInclude(), verbosity=2)
     unittest.main(verbosity=2)

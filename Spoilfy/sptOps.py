@@ -32,19 +32,38 @@ else:
 # >>>>>>>>>>>>>>>[    Operator Classes     ] >>>>>>>>>>>>>>>>>
 # ==============================================================
 
+with open('./webapi/.spotify_app.json', 'r') as f:
+    _data = json.loads(f.read())
 
 class SptOps:
 
-    API = None
+    # API = SpotifyAPI( _data )
     ORM = None
-    SESSION = None
-    ENGINE = None
+    SESSION = session
+    ENGINE = engine
 
     def __init__(self, session=None, api=None):
-        with open('./webapi/.spotify_app.json', 'r') as f:
-            self.API = SpotifyAPI( json.loads(f.read()) ) if not api else api
+        if api:
+            self.API = api
         if session:
             self.SESSION = session
+
+    def insert(self, jsondata):
+        item = self.SESSION.merge( self.ORM(jsondata) )
+        self.SESSION.commit()
+        return item
+
+    def make_ref(self, instance):
+        ref = self.SESSION.merge( Reference(instance) )
+        self.SESSION.commit()
+        return ref
+
+    def insert_all(self, jsonlist):
+        items = []
+        for o in jsonlist:
+            items.append( self.SESSION.merge(self.ORM(o)) )
+        print( '[INSERTED]', self.__class__, len(items) )
+        return items
 
 
 
@@ -62,15 +81,7 @@ class SptOpsAccount(SptOps):
         return self.ORM.query.filter(self.ORM.id == id).first()
 
     def get_my_profile(self):
-        return SptOpsAccount.load( self.API.get_my_profile() )
-
-    def load(self, jsondata):
-        # Insert items to DB
-        user = self.SESSION.merge( self.ORM(jsondata) )
-        # Add reference
-        self.SESSION.merge( Reference(user) )
-        self.SESSION.commit()
-        return user
+        return self.insert( self.API.get_my_profile() )
 
 
 
@@ -86,21 +97,12 @@ class SptOpsTrack(SptOps):
             - Async retrive multiple pages from API
         """
         print( '\n[  OPS  ] SptOpsTrack' )
-        for page in SptOpsTrack.API.get_my_tracks():
-            SptOpsTrack.loads( page )
+        for page in self.API.get_my_tracks():
+            self.loads( page )
 
     def loads(self, jsondata):
-        all = []
-        for o in jsondata.get('items', []):
-            all.append( self.load(o) )
-
-    def load(self, jsondata):
-        track = self.SESSION.merge( self.ORM(jsondata) )
-        ref = self.SESSION.merge( Reference(track) )
-        self.SESSION.commit()
-        return ref
-
-
+        items = self.insert_all( jsondata.get('items',[]) )
+        return [self.SESSION.merge(Reference(o)) for o in items]
 
 
 class SptOpsAlbum(SptOps):
@@ -120,16 +122,8 @@ class SptOpsAlbum(SptOps):
             # print( '[  OK  ] Inserted {} User albums.'.format(len(albums)) )
 
     def loads(self, jsondata):
-        for o in jsondata.get('items', []):
-            ref = self.load(o)
-            print( '[NEW]', ref )
-
-    def load(self, jsondata):
-        album = self.SESSION.merge( self.ORM(jsondata) )
-        ref = self.SESSION.merge( Reference(album) )
-        self.SESSION.commit()
-        return ref
-
+        items = self.insert_all( jsondata.get('items',[]) )
+        return [self.SESSION.merge(Reference(o)) for o in items]
 
 
 
@@ -145,14 +139,9 @@ class SptOpsArtist(SptOps):
             artists = SptOpsArtist.loads( page )
             # print( '[  OK  ] Inserted {} User artists.'.format(len(artists)) )
 
-    def load(self, jsondata):
-        album = self.SESSION.merge( self.ORM(jsondata) )
-        ref = self.SESSION.merge( Reference(album) )
-        self.SESSION.commit()
-        return ref
-
     def loads(self, jsondata):
-        return [self.load(o) for o in jsondata.get('artists',{}).get('items',[])]
+        items = self.insert_all( jsondata.get('artists',{}).get('items',[]) )
+        return [self.SESSION.merge(Reference(o)) for o in items]
 
 
 
@@ -174,14 +163,10 @@ class SptOpsPlaylist(SptOps):
             # print('[  OK  ] Inserted {} User playlists'.format(len(playlists)))
 
     def loads(self, jsondata):
-        for o in jsondata.get('items', []):
-            ref = self.load( o )
+        items = self.insert_all( jsondata.get('items',[]) )
+        return [self.SESSION.merge(Reference(o)) for o in items]
 
-    def load(self, jsondata):
-        playlist = self.SESSION.merge( self.ORM(jsondata) )
-        ref = self.SESSION.merge( Reference(playlist) )
-        self.SESSION.commit()
-        return ref
+
 
 
 
