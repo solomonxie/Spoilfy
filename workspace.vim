@@ -7,10 +7,10 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +1 ~/Workspace/repos/Spoilfy/Spoilfy/spotify2mbz.py
+badd +9 ~/Workspace/repos/Spoilfy/Spoilfy/spotify2mbz.py
 badd +1 ~/Workspace/repos/Spoilfy/Spoilfy/orm/spotify.py
 badd +17 ~/Workspace/repos/Spoilfy/Spoilfy/orm/test_spotify.py
-badd +1 ~/Workspace/repos/Spoilfy/Spoilfy/orm/musicbrainz.py
+badd +8 ~/Workspace/repos/Spoilfy/Spoilfy/orm/musicbrainz.py
 badd +1 ~/Workspace/repos/Spoilfy/Spoilfy/orm/common.py
 badd +3 ~/Workspace/repos/Spoilfy/Spoilfy/orm/test_common.py
 badd +1 ~/Workspace/repos/Spoilfy/Spoilfy/webapi/apiMusicbrainz.py
@@ -18,17 +18,23 @@ badd +4 ~/Workspace/repos/Spoilfy/Spoilfy/webapi/test_apiMusicbrainz.py
 badd +1 ~/Workspace/repos/Spoilfy/Spoilfy/orm/user.py
 badd +1 ~/Workspace/repos/Spoilfy/Spoilfy/orm/test_user.py
 badd +1 /private/tmp/abc.py
-badd +83 ~/Workspace/repos/Spoilfy/Spoilfy/webapi/apiSpotify.py
-badd +40 ~/Workspace/repos/Spoilfy/Spoilfy/webapi/test_apiSpotify.py
-badd +1 ~/Workspace/repos/Spoilfy/Spoilfy/sptOps.py
-badd +126 ~/Workspace/repos/Spoilfy/Spoilfy/test_sptOps.py
-badd +75 ~/Workspace/repos/Spoilfy/Spoilfy/test_spotify2mbz.py
+badd +1 ~/Workspace/repos/Spoilfy/Spoilfy/webapi/apiSpotify.py
+badd +32 ~/Workspace/repos/Spoilfy/Spoilfy/webapi/test_apiSpotify.py
+badd +69 ~/Workspace/repos/Spoilfy/Spoilfy/sptOps.py
+badd +121 ~/Workspace/repos/Spoilfy/Spoilfy/test_sptOps.py
+badd +39 ~/Workspace/repos/Spoilfy/Spoilfy/test_spotify2mbz.py
 badd +1 ~/Workspace/repos/Spoilfy/Spoilfy/mbzOps.py
-badd +1 ~/Workspace/repos/Spoilfy/Spoilfy/test_mbzOps.py
-badd +0 ~/dotfiles/vim/vimrc
-badd +0 ~/dotfiles/vim/vimrc-keymappings
-badd +0 ~/dotfiles/vim/vimrc-plugins
-badd +0 ~/dotfiles/vim/vimrc-ui
+badd +42 ~/Workspace/repos/Spoilfy/Spoilfy/test_mbzOps.py
+badd +1 ~/dotfiles/vim/vimrc
+badd +1 ~/dotfiles/vim/vimrc-keymappings
+badd +1 ~/dotfiles/vim/vimrc-plugins
+badd +1 ~/dotfiles/vim/vimrc-ui
+badd +263 ~/Workspace/repos/Spoilfy/draft/sqlschemas/ORM2/CREATE_GRP_SPOTIFY.py
+badd +159 ~/Workspace/repos/Spoilfy/draft/sqlschemas/ORM2/COMMONS.py
+badd +114 ~/Workspace/repos/Spoilfy/draft/sqlschemas/ORM2/CREATE_GRP_USER.py
+badd +1 ~/Workspace/repos/Spoilfy/draft/sqlschemas/ORM2/users.json
+badd +148 ~/Workspace/repos/Spoilfy/draft/sqlschemas/ORM/CREATE_ALBUMS.py
+badd +1 ~/Workspace/repos/Spoilfy/Spoilfy/orm/test_musicbrainz.py
 argglobal
 silent! argdel *
 $argadd ~/dotfiles/vim/vimrc
@@ -56,11 +62,11 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=1
 setlocal fen
-let s:l = 201 - ((32 * winheight(0) + 19) / 39)
+let s:l = 55 - ((39 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-201
+55
 normal! 0
 wincmd w
 argglobal
@@ -69,16 +75,16 @@ setlocal fdm=syntax
 setlocal fde=0
 setlocal fmr={{{,}}}
 setlocal fdi=#
-setlocal fdl=99
+setlocal fdl=1
 setlocal fml=1
 setlocal fdn=1
 setlocal fen
-let s:l = 74 - ((28 * winheight(0) + 19) / 39)
+let s:l = 61 - ((39 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-74
-normal! 021|
+61
+normal! 0
 wincmd w
 exe 'vert 1resize ' . ((&columns * 85 + 85) / 170)
 exe 'vert 2resize ' . ((&columns * 84 + 85) / 170)
@@ -103,11 +109,11 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=1
 setlocal fen
-let s:l = 239 - ((8 * winheight(0) + 19) / 39)
+let s:l = 382 - ((14 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-239
+382
 normal! 0
 wincmd w
 argglobal
@@ -120,11 +126,11 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=1
 setlocal fen
-let s:l = 126 - ((31 * winheight(0) + 19) / 39)
+let s:l = 138 - ((25 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-126
+138
 normal! 0
 wincmd w
 exe 'vert 1resize ' . ((&columns * 85 + 85) / 170)
@@ -150,11 +156,11 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=1
 setlocal fen
-let s:l = 83 - ((27 * winheight(0) + 19) / 39)
+let s:l = 21 - ((20 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-83
+21
 normal! 0
 wincmd w
 argglobal
@@ -167,109 +173,15 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=1
 setlocal fen
-let s:l = 1 - ((0 * winheight(0) + 19) / 39)
+let s:l = 33 - ((26 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-1
-normal! 0
+33
+normal! 012|
 wincmd w
 exe 'vert 1resize ' . ((&columns * 85 + 85) / 170)
 exe 'vert 2resize ' . ((&columns * 84 + 85) / 170)
-tabedit ~/Workspace/repos/Spoilfy/Spoilfy/orm/spotify.py
-set splitbelow splitright
-wincmd _ | wincmd |
-vsplit
-1wincmd h
-wincmd w
-set nosplitbelow
-wincmd t
-set winminheight=1 winminwidth=1 winheight=1 winwidth=1
-exe 'vert 1resize ' . ((&columns * 85 + 85) / 170)
-exe 'vert 2resize ' . ((&columns * 84 + 85) / 170)
-argglobal
-if bufexists('~/Workspace/repos/Spoilfy/Spoilfy/orm/spotify.py') | buffer ~/Workspace/repos/Spoilfy/Spoilfy/orm/spotify.py | else | edit ~/Workspace/repos/Spoilfy/Spoilfy/orm/spotify.py | endif
-setlocal fdm=syntax
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=99
-setlocal fml=1
-setlocal fdn=1
-setlocal fen
-let s:l = 30 - ((19 * winheight(0) + 19) / 39)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-30
-normal! 0
-wincmd w
-argglobal
-if bufexists('~/Workspace/repos/Spoilfy/Spoilfy/orm/musicbrainz.py') | buffer ~/Workspace/repos/Spoilfy/Spoilfy/orm/musicbrainz.py | else | edit ~/Workspace/repos/Spoilfy/Spoilfy/orm/musicbrainz.py | endif
-setlocal fdm=syntax
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=99
-setlocal fml=1
-setlocal fdn=1
-setlocal fen
-let s:l = 79 - ((30 * winheight(0) + 19) / 39)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-79
-normal! 015|
-wincmd w
-exe 'vert 1resize ' . ((&columns * 85 + 85) / 170)
-exe 'vert 2resize ' . ((&columns * 84 + 85) / 170)
-tabedit ~/Workspace/repos/Spoilfy/Spoilfy/mbzOps.py
-set splitbelow splitright
-wincmd _ | wincmd |
-vsplit
-1wincmd h
-wincmd w
-set nosplitbelow
-wincmd t
-set winminheight=1 winminwidth=1 winheight=1 winwidth=1
-exe 'vert 1resize ' . ((&columns * 84 + 85) / 170)
-exe 'vert 2resize ' . ((&columns * 85 + 85) / 170)
-argglobal
-if bufexists('~/Workspace/repos/Spoilfy/Spoilfy/mbzOps.py') | buffer ~/Workspace/repos/Spoilfy/Spoilfy/mbzOps.py | else | edit ~/Workspace/repos/Spoilfy/Spoilfy/mbzOps.py | endif
-setlocal fdm=syntax
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=99
-setlocal fml=1
-setlocal fdn=1
-setlocal fen
-let s:l = 99 - ((19 * winheight(0) + 19) / 39)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-99
-normal! 0
-wincmd w
-argglobal
-if bufexists('~/Workspace/repos/Spoilfy/Spoilfy/test_mbzOps.py') | buffer ~/Workspace/repos/Spoilfy/Spoilfy/test_mbzOps.py | else | edit ~/Workspace/repos/Spoilfy/Spoilfy/test_mbzOps.py | endif
-setlocal fdm=syntax
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=1
-setlocal fml=1
-setlocal fdn=1
-setlocal fen
-let s:l = 59 - ((28 * winheight(0) + 19) / 39)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-59
-normal! 0
-wincmd w
-exe 'vert 1resize ' . ((&columns * 84 + 85) / 170)
-exe 'vert 2resize ' . ((&columns * 85 + 85) / 170)
 tabedit ~/Workspace/repos/Spoilfy/Spoilfy/webapi/apiMusicbrainz.py
 set splitbelow splitright
 wincmd _ | wincmd |
@@ -291,12 +203,12 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=1
 setlocal fen
-let s:l = 46 - ((5 * winheight(0) + 19) / 39)
+let s:l = 47 - ((6 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-46
-normal! 018|
+47
+normal! 037|
 wincmd w
 argglobal
 if bufexists('~/Workspace/repos/Spoilfy/Spoilfy/webapi/test_apiMusicbrainz.py') | buffer ~/Workspace/repos/Spoilfy/Spoilfy/webapi/test_apiMusicbrainz.py | else | edit ~/Workspace/repos/Spoilfy/Spoilfy/webapi/test_apiMusicbrainz.py | endif
@@ -308,7 +220,7 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=1
 setlocal fen
-let s:l = 10 - ((9 * winheight(0) + 19) / 39)
+let s:l = 10 - ((9 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -338,12 +250,12 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=1
 setlocal fen
-let s:l = 160 - ((25 * winheight(0) + 19) / 39)
+let s:l = 212 - ((34 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-160
-normal! 0
+212
+normal! 08|
 wincmd w
 argglobal
 if bufexists('~/Workspace/repos/Spoilfy/Spoilfy/orm/test_common.py') | buffer ~/Workspace/repos/Spoilfy/Spoilfy/orm/test_common.py | else | edit ~/Workspace/repos/Spoilfy/Spoilfy/orm/test_common.py | endif
@@ -355,12 +267,153 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=1
 setlocal fen
-let s:l = 31 - ((23 * winheight(0) + 19) / 39)
+let s:l = 31 - ((24 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 31
-normal! 012|
+normal! 0
+wincmd w
+exe 'vert 1resize ' . ((&columns * 85 + 85) / 170)
+exe 'vert 2resize ' . ((&columns * 84 + 85) / 170)
+tabedit ~/Workspace/repos/Spoilfy/Spoilfy/orm/spotify.py
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
+set nosplitbelow
+wincmd t
+set winminheight=1 winminwidth=1 winheight=1 winwidth=1
+exe 'vert 1resize ' . ((&columns * 85 + 85) / 170)
+exe 'vert 2resize ' . ((&columns * 84 + 85) / 170)
+argglobal
+if bufexists('~/Workspace/repos/Spoilfy/Spoilfy/orm/spotify.py') | buffer ~/Workspace/repos/Spoilfy/Spoilfy/orm/spotify.py | else | edit ~/Workspace/repos/Spoilfy/Spoilfy/orm/spotify.py | endif
+setlocal fdm=syntax
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=1
+setlocal fen
+let s:l = 227 - ((19 * winheight(0) + 20) / 40)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+227
+normal! 0
+wincmd w
+argglobal
+if bufexists('~/Workspace/repos/Spoilfy/Spoilfy/orm/test_spotify.py') | buffer ~/Workspace/repos/Spoilfy/Spoilfy/orm/test_spotify.py | else | edit ~/Workspace/repos/Spoilfy/Spoilfy/orm/test_spotify.py | endif
+setlocal fdm=syntax
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=1
+setlocal fen
+let s:l = 170 - ((25 * winheight(0) + 20) / 40)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+170
+normal! 0
+wincmd w
+exe 'vert 1resize ' . ((&columns * 85 + 85) / 170)
+exe 'vert 2resize ' . ((&columns * 84 + 85) / 170)
+tabedit ~/Workspace/repos/Spoilfy/Spoilfy/orm/musicbrainz.py
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
+set nosplitbelow
+wincmd t
+set winminheight=1 winminwidth=1 winheight=1 winwidth=1
+exe 'vert 1resize ' . ((&columns * 85 + 85) / 170)
+exe 'vert 2resize ' . ((&columns * 84 + 85) / 170)
+argglobal
+if bufexists('~/Workspace/repos/Spoilfy/Spoilfy/orm/musicbrainz.py') | buffer ~/Workspace/repos/Spoilfy/Spoilfy/orm/musicbrainz.py | else | edit ~/Workspace/repos/Spoilfy/Spoilfy/orm/musicbrainz.py | endif
+setlocal fdm=syntax
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=1
+setlocal fen
+let s:l = 153 - ((19 * winheight(0) + 20) / 40)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+153
+normal! 0
+wincmd w
+argglobal
+if bufexists('~/Workspace/repos/Spoilfy/Spoilfy/orm/test_musicbrainz.py') | buffer ~/Workspace/repos/Spoilfy/Spoilfy/orm/test_musicbrainz.py | else | edit ~/Workspace/repos/Spoilfy/Spoilfy/orm/test_musicbrainz.py | endif
+setlocal fdm=syntax
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=1
+setlocal fen
+let s:l = 45 - ((38 * winheight(0) + 20) / 40)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+45
+normal! 0
+wincmd w
+exe 'vert 1resize ' . ((&columns * 85 + 85) / 170)
+exe 'vert 2resize ' . ((&columns * 84 + 85) / 170)
+tabedit ~/Workspace/repos/Spoilfy/Spoilfy/mbzOps.py
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
+set nosplitbelow
+wincmd t
+set winminheight=1 winminwidth=1 winheight=1 winwidth=1
+exe 'vert 1resize ' . ((&columns * 85 + 85) / 170)
+exe 'vert 2resize ' . ((&columns * 84 + 85) / 170)
+argglobal
+if bufexists('~/Workspace/repos/Spoilfy/Spoilfy/mbzOps.py') | buffer ~/Workspace/repos/Spoilfy/Spoilfy/mbzOps.py | else | edit ~/Workspace/repos/Spoilfy/Spoilfy/mbzOps.py | endif
+setlocal fdm=syntax
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=1
+setlocal fen
+let s:l = 162 - ((39 * winheight(0) + 20) / 40)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+162
+normal! 0
+wincmd w
+argglobal
+if bufexists('~/Workspace/repos/Spoilfy/Spoilfy/test_mbzOps.py') | buffer ~/Workspace/repos/Spoilfy/Spoilfy/test_mbzOps.py | else | edit ~/Workspace/repos/Spoilfy/Spoilfy/test_mbzOps.py | endif
+setlocal fdm=syntax
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=1
+setlocal fml=1
+setlocal fdn=1
+setlocal fen
+let s:l = 40 - ((39 * winheight(0) + 20) / 40)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+40
+normal! 0
 wincmd w
 exe 'vert 1resize ' . ((&columns * 85 + 85) / 170)
 exe 'vert 2resize ' . ((&columns * 84 + 85) / 170)
@@ -385,7 +438,7 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=1
 setlocal fen
-let s:l = 113 - ((37 * winheight(0) + 19) / 39)
+let s:l = 113 - ((38 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -402,7 +455,7 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=1
 setlocal fen
-let s:l = 38 - ((37 * winheight(0) + 19) / 39)
+let s:l = 38 - ((37 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -411,7 +464,7 @@ normal! 012|
 wincmd w
 exe 'vert 1resize ' . ((&columns * 84 + 85) / 170)
 exe 'vert 2resize ' . ((&columns * 85 + 85) / 170)
-tabnext 1
+tabnext 2
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif
