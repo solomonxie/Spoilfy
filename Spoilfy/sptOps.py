@@ -42,11 +42,12 @@ class SptOps:
     SESSION = session
     ENGINE = engine
 
-    def __init__(self, session=None, api=None):
+    def __init__(self, SESSION=None, api=None):
+        print( self.__class__.__name__, SESSION )
         if api:
             self.API = api
-        if session:
-            self.SESSION = session
+        if SESSION:
+            self.SESSION = SESSION
 
     def insert(self, jsondata):
         item = self.SESSION.merge( self.ORM(jsondata) )
@@ -63,6 +64,7 @@ class SptOps:
         for o in jsonlist:
             items.append( self.SESSION.merge(self.ORM(o)) )
         print( '[INSERTED]', self.__class__, len(items) )
+        self.SESSION.commit()
         return items
 
 
@@ -102,7 +104,9 @@ class SptOpsTrack(SptOps):
 
     def loads(self, jsondata):
         items = self.insert_all( jsondata.get('items',[]) )
-        return [self.SESSION.merge(Reference(o)) for o in items]
+        refs = [self.SESSION.merge(Reference(o)) for o in items]
+        self.SESSION.commit()
+        return refs
 
 
 class SptOpsAlbum(SptOps):
@@ -123,7 +127,9 @@ class SptOpsAlbum(SptOps):
 
     def loads(self, jsondata):
         items = self.insert_all( jsondata.get('items',[]) )
-        return [self.SESSION.merge(Reference(o)) for o in items]
+        refs = [self.SESSION.merge(Reference(o)) for o in items]
+        self.SESSION.commit()
+        return refs
 
 
 
@@ -141,7 +147,9 @@ class SptOpsArtist(SptOps):
 
     def loads(self, jsondata):
         items = self.insert_all( jsondata.get('artists',{}).get('items',[]) )
-        return [self.SESSION.merge(Reference(o)) for o in items]
+        refs = [self.SESSION.merge(Reference(o)) for o in items]
+        self.SESSION.commit()
+        return refs
 
 
 
@@ -164,7 +172,9 @@ class SptOpsPlaylist(SptOps):
 
     def loads(self, jsondata):
         items = self.insert_all( jsondata.get('items',[]) )
-        return [self.SESSION.merge(Reference(o)) for o in items]
+        refs = [self.SESSION.merge(Reference(o)) for o in items]
+        self.SESSION.commit()
+        return refs
 
 
 
