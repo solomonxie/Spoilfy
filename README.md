@@ -8,6 +8,9 @@ The goal is to build a music focused Personal Cloud that differs to Owncloud/Ple
 
 ## TODO
 
+Trello Scrum Board: https://trello.com/b/FfMzYWKy/spoilfy-scrum-board
+
+TODO:
 - [x] Design Database & ORM
 - [ ] Quick implementation: ORM Data Insertion
     - [x] Spotify
