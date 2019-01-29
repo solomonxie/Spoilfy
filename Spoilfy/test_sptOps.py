@@ -187,7 +187,6 @@ class TestSptOpsMissing(unittest.TestCase):
 class TestSptOpsInclude(unittest.TestCase):
 
     def setUp(self):
-        self.Ops = SptOpsInclude()
         # Connect Database
         # self.dbpath = 'sqlite:////tmp/{}.sqlite'.format(uuid.uuid1().hex)
         # self.dbpath = 'sqlite:///:memory:'
@@ -197,11 +196,12 @@ class TestSptOpsInclude(unittest.TestCase):
         Base.metadata.create_all(bind=self.engine)
 
         # Make temporary session for Operators
-        self.T = SptOpsTrack(session=self.session)
-        self.A = SptOpsAlbum(session=self.session)
-        self.R = SptOpsArtist(session=self.session)
-        self.P = SptOpsPlaylist(session=self.session)
-        self.I = SptOpsInclude(session=self.session)
+        self.Ops = SptOpsInclude(SESSION=self.session)
+        self.T = SptOpsTrack(SESSION=self.session)
+        self.A = SptOpsAlbum(SESSION=self.session)
+        self.R = SptOpsArtist(SESSION=self.session)
+        self.P = SptOpsPlaylist(SESSION=self.session)
+        self.I = SptOpsInclude(SESSION=self.session)
 
         # Load sample resources
         with open('../test/data/spotify/tracks.json', 'r') as f:
@@ -212,6 +212,16 @@ class TestSptOpsInclude(unittest.TestCase):
             self.R.loads( json.loads(f.read()) )
         with open('../test/data/spotify/playlists.json', 'r') as f:
             self.P.loads( json.loads(f.read()) )
+
+        sql = """
+        SELECT uri from spotify_Tracks
+            WHERE uri NOT IN ( SELECT child_uri FROM includes
+                WHERE parent_type = 'album')
+        """
+        with self.engine.connect() as con:
+            records = con.execute(sql)
+            uris = [ u for u, in records ]
+            print('[SQL]', uris)
 
 
     def tearDown(self):
@@ -224,6 +234,7 @@ class TestSptOpsInclude(unittest.TestCase):
 
     def test_find_unbinded(self):
         unbinded = self.Ops.find_unbinded(self.Ops.SQL_TRACK_ALBUMS)
+        print( '[session check]', self.Ops.SESSION, self.session )
         print('[UNBINDED]', len(unbinded))
         self.assertEqual(1,1)
 
