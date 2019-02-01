@@ -7,10 +7,10 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +9 ~/Workspace/repos/Spoilfy/Spoilfy/spotify2mbz.py
+badd +1 ~/Workspace/repos/Spoilfy/Spoilfy/spotify2mbz.py
 badd +1 ~/Workspace/repos/Spoilfy/Spoilfy/orm/spotify.py
 badd +17 ~/Workspace/repos/Spoilfy/Spoilfy/orm/test_spotify.py
-badd +8 ~/Workspace/repos/Spoilfy/Spoilfy/orm/musicbrainz.py
+badd +1 ~/Workspace/repos/Spoilfy/Spoilfy/orm/musicbrainz.py
 badd +1 ~/Workspace/repos/Spoilfy/Spoilfy/orm/common.py
 badd +3 ~/Workspace/repos/Spoilfy/Spoilfy/orm/test_common.py
 badd +1 ~/Workspace/repos/Spoilfy/Spoilfy/webapi/apiMusicbrainz.py
@@ -20,7 +20,7 @@ badd +1 ~/Workspace/repos/Spoilfy/Spoilfy/orm/test_user.py
 badd +1 /private/tmp/abc.py
 badd +1 ~/Workspace/repos/Spoilfy/Spoilfy/webapi/apiSpotify.py
 badd +32 ~/Workspace/repos/Spoilfy/Spoilfy/webapi/test_apiSpotify.py
-badd +69 ~/Workspace/repos/Spoilfy/Spoilfy/sptOps.py
+badd +1 ~/Workspace/repos/Spoilfy/Spoilfy/sptOps.py
 badd +121 ~/Workspace/repos/Spoilfy/Spoilfy/test_sptOps.py
 badd +39 ~/Workspace/repos/Spoilfy/Spoilfy/test_spotify2mbz.py
 badd +1 ~/Workspace/repos/Spoilfy/Spoilfy/mbzOps.py
@@ -109,12 +109,12 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=1
 setlocal fen
-let s:l = 382 - ((14 * winheight(0) + 20) / 40)
+let s:l = 45 - ((2 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-382
-normal! 0
+45
+normal! 024|
 wincmd w
 argglobal
 if bufexists('~/Workspace/repos/Spoilfy/Spoilfy/test_sptOps.py') | buffer ~/Workspace/repos/Spoilfy/Spoilfy/test_sptOps.py | else | edit ~/Workspace/repos/Spoilfy/Spoilfy/test_sptOps.py | endif
@@ -126,11 +126,11 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=1
 setlocal fen
-let s:l = 138 - ((25 * winheight(0) + 20) / 40)
+let s:l = 137 - ((31 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-138
+137
 normal! 0
 wincmd w
 exe 'vert 1resize ' . ((&columns * 85 + 85) / 170)
