@@ -8,14 +8,14 @@
 import json
 import uuid
 
-#-------[  Import SQLAlchemy ]---------
+# -------[  Import SQLAlchemy ]---------
 from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean, Sequence
 from sqlalchemy import exists
 
-#-------[  Import From Other Modules   ]---------
+# -------[  Import From Other Modules   ]---------
 # Package Import Hint: $ python -m Spoilfy.orm.musicbrainz
 
-#-> TEST only
+# -> TEST only
 if __name__ in ['__main__', 'musicbrainz']:
     from common import Base, engine, session, Resource, Reference, Include
 else:
@@ -30,7 +30,6 @@ Provider:
     Musicbrainz is a [InfoProvider].
 Explain:
 """
-
 
 
 class MusicbrainzResource(Resource):
@@ -52,16 +51,16 @@ class MusicbrainzTrack(MusicbrainzResource):
     def __init__(self, data):
         d = data
         super().__init__(
-            uri = 'musicbrainz:track:{}'.format( d.get('id') ),
-            id = d.get('id'),
-            type = 'track',
-            provider = 'musicbrainz',
-            name = d.get('title'),
-            artist_credit = json.dumps( d.get('artist-credit') ),
-            releases = json.dumps( d.get('releases') ),
-            score = d.get('score'),
-            length = d.get('length'),
-            video = d.get('video'),
+            uri='musicbrainz:track:{}'.format(d.get('id')),
+            id=d.get('id'),
+            type='track',
+            provider='musicbrainz',
+            name=d.get('title'),
+            artist_credit=json.dumps(d.get('artist-credit')),
+            releases=json.dumps(d.get('releases')),
+            score=d.get('score'),
+            length=d.get('length'),
+            video=d.get('video'),
         )
 
 
@@ -86,29 +85,28 @@ class MusicbrainzAlbum(MusicbrainzResource):
     media = Column('media', String)
     text_representation = Column('text_representation', String)
 
-
     def __init__(self, jsondata):
         d = jsondata
         super().__init__(
-            uri = 'musicbrainz:album:{}'.format( d.get('id') ),
-            name = d.get('title'),
-            id = d.get('id'),
-            type = 'album',
-            provider = 'musicbrainz',
-            track_uris = None,
-            artist_credit = json.dumps( d.get('artist-credit') ),
-            score = d.get('score'),
-            track_count = d.get('track-count'),
-            status = d.get('status'),
-            country = d.get('country'),
-            date = d.get('date'),
-            release_events = json.dumps( d.get('release-events') ),
-            release_group = json.dumps( d.get('release-group') ),
-            barcode = d.get('barcode'),
-            count = d.get('count'),
-            label_info = json.dumps( d.get('label-info') ),
-            media = json.dumps( d.get('media') ),
-            text_representation = json.dumps( d.get('text-representation') ),
+            uri='musicbrainz:album:{}'.format(d.get('id')),
+            name=d.get('title'),
+            id=d.get('id'),
+            type='album',
+            provider='musicbrainz',
+            track_uris=None,
+            artist_credit=json.dumps(d.get('artist-credit')),
+            score=d.get('score'),
+            track_count=d.get('track-count'),
+            status=d.get('status'),
+            country=d.get('country'),
+            date=d.get('date'),
+            release_events=json.dumps(d.get('release-events')),
+            release_group=json.dumps(d.get('release-group')),
+            barcode=d.get('barcode'),
+            count=d.get('count'),
+            label_info=json.dumps(d.get('label-info')),
+            media=json.dumps(d.get('media')),
+            text_representation=json.dumps(d.get('text-representation')),
         )
 
 
@@ -132,32 +130,28 @@ class MusicbrainzArtist(MusicbrainzResource):
     def __init__(self, jsondata):
         d = jsondata
         super().__init__(
-            uri = 'musicbrainz:artist:{}'.format( d.get('id') ),
-            name = d.get('name'),
-            id = d.get('id'),
-            type = 'artist',
-            provider = 'musicbrainz',
-            artist_type = d.get('type'),
-            artist_type_id = d.get('type-id'),
-            score = d.get('score'),
-            sort_name = d.get('sort-name'),
-            aliases = json.dumps( d.get('aliases') ),
-            area = json.dumps( d.get('area') ),
-            begin_area = json.dumps( d.get('begin-area') ),
-            country = d.get('country'),
-            disambiguation = d.get('disambiguation'),
-            lifespan = json.dumps( d.get('lifespan') ),
-            tags = json.dumps( d.get('tags') ),
+            uri='musicbrainz:artist:{}'.format(d.get('id')),
+            name=d.get('name'),
+            id=d.get('id'),
+            type='artist',
+            provider='musicbrainz',
+            artist_type=d.get('type'),
+            artist_type_id=d.get('type-id'),
+            score=d.get('score'),
+            sort_name=d.get('sort-name'),
+            aliases=json.dumps(d.get('aliases')),
+            area=json.dumps(d.get('area')),
+            begin_area=json.dumps(d.get('begin-area')),
+            country=d.get('country'),
+            disambiguation=d.get('disambiguation'),
+            lifespan=json.dumps(d.get('lifespan')),
+            tags=json.dumps(d.get('tags')),
         )
-
-
 
 
 # ==============================================================
 # >>>>>>>>>>>>>>>>>>[    TEST RUN     ] >>>>>>>>>>>>>>>>>>>>>>>>
 # ==============================================================
-
-
 if __name__ == '__main__':
     try:
         # MusicbrainzTrack.__table__.drop(engine)
@@ -170,7 +164,6 @@ if __name__ == '__main__':
         print('Error on dropping Musicbrainz table.')
     finally:
         Base.metadata.create_all(bind=engine)
-
 
 
 print('[  OK  ] __IMPORTED__: {}'.format(__name__))

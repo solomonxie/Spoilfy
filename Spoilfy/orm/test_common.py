@@ -10,7 +10,6 @@ from common import engine, Base, Resource, Reference
 from common import Include, UnTagged, Incomplete
 
 
-
 # ==============================================================
 # >>>>>>>>>>>>>>>>>>>>>>[    TEST     ] >>>>>>>>>>>>>>>>>>>>>>>>
 # ==============================================================
@@ -20,6 +19,7 @@ class TestReference(unittest.TestCase):
 
     def test_Reference(self):
         pass
+
 
 class TestInclude(unittest.TestCase):
 
@@ -31,7 +31,6 @@ class TestIncomplete(unittest.TestCase):
 
     def test_Incomplete(self):
         pass
-
 
 
 if __name__ == '__main__':

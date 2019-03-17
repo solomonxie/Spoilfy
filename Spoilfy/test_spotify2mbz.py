@@ -25,8 +25,6 @@ else:
     from Spoilfy.spotify2mbz import *
 
 
-
-
 # ==============================================================
 # >>>>>>>>>>>>>>>>>>>>>>[    TEST     ] >>>>>>>>>>>>>>>>>>>>>>>>
 # ==============================================================
@@ -56,8 +54,6 @@ class TestUnMapped(unittest.TestCase):
         # uris = UnMapped.find_unmapped_artists()
         # print( '[UNMAPPED] {} ARTISTS.'.format(len(uris)) )
         pass
-
-
 
 
 class TestMapTrack(unittest.TestCase):
@@ -108,7 +104,6 @@ class TestMapAlbum(unittest.TestCase):
         pass
 
 
-
 class TestMapArtist(unittest.TestCase):
 
     def setUp(self):
@@ -121,12 +116,5 @@ class TestMapArtist(unittest.TestCase):
         pass
 
 
-
-
-
-
 if __name__ == '__main__':
     unittest.main(verbosity=2)
-
-
-

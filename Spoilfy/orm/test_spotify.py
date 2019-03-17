@@ -16,63 +16,57 @@ from spotify import SpotifyAccount, SpotifyTrack, SpotifyAlbum, SpotifyArtist, S
 from sptOps import SpotifyAccount, SpotifyTrack, SpotifyAlbum, SpotifyArtist, SpotifyPlaylist
 
 
-
-
 # ==============================================================
 # >>>>>>>>>>>>>>>>>>>>>>[    TEST     ] >>>>>>>>>>>>>>>>>>>>>>>>
 # ==============================================================
 
 def test_SpotifyAccount():
-    print( '\n[  TEST  ] SpotifyAccount' )
+    print('\n[  TEST  ] SpotifyAccount')
     # Add an account
     with open('../../scratch/sqlschemas/spotify/jsondumps-full/get_user_profile.json', 'r') as f:
-        jsondata = json.loads( f.read() )
-        SpotifyAccount.load( jsondata )
-
+        jsondata = json.loads(f.read())
+        SpotifyAccount.load(jsondata)
 
 
 def test_SpotifyTrack():
-    print( '\n[  TEST  ] SpotifyTrack' )
+    print('\n[  TEST  ] SpotifyTrack')
     # Add a track
     with open('../../scratch/sqlschemas/spotify/jsondumps-full/get_user_tracks.json', 'r') as f:
-        jsondata = json.loads( f.read() )
-        SpotifyTrack.loads( jsondata )
+        jsondata = json.loads(f.read())
+        SpotifyTrack.loads(jsondata)
 
 
 def test_SpotifyAlbum():
-    print( '\n[  TEST  ] SpotifyAlbum' )
+    print('\n[  TEST  ] SpotifyAlbum')
     # Add an album
     with open('../../scratch/sqlschemas/spotify/jsondumps-full/get_user_albums.json', 'r') as f:
-        jsondata = json.loads( f.read() )
-        SpotifyAlbum.loads( jsondata )
-
+        jsondata = json.loads(f.read())
+        SpotifyAlbum.loads(jsondata)
 
 
 def test_SpotifyArtist():
-    print( '\n[  TEST  ] SpotifyArtist' )
+    print('\n[  TEST  ] SpotifyArtist')
     # Add an artist
     with open('../../scratch/sqlschemas/spotify/jsondumps-full/get_user_artists.json', 'r') as f:
-        jsondata = json.loads( f.read() )
-        SpotifyArtist.loads( jsondata )
-
+        jsondata = json.loads(f.read())
+        SpotifyArtist.loads(jsondata)
 
 
 def test_SpotifyPlaylist():
-    print( '\n[  TEST  ] SpotifyPlaylist' )
+    print('\n[  TEST  ] SpotifyPlaylist')
     # Add a playlist
     with open('../../scratch/sqlschemas/spotify/jsondumps-full/get_user_playlists.json', 'r') as f:
-        jsondata = json.loads( f.read() )
-        SpotifyPlaylist.loads( jsondata )
-
+        jsondata = json.loads(f.read())
+        SpotifyPlaylist.loads(jsondata)
 
 
 def test_query_track():
-    print( '\n[  TEST  ] Query Track' )
+    print('\n[  TEST  ] Query Track')
     # print( SpotifyTrack.query.all() )
 
     # Get a user
     me = UserAccount.query.first()
-    print( '[USER]', me.uri )
+    print('[USER]', me.uri)
 
     # Search all tracks of a user
     query = session.query(
@@ -83,18 +77,18 @@ def test_query_track():
         UserResource.real_uri == Reference.real_uri,
         Reference.uri == SpotifyTrack.uri
     )
-    print( '\t[SQL]', query )
+    print('\t[SQL]', query)
     results = query.all()
-    print( '[RESULTS]', len(results) )
+    print('[RESULTS]', len(results))
     for name in results:
-        print( '[NAME]', name )
+        print('[NAME]', name)
 
 
 def test_query_album():
-    print( '\n[  TEST  ] Query Album' )
+    print('\n[  TEST  ] Query Album')
     # Get a user
     me = UserAccount.query.first()
-    print( '[USER]', me.uri )
+    print('[USER]', me.uri)
 
     # search all albums of a user
     query = session.query(
@@ -105,18 +99,18 @@ def test_query_album():
         Reference.real_uri == UserResource.real_uri,
         SpotifyAlbum.uri == Reference.uri
     )
-    print( '\t[SQL]', query )
+    print('\t[SQL]', query)
     results = query.all()
-    print( '[RESULTS]', len(results) )
+    print('[RESULTS]', len(results))
     for name in results:
-        print( '[NAME]', name )
+        print('[NAME]', name)
 
 
 def test_query_artist():
-    print( '\n[  TEST  ] Query Artist' )
+    print('\n[  TEST  ] Query Artist')
     # Get a user
     me = UserAccount.query.first()
-    print( '[USER]', me.uri )
+    print('[USER]', me.uri)
 
     # search all albums of a user
     query = session.query(
@@ -127,18 +121,18 @@ def test_query_artist():
         Reference.real_uri == UserResource.real_uri,
         SpotifyArtist.uri == Reference.uri
     )
-    print( '\t[SQL]', query )
+    print('\t[SQL]', query)
     results = query.all()
-    print( '[RESULTS]', len(results) )
+    print('[RESULTS]', len(results))
     for name in results:
-        print( '[NAME]', name )
+        print('[NAME]', name)
 
 
 def test_query_playlist():
-    print( '\n[  TEST  ] Query Playlist' )
+    print('\n[  TEST  ] Query Playlist')
     # Get a user
     me = UserAccount.query.first()
-    print( '[USER]', me.uri )
+    print('[USER]', me.uri)
 
     # search all albums of a user
     query = session.query(
@@ -149,11 +143,11 @@ def test_query_playlist():
         Reference.real_uri == UserResource.real_uri,
         SpotifyPlaylist.uri == Reference.uri
     )
-    print( '\t[SQL]', query )
+    print('\t[SQL]', query)
     results = query.all()
-    print( '[RESULTS]', len(results) )
+    print('[RESULTS]', len(results))
     for name in results:
-        print( '[NAME]', name )
+        print('[NAME]', name)
 
 
 if __name__ == '__main__':
@@ -170,16 +164,15 @@ if __name__ == '__main__':
     finally:
         Base.metadata.create_all(bind=engine)
 
-    #=> Insert data
+    # => Insert data
     # test_SpotifyTrack()
     # test_SpotifyAlbum()
     # test_SpotifyArtist()
     # test_SpotifyPlaylist()
     # test_SpotifyAccount()
 
-    #=> Query
+    # => Query
     test_query_track()
     test_query_album()
     test_query_artist()
     test_query_playlist()
-

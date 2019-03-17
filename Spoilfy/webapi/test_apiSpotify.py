@@ -10,10 +10,6 @@ import unittest
 from apiSpotify import SpotifyAPI
 
 
-
-
-
-
 # ==============================================================
 # >>>>>>>>>>>>>>>>>>>>>>[    TEST     ] >>>>>>>>>>>>>>>>>>>>>>>>
 # ==============================================================
@@ -24,7 +20,7 @@ class TestSpotifyAPI(unittest.TestCase):
     def setUp(self):
         # Get auth info
         with open('./.spotify_app.json', 'r') as f:
-            data = json.loads( f.read() )
+            data = json.loads(f.read())
             # self.api = SpotifyAPI(data)
 
     def test_get_a_track(self):
@@ -88,7 +84,6 @@ class TestSpotifyAPI(unittest.TestCase):
 
     def test_get_my_playlists(self):
         pass
-
 
 
 if __name__ == '__main__':

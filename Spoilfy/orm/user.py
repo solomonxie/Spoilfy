@@ -8,19 +8,18 @@
 
 import uuid
 
-#-------[  Import SQLAlchemy ]---------
+# -------[  Import SQLAlchemy ]---------
 from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Boolean, Sequence
 
-#-------[  Import From Other Modules   ]---------
+# -------[  Import From Other Modules   ]---------
 # Package Import Hint: $ python -m Spoilfy.orm.spotify
-#-> TEST only
+# -> TEST only
 if __name__ in ['__main__', 'user']:
     from common import Base, engine, session, Resource, Reference
     from spotify import SpotifyAccount
 else:
     from orm.common import Base, engine, session, Resource, Reference
     from orm.spotify import SpotifyAccount
-
 
 
 # ==============================================================
@@ -34,14 +33,13 @@ Explain:
 """
 
 
-
 class UserResource(Resource):
     """ [ User Resources are bit different ]
         User items only store real IDs to REAL resources, like spotify.
     """
     __tablename__ = 'u_Resources'
 
-    #-> Drop default identifiers from PARENT class
+    # -> Drop default identifiers from PARENT class
     uri = name = id = provider = None
 
     # -> PKs
@@ -59,7 +57,7 @@ class UserResource(Resource):
     def add_resources(cls, owner_uri, references):
         all = []
         for ref in references:
-            all.append( session.merge( cls(owner_uri, ref) ) )
+            all.append(session.merge(cls(owner_uri, ref)))
             session.commit()
         print('[  OK  ] Inserted {} items to [{}].'.format(
             len(all), cls.__tablename__
@@ -83,13 +81,13 @@ class UserAccount(Resource):
 
     def __init__(self, data):
         super().__init__(
-            uri = 'app:user:{}'.format(data.get('id')),
-            name = data.get('name'),
-            id = data.get('id'),
-            type = 'user',
-            provider = 'app',
-            email = data.get('email'),
-            password = data.get('password'),
+            uri='app:user:{}'.format(data.get('id')),
+            name=data.get('name'),
+            id=data.get('id'),
+            type='user',
+            provider='app',
+            email=data.get('email'),
+            password=data.get('password'),
         )
 
     @classmethod
@@ -105,21 +103,18 @@ class UserAccount(Resource):
         for acc in SpotifyAccount.query.filter().all():
             user_acc = acc
             #
-            #-> It's critical here we use app account's URI as real_uri
+            # -> It's critical here we use app account's URI as real_uri
             #   because we want the User Account to be the real existence.
-            session.merge( Reference(acc, user_acc.uri, 1) )
+            session.merge(Reference(acc, user_acc.uri, 1))
         session.commit()
 
     def bind_resources(self, references):
-        UserResource.add_resources( self.uri, references )
-
-
+        UserResource.add_resources(self.uri, references)
 
 
 # ==============================================================
 # >>>>>>>>>>>>>>>>>>[    TEST RUN     ] >>>>>>>>>>>>>>>>>>>>>>>>
 # ==============================================================
-
 
 
 if __name__ == '__main__':
@@ -131,7 +126,6 @@ if __name__ == '__main__':
         print('Error on dropping User table.')
     finally:
         Base.metadata.create_all(bind=engine)
-
 
 
 print('[  OK  ] __IMPORTED__: {}'.format(__name__))

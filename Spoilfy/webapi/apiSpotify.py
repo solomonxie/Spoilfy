@@ -10,7 +10,6 @@ import requests
 from authlib.client import OAuth2Session
 
 
-
 class WebAPI:
     """ [ Common WebAPI Operations ]
 
@@ -19,6 +18,7 @@ class WebAPI:
 
 
 _ROOT = 'https://api.spotify.com/v1'
+
 
 class SpotifyAPI(WebAPI):
     """ [  ]
@@ -29,18 +29,18 @@ class SpotifyAPI(WebAPI):
         auth = SpotifyOAuth2(appdata)
         self.token = auth.auto_fetch_token()
         headers = {}
-        self.headers = auth.add_token_to_headers( headers )
+        self.headers = auth.add_token_to_headers(headers)
 
     def _get(self, url, params=None):
         r = requests.get(url, headers=self.headers, params=params)
-        print( r.url )
+        print(r.url)
         jsondata = r.json() if r else None
         return jsondata
 
     def _iterate(self, url, params=None, key=None):
         # Send HTTP Request & get Response & return JSON data
         r = requests.get(url, headers=self.headers, params=params)
-        print( r.url )
+        print(r.url)
         jsondata = r.json() if r else None
         yield jsondata
 
@@ -54,33 +54,42 @@ class SpotifyAPI(WebAPI):
     # Get my items
     def get_my_profile(self):
         return self._get('{}/me'.format(_ROOT))
+
     def get_my_tracks(self):
-        return self._iterate( '{}/me/tracks?limit=50'.format(_ROOT) )
+        return self._iterate('{}/me/tracks?limit=50'.format(_ROOT))
+
     def get_my_albums(self):
-        return self._iterate( '{}/me/albums?limit=50'.format(_ROOT) )
+        return self._iterate('{}/me/albums?limit=50'.format(_ROOT))
+
     def get_my_artists(self):
         return self._iterate(
             '{}/me/following?type=artist&limit=50'.format(_ROOT),
             key='artists'
         )
+
     def get_my_playlists(self):
-        return self._iterate( '{}/me/playlists?limit=50'.format(_ROOT) )
+        return self._iterate('{}/me/playlists?limit=50'.format(_ROOT))
 
     # Get Sub tracks
     def get_album_tracks(self, id):
-        return self._iterate( '{}/albums/{}/tracks?limit=50'.format(_ROOT,id) )
+        return self._iterate('{}/albums/{}/tracks?limit=50'.format(_ROOT, id))
+
     def get_playlist_tracks(self, id):
-        return self._iterate('{}/playlists/{}/tracks?limit=50'.format(_ROOT,id))
+        return self._iterate(
+            '{}/playlists/{}/tracks?limit=50'.format(_ROOT, id))
 
     # Get item with ID
     def get_a_track(self, id):
-        return self._get('{}/tracks/{}'.format(_ROOT,id))
+        return self._get('{}/tracks/{}'.format(_ROOT, id))
+
     def get_a_album(self, id):
-        return self._get('{}/albums/{}'.format(_ROOT,id))
+        return self._get('{}/albums/{}'.format(_ROOT, id))
+
     def get_a_artist(self, id):
-        return self._get('{}/artists/{}'.format(_ROOT,id))
+        return self._get('{}/artists/{}'.format(_ROOT, id))
+
     def get_a_playlist(self, id):
-        return self._get('{}/playlists/{}'.format(_ROOT,id))
+        return self._get('{}/playlists/{}'.format(_ROOT, id))
 
 
 class SpotifyOAuth2:
@@ -135,12 +144,16 @@ class SpotifyOAuth2:
         """ [ Test only. Get CODE from callback URL ]
 
         """
-        cookies = dict([line.split("=", 1) for line in self.cookies.strip().split("; ")])
+        cookies = dict([line.split("=", 1)
+                        for line in self.cookies.strip().split("; ")])
         # Request API server / Or open browser manually
         try:
-            r = requests.get(self.auth_uri, cookies=cookies, allow_redirects=True)
+            r = requests.get(
+                self.auth_uri,
+                cookies=cookies,
+                allow_redirects=True)
             for jump in r.history:
-                print( jump.status_code, jump.url )
+                print(jump.status_code, jump.url)
         except requests.exceptions.ConnectionError as e:
             #print( '[Final URL]: ', e.request.url )
             return e.request.url
@@ -149,7 +162,7 @@ class SpotifyOAuth2:
         # Fetch Tokens (in dict format)
         tokens = self.session.fetch_access_token(
             self.access_token_url,
-            authorization_response = self.callback
+            authorization_response=self.callback
         )
         print('[  OK  ] Token retrived.')
         return tokens
@@ -173,5 +186,6 @@ class SpotifyOAuth2:
             self.tokens['access_token']
         )
         return headers
+
 
 print('[  OK  ] __IMPORTED__: {}'.format(__name__))

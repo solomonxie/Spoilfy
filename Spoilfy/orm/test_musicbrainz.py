@@ -12,8 +12,6 @@ from user import UserAccount, UserResource
 from musicbrainz import MusicbrainzTrack, MusicbrainzAlbum, MusicbrainzArtist
 
 
-
-
 # ==============================================================
 # >>>>>>>>>>>>>>>>>>>>>>[    TEST     ] >>>>>>>>>>>>>>>>>>>>>>>>
 # ==============================================================
@@ -22,29 +20,27 @@ def test_MusicbrainzTrack():
     # Add a track
     path = '../../scratch/sqlschemas/musicbrainz/jsondumps/search_recording.json'
     with open(path, 'r') as f:
-        jsondata = json.loads( f.read() )
+        jsondata = json.loads(f.read())
         # ->
-        print( 'Manual test to be implemented' )
+        print('Manual test to be implemented')
 
 
 def test_MusicbrainzAlbum():
     # Add a track
     path = '../../scratch/sqlschemas/musicbrainz/jsondumps/search_release.json'
     with open(path, 'r') as f:
-        jsondata = json.loads( f.read() )
+        jsondata = json.loads(f.read())
         # ->
-        print( 'Manual test to be implemented' )
+        print('Manual test to be implemented')
 
 
 def test_MusicbrainzArtist():
     # Add a track
     path = '../../scratch/sqlschemas/musicbrainz/jsondumps/search_artists.json'
     with open(path, 'r') as f:
-        jsondata = json.loads( f.read() )
+        jsondata = json.loads(f.read())
         # ->
-        print( 'Manual test to be implemented' )
-
-
+        print('Manual test to be implemented')
 
 
 def test_query_track():
@@ -59,8 +55,6 @@ def test_query_artist():
     pass
 
 
-
-
 if __name__ == '__main__':
     try:
         # MusicbrainzTrack.__table__.drop(engine)
@@ -73,14 +67,12 @@ if __name__ == '__main__':
     finally:
         Base.metadata.create_all(bind=engine)
 
-
-    #=> Insert data
+    # => Insert data
     test_MusicbrainzTrack()
     test_MusicbrainzAlbum()
     test_MusicbrainzArtist()
 
-    #=> Query
+    # => Query
     test_query_track()
     test_query_album()
     test_query_artist()
-

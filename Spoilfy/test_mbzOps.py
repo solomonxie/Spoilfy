@@ -14,8 +14,6 @@ from orm.musicbrainz import *
 from mbzOps import *
 
 
-
-
 # ==============================================================
 # >>>>>>>>>>>>>>>>>>>>>>[    TEST     ] >>>>>>>>>>>>>>>>>>>>>>>>
 # ==============================================================
@@ -30,8 +28,9 @@ class TestMbzOpsTrack(unittest.TestCase):
         # Add a track
         path = '../test/data/musicbrainz/recordings.json'
         with open(path, 'r') as f:
-            jsondata = json.loads( f.read() )
+            jsondata = json.loads(f.read())
             # MbzOpsTrack.loads( jsondata )
+
 
 class TestMbzOpsAlbum(unittest.TestCase):
 
@@ -42,7 +41,7 @@ class TestMbzOpsAlbum(unittest.TestCase):
         # Add a track
         path = '../test/data/musicbrainz/releases.json'
         with open(path, 'r') as f:
-            jsondata = json.loads( f.read() )
+            jsondata = json.loads(f.read())
             # MbzOpsAlbum.loads( jsondata )
 
 
@@ -55,10 +54,8 @@ class TestMbzOpsArtist(unittest.TestCase):
         # Add a track
         path = '../test/data/musicbrainz/artists.json'
         with open(path, 'r') as f:
-            jsondata = json.loads( f.read() )
+            jsondata = json.loads(f.read())
             # MbzOpsArtist.loads( jsondata )
-
-
 
 
 if __name__ == '__main__':
