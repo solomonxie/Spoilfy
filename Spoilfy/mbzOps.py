@@ -7,8 +7,8 @@
 import uuid
 import json
 
-#-------[  Import From Other Modules   ]---------
-#-> TEST only
+# -------[  Import From Other Modules   ]---------
+# -> TEST only
 if __name__ in ['__main__', 'mbzOps']:
     from orm.musicbrainz import MusicbrainzTrack, MusicbrainzAlbum, MusicbrainzAlbum, MusicbrainzArtist
     from orm.common import Base, engine, session
@@ -19,7 +19,6 @@ else:
     from Spoilfy.orm.musicbrainz import MusicbrainzTrack, MusicbrainzAlbum, MusicbrainzAlbum, MusicbrainzArtist
     from Spoilfy.orm.common import Base, engine, session
     from Spoilfy.orm.common import Resource, Reference, Include
-
 
 
 # ==============================================================
@@ -37,11 +36,11 @@ class MbzOps:
     @classmethod
     def load(cls, jsondata, real_uri=None):
         # Add ONE item to database
-        mbz = cls.SESSION.merge( cls.ORM(jsondata) )
+        mbz = cls.SESSION.merge(cls.ORM(jsondata))
         # Bind reference
-        ref = cls.SESSION.merge( Reference(mbz, real_uri, mbz.score/100) )
+        ref = cls.SESSION.merge(Reference(mbz, real_uri, mbz.score / 100))
 
-        print( '\t[NEW]', mbz, ' at ', ref )
+        print('\t[NEW]', mbz, ' at ', ref)
         cls.SESSION.commit()
 
         return ref
@@ -59,41 +58,40 @@ class MbzOpsTrack(MbzOps):
         """
         all = []
         for o in jsondata.get('recordings', []):
-            all.append( cls.load(o) )
+            all.append(cls.load(o))
             cls.include_albums(o)
             cls.include_artists(o)
         return all
 
     @classmethod
     def include_albums(cls, trackdata):
-        child = 'musicbrainz:track:{}'.format( trackdata.get('id') )
+        child = 'musicbrainz:track:{}'.format(trackdata.get('id'))
         for album in trackdata.get('releases', []):
-            parent = 'musicbrainz:album:{}'.format( album.get('id') )
-            #->
-            inc = cls.SESSION.merge( Include(parent, child) )
-            print( '[INCLUDE:TRACK-ALBUM]', parent, child )
+            parent = 'musicbrainz:album:{}'.format(album.get('id'))
+            # ->
+            inc = cls.SESSION.merge(Include(parent, child))
+            print('[INCLUDE:TRACK-ALBUM]', parent, child)
         # Submit changes
         cls.SESSION.commit()
 
     @classmethod
     def include_artists(cls, trackdata):
-        child = 'musicbrainz:track:{}'.format( trackdata.get('id') )
+        child = 'musicbrainz:track:{}'.format(trackdata.get('id'))
         for r in trackdata.get('artist-credit', []):
-            parent = 'musicbrainz:artist:' + r.get('artist',{}).get('id')
+            parent = 'musicbrainz:artist:' + r.get('artist', {}).get('id')
             # ->
-            inc = cls.SESSION.merge( Include(parent, child) )
-            print( '[INCLUDE:TRACK-ARTIST]', parent, child )
+            inc = cls.SESSION.merge(Include(parent, child))
+            print('[INCLUDE:TRACK-ARTIST]', parent, child)
         # Submit changes
         cls.SESSION.commit()
 
     @classmethod
     def get_sub_ids(cls, trackdata):
-        album_ids  = [ a.get('id')
-                for a in trackdata.get('releases', []) ]
-        artist_ids = [ a.get('artist', {}).get('id')
-                for a in trackdata.get('artist-credit', []) ]
+        album_ids = [a.get('id')
+                     for a in trackdata.get('releases', [])]
+        artist_ids = [a.get('artist', {}).get('id')
+                      for a in trackdata.get('artist-credit', [])]
         return album_ids, artist_ids
-
 
 
 class MbzOpsAlbum(MbzOps):
@@ -108,28 +106,27 @@ class MbzOpsAlbum(MbzOps):
         """
         all = []
         for o in jsondata.get('releases', []):
-            all.append( cls.load(o) )
+            all.append(cls.load(o))
             cls.include_artists(o)
         return all
 
     @classmethod
     def include_artists(cls, albumdata):
-        child = 'musicbrainz:album:{}'.format( albumdata.get('id') )
+        child = 'musicbrainz:album:{}'.format(albumdata.get('id'))
         for r in albumdata.get('artist-credit', []):
-            parent = 'musicbrainz:artist:' + r.get('artist',{}).get('id')
+            parent = 'musicbrainz:artist:' + r.get('artist', {}).get('id')
             # ->
-            inc = cls.SESSION.merge( Include(parent, child) )
-            print( '[INCLUDE:ALBUM-ARTIST]', parent, child )
+            inc = cls.SESSION.merge(Include(parent, child))
+            print('[INCLUDE:ALBUM-ARTIST]', parent, child)
         # Submit changes
         cls.SESSION.commit()
 
     @classmethod
     def get_sub_ids(cls, albumdata):
-        track_ids  = []
-        artist_ids = [ a.get('artist', {}).get('id')
-                for a in albumdata.get('artist-credit', []) ]
+        track_ids = []
+        artist_ids = [a.get('artist', {}).get('id')
+                      for a in albumdata.get('artist-credit', [])]
         return track_ids, artist_ids
-
 
 
 class MbzOpsArtist(MbzOps):
@@ -144,10 +141,8 @@ class MbzOpsArtist(MbzOps):
         """
         all = []
         for o in jsondata.get('artists', []):
-            all.append( cls.load(o) )
+            all.append(cls.load(o))
         return all
-
-
 
 
 # ==============================================================
@@ -155,8 +150,5 @@ class MbzOpsArtist(MbzOps):
 # ==============================================================
 
 
-
 if __name__ == '__main__':
     pass
-
-

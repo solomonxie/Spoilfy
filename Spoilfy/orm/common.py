@@ -8,7 +8,7 @@
 
 import uuid
 
-#-------[  Import SQLAlchemy ]---------
+# -------[  Import SQLAlchemy ]---------
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -32,7 +32,8 @@ session = sessionmaker(bind=engine, autoflush=False)()
 # For the use of decorator: @classproperty
 class classproperty(object):
     def __init__(self, getter):
-        self.getter= getter
+        self.getter = getter
+
     def __get__(self, instance, owner):
         return self.getter(owner)
 
@@ -61,7 +62,7 @@ class Resource(SpoilfyORM):
     # ->
     full = Column('full', Boolean, default=True)
 
-    #-> These 3 fields are included in URI
+    # -> These 3 fields are included in URI
     id = Column('id', String)
     type = Column('type', String)
     provider = Column('provider', String, default='NONE')
@@ -71,7 +72,7 @@ class Resource(SpoilfyORM):
 
     @classmethod
     def get(cls, uri):
-        return session.query(cls).filter(cls.uri==uri).first()
+        return session.query(cls).filter(cls.uri == uri).first()
 
     def __new__(cls, *args, **kwargs):
         # print( '[  OK  ]__new__ {}'.format(cls) )
@@ -83,12 +84,14 @@ class Resource(SpoilfyORM):
 
     def __repr__(self):
         # return '<{} "{}">'.format( self.__class__.__name__, self.uri )
-        return '<ORM [{}] at {}>'.format( self.name, self.uri )
+        return '<ORM [{}] at {}>'.format(self.name, self.uri)
 
     def __hash__(self):
-        return hash( (self.uri) )
+        return hash((self.uri))
+
     def __eq__(self, other):
-        if not isinstance(other, type(self)): return NotImplemented
+        if not isinstance(other, type(self)):
+            return NotImplemented
         return self.uri == other.uri
 
 
@@ -114,11 +117,11 @@ class Reference(SpoilfyORM):
 
     type = Column('type', String)
     provider = Column('provider', String)
-    #^ default value only take effect after inserted to DB
+    # ^ default value only take effect after inserted to DB
 
     @classmethod
     def get(cls, uri):
-        return session.query(cls).filter(cls.uri==uri).first()
+        return session.query(cls).filter(cls.uri == uri).first()
 
     def __init__(self, item, real_uri=None, confidence=1):
         super().__init__(
@@ -132,9 +135,7 @@ class Reference(SpoilfyORM):
         )
 
     def __repr__(self):
-        return '<REF "{}">'.format( self.real_uri )
-
-
+        return '<REF "{}">'.format(self.real_uri)
 
 
 class Include(SpoilfyORM):
@@ -157,20 +158,19 @@ class Include(SpoilfyORM):
 
     @classmethod
     def get(cls, uri):
-        return session.query(cls).filter(cls.uri==uri).first()
+        return session.query(cls).filter(cls.uri == uri).first()
 
     def __repr__(self):
-        return '<{} INCLUDE "{}">'.format( self.parent_uri, self.child_uri )
+        return '<{} INCLUDE "{}">'.format(self.parent_uri, self.child_uri)
 
     def __init__(self, p_uri, c_uri):
         super().__init__(
-            parent_uri = p_uri,
-            child_uri = c_uri,
-            parent_type = p_uri.split(':')[-2],
-            child_type = c_uri.split(':')[-2],
-            provider = c_uri.split(':')[0],
+            parent_uri=p_uri,
+            child_uri=c_uri,
+            parent_type=p_uri.split(':')[-2],
+            child_type=c_uri.split(':')[-2],
+            provider=c_uri.split(':')[0],
         )
-
 
 
 class UnTagged(SpoilfyORM):
@@ -182,9 +182,8 @@ class UnTagged(SpoilfyORM):
 
     def __init__(self, real_uri):
         super().__init__(
-            real_uri = real_uri
+            real_uri=real_uri
         )
-
 
 
 class Incomplete(SpoilfyORM):
@@ -196,16 +195,13 @@ class Incomplete(SpoilfyORM):
 
     def __init__(self, real_uri):
         super().__init__(
-            real_uri = real_uri
+            real_uri=real_uri
         )
-
-
 
 
 # ==============================================================
 # >>>>>>>>>>>>>>>>>>[    TEST RUN     ] >>>>>>>>>>>>>>>>>>>>>>>>
 # ==============================================================
-
 
 
 if __name__ == '__main__':
@@ -219,9 +215,6 @@ if __name__ == '__main__':
         print('Error on dropping User table.')
     finally:
         Base.metadata.create_all(bind=engine)
-
-
-
 
 
 print('[  OK  ] __IMPORTED__: {}'.format(__name__))

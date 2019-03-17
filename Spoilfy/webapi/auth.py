@@ -68,12 +68,16 @@ class Oauth2:
         """ [ Test only. Get CODE from callback URL ]
 
         """
-        cookies = dict([line.split("=", 1) for line in self.cookies.strip().split("; ")])
+        cookies = dict([line.split("=", 1)
+                        for line in self.cookies.strip().split("; ")])
         # Request API server / Or open browser manually
         try:
-            r = requests.get(self.auth_uri, cookies=cookies, allow_redirects=True)
+            r = requests.get(
+                self.auth_uri,
+                cookies=cookies,
+                allow_redirects=True)
             for jump in r.history:
-                print( jump.status_code, jump.url )
+                print(jump.status_code, jump.url)
         except requests.exceptions.ConnectionError as e:
             #print( '[Final URL]: ', e.request.url )
             return e.request.url
@@ -82,7 +86,7 @@ class Oauth2:
         # Fetch Tokens (in dict format)
         tokens = self.session.fetch_access_token(
             self.access_token_url,
-            authorization_response = self.callback
+            authorization_response=self.callback
         )
         print('[ OK ] Token retrived.')
         return tokens
@@ -106,8 +110,6 @@ class Oauth2:
             self.tokens['access_token']
         )
         return headers
-
-
 
 
 print('[ OK ] __IMPORTED__: {}'.format(__name__))

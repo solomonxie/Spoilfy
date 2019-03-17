@@ -13,8 +13,8 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy import exists
 
 
-#-------[  Import From Other Modules   ]---------
-#-> TEST only
+# -------[  Import From Other Modules   ]---------
+# -> TEST only
 if __name__ in ['__main__']:
     from sptOps import *
     from orm.common import *
@@ -34,8 +34,6 @@ else:
     from Spoilfy.webapi.apiMusicbrainz import *
 
 
-
-
 # ==============================================================
 # >>>>>>>>>>>>>>>>>>>>>>[    TEST     ] >>>>>>>>>>>>>>>>>>>>>>>>
 # ==============================================================
@@ -45,7 +43,7 @@ class TestSptOpsAccount(unittest.TestCase):
     def setUp(self):
         self.Ops = SptOpsAccount()
         with open('../test/data/spotify/user.json', 'r') as f:
-            self.jsondata = json.loads( f.read() )
+            self.jsondata = json.loads(f.read())
 
     def test_data(self):
         uri = 'spotify:user:22ctjaxuyoesd3ici65zqcbxa'
@@ -54,10 +52,8 @@ class TestSptOpsAccount(unittest.TestCase):
         self.assertEqual(self.jsondata['display_name'], name)
 
     def test_insert(self):
-        user = self.Ops.insert( self.jsondata )
+        user = self.Ops.insert(self.jsondata)
         self.assertEqual(user.name, 'Solomon Xie')
-
-
 
 
 class TestSptOpsTrack(unittest.TestCase):
@@ -65,22 +61,21 @@ class TestSptOpsTrack(unittest.TestCase):
     def setUp(self):
         self.Ops = SptOpsTrack()
         with open('../test/data/spotify/tracks.json', 'r') as f:
-            self.jsondata = json.loads( f.read() )
+            self.jsondata = json.loads(f.read())
             self.track1 = self.jsondata['items'][0]
             self.track2 = self.jsondata['items'][1]
 
     def test_data(self):
         items = self.jsondata['items']
         self.assertIsInstance(items, list)
-        self.assertIsNotNone( items[0].get('track') )
-        self.assertIsNotNone( items[0].get('track').get('album') )
-        self.assertIsNotNone( items[0].get('track').get('artists') )
+        self.assertIsNotNone(items[0].get('track'))
+        self.assertIsNotNone(items[0].get('track').get('album'))
+        self.assertIsNotNone(items[0].get('track').get('artists'))
 
     def test_loads(self):
-        ref1, ref2 = self.Ops.loads( self.jsondata )
+        ref1, ref2 = self.Ops.loads(self.jsondata)
         self.assertEqual(ref1.uri, 'spotify:track:1WvIkhx5AxsA4N9TgkYSQG')
         self.assertEqual(ref2.uri, 'spotify:track:70bq0ZJVXu93cvGlluYrXu')
-
 
 
 class TestSptOpsAlbum(unittest.TestCase):
@@ -89,28 +84,27 @@ class TestSptOpsAlbum(unittest.TestCase):
         self.Ops = SptOpsAlbum()
 
         with open('../test/data/spotify/albums.json', 'r') as f:
-            self.jsondata = json.loads( f.read() )
+            self.jsondata = json.loads(f.read())
             self.album1 = self.jsondata['items'][0]
             self.album2 = self.jsondata['items'][1]
 
         with open('../test/data/spotify/album_tracks.json', 'r') as f:
-            self.albumtracks = json.loads( f.read() )
+            self.albumtracks = json.loads(f.read())
 
     def test_data(self):
         items = self.jsondata['items']
         self.assertIsInstance(items, list)
-        self.assertIsNotNone( items[0].get('album') )
-        self.assertIsNotNone( items[0].get('album').get('tracks') )
+        self.assertIsNotNone(items[0].get('album'))
+        self.assertIsNotNone(items[0].get('album').get('tracks'))
         tracks = self.albumtracks['items']
         self.assertIsInstance(tracks, list)
         self.assertIsInstance(tracks[0]['artists'], list)
-        self.assertIsNotNone( tracks[0].get('name') )
+        self.assertIsNotNone(tracks[0].get('name'))
 
     def test_loads(self):
-        ref1, ref2 = self.Ops.loads( self.jsondata )
+        ref1, ref2 = self.Ops.loads(self.jsondata)
         self.assertEqual(ref1.uri, 'spotify:album:7GJspOwIWdFfzJfxN8oVTF')
         self.assertEqual(ref2.uri, 'spotify:album:75rqM0qScdcFoP4sprrHJN')
-
 
 
 class TestSptOpsArtist(unittest.TestCase):
@@ -118,21 +112,20 @@ class TestSptOpsArtist(unittest.TestCase):
     def setUp(self):
         self.Ops = SptOpsArtist()
         with open('../test/data/spotify/artists.json', 'r') as f:
-            self.jsondata = json.loads( f.read() )
+            self.jsondata = json.loads(f.read())
             self.artist1 = self.jsondata['artists']['items'][0]
             self.artist2 = self.jsondata['artists']['items'][1]
 
     def test_data(self):
         items = self.jsondata['artists']['items']
-        self.assertIsInstance( items, list )
-        self.assertIsNotNone( items[0].get('followers') )
-        self.assertIsNotNone( items[0].get('popularity') )
+        self.assertIsInstance(items, list)
+        self.assertIsNotNone(items[0].get('followers'))
+        self.assertIsNotNone(items[0].get('popularity'))
 
     def test_loads(self):
-        ref1, ref2 = self.Ops.loads( self.jsondata )
+        ref1, ref2 = self.Ops.loads(self.jsondata)
         self.assertEqual(ref1.uri, 'spotify:artist:04gDigrS5kc9YWfZHwBETP')
         self.assertEqual(ref2.uri, 'spotify:artist:08WRjJPbPqSEOkFuc99ymW')
-
 
 
 class TestSptOpsPlaylist(unittest.TestCase):
@@ -140,30 +133,27 @@ class TestSptOpsPlaylist(unittest.TestCase):
     def setUp(self):
         self.Ops = SptOpsPlaylist()
         with open('../test/data/spotify/playlists.json', 'r') as f:
-            self.jsondata = json.loads( f.read() )
+            self.jsondata = json.loads(f.read())
             self.playlist1 = self.jsondata['items'][0]
             self.playlist2 = self.jsondata['items'][1]
 
         with open('../test/data/spotify/playlist_tracks.json', 'r') as f:
-            self.tracks = json.loads( f.read() )
+            self.tracks = json.loads(f.read())
 
     def test_data(self):
         items = self.jsondata['items']
-        self.assertIsInstance( items, list )
-        self.assertIsNotNone( items[0].get('uri') )
-        self.assertIsNotNone( items[0].get('owner') )
+        self.assertIsInstance(items, list)
+        self.assertIsNotNone(items[0].get('uri'))
+        self.assertIsNotNone(items[0].get('owner'))
         tracks = self.tracks['items']
-        self.assertIsInstance( tracks, list )
-        self.assertIsNotNone( tracks[0].get('track') )
-        self.assertIsNotNone( tracks[0].get('track',{}).get('uri') )
+        self.assertIsInstance(tracks, list)
+        self.assertIsNotNone(tracks[0].get('track'))
+        self.assertIsNotNone(tracks[0].get('track', {}).get('uri'))
 
     def test_loads(self):
-        ref1, ref2 = self.Ops.loads( self.jsondata )
+        ref1, ref2 = self.Ops.loads(self.jsondata)
         self.assertEqual(ref1.uri, 'spotify:playlist:6FaSdKCximiMF0wupKF9hW')
         self.assertEqual(ref2.uri, 'spotify:playlist:1bBu4pZv4G7N6aj2vrcwah')
-
-
-
 
 
 class TestSptOpsMissing(unittest.TestCase):
@@ -171,7 +161,8 @@ class TestSptOpsMissing(unittest.TestCase):
     def setUp(self):
         # Connect Database
         self.dbpath = '/tmp/{}.sqlite'.format(uuid.uuid1().hex)
-        self.engine = create_engine('sqlite:///'.format(self.dbpath), echo=True)
+        self.engine = create_engine(
+            'sqlite:///'.format(self.dbpath), echo=True)
         self.session = sessionmaker(bind=self.engine, autoflush=False)()
 
     def tearDown(self):
@@ -183,7 +174,6 @@ class TestSptOpsMissing(unittest.TestCase):
         pass
 
 
-
 class TestSptOpsInclude(unittest.TestCase):
 
     def setUp(self):
@@ -191,7 +181,7 @@ class TestSptOpsInclude(unittest.TestCase):
         # self.dbpath = 'sqlite:////tmp/{}.sqlite'.format(uuid.uuid1().hex)
         # self.dbpath = 'sqlite:///:memory:'
         self.dbpath = 'sqlite:////tmp/tmpdb.sqlite'
-        self.engine = create_engine( self.dbpath )
+        self.engine = create_engine(self.dbpath)
         self.session = sessionmaker(bind=self.engine, autoflush=False)()
         Base.metadata.create_all(bind=self.engine)
 
@@ -205,13 +195,13 @@ class TestSptOpsInclude(unittest.TestCase):
 
         # Load sample resources
         with open('../test/data/spotify/tracks.json', 'r') as f:
-            self.T.loads( json.loads(f.read()) )
+            self.T.loads(json.loads(f.read()))
         with open('../test/data/spotify/albums.json', 'r') as f:
-            self.A.loads( json.loads(f.read()) )
+            self.A.loads(json.loads(f.read()))
         with open('../test/data/spotify/artists.json', 'r') as f:
-            self.R.loads( json.loads(f.read()) )
+            self.R.loads(json.loads(f.read()))
         with open('../test/data/spotify/playlists.json', 'r') as f:
-            self.P.loads( json.loads(f.read()) )
+            self.P.loads(json.loads(f.read()))
 
         sql = """
         SELECT uri from spotify_Tracks
@@ -220,9 +210,8 @@ class TestSptOpsInclude(unittest.TestCase):
         """
         with self.engine.connect() as con:
             records = con.execute(sql)
-            uris = [ u for u, in records ]
+            uris = [u for u, in records]
             print('[SQL]', uris)
-
 
     def tearDown(self):
         # if os.path.exists(self.dbpath):
@@ -231,12 +220,11 @@ class TestSptOpsInclude(unittest.TestCase):
         # Base.metadata.drop_all( self.engine )
         pass
 
-
     def test_find_unbinded(self):
         unbinded = self.Ops.find_unbinded(self.Ops.SQL_TRACK_ALBUMS)
-        print( '[session check]', self.Ops.SESSION, self.session )
+        print('[session check]', self.Ops.SESSION, self.session)
         print('[UNBINDED]', len(unbinded))
-        self.assertEqual(1,1)
+        self.assertEqual(1, 1)
 
 
 if __name__ == '__main__':
